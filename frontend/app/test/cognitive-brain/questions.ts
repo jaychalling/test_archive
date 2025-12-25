@@ -18,7 +18,7 @@ export type QuestionConfig =
     | { type: 'trail-making'; variant: 'A' | 'B'; nodeCount: number }
     | { type: 'mental-rotation'; difficulty: 'easy' | 'hard' }
     | { type: 'go-no-go'; durationSec: number; intervalMs: number }
-    | { type: 'pool-select'; poolId: 'MEMORY' | 'LOGIC' | 'SOCIAL' }
+    | { type: 'pool-select'; poolId: 'MEMORY' | 'LOGIC_SYLLOGISM' | 'LOGIC_ANALOGY' | 'SOCIAL' }
     // Maintaining compatibility with static types for hybrid approach until full refactor
     | { type: 'legacy'; legacyData: Question };
 
