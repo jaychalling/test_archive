@@ -58,7 +58,10 @@ export default function QuizUI() {
             setTimeLeft(currentQuestion.timeLimit);
         }
         if (timeLeft === 0) {
-            handleAnswer("");
+            // Only auto-advance if it's a registration question (Q7)
+            if (currentQuestion.id === 7) {
+                handleAnswer("");
+            }
             return;
         }
         if (timeLeft !== null && timeLeft > 0) {
@@ -245,39 +248,66 @@ export default function QuizUI() {
         );
     }
 
-    if (currentQuestion.id === 4 || currentQuestion.id === 5) {
+    if (currentQuestion.id === 3 || currentQuestion.id === 4 || currentQuestion.id === 5) {
+        const isDisplayPhase = currentQuestion.id === 3 && (timeLeft !== null && timeLeft > 0);
+        const displayQ = isDisplayPhase ? {
+            ...currentQuestion,
+            text: "Q3. Selective Attention",
+            subText: "Observe the characters below carefully."
+        } : {
+            ...currentQuestion,
+            subText: currentQuestion.subText?.split('\n')[0]
+        };
+
         return (
-            <QuestionLayout q={currentQuestion} currentStep={currentStep} total={QUESTIONS.length}>
-                <div className="text-center text-4xl font-black text-indigo-600 mb-8 p-10 bg-indigo-50 rounded-full w-48 h-48 flex items-center justify-center mx-auto border-4 border-indigo-200 shadow-lg">
-                    {timeLeft}s
+            <QuestionLayout q={displayQ} currentStep={currentStep} total={QUESTIONS.length}>
+                <div className="flex flex-col items-center">
+                    {/* Display Phase (Timer > 0) */}
+                    {timeLeft !== 0 ? (
+                        <div className="w-full text-center">
+                            <div className="text-4xl font-black text-indigo-600 mb-8 p-10 bg-indigo-50 rounded-full w-48 h-48 flex items-center justify-center mx-auto border-4 border-indigo-200 shadow-lg animate-pulse">
+                                {timeLeft}s
+                            </div>
+
+                            {currentQuestion.id === 3 && (
+                                <div className="p-6 bg-white border-2 border-gray-100 rounded-2xl shadow-sm mb-4">
+                                    <p className="text-xl font-mono tracking-widest text-gray-800 break-all leading-relaxed">
+                                        {currentQuestion.subText?.split('\n').filter(l => l.includes('Z')).pop()?.trim()}
+                                    </p>
+                                </div>
+                            )}
+
+                            <p className="text-gray-500 font-medium italic">
+                                {currentQuestion.id === 3 ? "Memorize the sequence and count 'Z' letters!" : "Timer is running. Please prepare your answer."}
+                            </p>
+                        </div>
+                    ) : (
+                        /* Input Phase (Timer === 0) */
+                        <div className="w-full animate-fade-in">
+                            <label className="block text-gray-700 font-bold mb-4 text-lg">
+                                {currentQuestion.id === 3 ? "How many 'Z' letters were there?" : "How many did you write?"}
+                            </label>
+                            <input
+                                type="number"
+                                className="w-full p-6 text-3xl border-2 border-indigo-200 rounded-2xl focus:border-indigo-600 outline-none text-center mb-6 shadow-sm"
+                                placeholder="0"
+                                autoFocus
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleAnswer(parseInt(e.currentTarget.value) || 0);
+                                }}
+                            />
+                            <button
+                                onClick={(e) => {
+                                    const input = (e.currentTarget.parentElement?.querySelector('input') as HTMLInputElement).value;
+                                    handleAnswer(parseInt(input) || 0);
+                                }}
+                                className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-bold text-xl hover:bg-indigo-700 shadow-lg active:scale-95 transition-all"
+                            >
+                                Submit Answer
+                            </button>
+                        </div>
+                    )}
                 </div>
-                {timeLeft === 0 ? (
-                    <div className="animate-fade-in">
-                        <label className="block text-gray-700 font-bold mb-2">How many did you write?</label>
-                        <input
-                            type="number"
-                            className="w-full p-4 text-2xl border-2 border-indigo-200 rounded-xl focus:border-indigo-500 outline-none text-center mb-4"
-                            placeholder="0"
-                            autoFocus
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') handleAnswer(parseInt(e.currentTarget.value) || 0);
-                            }}
-                        />
-                        <button
-                            onClick={(e) => {
-                                const input = (e.currentTarget.previousSibling as HTMLInputElement).value;
-                                handleAnswer(parseInt(input) || 0);
-                            }}
-                            className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700"
-                        >
-                            Complete
-                        </button>
-                    </div>
-                ) : (
-                    <div className="text-center p-8 bg-gray-100 rounded-xl text-gray-500">
-                        The input field will appear after the timer ends.
-                    </div>
-                )}
             </QuestionLayout>
         );
     }
@@ -317,7 +347,11 @@ function QuestionLayout({ q, children, currentStep, total }: { q: any, children:
                 </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2 whitespace-pre-line">{q.text}</h2>
-            {q.subText && <p className="text-gray-500 mb-8 whitespace-pre-line leading-relaxed">{q.subText}</p>}
+            {q.subText && (
+                <p className="text-gray-500 mb-8 whitespace-pre-line leading-relaxed">
+                    {q.subText}
+                </p>
+            )}
             <div className="flex-1 flex flex-col justify-center">
                 {children}
             </div>

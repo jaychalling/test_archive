@@ -65,7 +65,8 @@ export const QUESTIONS: Question[] = [
         id: 3, type: 'count-input', domain: 'Attention',
         text: "Q3. Selective Attention (Find Letters)",
         subText: "How many times does the letter 'Z' appear in the text below?\n\nT B Z N M K E Z W O Q R Z V I L Y Z L Z V N S H Z W S U Z",
-        correctAnswer: "6"
+        correctAnswer: "6",
+        timeLimit: 10
     },
 
     // --- Part 2: Executive & Speed (Frontal) ---
@@ -230,9 +231,9 @@ export function calculateResult(answers: Record<number, string | number>, memory
             if (score > 50) isCorrect = true;
         } else if (q.correctAnswer) {
             if (Array.isArray(q.correctAnswer)) {
-                isCorrect = q.correctAnswer.some(a => a.toLowerCase() === normalizedAnswer);
+                isCorrect = q.correctAnswer.some(a => a.toLowerCase() === (normalizedAnswer as string));
             } else {
-                isCorrect = normalizedAnswer === q.correctAnswer.toLowerCase();
+                isCorrect = String(normalizedAnswer) === (q.correctAnswer as string).toLowerCase();
             }
         }
 
