@@ -74,7 +74,7 @@ export default function DigitSpanTask({ length, variant, onComplete }: Props) {
             {status !== 'INPUT' && (
                 <div className="flex flex-col items-center">
                     <h3 className="text-gray-500 mb-8 animate-pulse text-lg">
-                        {status === 'IDLE' ? '준비하세요...' : '숫자를 기억하세요...'}
+                        {status === 'IDLE' ? 'Get ready...' : 'Memorize the numbers...'}
                     </h3>
                     <div className={`text-9xl font-black text-indigo-600 transition-all transform duration-200 
             ${displayDigit ? 'scale-110 opacity-100' : 'scale-90 opacity-0'}`}>
@@ -87,7 +87,7 @@ export default function DigitSpanTask({ length, variant, onComplete }: Props) {
             {status === 'INPUT' && (
                 <div className="w-full animate-fade-in-up">
                     <h3 className="text-xl font-bold mb-4 text-center text-gray-800">
-                        {variant === 'forward' ? '순서대로 입력하세요' : '거꾸로 입력하세요'}
+                        {variant === 'forward' ? 'Enter in order' : 'Enter in reverse order'}
                     </h3>
 
                     <input
@@ -104,9 +104,9 @@ export default function DigitSpanTask({ length, variant, onComplete }: Props) {
 
                     <button
                         onClick={handleSubmit}
-                        className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700 transition-colors"
+                        className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700 transition-colors focus:outline-none"
                     >
-                        제출하기
+                        Submit
                     </button>
                 </div>
             )}

@@ -3,24 +3,24 @@ import { useState, useEffect, useRef } from 'react';
 interface Props {
     durationSec: number;
     intervalMs: number;
-    targetCategory: string; // e.g. "음식"
+    targetCategory: string; // e.g. "Food"
     onComplete: (score: number) => void;
 }
 
 const WORDS = [
     // Targets (Food)
-    { text: "사과", category: "음식" }, { text: "빵", category: "음식" },
-    { text: "우유", category: "음식" }, { text: "포도", category: "음식" },
-    { text: "피자", category: "음식" }, { text: "국수", category: "음식" },
-    { text: "치킨", category: "음식" }, { text: "김치", category: "음식" },
+    { text: "Apple", category: "Food" }, { text: "Bread", category: "Food" },
+    { text: "Milk", category: "Food" }, { text: "Grape", category: "Food" },
+    { text: "Pizza", category: "Food" }, { text: "Cookies", category: "Food" },
+    { text: "Chicken", category: "Food" }, { text: "Burger", category: "Food" },
     // Distractors (Non-Food)
-    { text: "책상", category: "가구" }, { text: "의자", category: "가구" },
-    { text: "하늘", category: "자연" }, { text: "구름", category: "자연" },
-    { text: "연필", category: "문구" }, { text: "노트", category: "문구" },
-    { text: "가방", category: "잡화" }, { text: "신발", category: "잡화" },
+    { text: "Table", category: "Furniture" }, { text: "Chair", category: "Furniture" },
+    { text: "Sky", category: "Nature" }, { text: "Cloud", category: "Nature" },
+    { text: "Pencil", category: "Stationery" }, { text: "Notebook", category: "Stationery" },
+    { text: "Bag", category: "Items" }, { text: "Shoes", category: "Items" },
 ];
 
-export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCategory = "음식", onComplete }: Props) {
+export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCategory = "Food", onComplete }: Props) {
     const [currentWord, setCurrentWord] = useState<{ text: string, category: string } | null>(null);
     const [timeLeft, setTimeLeft] = useState(durationSec);
     const [gameStatus, setGameStatus] = useState<'READY' | 'PLAYING' | 'FINISHED'>('READY');
@@ -32,7 +32,7 @@ export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCatego
     const currentWordRef = useRef<{ text: string, category: string } | null>(null);
     const respondedRef = useRef(false);
 
-    // Start Game Lgoic
+    // Start Game Logic
     const startGame = () => {
         setGameStatus('PLAYING');
         scoreRef.current = { hits: 0, falseAlarms: 0, misses: 0, totalTargets: 0 };
@@ -53,13 +53,10 @@ export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCatego
     };
 
     const runStream = () => {
-        let tick = 0;
-
         intervalRef.current = setInterval(() => {
             // 1. Process Previous Word (Miss Check)
             if (currentWordRef.current && currentWordRef.current.category === targetCategory && !respondedRef.current) {
                 scoreRef.current.misses++;
-                // Optional: Visual Miss feedback? Maybe too distracting.
             }
 
             // 2. Pick New Word
@@ -84,8 +81,6 @@ export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCatego
         setCurrentWord(null);
 
         // Calculate Final Score (Accuracy %)
-        // Basic Formula: (Hits - FalseAlarms) / TotalTargets * 100
-        // But prevent negative
         const { hits, falseAlarms, totalTargets } = scoreRef.current;
         let finalScore = 0;
 
@@ -135,23 +130,23 @@ export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCatego
         <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto h-[400px]">
             {gameStatus === 'READY' && (
                 <div className="text-center">
-                    <h3 className="text-xl font-bold mb-4">준비되셨나요?</h3>
+                    <h3 className="text-xl font-bold mb-4">Are you ready?</h3>
                     <p className="mb-8 text-gray-600">
-                        화면에 <b>'{targetCategory}'</b>(이)가 나타나면<br />
-                        버튼을 누르거나 스페이스바를 치세요!
+                        When <b>'{targetCategory}'</b> appears on the screen,<br />
+                        press the button or the Space key!
                     </p>
                     <button
                         onClick={startGame}
                         className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold text-lg hover:bg-indigo-700"
                     >
-                        시작하기
+                        Start Game
                     </button>
                 </div>
             )}
 
             {gameStatus === 'PLAYING' && (
                 <div className="flex flex-col items-center w-full">
-                    <div className="mb-4 text-gray-400 font-mono">남은 시간: {timeLeft}초</div>
+                    <div className="mb-4 text-gray-400 font-mono">Time Left: {timeLeft}s</div>
 
                     {/* Word Display Area */}
                     <div className={`relative flex items-center justify-center w-64 h-64 bg-gray-50 rounded-3xl border-4 shadow-lg mb-8 transition-colors duration-100
@@ -168,16 +163,16 @@ export default function GoNoGoTask({ durationSec, intervalMs = 800, targetCatego
                     {/* Action Button (Mobile Friendly) */}
                     <button
                         onClick={handleAction}
-                        className="w-full py-6 bg-indigo-600 text-white rounded-2xl font-bold text-xl active:bg-indigo-800 touch-manipulation shadow-md"
+                        className="w-full py-6 bg-indigo-600 text-white rounded-2xl font-bold text-xl active:bg-indigo-800 touch-manipulation shadow-md focus:outline-none"
                     >
-                        누르기 (Space)
+                        PRESS (Space)
                     </button>
                 </div>
             )}
 
             {gameStatus === 'FINISHED' && (
                 <div className="text-2xl font-bold animate-bounce text-indigo-600">
-                    완료!
+                    Finished!
                 </div>
             )}
         </div>

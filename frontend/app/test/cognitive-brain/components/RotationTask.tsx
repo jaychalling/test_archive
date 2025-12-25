@@ -17,7 +17,6 @@ export default function RotationTask({ difficulty, onComplete }: Props) {
 
     const generateProblem = () => {
         // 1. Generate Target Configuration
-        // Angle: 0, 45, 90, 135, 180, 225, 270, 315
         const angle = Math.floor(Math.random() * 8) * 45;
         const isMirrored = Math.random() > 0.5;
 
@@ -25,30 +24,7 @@ export default function RotationTask({ difficulty, onComplete }: Props) {
         setIsTargetMirrored(isMirrored);
 
         // 2. Generate Options
-        // We need 4 options: 1 Correct, 3 Wrong
-        // Correct Option: Matches target (conceptually). 
-        // Wait, typical mental rotation asks "Which of these is the SAME object?"
-        // So if Target is Rotated Normal 'R', Correct Answer is another Rotated Normal 'R' (different angle) or just Normal 'R'.
-        // Logic: Provide 4 rotated 'R's. Some are Mirrored, Some are Normal.
-        // User must pick the one that matches the "Target" 's chirality (Mirror state).
-
-        // Let's Simplify:
-        // Target: A Rotated 'R'.
-        // Question: "Is this a Normal 'R' or a Mirrored 'R'?" -> Simpler, but maybe too simple.
-        // Better: Standard MR Task. Target = Normal R (Rotated). Options = 4 choices.
-
-        // Implementation:
-        // Target is ALWAYS displayed as the "Question". 
-        // But wait, standard MR shows TWO objects and asks "Are they same?"
-        // OR shows One Object and asks "Select the matching object from below".
-
-        // Let's go with: "Select the matching object".
-        // Object A (Top): Rotated, Random Mirror status.
-        // Options (Bottom): 4 Choices with random rotations. Only ONE has same Mirror status as A.
-
         const correctMirrorStatus = isMirrored;
-
-        // Generate 4 options
         const newOptions = [];
         const correctIndex = Math.floor(Math.random() * 4);
 
@@ -69,7 +45,7 @@ export default function RotationTask({ difficulty, onComplete }: Props) {
     return (
         <div className="flex flex-col items-center w-full max-w-md mx-auto">
             <h3 className="text-xl font-bold mb-8 text-center text-gray-800">
-                아래 도형과 <span className="text-indigo-600">같은 모양</span>(회전 가능)을 고르세요.
+                Select the <span className="text-indigo-600 border-b-2 border-indigo-200">matching shape</span> (can be rotated) below.
             </h3>
 
             {/* Target Object */}
@@ -91,7 +67,7 @@ export default function RotationTask({ difficulty, onComplete }: Props) {
                     <button
                         key={opt.id}
                         onClick={() => onComplete(opt.mirrored === isTargetMirrored)}
-                        className="flex items-center justify-center h-32 bg-white border-2 border-gray-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all active:scale-95 shadow-sm"
+                        className="flex items-center justify-center h-32 bg-white border-2 border-gray-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-100 transition-all active:scale-95 shadow-sm focus:outline-none"
                     >
                         <div
                             className="text-6xl font-black text-gray-700"
