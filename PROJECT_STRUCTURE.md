@@ -7,7 +7,7 @@ This document provides a detailed overview of the project's architecture, techno
 The project is a **hybrid web application** designed to host various personality and health tests (e.g., Cognitive Brain Test, K-Pop Hunter, Diabetes Risk).
 
 It currently employs a dual-stack architecture:
-1.  **Backend (Flask)**: Handles the original logic, serves server-side rendered templates for legacy/fallback purposes, and manages the database connection to Supabase.
+1.  **Backend (Flask)**: Handles the original logic, serves server-side rendered templates for legacy/fallback purposes, and manages data.
 2.  **Frontend (Next.js)**: A modern, React-based frontend using the App Router, intended to be the primary user interface. It currently features a polished landing page with mock data and specific test pages.
 
 ## 2. Technology Stack
@@ -15,9 +15,8 @@ It currently employs a dual-stack architecture:
 ### Backend
 -   **Language**: Python
 -   **Framework**: Flask
--   **Database**: Supabase (PostgreSQL)
--   **Libraries**: `supabase` (client), `python-dotenv` (env vars)
--   **Key Features**: Robust fallback mechanism (serves mock data if DB connection fails).
+-   **Data Source**: **Mock/In-Memory Data** (Supabase integration exists in code but is **inactive**).
+-   **Key Features**: Robust fallback mechanism (serves mock data as the primary source).
 
 ### Frontend
 -   **Framework**: Next.js 14+ (App Router)
@@ -33,7 +32,8 @@ It currently employs a dual-stack architecture:
 ├── backend/                  # Flask Backend
 │   ├── app.py                # Main Flask entry point
 │   ├── services/
-│   │   └── db_supabase.py    # Database service with fallback logic
+│   │   ├── db_supabase.py    # Database service (Currently runs in Mock Fallback mode)
+│   │   └── db_mock.py        # Standalone Mock DB service (Available but not active default)
 │   ├── templates/            # HTML templates (main.html, test.html, result.html)
 │   ├── static/               # Static assets for Flask
 │   └── requirements.txt      # Python dependencies
@@ -63,21 +63,19 @@ The core Flask application. It defines routes that correspond to the user flow:
 -   `/test/<test_id>`: The quiz interface (renders `test.html`).
 -   `/result/<test_id>`: The result page (renders `result.html`).
 
-### `backend/services/db_supabase.py`
-Handles all database interactions.
--   **Initialization**: Attempts to connect to Supabase using env vars.
--   **Fail-safe**: If the connection fails or credentials are missing, it silently falls back to returning hardcoded **Mock Data**.
--   **Methods**:
-    -   `get_all_tests()`: Fetches active tests.
-    -   `get_test_data(test_id)`: Fetches questions and metadata for a specific test.
-    -   `get_result(test_id, score)`: Calculates/fetches the result based on the user's score.
+### Data Handling (`backend/services/`)
+**Current Status: Mock Data Only**
+The application is currently configured to run without a live database connection.
+
+-   **`db_supabase.py`**: Although named for Supabase, this service contains a **fallback mechanism** that returns hardcoded mock data when credentials are missing or the connection fails. This is the currently active path in `app.py`.
+-   **`db_mock.py`**: A pure mock implementation mimicking a database structure (Tests, Questions, Results).
 
 ## 5. Frontend Architecture
 
 ### Core Components
 -   **Landing Page (`frontend/app/page.tsx`)**:
     -   Uses client-side state (`useState`) for filtering categories.
-    -   **Data Source**: Currently uses a hardcoded `INITIAL_TESTS` array for display purposes, effectively acting as a mock while the backend integration is finalized.
+    -   **Data Source**: Uses a hardcoded `INITIAL_TESTS` array for display purposes.
     -   **Styling**: Features a responsive grid, hero section, and category filters using Tailwind.
 
 ### Specific Architectural Patterns (from `RULES.md`)
@@ -101,8 +99,8 @@ The project uses `vercel.json` to manage traffic between the Next.js frontend an
 -   `/(.*)`: Default routed to **Next.js** (Frontend UI).
 
 ### Data Strategy
--   **Current State**: The frontend heavily relies on local mock data (`page.tsx`) for the lobby.
--   **Intended State**: The frontend should eventually fetch test configurations from the Flask API (which in turn gets them from Supabase).
+-   **Backend**: Serves mock data via `db_supabase.py` fallbacks.
+-   **Frontend**: Heavily relies on local mock data (`page.tsx`) for the lobby. Intended to eventually fetch from Backend API.
 
 ## 7. Key Features / Tests
 The platform hosts several tests, some active and some placeholders:
@@ -114,4 +112,4 @@ The platform hosts several tests, some active and some placeholders:
 ## 8. Development Guidelines
 -   **Images**: Use `.png` or `.jpg` for OG assets.
 -   **Separation of Concerns**: Test logic (questions/scoring) should be separated from UI components.
--   **Environment**: Requires `.env` for Supabase credentials (`SUPABASE_URL`, `SUPABASE_KEY`).
+-   **Environment**: `.env` is checked for Supabase credentials, but the app defaults to Mock mode if missing.
