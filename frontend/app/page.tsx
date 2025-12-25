@@ -15,8 +15,9 @@ const INITIAL_TESTS = [
     category: 'Health',
     duration: '10 min',
     participants: 'New',
-    isFeatured: true,
+    isFeatured: false,
     image: 'bg-indigo-700',
+    isDisabled: true,
   },
   {
     id: 'kpop-hunter',
@@ -25,7 +26,7 @@ const INITIAL_TESTS = [
     category: 'Fun',
     duration: '5 min',
     participants: '15.4k',
-    isFeatured: false, // Updated to false as cognitive is now featured
+    isFeatured: true,
     image: 'bg-pink-600',
   },
   {
