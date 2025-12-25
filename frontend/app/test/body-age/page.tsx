@@ -1,33 +1,34 @@
 import type { Metadata } from 'next';
 import BodyAgeClientPage from './BodyAgeClientPage';
+import { generateTestMetadata } from '@/utils/metadata';
 
-export const metadata: Metadata = {
-    title: "Body Age Test",
-    description: "Discover your biological age with simple questions. Compare it with your actual age.",
-    keywords: ["Body Age", "Health Test", "Self-Diagnosis", "Biological Age"],
-    openGraph: {
-        title: "Body Age Test",
-        description: "Discover your biological age with simple questions. Compare it with your actual age.",
-        type: 'website',
-    },
-    alternates: {
-        canonical: 'https://www.test-archive.com/test/body-age',
-    }
+type Props = {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Quiz',
-    name: "Body Age Test",
-    description: "Discover your biological age with simple questions. Compare it with your actual age.",
-    url: `https://www.test-archive.com/test/body-age`,
-    mainEntity: {
-        '@type': 'Question',
-        name: 'Body Age Analysis',
-    }
-};
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+    return generateTestMetadata({
+        searchParams,
+        testType: 'body-age',
+        baseTitle: "Body Age Test: Discover Your Biological Age",
+        description: "Compare your actual age with your body's biological age. Find out how you're aging!",
+        getResultTitle: (res: string) => "Check my Body Age Report!"
+    });
+}
 
 export default function Page() {
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Quiz',
+        name: "Body Age Test",
+        description: "Discover your biological age with simple questions. Compare it with your actual age.",
+        url: `https://www.test-archive.com/test/body-age`,
+        mainEntity: {
+            '@type': 'Question',
+            name: 'Body Age Analysis',
+        }
+    };
+
     return (
         <section>
             <script
@@ -35,7 +36,6 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">Body Age Test</h1>
-            <p className="sr-only">Discover your biological age with simple questions. Compare it with your actual age.</p>
             <BodyAgeClientPage />
         </section>
     );

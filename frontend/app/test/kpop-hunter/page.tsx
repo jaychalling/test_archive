@@ -1,33 +1,51 @@
 import type { Metadata } from 'next';
 import KPopClientPage from './KPopClientPage';
+import { calculateResult } from './questions';
+import { generateTestMetadata } from '@/utils/metadata';
 
-export const metadata: Metadata = {
-    title: "K-Pop Demon Hunters Character Test (Personality Test)",
-    description: "Lumi, Mira, Mystery Lion... Which K-Demon Hunter character resonates with your soul? Find out with this 20-question in-depth psychological analysis.",
-    keywords: ["K-Pop Demon Hunters", "Personality Test", "MBTI", "Character Test", "Psychological Test", "K-Drama"],
-    openGraph: {
-        title: "K-Pop Demon Hunters Character Test (Personality Test)",
-        description: "Lumi, Mira, Mystery Lion... Which K-Demon Hunter character resonates with your soul?",
-        type: 'website',
-    },
-    alternates: {
-        canonical: 'https://www.test-archive.com/test/kpop-hunter',
-    }
+type Props = {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Quiz',
-    name: "K-Pop Demon Hunters Character Test",
-    description: "Lumi, Mira, Mystery Lion... Which K-Demon Hunter character resonates with your soul? Find out with this 20-question in-depth psychological analysis.",
-    url: `https://www.test-archive.com/test/kpop-hunter`,
-    mainEntity: {
-        '@type': 'Question',
-        name: 'Personality Analysis',
-    }
+// Character Mapping for Metadata Title Logic
+const CHAR_MAP: Record<string, { name: string; title: string }> = {
+    R: { name: "Rumi", title: "Responsible Leader" },
+    M: { name: "Mira", title: "Rational Perfectionist" },
+    Z: { name: "Zoey", title: "Lovely Healer" },
+    J: { name: "Jinu", title: "Effort-driven Genius" },
+    D: { name: "Derpy & Sussie", title: "Creative Free Spirit" },
+    B: { name: "Baby Saja", title: "Strategic Ambitious Cutie" },
+    Y: { name: "Mystery Saja", title: "Enigmatic Observer" },
+    A: { name: "Abby Saja", title: "Confident Action-Taker" },
 };
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+    return generateTestMetadata({
+        searchParams,
+        testType: 'kpop-hunter',
+        baseTitle: "K-Pop Demon Hunters: Soul Character Test",
+        description: "Find your soul character among the legendary Demon Hunters! 20 personality questions with in-depth analysis.",
+        getResultTitle: (res: string) => {
+            const charKey = calculateResult(res);
+            const info = CHAR_MAP[charKey] || CHAR_MAP.R;
+            return `I'm ${info.name}! Who are you?`;
+        }
+    });
+}
 
 export default function Page() {
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Quiz',
+        name: "K-Pop Demon Hunters Character Test",
+        description: "Lumi, Mira, Mystery Lion... Which K-Demon Hunter character resonates with your soul? Find out with this 20-question in-depth psychological analysis.",
+        url: `https://www.test-archive.com/test/kpop-hunter`,
+        mainEntity: {
+            '@type': 'Question',
+            name: 'Personality Analysis',
+        }
+    };
+
     return (
         <section>
             <script
@@ -35,7 +53,6 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">K-Pop Demon Hunters Character Test</h1>
-            <p className="sr-only">Lumi, Mira, Mystery Lion... Which K-Demon Hunter character resonates with your soul? Find out with this 20-question in-depth psychological analysis.</p>
             <KPopClientPage />
         </section>
     );

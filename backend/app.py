@@ -1,7 +1,14 @@
+import os
+import sys
+
+# Add the current directory to the path so we can import services
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+
 from flask import Flask, render_template, request, jsonify, abort
 from services.db_supabase import init_db, db as database_client
 import services.db_supabase # For re-accessing the global variable
-import os
 
 app = Flask(__name__)
 

@@ -9,13 +9,23 @@ import { useSearchParams } from 'next/navigation';
 // 1. Mock Data Integration
 const INITIAL_TESTS = [
   {
+    id: 'cognitive-brain',
+    title: 'Cognitive Brain Test',
+    description: '전두엽, 측두엽, 두정엽의 기능을 20가지 정밀 문항으로 분석하여 뇌 건강 나이를 측정합니다.',
+    category: 'Health',
+    duration: '10 min',
+    participants: 'New',
+    isFeatured: true,
+    image: 'bg-indigo-700',
+  },
+  {
     id: 'kpop-hunter',
     title: 'K-Pop Hunter Character Test',
     description: 'Find your soul character among the legendary Demon Hunters! Based on your personality and choices.',
     category: 'Fun',
     duration: '5 min',
-    participants: 'New',
-    isFeatured: true, // Hero Item
+    participants: '15.4k',
+    isFeatured: false, // Updated to false as cognitive is now featured
     image: 'bg-pink-600',
   },
   {

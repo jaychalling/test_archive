@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Share2, RefreshCw, Heart, Star, AlertCircle, Sparkles, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { QUESTIONS } from './QuizUI';
+import { QUESTIONS, calculateResult } from '../questions';
 
 // Character Images
 import rumiImg from './rumi.webp';
@@ -132,28 +132,8 @@ const CHAR_DATA: Record<string, CharInfo> = {
 };
 
 export default function AnalysisReport({ res, onRestart }: { res: string; onRestart: () => void }) {
-    // Logic: Reconstruct scores from 'res' string using QUESTIONS weights
-    const calculateResult = () => {
-        const scores: Record<string, number> = { R: 0, M: 0, Z: 0, J: 0, D: 0, B: 0, Y: 0, A: 0 };
-
-        const indices = res.split('').map(Number);
-
-        indices.forEach((optionIndex, qIndex) => {
-            const question = QUESTIONS[qIndex];
-            if (question && question.options[optionIndex]) {
-                const weights = question.options[optionIndex].weights;
-                Object.entries(weights).forEach(([charKey, weight]) => {
-                    if (scores[charKey] !== undefined) {
-                        scores[charKey] += weight;
-                    }
-                });
-            }
-        });
-
-        return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-    };
-
-    const charKey = calculateResult();
+    // Logic: scores are now calculated via the utility
+    const charKey = calculateResult(res);
     const char = CHAR_DATA[charKey] || CHAR_DATA.R;
 
     const handleShare = async (type: 'test' | 'result') => {
