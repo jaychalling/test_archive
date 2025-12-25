@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="quiz-wrapper">
+    <!-- Progress Info -->
+    <div class="quiz-meta">
+        <span id="progress-text">Question 1 / ?</span>
+        <span id="time-left">Est. Time: 2 min</span>
+    </div>
+
+    <!-- Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- Question Area -->
+    <div id="quiz-container">
+        <h2 class="question-text" id="question-text">Loading...</h2>
+        <div id="options-container" class="options-grid"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const TEST_ID = "{{ test_info.id }}";
+    const NOTES = {{ questions | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
