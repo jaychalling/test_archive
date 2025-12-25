@@ -2,10 +2,15 @@
 
 import React, { Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import QuizUI, { QUESTIONS } from './components/QuizUI';
+import QuizUI from './components/QuizUI';
 import AnalysisReport from './components/AnalysisReport';
+import type { Question } from '@/utils/api';
 
-function DiabetesTestContent() {
+interface DiabetesTestContentProps {
+    questions: Question[];
+}
+
+function DiabetesTestContent({ questions }: DiabetesTestContentProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const resParam = searchParams.get('res');
@@ -24,7 +29,7 @@ function DiabetesTestContent() {
 
         try {
             return resParam.split('').map((optIdxChar, qIdx) => {
-                const q = QUESTIONS[qIdx];
+                const q = questions[qIdx];
                 // 안전 장치: 질문 데이터가 없거나 옵션 인덱스가 유효하지 않은 경우 방어
                 if (!q) return null;
 
@@ -58,14 +63,14 @@ function DiabetesTestContent() {
     }
 
     return (
-        <QuizUI onFinish={handleFinish} />
+        <QuizUI questions={questions} onFinish={handleFinish} />
     );
 }
 
-export default function DiabetesTestPage() {
+export default function DiabetesClientPage({ questions }: { questions: Question[] }) {
     return (
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50">Loading test...</div>}>
-            <DiabetesTestContent />
+            <DiabetesTestContent questions={questions} />
         </Suspense>
     );
 }
