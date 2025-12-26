@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
   // ✅ 2. 타이틀 템플릿 설정
   title: {
-    default: "Test Archive - Health & Personality Assessments",
+    default: "Test Archive",
     template: "%s | Test Archive",
   },
 

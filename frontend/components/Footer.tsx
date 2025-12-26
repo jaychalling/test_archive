@@ -35,6 +35,8 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-slate-900 mb-4">Tests</h4>
                         <ul className="space-y-2 text-sm text-slate-600">
+                            <li><Link href="/test/kpop-hunter" className="hover:text-blue-600 transition-colors">K-Pop Hunter Test</Link></li>
+                            <li><Link href="/test/cognitive-brain" className="hover:text-blue-600 transition-colors">Cognitive Brain Test</Link></li>
                             <li><Link href="/test/diabetes" className="hover:text-blue-600 transition-colors">Diabetes Risk Test</Link></li>
                             <li><Link href="/test/body-age" className="hover:text-blue-600 transition-colors">Biological Age Test</Link></li>
                             <li className="text-slate-300">Burnout Syndrome (Coming soon)</li>
