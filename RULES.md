@@ -1,5 +1,7 @@
 # Project Rules & Guidelines
 
+> **New Test Implementation Guide**: For a step-by-step workflow on adding new tests, refer to `.agent/workflows/standard_test_implementation.md`.
+
 ## 1. Project Structure & Architecture
 
 ### Frontend (Next.js)
@@ -52,10 +54,36 @@
 ### D. File Types
 - **Images**: Use `.png` or `.jpg` for OG image assets compatibility with `@vercel/og`. Avoid `.webp` for OG generation if possible, or test thoroughly.
 
-## 3. Deployment
-- **Platform**: Vercel
-- **Configuration**: `vercel.json` manages routing between Next.js frontend and Flask backend.
-- **Routes**:
-  - `/api/(?!og)(.*)` -> Backend (Flask)
-  - `/api/og` -> Frontend (Next.js)
-  - `/(.*)` -> Frontend (Next.js)
+### E. UI/UX Standards
+- **Result Page Actions (Critical)**:
+  - ALWAYS implement the **Standardized 4-Button Grid** at the bottom of `AnalysisReport.tsx`:
+    1. **Share Test**: Copies test URL or uses Web Share API.
+    2. **Share Result**: Copies result-specific URL (with params).
+    3. **Retake**: Restarts authentication/quiz flow.
+    4. **Home**: Links back to `/`.
+- **Quiz Interaction**:
+  - **Auto-Advance**: For single-choice questions (e.g., Likert scale), automatically move to the next question after a selection (with a short ~250ms delay) to reduce clicks.
+  - **Progress Bar**: Always display a visual progress indicator.
+- **Hero Section**:
+  - The "Featured" test in `frontend/app/page.tsx` gets a dedicated Hero section. Ensure a high-quality Hero image is added to `public/` when promoting a test to Featured status.
+
+## 3. Deployment Rules
+
+- **Pre-Deployment Check**:
+  1. Navigate to `frontend` directory: `cd frontend`
+  2. Run build verification: `npm run build`
+     - **MUST** fix all TypeScript and ESLint errors before proceeding.
+  3. **Update Sitemap**: Check `frontend/app/sitemap.ts` and ensure all new routes are included.
+  4. Commit changes: `git add .` -> `git commit -m "..."` -> `git push`
+
+- **Deploying to Vercel**:
+  - Always deploy from the **Project Root** (parent of `frontend`).
+  - Command: `vercel --prod`
+  - If prompted, confirm settings. The `vercel.json` at root handles the rewrite configuration.
+
+- **Platform Configuration**:
+  - **Platform**: Vercel
+  - **Routes** (managed by `vercel.json`):
+    - `/api/(?!og)(.*)` -> Backend (Flask)
+    - `/api/og` -> Frontend (Next.js)
+    - `/(.*)` -> Frontend (Next.js)

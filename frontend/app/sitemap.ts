@@ -4,7 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://www.test-archive.com';
 
     // 테스트 목록
-    const tests = ['kpop-hunter', 'diabetes', 'body-age'];
+    const tests = ['kpop-hunter', 'gender-role', 'diabetes', 'body-age'];
 
     const testUrls = tests.map((test) => ({
         url: `${baseUrl}/test/${test}`,
