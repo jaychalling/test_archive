@@ -27,7 +27,7 @@ const INITIAL_TESTS = [
     category: 'Fun',
     duration: '5 min',
     participants: '15.4k',
-    isFeatured: true,
+    isFeatured: false,
     image: 'bg-pink-600',
     icon: Music,
   },
@@ -101,6 +101,18 @@ const INITIAL_TESTS = [
     isDisabled: true,
     icon: Heart,
   },
+  {
+    id: 'gender-role',
+    title: '2026 Gender Role Test',
+    description: 'Analyze your Masculinity, Femininity, and Situational Flexibility based on typical GGDP models.',
+    category: 'Personality',
+    duration: '5-7 min',
+    participants: 'New',
+    isFeatured: true,
+    image: 'bg-indigo-500',
+    isDisabled: false,
+    icon: Users,
+  },
 ];
 
 const CATEGORIES = ['All', 'Health', 'Personality', 'Fun'];
@@ -139,6 +151,17 @@ function HomeContent() {
                     priority
                   />
                   <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[1px]"></div>
+                </>
+              ) : featuredTest.id === 'gender-role' ? (
+                <>
+                  <Image
+                    src="/gender-role-hero.png"
+                    alt="Gender Role Test"
+                    fill
+                    className="object-cover object-center"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
                 </>
               ) : (
                 /* Fallback Gradient for other tests */
