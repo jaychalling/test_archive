@@ -87,7 +87,7 @@ export const AnalysisReport: React.FC<AnalysisReportProps> = ({ answers, onResta
         const m3 = MODULES.find(m => m.moduleId === 'M3');
         m3?.items.slice(0, 4).forEach(item => { // First 4 are stress items
             const score = answers[item.id.toString()] || 3;
-            if (score >= 4) {
+            if (score >= 4 && item.text) {
                 stressors.push(item.text);
             }
         });

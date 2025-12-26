@@ -100,6 +100,7 @@ export const MODULES: Module[] = [
         items: [
             {
                 id: 21,
+                category: "Scenario",
                 scenarioContext: "A critical project deadline is approaching, but the plan is failing, and the team is in chaos.",
                 actions: [
                     {
@@ -116,6 +117,7 @@ export const MODULES: Module[] = [
             },
             {
                 id: 22,
+                category: "Scenario",
                 scenarioContext: "A close friend is extremely depressed after a breakup.",
                 actions: [
                     {
