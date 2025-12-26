@@ -1,4 +1,4 @@
-import { ScoreLevel } from './components/BrainMap';
+import { ScoreLevel } from './data/results';
 
 export type QuestionType =
     | 'choice'
