@@ -17,7 +17,7 @@ const INITIAL_TESTS = [
     participants: 'New',
     isFeatured: false,
     image: 'bg-indigo-700',
-    isDisabled: true,
+    isDisabled: false,
     icon: Brain,
   },
   {
