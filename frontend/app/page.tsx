@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from 'react';
-import { Clock, Users, Search, ArrowRight, Play, Activity, Heart, Smile } from 'lucide-react';
+import { Clock, Users, Search, ArrowRight, Play, Activity, Heart, Smile, Brain, Music, Droplet, Dna, Fingerprint, Zap, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -11,13 +11,14 @@ const INITIAL_TESTS = [
   {
     id: 'cognitive-brain',
     title: 'Cognitive Brain Test',
-    description: '전두엽, 측두엽, 두정엽의 기능을 20가지 정밀 문항으로 분석하여 뇌 건강 나이를 측정합니다.',
+    description: 'Measure your brain health age by analyzing frontal, temporal, and parietal lobe functions through 20 precise questions.',
     category: 'Health',
     duration: '10 min',
     participants: 'New',
     isFeatured: false,
     image: 'bg-indigo-700',
-    isDisabled: true,
+    isDisabled: false,
+    icon: Brain,
   },
   {
     id: 'kpop-hunter',
@@ -28,6 +29,7 @@ const INITIAL_TESTS = [
     participants: '15.4k',
     isFeatured: true,
     image: 'bg-pink-600',
+    icon: Music,
   },
   {
     id: 'diabetes',
@@ -38,6 +40,7 @@ const INITIAL_TESTS = [
     participants: '1.2k',
     isFeatured: false,
     image: 'bg-blue-600',
+    icon: Droplet,
   },
   {
     id: 'body-age',
@@ -48,6 +51,7 @@ const INITIAL_TESTS = [
     participants: '3.1k',
     isFeatured: false,
     image: 'bg-indigo-600',
+    icon: Dna,
   },
   {
     id: 'mbti',
@@ -59,6 +63,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-purple-500',
     isDisabled: true,
+    icon: Fingerprint,
   },
   {
     id: 'stress',
@@ -70,6 +75,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-green-500',
     isDisabled: true,
+    icon: Zap,
   },
   {
     id: 'iq',
@@ -81,6 +87,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-orange-500',
     isDisabled: true,
+    icon: Lightbulb,
   },
   {
     id: 'eq',
@@ -92,6 +99,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-pink-500',
     isDisabled: true,
+    icon: Heart,
   },
 ];
 
@@ -228,13 +236,8 @@ function HomeContent() {
 
                   <div className="flex justify-between items-start mb-4">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg ${test.image}`}>
-                      {/* Icon logic based on category */}
-                      {
-                        test.category === 'Health' && <Activity className="w-6 h-6" />}
-                      {
-                        test.category === 'Personality' && <Smile className="w-6 h-6" />}
-                      {
-                        test.category === 'Fun' && <Play className="w-6 h-6" />}
+                      {/* Specific Icon */}
+                      <test.icon className="w-6 h-6" />
                     </div>
                     <span className={`px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wide
                     ${test.category === 'Health' ? 'bg-red-50 text-red-600' :

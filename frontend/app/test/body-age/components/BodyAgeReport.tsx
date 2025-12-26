@@ -2,10 +2,9 @@
 
 import React from 'react';
 import {
-    Share2, Copy, RefreshCw, AlertTriangle,
-    Moon, Utensils, Activity, ArrowRight
+    Copy, RefreshCw, AlertTriangle,
+    Moon, Utensils, Activity, ArrowRight, MessageCircle, LayoutGrid, Share2
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 // --- Types ---
@@ -88,24 +87,7 @@ export default function BodyAgeReport({ ageGap, score, realAge, answers, onResta
         return "";
     };
 
-    // 4. 공유하기 핸들러
-    const handleShare = async (type: 'test' | 'result') => {
-        const url = type === 'test'
-            ? window.location.origin + window.location.pathname
-            : window.location.href;
 
-        const text = type === 'test'
-            ? "Check your Biological Age vs Actual Age!"
-            : `My biological age is ${bodyAge}. Check yours!`;
-
-        try {
-            if (navigator.share) await navigator.share({ title: 'Body Age Test', text, url });
-            else {
-                await navigator.clipboard.writeText(url);
-                alert('Link copied!');
-            }
-        } catch (e) { console.error(e); }
-    };
 
     return (
         <div className="min-h-screen bg-slate-50 py-8 px-4 font-sans animate-in fade-in duration-500">
@@ -200,43 +182,58 @@ export default function BodyAgeReport({ ageGap, score, realAge, answers, onResta
                         </section>
                     )}
 
-                    {/* --- Share & Actions --- */}
+                    {/* --- Share & Actions (Standardized 4-Button Grid) --- */}
                     <div className="pt-8 border-t border-slate-100 space-y-4">
-
-                        {/* Share Buttons */}
                         <div className="grid grid-cols-2 gap-3">
-                            <Button
-                                onClick={() => handleShare('test')}
-                                variant="secondary"
-                                className="h-14 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 rounded-xl font-bold gap-2"
+                            <button
+                                onClick={() => {
+                                    const testUrl = window.location.origin + window.location.pathname;
+                                    if (navigator.share) {
+                                        navigator.share({ title: 'Body Age Test', text: 'Check your biological age!', url: testUrl });
+                                    } else {
+                                        navigator.clipboard.writeText(testUrl);
+                                        alert('Test link copied!');
+                                    }
+                                }}
+                                className="w-full py-4 rounded-2xl bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm"
                             >
-                                <Share2 className="w-4 h-4" /> Share Test
-                            </Button>
-                            <Button
-                                onClick={() => handleShare('result')}
-                                className="h-14 bg-slate-900 text-white hover:bg-slate-800 rounded-xl font-bold gap-2"
+                                <Share2 size={20} />
+                                Share Test
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (navigator.share) {
+                                        navigator.share({ title: 'My Body Age Result', text: `My biological age is ${bodyAge}. Check yours!`, url: window.location.href });
+                                    } else {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        alert('Result link copied!');
+                                    }
+                                }}
+                                className="w-full py-4 rounded-2xl bg-slate-900 text-white font-bold text-lg hover:bg-black transition-all flex items-center justify-center gap-2 shadow-lg"
                             >
-                                <Copy className="w-4 h-4" /> Share Result
-                            </Button>
+                                <Copy size={20} />
+                                Share Result
+                            </button>
                         </div>
 
-                        {/* Navigation Buttons */}
                         <div className="grid grid-cols-2 gap-3">
-                            <Link href="/" className="block">
-                                <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200">
-                                    Home
-                                </Button>
-                            </Link>
-                            <Button
+                            <button
                                 onClick={onRestart}
-                                variant="outline"
-                                className="w-full h-12 rounded-xl border-slate-200 gap-2"
+                                className="w-full py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                             >
-                                <RefreshCw className="w-4 h-4" /> Retake
-                            </Button>
+                                <RefreshCw size={20} />
+                                Retake
+                            </button>
+                            <Link href="/" className="w-full">
+                                <button
+                                    className="w-full py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                                >
+                                    <LayoutGrid size={20} />
+                                    Home
+                                </button>
+                            </Link>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

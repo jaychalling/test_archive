@@ -1,9 +1,8 @@
 "use client";
 
 import React from 'react';
-import { RefreshCw, AlertTriangle, Activity, Utensils, HeartPulse, Share2, Copy } from 'lucide-react';
+import { RefreshCw, AlertTriangle, Activity, Utensils, HeartPulse, Copy, MessageCircle, LayoutGrid, Share2 } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 interface AnalysisReportProps {
     answers: any[];
@@ -46,34 +45,7 @@ export default function AnalysisReport({ answers, onRestart }: AnalysisReportPro
         };
     }
 
-    // --- Dynamic Text Generation (English) ---
-    const handleShare = async (type: 'test' | 'result') => {
-        const baseUrl = window.location.origin + window.location.pathname;
-        let shareData = {
-            title: 'Test Archive Analysis',
-            text: '',
-            url: ''
-        };
 
-        if (type === 'test') {
-            shareData.text = 'Take this simple test to check your diabetes risk!';
-            shareData.url = baseUrl;
-        } else {
-            shareData.text = `I scored ${totalScore.toFixed(0)} on Test Archive. Check your risk now!`;
-            shareData.url = window.location.href;
-        }
-
-        try {
-            if (navigator.share) {
-                await navigator.share(shareData);
-            } else {
-                await navigator.clipboard.writeText(shareData.url);
-                alert('Link copied to clipboard!');
-            }
-        } catch (err) {
-            console.error('Share failed:', err);
-        }
-    };
 
     // Section 1: Symptom Analysis
     const getSymptomAnalysis = () => {
@@ -223,39 +195,56 @@ export default function AnalysisReport({ answers, onRestart }: AnalysisReportPro
 
 
 
-                    {/* --- Share & Actions --- */}
+                    {/* --- Share & Actions (Standardized 4-Button Grid) --- */}
                     <div className="pt-8 border-t border-slate-100 space-y-4">
-                        {/* Share Buttons */}
                         <div className="grid grid-cols-2 gap-3">
-                            <Button
-                                onClick={() => handleShare('test')}
-                                variant="secondary"
-                                className="h-14 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 rounded-xl font-bold gap-2"
+                            <button
+                                onClick={() => {
+                                    const testUrl = window.location.origin + window.location.pathname;
+                                    if (navigator.share) {
+                                        navigator.share({ title: 'Diabetes Risk Test', text: 'Analyze your metabolic health.', url: testUrl });
+                                    } else {
+                                        navigator.clipboard.writeText(testUrl);
+                                        alert('Test link copied!');
+                                    }
+                                }}
+                                className="w-full py-4 rounded-2xl bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm"
                             >
-                                <Share2 className="w-4 h-4" /> Share Test
-                            </Button>
-                            <Button
-                                onClick={() => handleShare('result')}
-                                className="h-14 bg-slate-900 text-white hover:bg-slate-800 rounded-xl font-bold gap-2"
+                                <Share2 size={20} />
+                                Share Test
+                            </button>
+                            <button
+                                onClick={() => {
+                                    if (navigator.share) {
+                                        navigator.share({ title: 'My Diabetes Test Result', text: `My risk score is ${totalScore.toFixed(0)}. Check yours!`, url: window.location.href });
+                                    } else {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        alert('Result link copied!');
+                                    }
+                                }}
+                                className="w-full py-4 rounded-2xl bg-slate-900 text-white font-bold text-lg hover:bg-black transition-all flex items-center justify-center gap-2 shadow-lg"
                             >
-                                <Copy className="w-4 h-4" /> Share Result
-                            </Button>
+                                <Copy size={20} />
+                                Share Result
+                            </button>
                         </div>
 
-                        {/* Navigation Buttons */}
                         <div className="grid grid-cols-2 gap-3">
-                            <Link href="/" className="block">
-                                <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200">
-                                    Home
-                                </Button>
-                            </Link>
-                            <Button
+                            <button
                                 onClick={onRestart}
-                                variant="outline"
-                                className="w-full h-12 rounded-xl border-slate-200 gap-2"
+                                className="w-full py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                             >
-                                <RefreshCw className="w-4 h-4" /> Retake
-                            </Button>
+                                <RefreshCw size={20} />
+                                Retake
+                            </button>
+                            <Link href="/" className="w-full">
+                                <button
+                                    className="w-full py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                                >
+                                    <LayoutGrid size={20} />
+                                    Home
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

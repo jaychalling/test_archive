@@ -73,16 +73,16 @@ export const QUESTIONS: Question[] = [
     {
         id: 4, type: 'count-input', domain: 'Language',
         text: "Q4. Verbal Fluency (Phonemic)",
-        subText: "Write down as many words as possible starting with the letter 'S' for 1 minute (e.g., Sun, Star).\n\nHow many did you write? (Number only)",
-        timeLimit: 60,
-        correctAnswer: "10"
+        subText: "Type as many words as possible starting with the letter 'S' in 30 seconds (e.g., Sun, Star).",
+        timeLimit: 30,
+        correctAnswer: "8"
     },
     {
         id: 5, type: 'count-input', domain: 'Language',
         text: "Q5. Verbal Fluency (Semantic)",
-        subText: "Write down as many 'Animals' as possible for 1 minute (e.g., Tiger, Dog).\n\nHow many did you write? (Number only)",
-        timeLimit: 60,
-        correctAnswer: "10"
+        subText: "Type as many 'Animals' as possible in 30 seconds (e.g., Tiger, Dog).",
+        timeLimit: 30,
+        correctAnswer: "8"
     },
     {
         id: 6, type: 'trail-making', domain: 'Executive',

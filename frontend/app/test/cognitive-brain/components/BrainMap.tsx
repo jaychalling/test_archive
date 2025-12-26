@@ -1,78 +1,126 @@
 import React from 'react';
-
-// 점수 등급 타입 정의
-export type ScoreLevel = 'High' | 'Mid' | 'Low';
+import { ScoreLevel } from '../data/results';
 
 interface BrainMapProps {
     scores: {
-        frontal: ScoreLevel;   // 전두엽 (주의력, 집행, 논리, 사회)
-        temporal: ScoreLevel;  // 측두엽 (기억, 언어)
-        parietal: ScoreLevel;  // 두정엽/후두엽 (시공간)
+        frontal: ScoreLevel;
+        temporal: ScoreLevel;
+        parietal: ScoreLevel;
     };
     className?: string;
 }
 
-// 등급별 색상 매핑 (Tailwind 색상 코드 활용 가능)
+// 🎨 색상 팔레트 & 라벨 정의
 const COLOR_MAP = {
-    High: '#22c55e', // Green-500 (건강)
-    Mid: '#eab308',  // Yellow-500 (보통)
-    Low: '#ef4444',  // Red-500 (주의)
+    High: { color: '#22c55e', label: 'Optimal' },    // Green
+    Mid: { color: '#eab308', label: 'Average' },     // Yellow
+    Low: { color: '#ef4444', label: 'Needs Care' },  // Red
 };
 
 export default function BrainMap({ scores, className = "" }: BrainMapProps) {
-    return (
-        <div className={`relative w-full max-w-[400px] mx-auto ${className}`}>
-            <svg
-                viewBox="0 0 500 400"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-full h-auto drop-shadow-xl"
+    // Helper to colorize png using CSS mask
+    const renderLobe = (lobe: 'frontal' | 'parietal' | 'temporal', level: ScoreLevel, zIndex: number) => {
+        const color = COLOR_MAP[level].color;
+        const imagePath = `/images/brain-layers/${lobe}.png`;
+
+        return (
+            <div
+                className="absolute top-0 left-0 w-full h-full transition-all duration-700 hover:scale-105"
+                style={{ zIndex }}
             >
-                {/* 1. 전두엽 (Frontal Lobe) */}
-                <path
-                    id="frontal-lobe"
-                    d="M150,250 C100,250 50,200 50,150 C50,80 120,30 200,30 C250,30 280,60 290,100 L200,250 Z"
-                    fill={COLOR_MAP[scores.frontal]}
-                    stroke="white"
-                    strokeWidth="4"
-                    className="transition-colors duration-500 ease-in-out hover:opacity-90"
+                {/* Layer 1: Base Grayscale Image */}
+                <img
+                    src={imagePath}
+                    alt={lobe}
+                    className="absolute top-0 left-0 w-full h-full object-contain mix-blend-normal opacity-90"
                 />
-                <text x="130" y="150" fill="white" fontSize="20" fontWeight="bold" className="pointer-events-none">Frontal</text>
 
-                {/* 2. 두정엽 & 후두엽 (Parietal & Occipital) */}
-                <path
-                    id="parietal-lobe"
-                    d="M200,30 C300,30 400,80 420,150 C440,220 380,280 300,280 L290,100 Z"
-                    fill={COLOR_MAP[scores.parietal]}
-                    stroke="white"
-                    strokeWidth="4"
-                    className="transition-colors duration-500 ease-in-out hover:opacity-90"
+                {/* Layer 2: Color Overlay */}
+                <div
+                    className="absolute top-0 left-0 w-full h-full"
+                    style={{
+                        backgroundColor: color,
+                        maskImage: `url(${imagePath})`,
+                        maskSize: 'contain',
+                        maskRepeat: 'no-repeat',
+                        maskPosition: 'center',
+                        WebkitMaskImage: `url(${imagePath})`,
+                        WebkitMaskSize: 'contain',
+                        WebkitMaskRepeat: 'no-repeat',
+                        WebkitMaskPosition: 'center',
+                        mixBlendMode: 'multiply',
+                        opacity: 0.7,
+                        filter: level === 'High' ? 'brightness(1.2)' : 'brightness(1.0)'
+                    }}
                 />
-                <text x="330" y="150" fill="white" fontSize="20" fontWeight="bold" className="pointer-events-none">Parietal</text>
 
-                {/* 3. 측두엽 (Temporal Lobe) */}
-                <path
-                    id="temporal-lobe"
-                    d="M150,250 L200,250 L300,280 C250,350 150,350 120,300 Z"
-                    fill={COLOR_MAP[scores.temporal]}
-                    stroke="white"
-                    strokeWidth="4"
-                    className="transition-colors duration-500 ease-in-out hover:opacity-90"
-                />
-                <text x="180" y="300" fill="white" fontSize="20" fontWeight="bold" className="pointer-events-none">Temporal</text>
+                {/* Optional: Glow for High scores */}
+                {level === 'High' && (
+                    <div
+                        className="absolute top-0 left-0 w-full h-full animate-pulse-slow pointer-events-none"
+                        style={{
+                            boxShadow: `inset 0 0 20px ${color}`,
+                            maskImage: `url(${imagePath})`,
+                            maskSize: 'contain',
+                            maskRepeat: 'no-repeat',
+                            maskPosition: 'center',
+                            WebkitMaskImage: `url(${imagePath})`,
+                            WebkitMaskSize: 'contain',
+                            WebkitMaskRepeat: 'no-repeat',
+                            WebkitMaskPosition: 'center',
+                            mixBlendMode: 'screen',
+                            opacity: 0.4
+                        }}
+                    />
+                )}
+            </div>
+        );
+    };
 
-                {/* 소뇌/뇌간 (장식용, 회색 고정) */}
-                <path
-                    d="M300,280 C350,280 380,320 360,360 C320,390 280,360 280,340 Z"
-                    fill="#cbd5e1"
-                />
-            </svg>
+    // Helper to get evaluation label
+    const getEval = (level: ScoreLevel) => COLOR_MAP[level].label;
 
-            {/* 범례 (Legend) */}
-            <div className="flex justify-center gap-4 mt-4 text-xs font-bold text-gray-600">
-                <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-green-500"></span>Good</div>
-                <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-yellow-500"></span>Avg</div>
-                <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500"></span>Poor</div>
+    return (
+        <div className={`relative w-full max-w-[400px] mx-auto aspect-[4/3] ${className}`}>
+            {/* Render Lobes in appropriate Z-order: Parietal < Temporal < Frontal */}
+            {renderLobe('parietal', scores.parietal, 10)}
+            {renderLobe('temporal', scores.temporal, 20)}
+            {renderLobe('frontal', scores.frontal, 30)}
+
+            {/* Labels overlay */}
+            <div className="absolute inset-0 pointer-events-none z-50">
+                {/* 1. Parietal - Moved to Left (Top-Back) */}
+                <div className="absolute top-[25%] left-[20%] -translate-x-1/2 flex flex-col items-center animate-fade-in-up">
+                    <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl border border-indigo-50 flex flex-col items-center min-w-[110px]">
+                        <span className="text-slate-800 font-black text-sm uppercase tracking-wide mb-0.5">Parietal</span>
+                        <span className={`text-xs font-bold ${scores.parietal === 'High' ? 'text-green-600' : scores.parietal === 'Mid' ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                            is {getEval(scores.parietal)}
+                        </span>
+                    </div>
+                </div>
+
+                {/* 2. Frontal - Moved to Right (Front) */}
+                <div className="absolute top-[30%] right-[15%] flex flex-col items-center animate-fade-in-up delay-100">
+                    <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl border border-indigo-50 flex flex-col items-center min-w-[110px]">
+                        <span className="text-slate-800 font-black text-sm uppercase tracking-wide mb-0.5">Frontal</span>
+                        <span className={`text-xs font-bold ${scores.frontal === 'High' ? 'text-green-600' : scores.frontal === 'Mid' ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                            is {getEval(scores.frontal)}
+                        </span>
+                    </div>
+                </div>
+
+                {/* 3. Temporal - Bottom Center */}
+                <div className="absolute bottom-[20%] left-1/2 -translate-x-1/2 flex flex-col items-center animate-fade-in-up delay-200">
+                    <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl border border-indigo-50 flex flex-col items-center min-w-[110px]">
+                        <span className="text-slate-800 font-black text-sm uppercase tracking-wide mb-0.5">Temporal</span>
+                        <span className={`text-xs font-bold ${scores.temporal === 'High' ? 'text-green-600' : scores.temporal === 'Mid' ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                            is {getEval(scores.temporal)}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     );

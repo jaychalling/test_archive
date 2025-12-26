@@ -7,8 +7,8 @@ if current_dir not in sys.path:
     sys.path.append(current_dir)
 
 from flask import Flask, render_template, request, jsonify, abort
-from services.db_supabase import init_db, db as database_client
-import services.db_supabase # For re-accessing the global variable
+from services.db_local import init_db, db as database_client
+import services.db_local # For re-accessing the global variable
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ init_db()
 
 # DB Getter helper to handle the global variable access
 def get_db():
-    return services.db_supabase.db
+    return services.db_local.db
 
 # Route: Main Lobby
 @app.route('/')

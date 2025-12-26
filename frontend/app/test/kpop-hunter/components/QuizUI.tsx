@@ -73,7 +73,7 @@ export default function QuizUI({ onFinish }: { onFinish: (res: string) => void }
                 </div>
             </div>
 
-            <div className="animate-in slide-in-from-right-4 duration-300 key={step}"> {/* 문제 변경 시 애니메이션 효과 */}
+            <div key={step} className="animate-in slide-in-from-right-4 duration-300"> {/* 문제 변경 시 애니메이션 효과 */}
                 <h2 className="text-2xl font-bold text-slate-900 mb-8 leading-tight">{currentQ.text}</h2>
                 <div className="grid gap-3">
                     {currentQ.options.map((opt, i) => (

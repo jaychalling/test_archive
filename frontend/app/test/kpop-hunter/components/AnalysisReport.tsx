@@ -2,9 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { Share2, RefreshCw, Heart, Star, AlertCircle, Sparkles, Copy, MessageCircle, LayoutGrid } from 'lucide-react';
 import Link from 'next/link';
-import { Share2, RefreshCw, Heart, Star, AlertCircle, Sparkles, Copy } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { QUESTIONS, calculateResult } from '../questions';
 
 // Character Images
@@ -136,30 +135,7 @@ export default function AnalysisReport({ res, onRestart }: { res: string; onRest
     const charKey = calculateResult(res);
     const char = CHAR_DATA[charKey] || CHAR_DATA.R;
 
-    const handleShare = async (type: 'test' | 'result') => {
-        const url = type === 'test'
-            ? window.location.origin + window.location.pathname
-            : window.location.href;
 
-        const text = type === 'test'
-            ? "Discover your K-Pop Demon Hunter Soul Character!"
-            : `I am ${char.name} (${char.title})! Find your soul character.`;
-
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'K-Pop Hunter Character Test',
-                    text: text,
-                    url: url
-                });
-            } catch (e) {
-                console.error('Share failed', e);
-            }
-        } else {
-            await navigator.clipboard.writeText(url);
-            alert("Link copied! Share with friends!");
-        }
-    };
 
     return (
         <div className="max-w-2xl mx-auto py-12 px-6 animate-in fade-in duration-700 font-sans">
@@ -244,39 +220,56 @@ export default function AnalysisReport({ res, onRestart }: { res: string; onRest
                 </section>
             </div>
 
-            {/* Action Buttons */}
+            {/* --- Share & Actions (Standardized 4-Button Grid) --- */}
             <div className="pt-8 border-t border-slate-100 space-y-4">
-                {/* Share Buttons */}
                 <div className="grid grid-cols-2 gap-3">
-                    <Button
-                        onClick={() => handleShare('test')}
-                        variant="secondary"
-                        className="h-14 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-100 rounded-xl font-bold gap-2"
+                    <button
+                        onClick={() => {
+                            const testUrl = window.location.origin + window.location.pathname;
+                            if (navigator.share) {
+                                navigator.share({ title: 'K-Pop Hunter Soul Character Test', text: 'Discover your soul character!', url: testUrl });
+                            } else {
+                                navigator.clipboard.writeText(testUrl);
+                                alert('Test link copied!');
+                            }
+                        }}
+                        className="w-full py-4 rounded-2xl bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-100 font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-sm"
                     >
-                        <Share2 className="w-4 h-4" /> Share Test
-                    </Button>
-                    <Button
-                        onClick={() => handleShare('result')}
-                        className="h-14 bg-slate-900 text-white hover:bg-slate-800 rounded-xl font-bold gap-2"
+                        <Share2 size={20} />
+                        Share Test
+                    </button>
+                    <button
+                        onClick={() => {
+                            if (navigator.share) {
+                                navigator.share({ title: 'My K-Pop Soul Character Result', text: `I am ${char.name} (${char.title})!`, url: window.location.href });
+                            } else {
+                                navigator.clipboard.writeText(window.location.href);
+                                alert('Result link copied!');
+                            }
+                        }}
+                        className="w-full py-4 rounded-2xl bg-slate-900 text-white font-bold text-lg hover:bg-black transition-all flex items-center justify-center gap-2 shadow-lg"
                     >
-                        <Copy className="w-4 h-4" /> Share Result
-                    </Button>
+                        <Copy size={20} />
+                        Share Result
+                    </button>
                 </div>
 
-                {/* Navigation Buttons */}
                 <div className="grid grid-cols-2 gap-3">
-                    <Link href="/" className="block">
-                        <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200">
-                            Home
-                        </Button>
-                    </Link>
-                    <Button
+                    <button
                         onClick={onRestart}
-                        variant="outline"
-                        className="w-full h-12 rounded-xl border-slate-200 gap-2"
+                        className="w-full py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                     >
-                        <RefreshCw className="w-4 h-4" /> Retake
-                    </Button>
+                        <RefreshCw size={20} />
+                        Retake
+                    </button>
+                    <Link href="/" className="w-full">
+                        <button
+                            className="w-full py-4 rounded-2xl bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                        >
+                            <LayoutGrid size={20} />
+                            Home
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

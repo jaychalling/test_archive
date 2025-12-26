@@ -281,7 +281,7 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
 
     if (isAnalyzing) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 animate-in fade-in duration-700">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 animate-in fade-in duration-500">
                 <Loader2 className="w-16 h-16 text-blue-600 animate-spin mb-6" />
                 <h2 className="text-2xl font-bold text-slate-800 mb-2">Analyzing your health data...</h2>
                 <p className="text-slate-500">Checking symptoms against medical standards.</p>
@@ -300,37 +300,40 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
-            <header className="px-6 py-4 flex items-center justify-between sticky top-0 bg-gray-50 z-10 transition-colors">
-                <Link href="/" className="p-2 -ml-2 hover:bg-white rounded-full transition-colors text-slate-600">
-                    <ArrowLeft className="w-6 h-6" />
-                </Link>
-                <div className="text-sm font-bold text-slate-400">
-                    Question {currentQuestionIndex + 1} / {QUESTIONS.length}
+            <header className="px-6 py-4 flex flex-col items-center sticky top-0 bg-gray-50 z-10 transition-colors border-b border-gray-100">
+                <div className="flex items-center justify-between w-full mb-4">
+                    <Link href="/" className="p-2 -ml-2 hover:bg-white rounded-full transition-colors text-slate-600">
+                        <ArrowLeft className="w-6 h-6" />
+                    </Link>
+                    <h1 className="text-lg font-bold text-slate-900 uppercase tracking-tight">Type 2 Diabetes Risk Test</h1>
+                    <div className="w-8"></div>
                 </div>
-                <div className="w-8"></div>
+
+                <div className="w-full">
+                    <div className="flex justify-between text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+                        <span>Question {currentQuestionIndex + 1}</span>
+                        <span>{Math.round(progress)}%</span>
+                    </div>
+                    <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+                        <motion.div
+                            className="h-full bg-blue-600"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${progress}%` }}
+                            transition={{ duration: 0.3 }}
+                        />
+                    </div>
+                </div>
             </header>
 
-            <div className="w-full bg-gray-200 h-1.5">
-                <motion.div
-                    className="h-full bg-blue-600"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.5 }}
-                />
-            </div>
-
             <main className="flex-grow flex flex-col justify-center px-6 py-8 max-w-2xl mx-auto w-full">
-                <div className="mb-4 text-center">
-                    <h1 className="text-xl font-bold text-slate-800">Type 2 Diabetes Risk Test</h1>
-                </div>
 
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                     <motion.div
                         key={currentQuestionIndex}
-                        initial={{ opacity: 0, x: 50 }}
+                        initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.3 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.2 }}
                     >
                         <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-8 leading-tight">
                             {currentQ.text}

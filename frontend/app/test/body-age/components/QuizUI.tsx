@@ -298,23 +298,28 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
 
     return (
         <div className="max-w-md mx-auto px-4 py-6 min-h-screen bg-white">
-            <div className="flex items-center justify-between mb-4">
-                <h1 className="font-bold text-xl text-slate-900">Body Age Check</h1>
-                <span className="text-xs font-semibold px-2 py-1 bg-gray-100 rounded text-gray-500">
-                    {currentStep + 1} / {QUESTIONS.length}
-                </span>
-            </div>
+            <header className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                    <h1 className="text-lg font-bold text-slate-900 uppercase tracking-tight">Body Age Check</h1>
+                    <div className="w-8"></div>
+                </div>
 
-            {/* Progress Bar */}
-            <div className="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden mb-8">
-                <div
-                    className="bg-indigo-600 h-full transition-all duration-500 ease-out rounded-full"
-                    style={{ width: `${progress}%` }}
-                />
-            </div>
+                <div className="w-full">
+                    <div className="flex justify-between text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+                        <span>Question {currentStep + 1}</span>
+                        <span>{Math.round(progress)}%</span>
+                    </div>
+                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                            className="bg-indigo-600 h-full transition-all duration-500 ease-out rounded-full"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+                </div>
+            </header>
 
             {/* Question Card */}
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
                 <div className="space-y-2">
                     <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider bg-indigo-50 px-2 py-1 rounded">
                         {currentQ.category}
