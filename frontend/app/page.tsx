@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from 'react';
-import { Clock, Users, Search, ArrowRight, Play, Activity, Heart, Smile, Brain, Music, Droplet, Dna, Fingerprint, Zap, Lightbulb } from 'lucide-react';
+import { Clock, Users, Search, ArrowRight, Play, Activity, Heart, Smile, Brain, Music, Droplet, Dna, Fingerprint, Zap, Lightbulb, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -17,6 +17,7 @@ const INITIAL_TESTS = [
     participants: 'New',
     isFeatured: false,
     image: 'bg-indigo-700',
+    heroImage: '/images/cognitive-hero.png',
     isDisabled: false,
     icon: Brain,
   },
@@ -29,6 +30,7 @@ const INITIAL_TESTS = [
     participants: '15.4k',
     isFeatured: false,
     image: 'bg-pink-600',
+    heroImage: '/images/kpop-hero.png',
     icon: Music,
   },
   {
@@ -40,6 +42,7 @@ const INITIAL_TESTS = [
     participants: '1.2k',
     isFeatured: false,
     image: 'bg-blue-600',
+    heroImage: '/images/diabetes-hero.png',
     icon: Droplet,
   },
   {
@@ -51,6 +54,7 @@ const INITIAL_TESTS = [
     participants: '3.1k',
     isFeatured: false,
     image: 'bg-indigo-600',
+    heroImage: '/images/body-age-hero.png',
     icon: Dna,
   },
   {
@@ -62,6 +66,7 @@ const INITIAL_TESTS = [
     participants: '50k+',
     isFeatured: false,
     image: 'bg-purple-500',
+    heroImage: null,
     isDisabled: true,
     icon: Fingerprint,
   },
@@ -74,6 +79,7 @@ const INITIAL_TESTS = [
     participants: '8.5k',
     isFeatured: false,
     image: 'bg-green-500',
+    heroImage: null,
     isDisabled: true,
     icon: Zap,
   },
@@ -86,6 +92,7 @@ const INITIAL_TESTS = [
     participants: '20k+',
     isFeatured: false,
     image: 'bg-orange-500',
+    heroImage: null,
     isDisabled: true,
     icon: Lightbulb,
   },
@@ -98,6 +105,7 @@ const INITIAL_TESTS = [
     participants: '12k',
     isFeatured: false,
     image: 'bg-pink-500',
+    heroImage: null,
     isDisabled: true,
     icon: Heart,
   },
@@ -108,10 +116,24 @@ const INITIAL_TESTS = [
     category: 'Personality',
     duration: '5-7 min',
     participants: 'New',
-    isFeatured: true,
+    isFeatured: false,
     image: 'bg-indigo-500',
+    heroImage: '/images/gender-role-hero.png',
     isDisabled: false,
     icon: Users,
+  },
+  {
+    id: 'rice-purity',
+    title: 'Rice Purity Test',
+    description: 'The famous 100-question test to find your purity archetype. Saint or Rebel?',
+    category: 'Fun',
+    duration: '10 min',
+    participants: 'Trending',
+    isFeatured: true,
+    image: 'bg-rose-500',
+    heroImage: '/images/rice-purity-hero.png',
+    isDisabled: false,
+    icon: Sparkles,
   },
 ];
 
@@ -141,27 +163,16 @@ function HomeContent() {
             <section className="mb-12 rounded-3xl overflow-hidden shadow-2xl relative text-white min-h-[400px] flex items-center">
 
               {/* Conditional Background Logic */}
-              {featuredTest.id === 'kpop-hunter' ? (
+              {featuredTest.heroImage ? (
                 <>
                   <Image
-                    src="/images/kpop_hero_image.png"
-                    alt="K-Pop Hunter"
+                    src={featuredTest.heroImage}
+                    alt={featuredTest.title}
                     fill
                     className="object-cover"
                     priority
                   />
-                  <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[1px]"></div>
-                </>
-              ) : featuredTest.id === 'gender-role' ? (
-                <>
-                  <Image
-                    src="/gender-role-hero.png"
-                    alt="Gender Role Test"
-                    fill
-                    className="object-cover object-center"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px]"></div>
+                  <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-[1px]"></div>
                 </>
               ) : (
                 /* Fallback Gradient for other tests */

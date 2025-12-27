@@ -1,18 +1,16 @@
+
+
 import type { Metadata } from 'next';
 import BodyAgeClientPage from './BodyAgeClientPage';
 import { generateTestMetadata } from '@/utils/metadata';
 
-type Props = {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }): Promise<Metadata> {
     return generateTestMetadata({
         searchParams,
         testType: 'body-age',
-        baseTitle: "Body Age Test: Discover Your Biological Age",
-        description: "Compare your actual age with your body's biological age. Find out how you're aging!",
-        getResultTitle: (res: string) => "Check my Body Age Report!"
+        baseTitle: "Biological Age Test | Vitality Check",
+        description: "Analyze your lifestyle, flexibility, and cardio health to estimate your biological age.",
+        getResultTitle: (res) => `My Biological Age is...`
     });
 }
 

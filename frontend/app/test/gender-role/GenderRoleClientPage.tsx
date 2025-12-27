@@ -1,190 +1,122 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
-import { MODULES, QuestionItem, Module, TEST_META } from './questions';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Landing from './components/Landing';
 import QuestionCard from './components/QuestionCard';
 import AnalysisReport from './components/AnalysisReport';
-
-type ViewSate = 'landing' | 'quiz' | 'analyzing' | 'result';
-
-interface Step {
-    module: Module;
-    item: QuestionItem;
-}
+import { MODULES, TEST_META } from './questions';
 
 export default function GenderRoleClientPage() {
-    const [viewState, setViewState] = useState<ViewSate>('landing');
-    const [currentStepIndex, setCurrentStepIndex] = useState(0);
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const [step, setStep] = useState<'landing' | 'quiz' | 'result'>('landing');
+    const [currentModuleIdx, setCurrentModuleIdx] = useState(0);
+    const [currentItemIdx, setCurrentItemIdx] = useState(0);
     const [answers, setAnswers] = useState<Record<string, number>>({});
-    const [isTransitioning, setIsTransitioning] = useState(false);
 
-    // Flatten logic to linear steps
-    const steps = useMemo(() => {
-        const flat: Step[] = [];
-        MODULES.forEach(module => {
-            module.items.forEach(item => {
-                flat.push({ module, item });
-            });
-        });
-        return flat;
-    }, []);
-
-    const totalSteps = steps.length;
-    const currentStep = steps[currentStepIndex];
-    const progress = ((currentStepIndex + 1) / totalSteps) * 100;
-
-    // Scroll to top on step change
     useEffect(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentStepIndex, viewState]);
+        const res = searchParams.get('res');
+        if (res) {
+            try {
+                const decoded = JSON.parse(atob(res));
+                setAnswers(decoded);
+                setStep('result');
+            } catch (e) {
+                console.error("Failed to decode result", e);
+            }
+        }
+    }, [searchParams]);
 
     const handleStart = () => {
-        setViewState('quiz');
-        setCurrentStepIndex(0);
-        setAnswers({});
+        setStep('quiz');
+        window.scrollTo(0, 0);
     };
 
     const handleAnswer = (key: string, value: number) => {
-        if (isTransitioning) return;
-        setAnswers(prev => ({ ...prev, [key]: value }));
+        const newAnswers = { ...answers, [key]: value };
+        setAnswers(newAnswers);
 
-        const { module, item } = currentStep;
+        const currentModule = MODULES[currentModuleIdx];
 
-        if (module.responseType === 'Likert_5') {
-            setTimeout(() => handleNext(), 250);
-        } else if (module.responseType === 'Scenario_Dual_Rating') {
-            // Check if this completes the scenario
-            // We need to check against the state that includes the current key
-            // Since 'answers' is stale, we check if all OTHER actions are already in 'answers'
-            const allOtherActionsAnswered = item.actions?.every(action => {
-                const actionKey = `${item.id}_${action.subId}`;
-                if (actionKey === key) return true; // checking the one we just answered
-                return answers[actionKey] !== undefined;
-            }) ?? false;
+        // If it's a Likert module, we auto-advance when answered.
+        // If it's a Scenario module, we might need to check if all actions are answered?
+        // Actually, let's keep it simple: manual "Next" button for scenarios?
+        // No, current QuestionCard doesn't have a "Next" button.
 
-            if (allOtherActionsAnswered) {
-                setTimeout(() => handleNext(), 250);
-            }
-        }
-    };
+        const isScenario = currentModule.responseType === 'Scenario_Dual_Rating';
 
-    const canProceed = () => {
-        if (!currentStep) return false;
-        const { module, item } = currentStep;
-
-        if (module.responseType === 'Scenario_Dual_Rating') {
-            // Check if both A and B are answered
-            // Assuming actions always exist for scenario
-            return item.actions?.every(action => answers[`${item.id}_${action.subId}`] !== undefined) ?? false;
+        if (isScenario) {
+            // For scenarios, we wait for all actions to be filled.
+            const allActionsAnswered = currentModule.items[currentItemIdx].actions?.every(
+                action => newAnswers[`${currentModule.items[currentItemIdx].id}_${action.subId}`] !== undefined
+            );
+            if (!allActionsAnswered) return;
         }
 
-        // Simple Likert
-        return answers[item.id.toString()] !== undefined;
-    };
-
-    const handleNext = () => {
-        if (currentStepIndex < totalSteps - 1) {
-            setIsTransitioning(true);
-            setTimeout(() => {
-                setCurrentStepIndex(prev => {
-                    if (prev >= totalSteps - 1) return prev;
-                    return prev + 1;
-                });
-                setIsTransitioning(false);
-            }, 300);
-        } else {
-            finishTest();
-        }
-    };
-
-    const handlePrev = () => {
-        if (currentStepIndex > 0) {
-            setCurrentStepIndex(prev => prev - 1);
-        }
-    };
-
-    const finishTest = () => {
-        setViewState('analyzing');
+        // Advance logic
         setTimeout(() => {
-            setViewState('result');
-        }, 1500); // Fake loading time
+            if (currentItemIdx < currentModule.items.length - 1) {
+                setCurrentItemIdx(currentItemIdx + 1);
+                window.scrollTo(0, 0);
+            } else if (currentModuleIdx < MODULES.length - 1) {
+                setCurrentModuleIdx(currentModuleIdx + 1);
+                setCurrentItemIdx(0);
+                window.scrollTo(0, 0);
+            } else {
+                // Finish
+                const resString = btoa(JSON.stringify(newAnswers));
+                router.push(`?res=${resString}`, { scroll: false });
+                setStep('result');
+                window.scrollTo(0, 0);
+            }
+        }, 400);
     };
 
-    if (viewState === 'landing') {
-        return <Landing onStart={handleStart} />;
-    }
+    const handleRestart = () => {
+        router.push(window.location.pathname, { scroll: false });
+        setStep('landing');
+        setAnswers({});
+        setCurrentModuleIdx(0);
+        setCurrentItemIdx(0);
+        window.scrollTo(0, 0);
+    };
 
-    if (viewState === 'analyzing') {
-        return (
-            <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-                <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
-                <p className="text-slate-600 dark:text-slate-300 font-medium animate-pulse">
-                    Analyzing your responses...
-                </p>
-            </div>
-        );
-    }
+    const currentModule = MODULES[currentModuleIdx];
+    const currentItem = currentModule?.items[currentItemIdx];
 
-    if (viewState === 'result') {
-        return (
-            <AnalysisReport
-                answers={answers}
-                onRestart={() => setViewState('landing')}
-            />
-        );
-    }
-
-    if (!currentStep) return null;
-
-    // Quiz View
     return (
-        <div className="max-w-2xl mx-auto px-4 py-4 flex flex-col">
-            {/* Header / Progress */}
-            <div className="mb-4 space-y-2 sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-10 py-4 border-b border-slate-100 dark:border-slate-800">
-                <div className="flex justify-between items-end mb-2">
-                    <h1 className="text-lg font-bold text-slate-900 dark:text-white leading-none">
-                        {TEST_META.title}
-                    </h1>
-                    <div className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-                        <span>{currentStepIndex + 1} / {totalSteps}</span>
+        <main className="min-h-screen bg-white py-8 px-4 font-sans">
+            <div className="max-w-4xl mx-auto">
+                {step === 'landing' && <Landing onStart={handleStart} />}
+
+                {step === 'quiz' && currentItem && (
+                    <div className="space-y-8">
+                        {/* Progress */}
+                        <div className="max-w-2xl mx-auto">
+                            <div className="flex justify-between text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+                                <span>Part {currentModuleIdx + 1}</span>
+                                <span>{Math.round(((currentModuleIdx * 10 + currentItemIdx) / 32) * 100)}%</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div
+                                    className="h-full bg-blue-600 transition-all duration-500"
+                                    style={{ width: `${((currentModuleIdx * 10 + currentItemIdx) / 32) * 100}%` }}
+                                />
+                            </div>
+                        </div>
+
+                        <QuestionCard
+                            module={currentModule}
+                            item={currentItem}
+                            answers={answers}
+                            onAnswer={handleAnswer}
+                        />
                     </div>
-                </div>
+                )}
 
-                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <div
-                        className="h-full bg-slate-900 dark:bg-white transition-all duration-300 ease-out"
-                        style={{ width: `${progress}%` }}
-                    />
-                </div>
+                {step === 'result' && <AnalysisReport answers={answers} onRestart={handleRestart} />}
             </div>
-
-            {/* Question Content */}
-            <div className={`flex-1 transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
-                <QuestionCard
-                    module={currentStep.module}
-                    item={currentStep.item}
-                    answers={answers}
-                    onAnswer={handleAnswer}
-                />
-            </div>
-
-            {/* Navigation */}
-            <div className="pt-8 pb-12">
-                <button
-                    onClick={handlePrev}
-                    disabled={currentStepIndex === 0}
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${currentStepIndex === 0
-                        ? 'text-slate-300 cursor-not-allowed opacity-0'
-                        : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
-                        }`}
-                >
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Previous Step
-                </button>
-            </div>
-        </div >
+        </main>
     );
 }

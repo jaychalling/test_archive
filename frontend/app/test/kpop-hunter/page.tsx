@@ -23,13 +23,9 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     return generateTestMetadata({
         searchParams,
         testType: 'kpop-hunter',
-        baseTitle: "K-Pop Demon Hunters: Soul Character Test",
-        description: "Find your soul character among the legendary Demon Hunters! 20 personality questions with in-depth analysis.",
-        getResultTitle: (res: string) => {
-            const charKey = calculateResult(res);
-            const info = CHAR_MAP[charKey] || CHAR_MAP.R;
-            return `I'm ${info.name}! Who are you?`;
-        }
+        baseTitle: "K-Pop Hunter Character Test | Soul Match",
+        description: "Find your Demon Hunter soul match based on your K-Pop styling and personality.",
+        getResultTitle: (res: string) => `My K-Pop Hunter Character is...`
     });
 }
 

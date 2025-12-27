@@ -1,3 +1,5 @@
+
+
 import type { Metadata } from 'next';
 import DiabetesClientPage from './DiabetesClientPage';
 import { generateTestMetadata } from '@/utils/metadata';

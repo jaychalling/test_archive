@@ -1,39 +1,51 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Landing from './components/Landing';
 import QuizUI from './components/QuizUI';
 import AnalysisReport from './components/AnalysisReport';
 
-function HunterTestContent() {
+export default function KPopClientPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const res = searchParams.get('res');
+    const [step, setStep] = useState<'landing' | 'quiz' | 'result'>('landing');
+    const [resultCode, setResultCode] = useState<string>('');
 
-    // Finish handler: Convert results to URL params
-    const handleFinish = (resString: string) => {
-        router.push(`/test/kpop-hunter?res=${resString}`);
+    useEffect(() => {
+        const res = searchParams.get('res');
+        if (res) {
+            setResultCode(res);
+            setStep('result');
+        }
+    }, [searchParams]);
+
+    const handleStart = () => {
+        setStep('quiz');
+        window.scrollTo(0, 0);
+    };
+
+    const handleFinish = (resultString: string) => {
+        router.push(`?res=${resultString}`, { scroll: false });
+        setResultCode(resultString);
+        setStep('result');
+        window.scrollTo(0, 0);
     };
 
     const handleRestart = () => {
-        router.push('/test/kpop-hunter');
+        router.push(window.location.pathname, { scroll: false });
+        setStep('landing');
+        setResultCode('');
+        window.scrollTo(0, 0);
     };
 
     return (
         <main className="min-h-screen bg-white">
-            {res ? (
-                <AnalysisReport res={res} onRestart={handleRestart} />
-            ) : (
-                <QuizUI onFinish={handleFinish} />
-            )}
+            <div className="max-w-4xl mx-auto">
+                {step === 'landing' && <Landing onStart={handleStart} />}
+                {step === 'quiz' && <QuizUI onFinish={handleFinish} />}
+                {step === 'result' && <AnalysisReport res={resultCode} onRestart={handleRestart} />}
+            </div>
         </main>
-    );
-}
-
-export default function HunterTestPage() {
-    return (
-        <Suspense fallback={<div className="flex justify-center py-20">Loading Database...</div>}>
-            <HunterTestContent />
-        </Suspense>
     );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { generateTestMetadata } from '@/utils/metadata';
-import QuizUI from './components/QuizUI';
+import CognitiveClientPage from './CognitiveClientPage';
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }): Promise<Metadata> {
     return generateTestMetadata({
@@ -13,5 +13,5 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 }
 
 export default function Page() {
-    return <QuizUI />;
+    return <CognitiveClientPage />;
 }
