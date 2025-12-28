@@ -3,7 +3,8 @@ import { handleKPopRequest } from './renderers/kpop';
 import { handleDiabetesRequest, handleBodyAgeRequest } from './renderers/health';
 import { handleCognitiveRequest } from './renderers/cognitive';
 import { handleRicePurityRequest } from './renderers/rice-purity';
-import { handleGenderRoleRequest } from './renderers/gender-role';
+import { handleGenderRoleRequest } from '../../test/gender-role/og-template';
+// import { handleGenderRoleRequest } from './renderers/gender-role'; // Old path
 
 // Base64 이미지가 크기 때문에 Node.js 런타임 사용 (Edge는 4MB 제한 걸릴 수 있음)
 export const runtime = 'nodejs';

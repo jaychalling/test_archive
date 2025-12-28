@@ -66,7 +66,7 @@ const INITIAL_TESTS = [
     participants: 'New',
     isFeatured: false,
     image: 'bg-indigo-500',
-    heroImage: '/images/gender-role-hero.png',
+    heroImage: '/gender-role/hero.png',
     isDisabled: false,
     icon: Users,
   },
