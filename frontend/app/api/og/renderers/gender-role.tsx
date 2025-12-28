@@ -1,6 +1,4 @@
-// This tool call is just to read the file, I will use view_file next.
-// I can't put comment here.
-// Skipping this tool call to use view_file.
+import { ImageResponse } from 'next/og';
 
 
 const MINIMAL_MODULES = [
