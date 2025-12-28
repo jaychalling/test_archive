@@ -327,7 +327,7 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
 
             <main className="flex-grow flex flex-col justify-center px-6 py-4 max-w-2xl mx-auto w-full">
 
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                     <motion.div
                         key={currentQuestionIndex}
                         initial={{ opacity: 0, x: 20 }}
