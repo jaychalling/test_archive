@@ -12,6 +12,12 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     });
 }
 
+import { Suspense } from 'react';
+
 export default function Page() {
-    return <CognitiveClientPage />;
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CognitiveClientPage />
+        </Suspense>
+    );
 }

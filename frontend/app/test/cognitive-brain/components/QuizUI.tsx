@@ -12,8 +12,9 @@ import AnalysisReport from './AnalysisReport';
 import { ScoreLevel } from '../data/results';
 import { ANIMAL_LIST } from '../data/animals';
 import { BrainCircuit, Activity, ChevronRight } from 'lucide-react';
+import CalculatingView from './CalculatingView';
 
-export default function QuizUI() {
+export default function QuizUI({ onFinish }: { onFinish: (res: string, data: any) => void }) {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<Record<number, string | number>>({});
     const [showResult, setShowResult] = useState(false);
@@ -134,24 +135,24 @@ export default function QuizUI() {
     };
 
     if (showResult || !currentQuestion) {
-        // Prepare scores for AnalysisReport
-        // If we force-finished (race condition), we might not have all answers, but we will render what we have.
-
+        // Calculate result and trigger finish
         const q9Answer = answers[9] as string;
         const q9Correct = targetWords.some(w => w.toLowerCase() === q9Answer?.trim().toLowerCase());
         const q10Answer = answers[10] as string;
         const q10Correct = targetWords.includes(q10Answer);
         const memoryScore = (q9Correct ? 1 : 0) + (q10Correct ? 1 : 0);
 
-        // Use the existing calculateResult logic
         const result = calculateResult(answers, memoryScore, sequentialScore);
 
-        // Map to AnalysisReport format
-        const reportScores = {
-            frontal: result.scores.frontal as ScoreLevel,
-            temporal: result.scores.temporal as ScoreLevel,
-            parietal: result.scores.parietal as ScoreLevel,
+        // Serialized format: "BrainAge-Frontal-Temporal-Parietal"
+        const resultString = `${result.brainAge}-${result.scores.frontal}-${result.scores.temporal}-${result.scores.parietal}`;
+
+        // Prepare data object for immediate local rendering (avoid parsing string again)
+        const data = {
             brainAge: result.brainAge,
+            frontal: result.scores.frontal,
+            temporal: result.scores.temporal,
+            parietal: result.scores.parietal,
             rawScores: {
                 frontal: result.scores.frontal === 'High' ? 88 : result.scores.frontal === 'Mid' ? 55 : 30,
                 temporal: result.scores.temporal === 'High' ? 88 : result.scores.temporal === 'Mid' ? 55 : 30,
@@ -159,12 +160,14 @@ export default function QuizUI() {
             }
         };
 
-        return (
-            <AnalysisReport
-                scores={reportScores}
-                onRetake={() => window.location.reload()}
-            />
-        );
+        // Call parent handler
+        // Use timeout to break render cycle if needed, but here it's fine
+        // Using useEffect to trigger this once might be safer if we are in render body, 
+        // BUT this block is a conditional return. We should perform side effect in a useEffect or similar.
+        // However, standard pattern is to render something else or call it.
+        // Let's render a "Analyzing..." state and call onFinish in useEffect.
+
+        return <CalculatingView onFinish={() => onFinish(resultString, data)} />;
     }
 
     if (currentQuestion.type === 'digit-span') {
