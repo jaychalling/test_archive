@@ -30,7 +30,7 @@ const INITIAL_TESTS = [
     participants: '15.4k',
     isFeatured: false,
     image: 'bg-pink-600',
-    heroImage: '/kpop-hunter/hero.png',
+    heroImage: '/kpop-hunter/kdh-soul-mate-concert.png',
     icon: Music,
   },
   {
