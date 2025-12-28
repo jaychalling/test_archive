@@ -69,10 +69,12 @@
 
 ## 3. Deployment Rules
 
-- **Pre-Deployment Check**:
-  1. Navigate to `frontend` directory: `cd frontend`
-  2. Run build verification: `npm run build`
-     - **MUST** fix all TypeScript and ESLint errors before proceeding.
+- **[CRITICAL] Pre-Push Verification**:
+  **Before running `git push`, YOU MUST ALWAYS perform the following checks:**
+  1. Navigate to the `frontend` directory: `cd frontend`
+  2. Run the build command: `npm run build`
+     - **IF THE BUILD FAILS**: STOP IMMEDIATELY. Fix the errors shown in the terminal. Do **NOT** push broken code.
+     - **IF THE BUILD SUCCEEDS**: Proceed to commit and push.
   3. **Update Sitemap**: Check `frontend/app/sitemap.ts` and ensure all new routes are included.
   4. Commit changes: `git add .` -> `git commit -m "..."` -> `git push`
 
