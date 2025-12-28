@@ -40,7 +40,7 @@ export default function Footer() {
                             <li><Link href="/test/diabetes" className="hover:text-blue-600 transition-colors">Diabetes Risk Test</Link></li>
                             <li><Link href="/test/body-age" className="hover:text-blue-600 transition-colors">Biological Age Test</Link></li>
                             <li><Link href="/test/gender-role" className="hover:text-blue-600 transition-colors">Gender Role Test</Link></li>
-                            <li><Link href="/test/rice-purity" className="hover:text-blue-600 transition-colors">Rice Purity Test</Link></li>
+                            <li><Link href="/test/rice-purity" className="hover:text-blue-600 transition-colors">2026 RICE PURITY TEST</Link></li>
                         </ul>
                     </div>
 

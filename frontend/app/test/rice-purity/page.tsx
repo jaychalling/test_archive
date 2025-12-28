@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import RicePurityClientPage from './RicePurityClientPage';
 
 export const metadata: Metadata = {
-    title: 'Rice Purity Test | Test Archive',
+    title: '2026 Rice Purity Test | Test Archive',
     description: 'The original 100-question purity test. Are you a saint or a rebel? Check your innocence score now.',
     openGraph: {
         title: 'Rice Purity Test - What is your score?',

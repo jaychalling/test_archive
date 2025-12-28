@@ -24,7 +24,7 @@ export default function Landing({ onStart }: LandingProps) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center pb-8">
                         <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-lg tracking-tight">
-                            Rice Purity Test
+                            2026 RICE PURITY TEST
                         </h1>
                     </div>
                 </div>

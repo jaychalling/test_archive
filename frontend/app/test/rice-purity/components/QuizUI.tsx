@@ -46,7 +46,7 @@ export default function QuizUI({ onComplete }: QuizUIProps) {
         <div className="max-w-2xl mx-auto space-y-8">
             {/* Header */}
             <div className="text-center space-y-2 mb-6">
-                <h2 className="text-3xl font-black text-slate-800">Rice Purity Test</h2>
+                <h2 className="text-3xl font-black text-slate-800">2026 RICE PURITY TEST</h2>
                 <p className="text-slate-500 font-medium">Check all that apply</p>
             </div>
 
