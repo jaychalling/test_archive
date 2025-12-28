@@ -1,6 +1,32 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: '2026puritytest.com',
+          },
+        ],
+        destination: '/test/rice-purity',
+        permanent: true,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'www.2026puritytest.com',
+          },
+        ],
+        destination: '/test/rice-purity',
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
