@@ -22,7 +22,6 @@ function renderHealthResult(title: string, label: string, color: string, sub: st
 export function handleDiabetesRequest(res: string | null, renderDefault: Function) {
     if (!res) return renderDefault('Diabetes Risk Test', 'Check your metabolic health.', '#16a34a', '⚕️');
 
-    // 간단 로직 (에러 방지용)
     const score = res.length > 0 ? res.split('').reduce((a, b) => a + (parseInt(b) || 0), 0) / (res.length || 1) : 0;
 
     let title = "Healthy / Optimal";
@@ -36,18 +35,4 @@ export function handleDiabetesRequest(res: string | null, renderDefault: Functio
     else if (score > 1.2) icon = "⚠️";
 
     return renderHealthResult(title, label, color, "Diabetes Risk Analysis", icon);
-}
-
-export function handleBodyAgeRequest(res: string | null, renderDefault: Function) {
-    if (!res) return renderDefault('Body Age Test', 'Discover your biological age.', '#2563eb', '🧪');
-
-    let title = "Optimal / Young";
-    let color = "#16a34a";
-    let label = "Great Status";
-    let icon = "🌿";
-    // 로직 간소화
-    if (res.includes('3') || res.includes('4')) { title = "Standard / Moderate"; color = "#d97706"; label = "Aging Alert"; }
-    if (res.includes('3') || res.includes('4')) icon = "⏳";
-
-    return renderHealthResult(title, label, color, "Body Aging Result", icon);
 }

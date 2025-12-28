@@ -14,12 +14,12 @@ interface AnalysisReportProps {
 // 4.1 Archetypes
 // 4.1 Archetypes
 const getArchetype = (score: number) => {
-    if (score >= 98) return { title: "The Saint", desc: "Did you just fall from heaven? Where are your wings?", roast: "You're either a newborn or a liar.", color: "text-indigo-600", bg: "bg-indigo-50", image: "/images/rice-saint.png" };
-    if (score >= 90) return { title: "The Goody Two-Shoes", desc: "Mom's favorite child. Your craziest memory is sleeping in?", roast: "The only 'high' you've ever felt is from sugar.", color: "text-blue-600", bg: "bg-blue-50", image: "/images/rice-goody.png" };
-    if (score >= 77) return { title: "The Normie", desc: "Perfectly balanced. You have a life, but you're not in jail.", roast: "You're the vanilla ice cream of humans.", color: "text-teal-600", bg: "bg-teal-50", image: "/images/rice-normie.png" };
-    if (score >= 45) return { title: "The Life Explorer", desc: "You've seen some things. A true connoisseur of bad decisions.", roast: "Your memoir would need a 'Rated R' sticker.", color: "text-amber-600", bg: "bg-amber-50", image: "/images/rice-explorer.png" };
-    if (score >= 30) return { title: "The Rebel", desc: "Police meeting when? Your life is a Netflix series.", roast: "Every parent's nightmare, every friend's entertainment.", color: "text-orange-600", bg: "bg-orange-50", image: "/images/rice-rebel.png" };
-    return { title: "The Devil Child", desc: "How are you not in prison? You are a walking red flag.", roast: "We're scared to even look at you.", color: "text-rose-600", bg: "bg-rose-50", image: "/images/rice-devil.png" };
+    if (score >= 98) return { title: "The Saint", desc: "Did you just fall from heaven? Where are your wings?", roast: "You're either a newborn or a liar.", color: "text-indigo-600", bg: "bg-indigo-50", image: "/rice-purity/rice-saint.png" };
+    if (score >= 90) return { title: "The Goody Two-Shoes", desc: "Mom's favorite child. Your craziest memory is sleeping in?", roast: "The only 'high' you've ever felt is from sugar.", color: "text-blue-600", bg: "bg-blue-50", image: "/rice-purity/rice-goody.png" };
+    if (score >= 77) return { title: "The Normie", desc: "Perfectly balanced. You have a life, but you're not in jail.", roast: "You're the vanilla ice cream of humans.", color: "text-teal-600", bg: "bg-teal-50", image: "/rice-purity/rice-normie.png" };
+    if (score >= 45) return { title: "The Life Explorer", desc: "You've seen some things. A true connoisseur of bad decisions.", roast: "Your memoir would need a 'Rated R' sticker.", color: "text-amber-600", bg: "bg-amber-50", image: "/rice-purity/rice-explorer.png" };
+    if (score >= 30) return { title: "The Rebel", desc: "Police meeting when? Your life is a Netflix series.", roast: "Every parent's nightmare, every friend's entertainment.", color: "text-orange-600", bg: "bg-orange-50", image: "/rice-purity/rice-rebel.png" };
+    return { title: "The Devil Child", desc: "How are you not in prison? You are a walking red flag.", roast: "We're scared to even look at you.", color: "text-rose-600", bg: "bg-rose-50", image: "/rice-purity/rice-devil.png" };
 };
 
 export default function AnalysisReport({ score, onRetake }: AnalysisReportProps) {

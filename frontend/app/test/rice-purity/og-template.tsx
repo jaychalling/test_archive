@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og';
-// Removed unused imports
 
 type Archetype = {
     title: string;
@@ -95,9 +94,6 @@ function renderRicePurityResult(score: number, archetype: Archetype, imageData: 
     );
 }
 
-// Remove fs/path imports if no longer needed, or keep for other things?
-// We will remove them.
-
 export async function handleRicePurityRequest(res: string | null, renderDefault: Function, origin: string) {
     if (!res) {
         return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
@@ -109,7 +105,8 @@ export async function handleRicePurityRequest(res: string | null, renderDefault:
     const archetype = getArchetype(score);
 
     // Use absolute URL for the image
-    const imageUrl = `${origin}/images/${archetype.imageName}`;
+    // Updated path to reflect new folder structure: public/rice-purity/
+    const imageUrl = `${origin}/rice-purity/${archetype.imageName}`;
 
     // We pass the URL directly. Next.js OG will handle fetching it.
     return renderRicePurityResult(score, archetype, imageUrl);

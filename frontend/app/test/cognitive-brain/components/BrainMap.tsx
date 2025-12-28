@@ -21,7 +21,7 @@ export default function BrainMap({ scores, className = "" }: BrainMapProps) {
     // Helper to colorize png using CSS mask
     const renderLobe = (lobe: 'frontal' | 'parietal' | 'temporal', level: ScoreLevel, zIndex: number) => {
         const color = COLOR_MAP[level].color;
-        const imagePath = `/images/brain-layers/${lobe}.png`;
+        const imagePath = `/cognitive-brain/layers/${lobe}.png`;
 
         return (
             <div
