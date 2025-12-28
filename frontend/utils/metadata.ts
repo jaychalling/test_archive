@@ -24,8 +24,8 @@ export async function generateTestMetadata({
     const resParam = resolvedSearchParams.res as string;
     let res = resParam;
     if (resParam) {
-        // Try to decode Base64 if it looks like one (heuristic: longer than 5 and has letters)
-        if (resParam.length > 5 && /[a-zA-Z]/.test(resParam)) {
+        // More robust Base64 check: contains letters/numbers/+/= and no spaces
+        if (/^[A-Za-z0-9+/]+={0,2}$/.test(resParam) && /[a-zA-Z]/.test(resParam)) {
             try {
                 // Ensure it's not a hyphen-separated cognitive/body-age raw result
                 if (!resParam.includes('-')) {

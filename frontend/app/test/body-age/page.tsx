@@ -11,15 +11,22 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
         testType: 'body-age',
         baseTitle: "Biological Age Test | Vitality Check",
         description: "Analyze your lifestyle, flexibility, and cardio health to estimate your biological age.",
-        getResultTitle: (res) => `My Biological Age is... 🧟`,
+        getResultTitle: (res) => {
+            try {
+                const [_, ageStr] = res.split('-');
+                return `Biologically ${ageStr}... I'm Roasted! 💀`;
+            } catch {
+                return `Biological Age Result Is Out! 🧟`;
+            }
+        },
         getResultDescription: (res) => {
             try {
-                const [ageStr, _] = res.split('-');
-                const realAge = parseInt(ageStr);
-                // process result logic again or just use generic viral phrase
-                return `My body is 5 years older than me. I need a detox ASAP. Chronologically ${realAge}, Biologically... this test just roasted me. 💀`;
+                const [realAge, bioAge] = res.split('-');
+                const diff = parseInt(bioAge) - parseInt(realAge);
+                if (diff > 0) return `My body is ${diff} years older than me. I need a detox ASAP. 🧟 Chronologically ${realAge}, Biologically ${bioAge}. This test just roasted me!`;
+                return `Chronologically ${realAge}, Biologically ${bioAge}. I'm actually staying young! ✨ See your biological age profile now.`;
             } catch {
-                return "My body is 5 years older than me. I need a detox ASAP. 🧟";
+                return "My body is 5 years older than me. I need a detox ASAP. 🧟 Check your biological age profile now!";
             }
         }
     });

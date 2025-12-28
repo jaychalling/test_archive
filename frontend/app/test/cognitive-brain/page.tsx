@@ -8,11 +8,15 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
         testType: 'cognitive-brain',
         baseTitle: "Cognitive Brain Test | Precision Assessment",
         description: "Analyzes frontal, temporal, and parietal functions with 20 precision tests to estimate your brain health age.",
-        getResultTitle: (res) => `My Brain Health Result is... 🧠`,
+        getResultTitle: (res) => {
+            const parts = res.split('-');
+            const age = parts[0] || '??';
+            return `My Brain Age is ${age}... Is this a sign? 🧠`;
+        },
         getResultDescription: (res) => {
             const parts = res.split('-');
             const age = parts[0] || '??';
-            return `My brain health age is ${age}. Is this a sign to stop scrolling? 🧠 Check your cognitive performance now!`;
+            return `My brain health score is based on ${age} yrs... Is this a sign to stop scrolling? 🧠 Check your cognitive performance and see your real profile now!`;
         }
     });
 }
