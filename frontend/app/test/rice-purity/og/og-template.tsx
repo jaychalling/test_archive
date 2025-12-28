@@ -106,7 +106,7 @@ export async function handleRicePurityRequest(res: string | null, renderDefault:
 
     // Use absolute URL for the image
     // Updated path to reflect new folder structure: public/rice-purity/
-    const imageUrl = `${origin}/rice-purity/${archetype.imageName}`;
+    const imageUrl = `${origin}/rice-purity/og/${archetype.imageName}`;
 
     // We pass the URL directly. Next.js OG will handle fetching it.
     return renderRicePurityResult(score, archetype, imageUrl);

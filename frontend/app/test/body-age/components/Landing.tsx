@@ -14,7 +14,7 @@ export default function Landing({ onStart }: LandingProps) {
             <div className="space-y-4 w-full">
                 <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl mb-8 group">
                     <Image
-                        src="/body-age/hero.png"
+                        src="/body-age/test_image/hero.png"
                         alt="Body Age Test Hero"
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"

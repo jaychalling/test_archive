@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 // Import assets from local test folder
-import { CHAR_IMAGES } from './kpop-assets';
-import { calculateResult } from './questions';
+import { CHAR_IMAGES } from '../kpop-assets';
+import { calculateResult } from '../questions';
 
 const KPOP_CHARS: Record<string, { name: string; title: string; color: string; keywords: string[]; imgName: string }> = {
     R: { name: "Rumi", title: "Responsible Leader", color: "#e11d48", keywords: ["#SelfSacrifice", "#MoodMaker", "#IronWill"], imgName: "rumi.png" },

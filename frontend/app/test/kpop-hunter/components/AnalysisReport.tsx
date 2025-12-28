@@ -7,14 +7,14 @@ import Link from 'next/link';
 import { QUESTIONS, calculateResult } from '../questions';
 
 // Character Images
-import rumiImg from './rumi.webp';
-import zoeyImg from './zoey.jpg';
-import miraImg from './mira.webp';
-import jinuImg from './jinu.jpg';
-import derpyImg from './derpy_and_sussie.webp';
-import babyImg from './baby_saja.webp';
-import mysteryImg from './mystery_saja.webp';
-import abbyImg from './abby_saja.jpg';
+import rumiImg from '../og/rumi.webp';
+import zoeyImg from '../og/zoey.jpg';
+import miraImg from '../og/mira.webp';
+import jinuImg from '../og/jinu.jpg';
+import derpyImg from '../og/derpy_and_sussie.webp';
+import babyImg from '../og/baby_saja.webp';
+import mysteryImg from '../og/mystery_saja.webp';
+import abbyImg from '../og/abby_saja.jpg';
 
 // Define Character Data Type
 interface CharInfo {
