@@ -28,7 +28,7 @@ function DomainCard({ lobe, level }: { lobe: string, level: string }) {
 }
 
 export function handleCognitiveRequest(res: string | null, renderDefault: Function) {
-    if (!res) return renderDefault('Cognitive Brain Test', '인지 기능 정밀 평가', '#7c3aed', '🧠');
+    if (!res) return renderDefault('Cognitive Brain Test', 'Precision Brain Health Assessment', '#7c3aed', '🧠');
 
     let decodedRes = res;
     try {
