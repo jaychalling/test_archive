@@ -71,12 +71,12 @@
 
 - **[CRITICAL] Pre-Push Verification**:
   **Before running `git push`, YOU MUST ALWAYS perform the following checks:**
-  1. Navigate to the `frontend` directory: `cd frontend`
-  2. Run the build command: `npm run build`
+  1. **Run Build Verification**:
+     - From **Root** or **frontend** directory: `npm run build`
      - **IF THE BUILD FAILS**: STOP IMMEDIATELY. Fix the errors shown in the terminal. Do **NOT** push broken code.
      - **IF THE BUILD SUCCEEDS**: Proceed to commit and push.
-  3. **Update Sitemap**: Check `frontend/app/sitemap.ts` and ensure all new routes are included.
-  4. Commit changes: `git add .` -> `git commit -m "..."` -> `git push`
+  2. **Update Sitemap**: Check `frontend/app/sitemap.ts` and ensure all new routes are included.
+  3. Commit changes: `git add .` -> `git commit -m "..."` -> `git push`
 
 - **Deploying to Vercel**:
   - Always deploy from the **Project Root** (parent of `frontend`).

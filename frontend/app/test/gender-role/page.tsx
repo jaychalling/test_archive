@@ -37,7 +37,7 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">2026 Gender Role Test</h1>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={null}>
                 <GenderRoleClientPage />
             </Suspense>
         </section>
