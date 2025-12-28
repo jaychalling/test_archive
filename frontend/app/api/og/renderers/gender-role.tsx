@@ -88,9 +88,9 @@ const getAverage = (answers: Record<string, number>, moduleId: string, category:
     if (!module) return 0;
 
     if (moduleId === 'M1') {
-        const items = module.items.filter((item) => item.category === category);
+        const items = module.items.filter((item: any) => item.category === category);
         if (items.length === 0) return 0;
-        const total = items.reduce((sum, item) => sum + (answers[item.id.toString()] ?? 3), 0);
+        const total = items.reduce((sum, item: any) => sum + (answers[item.id.toString()] ?? 3), 0);
         return total / items.length;
     }
 
