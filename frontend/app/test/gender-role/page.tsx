@@ -1,38 +1,20 @@
-import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import GenderRoleClientPage from './GenderRoleClientPage';
-// import { generateTestMetadata } from '@/utils/metadata'; // Assuming this might need update, simplified for now
+import type { Metadata } from 'next';
+import { generateTestMetadata } from '@/utils/metadata';
 
 type Props = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-    const resolvedParams = await searchParams;
-    const hasResult = resolvedParams?.res;
-
-    const title = hasResult
-        ? "Check out my 2026 Gender Role Test Result!"
-        : "2026 GENDER ROLE TEST | Test Archive";
-
-    const description = "Analyze your Masculinity, Femininity, and Situational Flexibility based on modern psychology (GGDP Model).";
-
-    return {
-        title,
-        description,
-        openGraph: {
-            title,
-            description,
-            type: 'website',
-            images: ['/gender-role-hero.png'],
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title,
-            description,
-            images: ['/gender-role-hero.png'],
-        }
-    };
+    return generateTestMetadata({
+        searchParams,
+        testType: 'gender-role',
+        baseTitle: '2026 GENDER ROLE TEST | Test Archive',
+        description: 'Analyze your Masculinity, Femininity, and Situational Flexibility based on modern psychology (GGDP Model).',
+        getResultTitle: () => '2026 Gender Role Test Result'
+    });
 }
 
 export default function Page() {

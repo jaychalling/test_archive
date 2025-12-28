@@ -25,6 +25,9 @@ const getArchetype = (score: number) => {
 export default function AnalysisReport({ score, onRetake }: AnalysisReportProps) {
     const archetype = getArchetype(score);
     const [copied, setCopied] = useState(false);
+    const resultUrl = typeof window !== 'undefined'
+        ? `${window.location.origin}${window.location.pathname}?res=${score}`
+        : '';
 
     // Benchmarking Data
     const averageScore = 64; // Global/US average roughly
@@ -133,9 +136,9 @@ export default function AnalysisReport({ score, onRetake }: AnalysisReportProps)
                 </button>
                 <button
                     onClick={() => {
-                        const shareText = `My Rice Purity Score: ${score}\nType: ${archetype.title}\n"${archetype.roast}"\nTake the test: ${window.location.href}`;
+                        const shareText = `My Rice Purity Score: ${score}\nType: ${archetype.title}\n"${archetype.roast}"\nTake the test: ${resultUrl}`;
                         if (navigator.share) {
-                            navigator.share({ title: 'My Purity Score', text: shareText, url: window.location.href });
+                            navigator.share({ title: 'My Purity Score', text: shareText, url: resultUrl });
                         } else {
                             navigator.clipboard.writeText(shareText);
                             alert('Result copied to clipboard!');

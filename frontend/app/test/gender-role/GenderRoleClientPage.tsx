@@ -66,7 +66,7 @@ export default function GenderRoleClientPage() {
             } else {
                 // Finish
                 const resString = btoa(JSON.stringify(newAnswers));
-                router.push(`?res=${resString}`, { scroll: false });
+                router.push(`?res=${encodeURIComponent(resString)}`, { scroll: false });
                 setStep('result');
                 window.scrollTo(0, 0);
             }

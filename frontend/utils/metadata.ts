@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-type TestType = 'kpop-hunter' | 'diabetes' | 'body-age' | 'cognitive-brain';
+type TestType = 'kpop-hunter' | 'diabetes' | 'body-age' | 'cognitive-brain' | 'rice-purity' | 'gender-role';
 
 interface MetadataConfig {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -20,7 +20,10 @@ export async function generateTestMetadata({
 }: MetadataConfig): Promise<Metadata> {
     const resolvedSearchParams = await searchParams;
     const res = resolvedSearchParams.res as string;
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.test-archive.com';
+    const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+        || vercelUrl
+        || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.test-archive.com');
 
     let title = baseTitle;
     let isResult = false;
@@ -37,7 +40,7 @@ export async function generateTestMetadata({
 
     const finalTitle = isResult ? `My Result: ${title}` : title;
     const ogImageUrl = res
-        ? `${siteUrl}/api/og?type=${testType}&res=${res}`
+        ? `${siteUrl}/api/og?type=${testType}&res=${encodeURIComponent(res)}`
         : `${siteUrl}/api/og?type=${testType}`;
 
     return {
