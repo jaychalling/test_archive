@@ -1,19 +1,47 @@
 import { ImageResponse } from 'next/og';
 
-// Simplified SVG for OG (Satori supports basic SVG)
+const COLOR_MAP = {
+    High: { color: '#22c55e', label: 'Optimal', bg: '#f0fdf4' },
+    Mid: { color: '#eab308', label: 'Average', bg: '#fefce8' },
+    Low: { color: '#ef4444', label: 'Needs Care', bg: '#fef2f2' },
+};
+
+function BrainBadge({ lobe, level, style }: { lobe: string, level: string, style?: any }) {
+    const config = COLOR_MAP[level as keyof typeof COLOR_MAP] || COLOR_MAP.Mid;
+    return (
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'white',
+            padding: '12px 20px',
+            borderRadius: '24px',
+            boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+            border: '1px solid #f1f5f9',
+            minWidth: '140px',
+            ...style
+        }}>
+            <span style={{ fontSize: 14, fontWeight: 900, color: '#1e293b', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 2 }}>{lobe}</span>
+            <span style={{ fontSize: 13, fontWeight: 800, color: config.color }}>is {config.label}</span>
+        </div>
+    );
+}
+
 function renderBrainSVG(scores: { frontal: string, temporal: string, parietal: string }) {
-    const getColor = (lvl: string) => {
-        if (lvl === 'High') return '#22c55e';
-        if (lvl === 'Mid') return '#eab308';
-        return '#ef4444';
-    };
+    const getColor = (lvl: string) => COLOR_MAP[lvl as keyof typeof COLOR_MAP]?.color || '#cbd5e1';
 
     return (
-        <svg width="200" height="200" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
-            <path d="M150,250 C100,250 50,200 50,150 C50,80 120,30 200,30 C250,30 280,60 290,100 L200,250 Z" fill={getColor(scores.frontal)} stroke="white" strokeWidth="4" />
-            <path d="M200,30 C300,30 400,80 420,150 C440,220 380,280 300,280 L290,100 Z" fill={getColor(scores.parietal)} stroke="white" strokeWidth="4" />
-            <path d="M150,250 L200,250 L300,280 C250,350 150,350 120,300 Z" fill={getColor(scores.temporal)} stroke="white" strokeWidth="4" />
-            <path d="M300,280 C350,280 380,320 360,360 C320,390 280,360 280,340 Z" fill="#cbd5e1" />
+        <svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Parietal (Back/Top) */}
+            <path d="M120 150 C120 80 180 50 240 50 C280 50 320 80 330 130 C340 180 300 220 250 220 L240 150 Z" fill={getColor(scores.parietal)} opacity="0.9" />
+            {/* Frontal (Front) */}
+            <path d="M240 50 C270 50 320 80 340 130 C360 180 320 240 250 240 L240 50 Z" fill={getColor(scores.frontal)} opacity="0.9" />
+            {/* Temporal (Bottom) */}
+            <path d="M180 220 C220 220 280 240 280 280 C240 310 160 310 120 280 Z" fill={getColor(scores.temporal)} opacity="0.9" />
+
+            {/* Shadow/Detail lines */}
+            <path d="M240 50 L240 220" stroke="white" strokeWidth="4" strokeLinecap="round" opacity="0.5" />
+            <path d="M120 150 Q180 150 240 220" stroke="white" strokeWidth="4" strokeLinecap="round" opacity="0.5" />
         </svg>
     );
 }
@@ -31,44 +59,67 @@ export function handleCognitiveRequest(res: string | null, renderDefault: Functi
     }
 
     const parts = decodedRes.split('-');
-    const totalScore = parts[0] || '?';
-    const frontal = parts[1] || 'Mid';
-    const temporal = parts[2] || 'Mid';
-    const parietal = parts[3] || 'Mid';
+    const totalAge = parts[0] || '25';
+    const frontal = parts[1] || 'High';
+    const temporal = parts[2] || 'High';
+    const parietal = parts[3] || 'High';
 
-    const numericScore = Number.parseInt(totalScore, 10);
-    let profileLabel = 'Balanced Profile';
-    let profileColor = '#6366f1';
-    if (!Number.isNaN(numericScore)) {
-        if (numericScore >= 85) { profileLabel = 'Peak Performance'; profileColor = '#22c55e'; }
-        else if (numericScore >= 70) { profileLabel = 'Stable Focus'; profileColor = '#eab308'; }
-        else { profileLabel = 'Needs Recharge'; profileColor = '#ef4444'; }
-    }
+    const numericAge = Number.parseInt(totalAge, 10);
+    const ageColor = numericAge > 50 ? '#ef4444' : '#7c3aed';
 
     return new ImageResponse(
         (
             <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', padding: '40px' }}>
-                <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: '40px', border: '1px solid #e2e8f0', padding: '60px' }}>
+                <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'white', borderRadius: '48px', border: '1px solid #e2e8f0', padding: '40px', position: 'relative', boxShadow: '0 20px 50px rgba(0,0,0,0.05)' }}>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '50%' }}>
-                        <div style={{ display: 'flex', fontSize: 20, fontWeight: 'bold', color: profileColor, backgroundColor: `${profileColor}15`, padding: '8px 24px', borderRadius: 999, marginBottom: 24 }}>{profileLabel}</div>
-                        <div style={{ display: 'flex', fontSize: 24, fontWeight: 'bold', color: '#7c3aed', backgroundColor: '#f3e8ff', padding: '10px 30px', borderRadius: '100px', marginBottom: 30 }}>Cognitive Brain Profile</div>
-                        <div style={{ display: 'flex', fontSize: 90, fontWeight: 900, color: '#1e293b', marginBottom: 10 }}>{totalScore} <span style={{ fontSize: 40, marginTop: 40, marginLeft: 10, color: '#94a3b8' }}>점</span></div>
-                        <div style={{ display: 'flex', fontSize: 32, fontWeight: 'bold', color: '#64748b' }}>뇌 건강 정밀 분석 결과</div>
+                    {/* Header: Assessment Complete */}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 20 }}>
+                        <div style={{ fontSize: 42, fontWeight: 900, color: '#2e3192', marginBottom: 8 }}>Assessment Complete</div>
+                        <div style={{ fontSize: 20, color: '#64748b', fontWeight: 600 }}>Here is your cognitive brain health analysis.</div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '50%' }}>
-                        <div style={{ display: 'flex', transform: 'scale(1.5)' }}>
-                            {renderBrainSVG({ frontal, temporal, parietal })}
+                    {/* Content Area */}
+                    <div style={{ display: 'flex', flex: 1, width: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+
+                        {/* Estimated Brain Age */}
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+                            <span style={{ fontSize: 24, fontWeight: 700, color: '#94a3b8', marginRight: 15 }}>Estimated Brain Age:</span>
+                            <span style={{ fontSize: 72, fontWeight: 900, color: ageColor }}>{totalAge}</span>
+                            <span style={{ fontSize: 32, fontWeight: 900, color: ageColor, marginLeft: 10, marginTop: 20 }}>yrs</span>
                         </div>
-                        <div style={{ display: 'flex', marginTop: 40, gap: 20 }}>
-                            <div style={{ display: 'flex', color: '#1e293b', fontWeight: 'bold', fontSize: 24 }}>전두엽: {frontal}</div>
-                            <div style={{ display: 'flex', color: '#1e293b', fontWeight: 'bold', fontSize: 24 }}>측두엽: {temporal}</div>
-                            <div style={{ display: 'flex', color: '#1e293b', fontWeight: 'bold', fontSize: 24 }}>두정엽: {parietal}</div>
+
+                        {/* Brain & Badges Container */}
+                        <div style={{ display: 'flex', width: 600, height: 350, position: 'relative', justifyContent: 'center', alignItems: 'center' }}>
+                            {/* SVG Brain */}
+                            <div style={{ display: 'flex', transform: 'scale(1.1)' }}>
+                                {renderBrainSVG({ frontal, temporal, parietal })}
+                            </div>
+
+                            {/* Floating Badges */}
+                            <BrainBadge lobe="Parietal" level={parietal} style={{ position: 'absolute', top: 60, left: 30 }} />
+                            <BrainBadge lobe="Frontal" level={frontal} style={{ position: 'absolute', top: 80, right: 30 }} />
+                            <BrainBadge lobe="Temporal" level={temporal} style={{ position: 'absolute', bottom: 40, left: '50%', transform: 'translateX(-50%)' }} />
                         </div>
                     </div>
 
-                    <div style={{ position: 'absolute', bottom: 40, left: 60, fontSize: 20, color: '#94a3b8', fontWeight: 'bold' }}>www.test-archive.com</div>
+                    {/* Legend */}
+                    <div style={{ display: 'flex', gap: 30, marginTop: 10 }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: '#22c55e', marginRight: 8 }} />
+                            <span style={{ fontSize: 16, fontWeight: 700, color: '#64748b' }}>Optimal</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: '#eab308', marginRight: 8 }} />
+                            <span style={{ fontSize: 16, fontWeight: 700, color: '#64748b' }}>Average</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: '#ef4444', marginRight: 8 }} />
+                            <span style={{ fontSize: 16, fontWeight: 700, color: '#64748b' }}>Needs Care</span>
+                        </div>
+                    </div>
+
+                    {/* Watermark */}
+                    <div style={{ position: 'absolute', bottom: 40, right: 60, fontSize: 18, color: '#cbd5e1', fontWeight: 800 }}>www.test-archive.com</div>
                 </div>
             </div>
         ),
