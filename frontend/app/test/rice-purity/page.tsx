@@ -25,6 +25,12 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     });
 }
 
+import { Suspense } from 'react';
+
 export default function Page() {
-    return <RicePurityClientPage />;
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+            <RicePurityClientPage />
+        </Suspense>
+    );
 }
