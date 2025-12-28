@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { handleKPopRequest } from './renderers/kpop';
+
 import { handleRicePurityRequest } from '../../test/rice-purity/og-template';
 import { handleGenderRoleRequest } from '../../test/gender-role/og-template';
 import { handleKPopRequest } from '../../test/kpop-hunter/og-template';
