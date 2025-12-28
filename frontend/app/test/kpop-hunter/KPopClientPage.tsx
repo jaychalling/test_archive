@@ -13,10 +13,22 @@ export default function KPopClientPage() {
     const [resultCode, setResultCode] = useState<string>('');
 
     useEffect(() => {
-        const res = searchParams.get('res');
+        let res = searchParams.get('res');
         if (res) {
-            setResultCode(res);
-            setStep('result');
+            try {
+                // Heuristic: if it looks like Base64 (longer and contains non-digits), try to decode
+                if (res.length > 5 && (/[a-zA-Z]/.test(res))) {
+                    try {
+                        res = atob(res);
+                    } catch {
+                        // ignore and use raw
+                    }
+                }
+                setResultCode(res);
+                setStep('result');
+            } catch (e) {
+                console.error("Failed to process result", e);
+            }
         }
     }, [searchParams]);
 
@@ -26,7 +38,8 @@ export default function KPopClientPage() {
     };
 
     const handleFinish = (resultString: string) => {
-        router.push(`?res=${resultString}`, { scroll: false });
+        const encoded = btoa(resultString);
+        router.push(`?res=${encoded}`, { scroll: false });
         setResultCode(resultString);
         setStep('result');
         window.scrollTo(0, 0);

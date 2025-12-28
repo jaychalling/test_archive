@@ -15,31 +15,42 @@ export default function CognitiveClientPage() {
 
     // Parse URL result
     useEffect(() => {
-        const res = searchParams.get('res');
+        let res = searchParams.get('res');
         if (res) {
-            // Format: "BrainAge-Frontal-Temporal-Parietal"
-            // e.g. "28-High-Mid-High"
-            const parts = res.split('-');
-            if (parts.length >= 4) {
-                const brainAge = parseInt(parts[0], 10);
-                const frontal = parts[1] as ScoreLevel;
-                const temporal = parts[2] as ScoreLevel;
-                const parietal = parts[3] as ScoreLevel;
+            try {
+                // Decode if Base64
+                if (res.length > 5 && (/[a-zA-Z]/.test(res)) && !res.includes('-')) {
+                    try {
+                        res = atob(res);
+                    } catch { /* use raw */ }
+                }
 
-                const rawScores = {
-                    frontal: frontal === 'High' ? 88 : frontal === 'Mid' ? 55 : 30,
-                    temporal: temporal === 'High' ? 88 : temporal === 'Mid' ? 55 : 30,
-                    parietal: parietal === 'High' ? 88 : parietal === 'Mid' ? 55 : 30,
-                };
+                // Format: "BrainAge-Frontal-Temporal-Parietal"
+                // e.g. "28-High-Mid-High"
+                const parts = res.split('-');
+                if (parts.length >= 4) {
+                    const brainAge = parseInt(parts[0], 10);
+                    const frontal = parts[1] as ScoreLevel;
+                    const temporal = parts[2] as ScoreLevel;
+                    const parietal = parts[3] as ScoreLevel;
 
-                setResultData({
-                    brainAge,
-                    frontal,
-                    temporal,
-                    parietal,
-                    rawScores
-                });
-                setStep('result');
+                    const rawScores = {
+                        frontal: frontal === 'High' ? 88 : frontal === 'Mid' ? 55 : 30,
+                        temporal: temporal === 'High' ? 88 : temporal === 'Mid' ? 55 : 30,
+                        parietal: parietal === 'High' ? 88 : parietal === 'Mid' ? 55 : 30,
+                    };
+
+                    setResultData({
+                        brainAge,
+                        frontal,
+                        temporal,
+                        parietal,
+                        rawScores
+                    });
+                    setStep('result');
+                }
+            } catch (e) {
+                console.error("Failed to decode result", e);
             }
         }
     }, [searchParams]);
@@ -50,7 +61,8 @@ export default function CognitiveClientPage() {
     };
 
     const handleFinish = (resultString: string, data: any) => {
-        router.push(`?res=${resultString}`, { scroll: false });
+        const encoded = btoa(resultString);
+        router.push(`?res=${encoded}`, { scroll: false });
         setResultData(data);
         setStep('result');
         window.scrollTo(0, 0);

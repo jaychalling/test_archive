@@ -19,11 +19,25 @@ export async function generateTestMetadata({
     getResultTitle
 }: MetadataConfig): Promise<Metadata> {
     const resolvedSearchParams = await searchParams;
-    const res = resolvedSearchParams.res as string;
+    const resParam = resolvedSearchParams.res as string;
+    let res = resParam;
+    if (resParam) {
+        // Try to decode Base64 if it looks like one (heuristic: longer than 5 and has letters)
+        if (resParam.length > 5 && /[a-zA-Z]/.test(resParam)) {
+            try {
+                // Ensure it's not a hyphen-separated cognitive/body-age raw result
+                if (!resParam.includes('-')) {
+                    res = atob(resParam);
+                }
+            } catch {
+                // ignore
+            }
+        }
+    }
+
     const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
-        || vercelUrl
-        || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.test-archive.com');
+        || (process.env.NODE_ENV === 'production' ? 'https://www.test-archive.com' : (vercelUrl || 'http://localhost:3000'));
 
     let title = baseTitle;
     let isResult = false;
@@ -39,8 +53,8 @@ export async function generateTestMetadata({
     }
 
     const finalTitle = isResult ? `My Result: ${title}` : title;
-    const ogImageUrl = res
-        ? `${siteUrl}/api/og?type=${testType}&res=${encodeURIComponent(res)}`
+    const ogImageUrl = resParam
+        ? `${siteUrl}/api/og?type=${testType}&res=${encodeURIComponent(resParam)}`
         : `${siteUrl}/api/og?type=${testType}`;
 
     return {

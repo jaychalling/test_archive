@@ -98,7 +98,15 @@ export async function handleRicePurityRequest(res: string | null, renderDefault:
     if (!res) {
         return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
     }
-    const score = Number.parseInt(res, 10);
+
+    let decodedRes = res;
+    try {
+        if (/[a-zA-Z]/.test(res)) {
+            decodedRes = atob(res);
+        }
+    } catch { /* use raw */ }
+
+    const score = Number.parseInt(decodedRes, 10);
     if (Number.isNaN(score)) {
         return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
     }

@@ -13,8 +13,16 @@ export default function RicePurityClientPage() {
     const [score, setScore] = useState(100);
 
     useEffect(() => {
-        const res = searchParams.get('res');
+        let res = searchParams.get('res');
         if (!res) return;
+
+        // Decode if Base64
+        if (/[a-zA-Z]/.test(res)) {
+            try {
+                res = atob(res);
+            } catch { /* use raw */ }
+        }
+
         const parsedScore = Number.parseInt(res, 10);
         if (Number.isNaN(parsedScore)) return;
         setScore(parsedScore);
@@ -28,7 +36,8 @@ export default function RicePurityClientPage() {
 
     const handleComplete = (finalScore: number) => {
         setScore(finalScore);
-        router.push(`?res=${finalScore}`, { scroll: false });
+        const encoded = btoa(finalScore.toString());
+        router.push(`?res=${encoded}`, { scroll: false });
         setStep('result');
         window.scrollTo(0, 0);
     };

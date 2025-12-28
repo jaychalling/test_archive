@@ -22,6 +22,15 @@ function renderHealthResult(title: string, label: string, color: string, sub: st
 export function handleBodyAgeRequest(res: string | null, renderDefault: Function) {
     if (!res) return renderDefault('Body Age Test', 'Discover your biological age.', '#2563eb', '🧪');
 
+    let decodedRes = res;
+    try {
+        if (/[a-zA-Z]/.test(res)) {
+            decodedRes = atob(res);
+        }
+    } catch {
+        // fallback
+    }
+
     let title = "Optimal / Young";
     let color = "#16a34a";
     let label = "Great Status";

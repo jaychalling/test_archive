@@ -21,7 +21,16 @@ function renderBrainSVG(scores: { frontal: string, temporal: string, parietal: s
 export function handleCognitiveRequest(res: string | null, renderDefault: Function) {
     if (!res) return renderDefault('Cognitive Brain Test', '인지 기능 정밀 평가', '#7c3aed', '🧠');
 
-    const parts = res.split('-');
+    let decodedRes = res;
+    try {
+        if (/[a-zA-Z]/.test(res) && !res.includes('-')) {
+            decodedRes = atob(res);
+        }
+    } catch {
+        // fallback
+    }
+
+    const parts = decodedRes.split('-');
     const totalScore = parts[0] || '?';
     const frontal = parts[1] || 'Mid';
     const temporal = parts[2] || 'Mid';

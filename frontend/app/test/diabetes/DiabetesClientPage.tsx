@@ -14,21 +14,41 @@ export default function DiabetesClientPage() {
 
     // Handle initial result from URL
     useEffect(() => {
-        const res = searchParams.get('res');
-        if (res && res.length === QUESTIONS.length) {
-            const indices = res.split('').map(Number);
-            const processed = indices.map((optIdx, qIdx) => {
-                const q = QUESTIONS[qIdx];
-                const opt = q.options[optIdx];
-                return {
-                    ...q,
-                    selectedOption: opt,
-                    score: opt.score,
-                    weightedScore: opt.score * q.weight
-                };
-            });
-            setResultData(processed);
-            setStep('result');
+        let res = searchParams.get('res');
+        if (res) {
+            try {
+                // Try to decode Base64 if it looks like one
+                if (res.length > 20 && !res.includes('0') && !res.includes('1') && !res.includes('2')) {
+                    // actually simple check: if it's strictly numbers, it's old format.
+                }
+                // More robust check: try atob first
+                try {
+                    const decoded = atob(res);
+                    if (decoded.length >= QUESTIONS.length) {
+                        res = decoded;
+                    }
+                } catch {
+                    // fallback to raw if atob fails
+                }
+
+                if (res && res.length === QUESTIONS.length) {
+                    const indices = res.split('').map(Number);
+                    const processed = indices.map((optIdx, qIdx) => {
+                        const q = QUESTIONS[qIdx];
+                        const opt = q.options[optIdx];
+                        return {
+                            ...q,
+                            selectedOption: opt,
+                            score: opt.score,
+                            weightedScore: opt.score * q.weight
+                        };
+                    });
+                    setResultData(processed);
+                    setStep('result');
+                }
+            } catch (e) {
+                console.error("Failed to decode result", e);
+            }
         }
     }, [searchParams]);
 
@@ -38,8 +58,9 @@ export default function DiabetesClientPage() {
     };
 
     const handleFinish = (resultString: string) => {
-        // Sync with URL for shareability
-        router.push(`?res=${resultString}`, { scroll: false });
+        // Sync with URL for shareability - use Base64 encoding
+        const encodedRes = btoa(resultString);
+        router.push(`?res=${encodedRes}`, { scroll: false });
 
         const indices = resultString.split('').map(Number);
         const processed = indices.map((optIdx, qIdx) => {

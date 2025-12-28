@@ -22,7 +22,17 @@ function renderHealthResult(title: string, label: string, color: string, sub: st
 export function handleDiabetesRequest(res: string | null, renderDefault: Function) {
     if (!res) return renderDefault('Diabetes Risk Test', 'Check your metabolic health.', '#16a34a', '⚕️');
 
-    const score = res.length > 0 ? res.split('').reduce((a, b) => a + (parseInt(b) || 0), 0) / (res.length || 1) : 0;
+    let decodedRes = res;
+    try {
+        // Simple heuristic: if it's not all digits, try atob
+        if (!/^\d+$/.test(res)) {
+            decodedRes = atob(res);
+        }
+    } catch {
+        // fallback to original
+    }
+
+    const score = decodedRes.length > 0 ? decodedRes.split('').reduce((a, b) => a + (parseInt(b) || 0), 0) / (decodedRes.length || 1) : 0;
 
     let title = "Healthy / Optimal";
     let color = "#16a34a";

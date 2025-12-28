@@ -37,11 +37,26 @@ export default function BodyAgeClientPage() {
     };
 
     useEffect(() => {
-        const res = searchParams.get('res');
-        if (res && res.includes('-')) {
-            const data = processResult(res);
-            setResultData(data);
-            setStep('result');
+        let res = searchParams.get('res');
+        if (res) {
+            try {
+                // Decipher Base64 or keep raw
+                if (res.length > 5 && (/[a-zA-Z]/.test(res))) {
+                    try {
+                        res = atob(res);
+                    } catch {
+                        // use raw
+                    }
+                }
+
+                if (res.includes('-')) {
+                    const data = processResult(res);
+                    setResultData(data);
+                    setStep('result');
+                }
+            } catch (e) {
+                console.error("Failed to decode result", e);
+            }
         }
     }, [searchParams]);
 
@@ -51,7 +66,8 @@ export default function BodyAgeClientPage() {
     };
 
     const handleFinish = (resultString: string) => {
-        router.push(`?res=${resultString}`, { scroll: false });
+        const encoded = btoa(resultString);
+        router.push(`?res=${encoded}`, { scroll: false });
         const data = processResult(resultString);
         setResultData(data);
         setStep('result');

@@ -65,7 +65,17 @@ export function handleKPopRequest(res: string | null, renderDefault: Function) {
     if (!res) {
         return renderDefault('K-POP CHARACTER TEST', 'Who is Your Soulmate?', '#f472b6', '🎵');
     }
-    const charKey = calculateResult(res);
+
+    let decodedRes = res;
+    try {
+        if (/[a-zA-Z]/.test(res)) {
+            decodedRes = atob(res);
+        }
+    } catch {
+        // fallback to original
+    }
+
+    const charKey = calculateResult(decodedRes);
     const charData = KPOP_CHARS[charKey] || KPOP_CHARS.R;
 
     const rawBase64 = CHAR_IMAGES[charData.imgName];
