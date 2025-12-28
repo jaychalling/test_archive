@@ -11,6 +11,9 @@ function renderHealthResult(title: string, label: string, color: string, sub: st
                     <div style={{ display: 'flex', fontSize: 22, fontWeight: 'bold', color: color, backgroundColor: `${color}10`, padding: '10px 30px', borderRadius: '100px', marginBottom: 40, border: `1px solid ${color}30` }}>{label}</div>
                     <div style={{ display: 'flex', fontSize: 32, fontWeight: 'bold', color: '#64748b', marginBottom: 15 }}>{sub}</div>
                     <div style={{ display: 'flex', fontSize: 84, fontWeight: 900, color: color, marginBottom: 25, textAlign: 'center' }}>{title}</div>
+                    <div style={{ position: 'absolute', top: 50, right: 60, display: 'flex', fontSize: 24, fontWeight: 900, color: 'white', backgroundColor: '#ef4444', padding: '12px 30px', borderRadius: '100px', transform: 'rotate(2deg)', boxShadow: '0 10px 20px rgba(239, 68, 68, 0.3)' }}>
+                        Roasted by Test? 💀
+                    </div>
                     <div style={{ position: 'absolute', bottom: 40, fontSize: 18, color: '#cbd5e1', fontWeight: 'bold' }}>www.test-archive.com</div>
                 </div>
             </div>

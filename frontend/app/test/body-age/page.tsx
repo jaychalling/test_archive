@@ -11,7 +11,17 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
         testType: 'body-age',
         baseTitle: "Biological Age Test | Vitality Check",
         description: "Analyze your lifestyle, flexibility, and cardio health to estimate your biological age.",
-        getResultTitle: (res) => `My Biological Age is...`
+        getResultTitle: (res) => `My Biological Age is... 🧟`,
+        getResultDescription: (res) => {
+            try {
+                const [ageStr, _] = res.split('-');
+                const realAge = parseInt(ageStr);
+                // process result logic again or just use generic viral phrase
+                return `My body is 5 years older than me. I need a detox ASAP. Chronologically ${realAge}, Biologically... this test just roasted me. 💀`;
+            } catch {
+                return "My body is 5 years older than me. I need a detox ASAP. 🧟";
+            }
+        }
     });
 }
 

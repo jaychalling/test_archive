@@ -180,7 +180,10 @@ export function handleGenderRoleRequest(res: string | null, renderDefault: Funct
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '35%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '35%', position: 'relative' }}>
+                        <div style={{ display: 'flex', position: 'absolute', top: -30, fontSize: 22, fontWeight: 900, color: 'white', backgroundColor: '#0f172a', padding: '10px 24px', borderRadius: '100px', transform: 'rotate(-3deg)', zIndex: 10 }}>
+                            Stereotypes? ⚖️
+                        </div>
                         <div style={{ display: 'flex', width: 240, height: 240, borderRadius: 32, alignItems: 'center', justifyContent: 'center', backgroundColor: style.bg, fontSize: 120 }}>
                             {style.icon}
                         </div>

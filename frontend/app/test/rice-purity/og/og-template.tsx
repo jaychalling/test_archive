@@ -85,6 +85,9 @@ function renderRicePurityResult(score: number, archetype: Archetype, imageData: 
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={imageData} width="280" height="280" style={{ objectFit: 'cover' }} alt={archetype.title} />
                         </div>
+                        <div style={{ display: 'flex', fontSize: 24, fontWeight: 900, color: '#fca311', backgroundColor: '#000', padding: '10px 30px', borderRadius: '100px', transform: 'rotate(-2deg)' }}>
+                            Can you beat me? 🔥
+                        </div>
                         <div style={{ display: 'flex', fontSize: 20, fontWeight: 700, color: '#94a3b8' }}>www.test-archive.com</div>
                     </div>
                 </div>

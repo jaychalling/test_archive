@@ -26,7 +26,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         testType: 'kpop-hunter',
         baseTitle: "KDH SOUL MATE TEST | Soul Match",
         description: "Find your Demon Hunter soul match based on your K-Pop styling and personality.",
-        getResultTitle: (res: string) => `My KDH Soul Mate is...`
+        getResultTitle: (res: string) => `My KDH Soul Mate is... 💖`,
+        getResultDescription: (res: string) => `Found my soul character in the Demon Hunter world. Who are you? Find your match in 20 questions! ✨`
     });
 }
 

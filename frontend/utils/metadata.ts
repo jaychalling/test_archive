@@ -7,8 +7,9 @@ interface MetadataConfig {
     testType: TestType;
     baseTitle: string;
     description: string;
-    // 결과가 있을 때 타이틀을 동적으로 생성하는 함수 (옵션)
+    // 결과가 있을 때 타이틀/설명을 동적으로 생성하는 함수 (옵션)
     getResultTitle?: (res: string) => string;
+    getResultDescription?: (res: string) => string;
 }
 
 export async function generateTestMetadata({
@@ -16,7 +17,8 @@ export async function generateTestMetadata({
     testType,
     baseTitle,
     description,
-    getResultTitle
+    getResultTitle,
+    getResultDescription
 }: MetadataConfig): Promise<Metadata> {
     const resolvedSearchParams = await searchParams;
     const resParam = resolvedSearchParams.res as string;
@@ -40,14 +42,17 @@ export async function generateTestMetadata({
         || (process.env.NODE_ENV === 'production' ? 'https://www.test-archive.com' : (vercelUrl || 'http://localhost:3000'));
 
     let title = baseTitle;
+    let finalDescription = description;
     let isResult = false;
 
     if (res) {
         if (getResultTitle) {
             title = getResultTitle(res);
         } else {
-            // 기본 결과 타이틀 (커스텀 로직이 없는 경우)
             title = `${baseTitle} Result`;
+        }
+        if (getResultDescription) {
+            finalDescription = getResultDescription(res);
         }
         isResult = true;
     }
@@ -59,10 +64,10 @@ export async function generateTestMetadata({
 
     return {
         title: finalTitle,
-        description: description,
+        description: finalDescription,
         openGraph: {
-            title: title, // OG 타이틀은 "My Result:" 접두어 없이 깔끔하게
-            description: description,
+            title: title,
+            description: finalDescription,
             url: `${siteUrl}/test/${testType}`,
             siteName: 'Test Archive',
             images: [
