@@ -44,15 +44,6 @@ export default function Navbar() {
                     Test Archive
                 </Link>
 
-                <nav className="hidden md:flex items-center gap-6">
-                    <Link href="/test/kpop-hunter" className="text-sm font-bold text-slate-700 hover:text-purple-600 transition-colors">KDH SOUL MATE</Link>
-                    <Link href="/test/cognitive-brain" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Brain</Link>
-                    <Link href="/test/diabetes" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Diabetes</Link>
-                    <Link href="/test/body-age" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Body Age</Link>
-                    <Link href="/test/gender-role" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Gender Role</Link>
-                    <Link href="/test/rice-purity" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Rice Purity</Link>
-                </nav>
-
                 <div className="flex items-center gap-4">
                     <div className="hidden md:flex items-center bg-gray-100 rounded-full px-4 py-1.5 border border-transparent focus-within:border-blue-500 transition-all">
                         <Search className="w-4 h-4 text-gray-400" />
