@@ -30,8 +30,8 @@ export default function Landing({ onStart }: LandingProps) {
                 </div>
 
                 <p className="text-xl text-slate-600 font-medium leading-relaxed">
-                    The original 100-question test to measure your innocence.<br />
-                    Are you a <span className="text-indigo-600 font-bold">Saint</span> or a <span className="text-rose-600 font-bold">Rebel</span>?
+                    The 100-question test, <span className="text-slate-900 font-bold">updated for 2026</span>.<br />
+                    From digital sins to modern romance. Are you a <span className="text-indigo-600 font-bold">Saint</span> or a <span className="text-rose-600 font-bold">Rebel</span>?
                 </p>
 
                 <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-left space-y-3">

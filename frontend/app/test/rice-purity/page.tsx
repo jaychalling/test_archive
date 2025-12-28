@@ -3,10 +3,10 @@ import RicePurityClientPage from './RicePurityClientPage';
 
 export const metadata: Metadata = {
     title: '2026 Rice Purity Test | Test Archive',
-    description: 'The original 100-question purity test. Are you a saint or a rebel? Check your innocence score now.',
+    description: 'The 2026 Gen Z Edition of the famous 100-question purity test. Digital sins, modern dating, and more.',
     openGraph: {
-        title: 'Rice Purity Test - What is your score?',
-        description: 'The famous 100-question test. Find out your purity archetype immediately.',
+        title: '2026 Rice Purity Test - Gen Z Edition',
+        description: 'The updated 2026 Gen Z Edition. Find out your purity archetype immediately.',
         images: ['/images/rice-purity-hero.png'],
     },
 };

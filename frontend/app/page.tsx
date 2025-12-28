@@ -73,7 +73,7 @@ const INITIAL_TESTS = [
   {
     id: 'rice-purity',
     title: '2026 RICE PURITY TEST',
-    description: 'The famous 100-question test to find your purity archetype. Saint or Rebel?',
+    description: 'The updated 2026 Gen Z Edition. From digital sins to modern romance, find your true purity score.',
     category: 'Fun',
     duration: '10 min',
     participants: 'Trending',
