@@ -1,4 +1,7 @@
 import { ImageResponse } from 'next/og';
+import fs from 'fs';
+import path from 'path';
+
 type Archetype = {
     title: string;
     subtitle: string;
@@ -6,7 +9,6 @@ type Archetype = {
     bg: string;
     imageName: string;
 };
-
 
 const getArchetype = (score: number): Archetype => {
     if (score >= 98) {
@@ -63,8 +65,7 @@ const getArchetype = (score: number): Archetype => {
     };
 };
 
-function renderRicePurityResult(origin: string, score: number, archetype: Archetype) {
-    const imageUrl = `${origin}/images/${archetype.imageName}`;
+function renderRicePurityResult(score: number, archetype: Archetype, imageData: string) {
     return new ImageResponse(
         (
             <div style={{ height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', padding: '40px' }}>
@@ -83,7 +84,8 @@ function renderRicePurityResult(origin: string, score: number, archetype: Archet
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24, width: '40%' }}>
                         <div style={{ display: 'flex', width: 280, height: 280, borderRadius: 32, overflow: 'hidden', border: `8px solid ${archetype.bg}`, boxShadow: '0 20px 40px rgba(15, 23, 42, 0.15)' }}>
-                            <img src={imageUrl} width="280" height="280" style={{ objectFit: 'cover' }} alt={archetype.title} />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={imageData} width="280" height="280" style={{ objectFit: 'cover' }} alt={archetype.title} />
                         </div>
                         <div style={{ display: 'flex', fontSize: 20, fontWeight: 700, color: '#94a3b8' }}>www.test-archive.com</div>
                     </div>
@@ -103,5 +105,16 @@ export async function handleRicePurityRequest(res: string | null, renderDefault:
         return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
     }
     const archetype = getArchetype(score);
-    return renderRicePurityResult(origin, score, archetype);
+
+    // Read image file and convert to base64
+    try {
+        const imagePath = path.join(process.cwd(), 'public', 'images', archetype.imageName);
+        const imageBuffer = fs.readFileSync(imagePath);
+        const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
+        return renderRicePurityResult(score, archetype, base64Image);
+    } catch (e) {
+        console.error(`Failed to load image for archetype ${archetype.title}:`, e);
+        // Fallback if image load fails
+        return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
+    }
 }
