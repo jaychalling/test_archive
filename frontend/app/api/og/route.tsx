@@ -57,7 +57,8 @@ export async function GET(request: Request) {
 
         // 6. Gender Role Logic
         if (type === 'gender-role') {
-            return handleGenderRoleRequest(res, renderDefault);
+            const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
+            return handleGenderRoleRequest(res, renderDefault, origin);
         }
 
         return new Response('Test type not found', { status: 404 });

@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og';
-import fs from 'fs';
-import path from 'path';
+// Removed unused imports
 
 type Archetype = {
     title: string;
@@ -96,6 +95,9 @@ function renderRicePurityResult(score: number, archetype: Archetype, imageData: 
     );
 }
 
+// Remove fs/path imports if no longer needed, or keep for other things?
+// We will remove them.
+
 export async function handleRicePurityRequest(res: string | null, renderDefault: Function, origin: string) {
     if (!res) {
         return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
@@ -106,15 +108,9 @@ export async function handleRicePurityRequest(res: string | null, renderDefault:
     }
     const archetype = getArchetype(score);
 
-    // Read image file and convert to base64
-    try {
-        const imagePath = path.join(process.cwd(), 'public', 'images', archetype.imageName);
-        const imageBuffer = fs.readFileSync(imagePath);
-        const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
-        return renderRicePurityResult(score, archetype, base64Image);
-    } catch (e) {
-        console.error(`Failed to load image for archetype ${archetype.title}:`, e);
-        // Fallback if image load fails
-        return renderDefault('RICE PURITY TEST', 'How Pure Are You?', '#6366f1', '🍚');
-    }
+    // Use absolute URL for the image
+    const imageUrl = `${origin}/images/${archetype.imageName}`;
+
+    // We pass the URL directly. Next.js OG will handle fetching it.
+    return renderRicePurityResult(score, archetype, imageUrl);
 }

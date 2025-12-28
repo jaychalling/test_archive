@@ -1,5 +1,48 @@
-import { ImageResponse } from 'next/og';
-import { MODULES } from '../../../test/gender-role/questions';
+// This tool call is just to read the file, I will use view_file next.
+// I can't put comment here.
+// Skipping this tool call to use view_file.
+
+
+const MINIMAL_MODULES = [
+    {
+        moduleId: "M1",
+        items: [
+            { id: 1, category: "Agency" },
+            { id: 2, category: "Agency" },
+            { id: 3, category: "Agency" },
+            { id: 4, category: "Agency" },
+            { id: 5, category: "Agency" },
+            { id: 6, category: "Agency" },
+            { id: 7, category: "Agency" },
+            { id: 8, category: "Agency" },
+            { id: 9, category: "Agency" },
+            { id: 10, category: "Agency" },
+            { id: 11, category: "Communion" },
+            { id: 12, category: "Communion" },
+            { id: 13, category: "Communion" },
+            { id: 14, category: "Communion" },
+            { id: 15, category: "Communion" },
+            { id: 16, category: "Communion" },
+            { id: 17, category: "Communion" },
+            { id: 18, category: "Communion" },
+            { id: 19, category: "Communion" },
+            { id: 20, category: "Communion" }
+        ]
+    },
+    {
+        moduleId: "M2",
+        items: [
+            {
+                id: 21,
+                actions: [{ subId: "A" }, { subId: "B" }]
+            },
+            {
+                id: 22,
+                actions: [{ subId: "A" }, { subId: "B" }]
+            }
+        ]
+    }
+];
 
 type ResultStyle = {
     title: string;
@@ -41,7 +84,7 @@ const RESULT_STYLES: Record<string, ResultStyle> = {
 };
 
 const getAverage = (answers: Record<string, number>, moduleId: string, category: string) => {
-    const module = MODULES.find((m) => m.moduleId === moduleId);
+    const module = MINIMAL_MODULES.find((m) => m.moduleId === moduleId);
     if (!module) return 0;
 
     if (moduleId === 'M1') {
@@ -52,11 +95,11 @@ const getAverage = (answers: Record<string, number>, moduleId: string, category:
     }
 
     if (moduleId === 'M2') {
-        const actions = module.items.flatMap((item) => item.actions ?? []);
+        const actions = module.items.flatMap((item: any) => item.actions ?? []);
         if (actions.length === 0) return 0;
         let total = 0;
-        module.items.forEach((item) => {
-            item.actions?.forEach((action) => {
+        module.items.forEach((item: any) => {
+            item.actions?.forEach((action: any) => {
                 total += answers[`${item.id}_${action.subId}`] ?? 3;
             });
         });
@@ -103,14 +146,14 @@ const safeDecode = (res: string) => {
     }
 };
 
-export function handleGenderRoleRequest(res: string | null, renderDefault: Function) {
+export function handleGenderRoleRequest(res: string | null, renderDefault: Function, origin: string) {
     if (!res) return renderDefault('Gender Role Test', 'Masculinity · Femininity · Flexibility', '#2563eb', '⚥');
 
     const decoded = safeDecode(res);
     if (!decoded) return renderDefault('Gender Role Test', 'Masculinity · Femininity · Flexibility', '#2563eb', '⚥');
 
     const result = getResult(decoded);
-    const style = RESULT_STYLES[result.type];
+    const style = RESULT_STYLES[result.type] || RESULT_STYLES['The Observer (Undifferentiated)'];
 
     return new ImageResponse(
         (
