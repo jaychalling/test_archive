@@ -41,6 +41,15 @@ export function handleCognitiveRequest(res: string | null, renderDefault: Functi
     const temporal = parts[2] || 'Mid';
     const parietal = parts[3] || 'Mid';
 
+    const numericScore = Number.parseInt(totalScore, 10);
+    let profileLabel = 'Balanced Profile';
+    let profileColor = '#6366f1';
+    if (!Number.isNaN(numericScore)) {
+        if (numericScore >= 85) { profileLabel = 'Peak Performance'; profileColor = '#22c55e'; }
+        else if (numericScore >= 70) { profileLabel = 'Stable Focus'; profileColor = '#eab308'; }
+        else { profileLabel = 'Needs Recharge'; profileColor = '#ef4444'; }
+    }
+
     return new ImageResponse(
         (
             <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', padding: '40px' }}>
@@ -48,6 +57,7 @@ export function handleCognitiveRequest(res: string | null, renderDefault: Functi
 
                     {/* Left: Score Info */}
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '50%' }}>
+                        <div style={{ display: 'flex', fontSize: 20, fontWeight: 'bold', color: profileColor, backgroundColor: `${profileColor}15`, padding: '8px 24px', borderRadius: 999, marginBottom: 24 }}>{profileLabel}</div>
                         <div style={{ display: 'flex', fontSize: 24, fontWeight: 'bold', color: '#7c3aed', backgroundColor: '#f3e8ff', padding: '10px 30px', borderRadius: '100px', marginBottom: 30 }}>Cognitive Brain Profile</div>
                         <div style={{ display: 'flex', fontSize: 90, fontWeight: 900, color: '#1e293b', marginBottom: 10 }}>{totalScore} <span style={{ fontSize: 40, marginTop: 40, marginLeft: 10, color: '#94a3b8' }}>점</span></div>
                         <div style={{ display: 'flex', fontSize: 32, fontWeight: 'bold', color: '#64748b' }}>뇌 건강 정밀 분석 결과</div>

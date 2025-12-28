@@ -5,6 +5,9 @@ function renderHealthResult(title: string, label: string, color: string, sub: st
         (
             <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', padding: '40px' }}>
                 <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', borderRadius: '40px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ display: 'flex', width: 140, height: 140, borderRadius: 32, alignItems: 'center', justifyContent: 'center', fontSize: 72, backgroundColor: `${color}15`, border: `2px solid ${color}40`, marginBottom: 30 }}>
+                        {icon}
+                    </div>
                     <div style={{ display: 'flex', fontSize: 22, fontWeight: 'bold', color: color, backgroundColor: `${color}10`, padding: '10px 30px', borderRadius: '100px', marginBottom: 40, border: `1px solid ${color}30` }}>{label}</div>
                     <div style={{ display: 'flex', fontSize: 32, fontWeight: 'bold', color: '#64748b', marginBottom: 15 }}>{sub}</div>
                     <div style={{ display: 'flex', fontSize: 84, fontWeight: 900, color: color, marginBottom: 25, textAlign: 'center' }}>{title}</div>
@@ -25,10 +28,14 @@ export function handleDiabetesRequest(res: string | null, renderDefault: Functio
     let title = "Healthy / Optimal";
     let color = "#16a34a";
     let label = "Safe Status";
+    let icon = "✅";
     if (score > 2.2) { title = "High Risk Level"; color = "#dc2626"; label = "Danger Alert"; }
     else if (score > 1.2) { title = "Warning Level"; color = "#d97706"; label = "Health Warning"; }
 
-    return renderHealthResult(title, label, color, "Diabetes Risk Analysis", '⚕️');
+    if (score > 2.2) icon = "🚨";
+    else if (score > 1.2) icon = "⚠️";
+
+    return renderHealthResult(title, label, color, "Diabetes Risk Analysis", icon);
 }
 
 export function handleBodyAgeRequest(res: string | null, renderDefault: Function) {
@@ -37,8 +44,10 @@ export function handleBodyAgeRequest(res: string | null, renderDefault: Function
     let title = "Optimal / Young";
     let color = "#16a34a";
     let label = "Great Status";
+    let icon = "🌿";
     // 로직 간소화
     if (res.includes('3') || res.includes('4')) { title = "Standard / Moderate"; color = "#d97706"; label = "Aging Alert"; }
+    if (res.includes('3') || res.includes('4')) icon = "⏳";
 
-    return renderHealthResult(title, label, color, "Body Aging Result", '🧪');
+    return renderHealthResult(title, label, color, "Body Aging Result", icon);
 }
