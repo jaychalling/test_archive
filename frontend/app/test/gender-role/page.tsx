@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import GenderRoleClientPage from './GenderRoleClientPage';
 // import { generateTestMetadata } from '@/utils/metadata'; // Assuming this might need update, simplified for now
 
@@ -54,7 +55,9 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">2026 Gender Role Test</h1>
-            <GenderRoleClientPage />
+            <Suspense fallback={<div>Loading...</div>}>
+                <GenderRoleClientPage />
+            </Suspense>
         </section>
     );
 }

@@ -14,14 +14,14 @@ export default function Landing({ onStart }: LandingProps) {
             <div className="space-y-4 w-full">
                 <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl mb-8 group">
                     <Image
-                        src="/images/kpop-hero.png"
-                        alt="K-Pop Hunter Test Hero"
+                        src="/images/kdh-soul-mate-concert.png"
+                        alt="KDH Soul Mate Test Hero"
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent flex items-end justify-center pb-8">
                         <h1 className="text-3xl md:text-5xl font-black text-white drop-shadow-lg tracking-tight">
-                            K-Pop Hunter Character Test
+                            KDH SOUL MATE TEST
                         </h1>
                     </div>
                 </div>

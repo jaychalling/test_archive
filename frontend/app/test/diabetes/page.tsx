@@ -1,6 +1,7 @@
 
 
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import DiabetesClientPage from './DiabetesClientPage';
 import { generateTestMetadata } from '@/utils/metadata';
 
@@ -38,7 +39,9 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">Type 2 Diabetes Risk Test</h1>
-            <DiabetesClientPage />
+            <Suspense fallback={<div>Loading...</div>}>
+                <DiabetesClientPage />
+            </Suspense>
         </section>
     );
 }

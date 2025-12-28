@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import KPopClientPage from './KPopClientPage';
 import { calculateResult } from './questions';
 import { generateTestMetadata } from '@/utils/metadata';
@@ -23,9 +24,9 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     return generateTestMetadata({
         searchParams,
         testType: 'kpop-hunter',
-        baseTitle: "K-Pop Hunter Character Test | Soul Match",
+        baseTitle: "KDH SOUL MATE TEST | Soul Match",
         description: "Find your Demon Hunter soul match based on your K-Pop styling and personality.",
-        getResultTitle: (res: string) => `My K-Pop Hunter Character is...`
+        getResultTitle: (res: string) => `My KDH Soul Mate is...`
     });
 }
 
@@ -33,7 +34,7 @@ export default function Page() {
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Quiz',
-        name: "K-Pop Demon Hunters Character Test",
+        name: "KDH SOUL MATE TEST",
         description: "Lumi, Mira, Mystery Lion... Which K-Demon Hunter character resonates with your soul? Find out with this 20-question in-depth psychological analysis.",
         url: `https://www.test-archive.com/test/kpop-hunter`,
         mainEntity: {
@@ -49,7 +50,9 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">K-Pop Demon Hunters Character Test</h1>
-            <KPopClientPage />
+            <Suspense fallback={<div>Loading...</div>}>
+                <KPopClientPage />
+            </Suspense>
         </section>
     );
 }

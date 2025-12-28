@@ -515,15 +515,15 @@ export default function QuizUI() {
 
 function QuestionLayout({ q, children, currentStep, total }: { q: any, children: React.ReactNode, currentStep: number, total: number }) {
     return (
-        <div className="max-w-md w-full mx-auto p-6 min-h-[60vh] flex flex-col">
+        <div className="max-w-md w-full mx-auto p-4 min-h-[50vh] flex flex-col">
             {/* Standard: Title Header */}
-            <div className="mb-6 text-center">
-                <h1 className="text-lg font-bold text-slate-900 uppercase tracking-tight">Cognitive Brain Test</h1>
+            <div className="mb-2 text-center">
+                <h1 className="text-base font-bold text-slate-900 uppercase tracking-tight">Cognitive Brain Test</h1>
             </div>
 
             {/* Standard: Progress Bar */}
-            <div className="mb-8">
-                <div className="flex justify-between text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+            <div className="mb-4">
+                <div className="flex justify-between text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">
                     <span>Question {currentStep + 1}</span>
                     <span>{Math.round(((currentStep + 1) / total) * 100)}%</span>
                 </div>
@@ -534,7 +534,7 @@ function QuestionLayout({ q, children, currentStep, total }: { q: any, children:
 
             <h2 className="text-2xl font-bold text-gray-900 mb-2 whitespace-pre-line animate-in slide-in-from-right-4 duration-300 h-full">{q.text}</h2>
             {q.subText && (
-                <p className="text-gray-500 mb-8 whitespace-pre-line leading-relaxed animate-in fade-in duration-500">
+                <p className="text-gray-500 mb-4 whitespace-pre-line leading-relaxed animate-in fade-in duration-500 text-sm">
                     {q.subText}
                 </p>
             )}
@@ -543,40 +543,21 @@ function QuestionLayout({ q, children, currentStep, total }: { q: any, children:
             </div>
 
             {/* Standard: About Section */}
-            <div className="mt-12 pt-8 border-t border-slate-100 text-slate-500 text-xs leading-relaxed animate-in fade-in duration-700 delay-300">
-                <h3 className="font-bold text-slate-800 mb-3 text-sm">About This Test: Design & Validation Protocol</h3>
-                <p className="mb-4">
+            <div className="mt-6 pt-4 border-t border-slate-100 text-slate-500 text-xs leading-relaxed animate-in fade-in duration-700 delay-300">
+                <h3 className="font-bold text-slate-800 mb-2 text-sm">About This Test: Design & Validation Protocol</h3>
+                <p className="mb-3 hidden sm:block">
                     The &apos;Cognitive Brain Test&apos; is a standardized assessment battery exclusively developed for Test-Archive.
                     It is designed to monitor general cognitive health and aid in the early detection of neurodegenerative conditions.
-                    This protocol addresses the limitations of traditional screening tools (such as the MMSE), specifically improving
-                    discriminative power and preventing the &quot;Ceiling Effect&quot; often observed in highly educated individuals
-                    by incorporating complex executive function tasks.
                 </p>
 
-                <div className="space-y-3">
+                <div className="space-y-2 hidden sm:block">
                     <div>
                         <span className="font-bold text-slate-700 block mb-1 uppercase tracking-tight text-[10px]">Methodological References</span>
                         <ul className="list-disc pl-4 space-y-1">
-                            <li><span className="font-semibold text-slate-600">Attention & Memory:</span> Based on the Digit Span subtest (WAIS-IV) and the Word List Learning paradigm (RAVLT).</li>
-                            <li><span className="font-semibold text-slate-600">Executive Function:</span> Adapts Trail Making B, Verbal Fluency, and Go-No-Go paradigms.</li>
-                            <li><span className="font-semibold text-slate-600">Reasoning & Logic:</span> Matrix Reasoning (WAIS-IV) and Theory of Mind tasks.</li>
+                            <li><span className="font-semibold text-slate-600">Attention & Memory:</span> Digit Span (WAIS-IV) & RAVLT.</li>
+                            <li><span className="font-semibold text-slate-600">Executive Function:</span> Trail Making B, Verbal Fluency.</li>
+                            <li><span className="font-semibold text-slate-600">Reasoning:</span> Matrix Reasoning (WAIS-IV).</li>
                         </ul>
-                    </div>
-
-                    <div>
-                        <span className="font-bold text-slate-700 block mb-1 uppercase tracking-tight text-[10px]">Neuroanatomical Basis</span>
-                        <p>
-                            Measures functional integrity from the Executive Functions of the Dorsolateral Prefrontal Cortex (DLPFC)
-                            to the Memory Encoding capabilities of the Hippocampus.
-                        </p>
-                    </div>
-
-                    <div className="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                        <span className="font-bold text-amber-700 block mb-1 uppercase tracking-tight text-[10px]">Disclaimer</span>
-                        <p className="italic">
-                            Serves as a screening tool for monitoring brain health; it does not replace a formal medical diagnosis.
-                            If results indicate potential impairment, consult a medical professional.
-                        </p>
                     </div>
                 </div>
             </div>

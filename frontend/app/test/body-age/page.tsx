@@ -2,6 +2,7 @@
 
 import type { Metadata } from 'next';
 import BodyAgeClientPage from './BodyAgeClientPage';
+import { Suspense } from 'react';
 import { generateTestMetadata } from '@/utils/metadata';
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }): Promise<Metadata> {
@@ -34,7 +35,9 @@ export default function Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <h1 className="sr-only">Body Age Test</h1>
-            <BodyAgeClientPage />
+            <Suspense fallback={<div>Loading...</div>}>
+                <BodyAgeClientPage />
+            </Suspense>
         </section>
     );
 }

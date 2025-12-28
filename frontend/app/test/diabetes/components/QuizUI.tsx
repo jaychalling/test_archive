@@ -299,18 +299,18 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
     const progress = ((currentQuestionIndex + 1) / QUESTIONS.length) * 100;
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
-            <header className="px-6 py-4 flex flex-col items-center sticky top-0 bg-gray-50 z-10 transition-colors border-b border-gray-100">
-                <div className="flex items-center justify-between w-full mb-4">
+        <div className="min-h-[80vh] bg-gray-50 flex flex-col font-sans">
+            <header className="px-6 py-3 flex flex-col items-center sticky top-0 bg-gray-50 z-10 transition-colors border-b border-gray-100">
+                <div className="flex items-center justify-between w-full mb-2">
                     <Link href="/" className="p-2 -ml-2 hover:bg-white rounded-full transition-colors text-slate-600">
                         <ArrowLeft className="w-6 h-6" />
                     </Link>
-                    <h1 className="text-lg font-bold text-slate-900 uppercase tracking-tight">Type 2 Diabetes Risk Test</h1>
+                    <h1 className="text-base font-bold text-slate-900 uppercase tracking-tight">Type 2 Diabetes Risk Test</h1>
                     <div className="w-8"></div>
                 </div>
 
                 <div className="w-full">
-                    <div className="flex justify-between text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+                    <div className="flex justify-between text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">
                         <span>Question {currentQuestionIndex + 1}</span>
                         <span>{Math.round(progress)}%</span>
                     </div>
@@ -325,7 +325,7 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
                 </div>
             </header>
 
-            <main className="flex-grow flex flex-col justify-center px-6 py-8 max-w-2xl mx-auto w-full">
+            <main className="flex-grow flex flex-col justify-center px-6 py-4 max-w-2xl mx-auto w-full">
 
                 <AnimatePresence>
                     <motion.div
@@ -335,16 +335,16 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-8 leading-tight">
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 leading-tight">
                             {currentQ.text}
                         </h2>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                             {currentQ.options.map((opt, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => handleAnswer(idx)}
-                                    className="w-full bg-white p-5 rounded-xl border border-gray-200 text-left hover:border-blue-500 hover:shadow-md transition-all group flex items-center justify-between"
+                                    className="w-full bg-white p-4 rounded-xl border border-gray-200 text-left hover:border-blue-500 hover:shadow-md transition-all group flex items-center justify-between"
                                 >
                                     <span className="font-medium text-slate-700 group-hover:text-blue-700">{opt.label}</span>
                                     <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -354,7 +354,7 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
                     </motion.div>
                 </AnimatePresence>
 
-                <div className="mt-12 pt-8 border-t border-gray-200 text-slate-500 text-sm">
+                <div className="mt-8 pt-6 border-t border-gray-200 text-slate-500 text-sm">
                     <h3 className="font-bold text-slate-700 mb-2">Why this question?</h3>
                     <p>This assessment follows standard medical screening guidelines for Type 2 Diabetes risk factors including genetics, lifestyle, and symptoms. Note: This result is for informational purposes only and is not a medical diagnosis.</p>
                 </div>

@@ -58,13 +58,13 @@ export default function QuizUI({ onFinish }: { onFinish: (res: string) => void }
     if (!currentQ) return <div className="p-10 text-center">Loading Question...</div>;
 
     return (
-        <div className="max-w-md mx-auto px-6 py-12 min-h-[80vh]">
-            <div className="mb-6">
-                <h1 className="text-xl font-bold text-slate-900">K-Pop Demon Hunter Character Test</h1>
+        <div className="max-w-md mx-auto px-6 py-6 min-h-[60vh]">
+            <div className="mb-3">
+                <h1 className="text-base font-bold text-slate-900">K-Pop Demon Hunter Character Test</h1>
             </div>
 
-            <div className="mb-8">
-                <div className="flex justify-between text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">
+            <div className="mb-4">
+                <div className="flex justify-between text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">
                     <span>Question {step + 1}</span>
                     <span>{Math.round(((step + 1) / QUESTIONS.length) * 100)}%</span>
                 </div>
@@ -74,14 +74,14 @@ export default function QuizUI({ onFinish }: { onFinish: (res: string) => void }
             </div>
 
             <div key={step} className="animate-in slide-in-from-right-4 duration-300"> {/* 문제 변경 시 애니메이션 효과 */}
-                <h2 className="text-2xl font-bold text-slate-900 mb-8 leading-tight">{currentQ.text}</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 leading-tight">{currentQ.text}</h2>
                 <div className="grid gap-3">
                     {currentQ.options.map((opt, i) => (
                         <button
                             key={i}
                             onClick={() => handleAnswer(i)}
                             disabled={isTransitioning}
-                            className="w-full p-5 text-left border border-slate-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 active:scale-[0.98] transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full p-4 text-left border border-slate-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 active:scale-[0.98] transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <div className="flex justify-between items-center">
                                 <span className="font-medium text-slate-700 group-hover:text-blue-900">{opt.label}</span>
@@ -92,7 +92,7 @@ export default function QuizUI({ onFinish }: { onFinish: (res: string) => void }
                 </div>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-slate-100 text-slate-500 text-sm">
+            <div className="mt-8 pt-6 border-t border-slate-100 text-slate-500 text-sm">
                 <h3 className="font-bold text-slate-700 mb-2">About this Test</h3>
                 <p>This psychological test is designed based on Jungian archetypes reinterpreted through K-Pop group dynamics. It analyzes your subconscious behavioral patterns to determine which Demon Hunter character best represents your soul.</p>
             </div>
