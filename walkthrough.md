@@ -14,16 +14,18 @@ Refactored the `money-script-2026` test to align with project standards, updated
 
 ### 2. UI Fixes
 - **Button Alignment**: Fixed "삐뚤빼뚤" (misaligned) numbers in the Likert scale buttons.
-    - *Cause*: Hidden "Agree/Disagree" labels were taking up layout space in the flex container.
-    - *Fix*: Changed labels to `absolute` positioning so they don't affect the number's centering.
-- **Result Actions**: Updated `AnalysisReport.tsx` to use the standard 4-button grid layout (Share Test, Share Result, Retest, Home).
+    - *Cause*: Hidden "Agree/Disagree" labels were taking up layout space, and `gap-1` was causing slight shifts.
+    - *Fix*: Changed labels to `absolute` positioning and removed `gap-1` for perfect centering.
+- **Result Actions**: Updated `AnalysisReport.tsx` to use the standard 4-button grid layout.
 
 ### 3. Asset Updates
-- **Rice Purity Test**: Updated hero image to `hero-2026.jpg` and removed redundant title text overlay.
+- **Rice Purity Test**:
+    - Updated hero image to `hero-2026.jpg` and removed redundant title text overlay.
+    - **Fix**: Corrected broken result image paths in `AnalysisReport.tsx` to point to `/rice-purity/og/...`.
 
 ## Verification
 - **Build**: `npm run build` passed successfully.
-- **Visuals**: Confirmed button layout logic ensures perfect centering and action grid matches standard.
+- **Visuals**: Confirmed button centering and correct image paths logic.
 
 ## Next Steps
 - Deploy to Vercel to verify live changes.

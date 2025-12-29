@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { generateTestMetadata } from '@/utils/metadata';
 import MoneyScriptClientPage from './MoneyScriptClientPage';
 
@@ -11,5 +12,9 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 }
 
 export default function Page() {
-    return <MoneyScriptClientPage />;
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <MoneyScriptClientPage />
+        </Suspense>
+    );
 }

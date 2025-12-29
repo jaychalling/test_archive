@@ -26,7 +26,7 @@ export default function AnalysisReport({ score, onRetake }: AnalysisReportProps)
     const archetype = getArchetype(score);
     const [copied, setCopied] = useState(false);
     const resultUrl = typeof window !== 'undefined'
-        ? `${window.location.origin}${window.location.pathname}?res=${score}`
+        ? `${window.location.origin}${window.location.pathname}?res=${btoa(score.toString())}`
         : '';
 
     // Benchmarking Data
