@@ -15,18 +15,13 @@ export default function Landing({ onStart }: LandingProps) {
     return (
         <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 max-w-2xl mx-auto px-4">
             <div className="space-y-4">
-                <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl mb-8 group">
+                <div className="relative w-full aspect-square md:aspect-video rounded-3xl overflow-hidden shadow-2xl mb-8 group">
                     <Image
-                        src="/rice-purity/test_image/hero.png"
+                        src="/rice-purity/hero-2026.jpg"
                         alt="Rice Purity Test Hero"
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center pb-8">
-                        <h1 className="text-4xl md:text-5xl font-black text-white drop-shadow-lg tracking-tight">
-                            2026 RICE PURITY TEST
-                        </h1>
-                    </div>
                 </div>
 
                 <p className="text-xl text-slate-600 font-medium leading-relaxed">

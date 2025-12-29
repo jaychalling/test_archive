@@ -79,7 +79,7 @@ const INITIAL_TESTS = [
     participants: 'Trending',
     isFeatured: true,
     image: 'bg-rose-500',
-    heroImage: '/rice-purity/test_image/hero.png',
+    heroImage: '/rice-purity/hero-2026.jpg',
     isDisabled: false,
     icon: Sparkles,
   },
@@ -95,6 +95,19 @@ const INITIAL_TESTS = [
     heroImage: '',
     isDisabled: true,
     icon: GraduationCap,
+  },
+  {
+    id: 'money-script-2026',
+    title: 'Money Script & 2026 Psychology',
+    description: 'Is your unconscious ready for the "Red Horse" economy? Discover your financial archetype.',
+    category: 'Personality',
+    duration: '10 min',
+    participants: 'New',
+    isFeatured: true,
+    image: 'bg-red-900',
+    heroImage: '',
+    isDisabled: false,
+    icon: Sparkles,
   },
 ];
 

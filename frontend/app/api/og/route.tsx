@@ -7,6 +7,7 @@ import { handleCognitiveRequest } from '../../test/cognitive-brain/og/og-templat
 import { handleDiabetesRequest } from '../../test/diabetes/og/og-template';
 import { handleBodyAgeRequest } from '../../test/body-age/og/og-template';
 import { handleIQTestRequest } from '../../test/iq-test/og/og-template';
+import { handleMoneyScriptRequest } from '../../test/money-script-2026/og/og-template';
 
 // Base64 이미지가 크기 때문에 Node.js 런타임 사용 (Edge는 4MB 제한 걸릴 수 있음)
 export const runtime = 'nodejs';
@@ -14,27 +15,82 @@ export const runtime = 'nodejs';
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
-        const res = searchParams.get('res');
-        const type = searchParams.get('type');
+        const type = searchParams.get('type') || 'default';
+        const res = searchParams.get('res'); // Result code (optional)
 
-        // Helper for default rendering (passed to renderers to avoid circular deps or duplication)
+        // Helper for default/fallback rendering
         const renderDefault = (sub: string, title: string, color: string, icon: string) => {
             return new ImageResponse(
                 (
-                    <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(to bottom right, #111827, #4c1d95)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                            <div style={{ display: 'flex', fontSize: 32, fontWeight: 'bold', color: '#e5e7eb', marginBottom: 20, opacity: 0.8, letterSpacing: '4px' }}>{sub}</div>
-                            <div style={{ display: 'flex', fontSize: 80, fontWeight: 900, color: 'white', marginBottom: 40 }}>{title}</div>
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: 'white',
+                            fontFamily: 'sans-serif',
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: `${color}20`,
+                                borderRadius: '50%',
+                                padding: 20,
+                                marginBottom: 40,
+                            }}
+                        >
+                            <span style={{ fontSize: 60 }}>{icon}</span>
+                        </div>
+                        <div
+                            style={{
+                                fontSize: 24,
+                                fontWeight: 'bold',
+                                color: color,
+                                textTransform: 'uppercase',
+                                marginBottom: 20,
+                            }}
+                        >
+                            {sub}
+                        </div>
+                        <div
+                            style={{
+                                fontSize: 60,
+                                fontWeight: 900,
+                                color: '#1f2937',
+                                textAlign: 'center',
+                                lineHeight: 1.2,
+                                padding: '0 40px',
+                            }}
+                        >
+                            {title}
+                        </div>
+                        <div style={{ marginTop: 40, display: 'flex', alignItems: 'center' }}>
+                            <img src="https://www.test-archive.com/logo.png" width="40" height="40" style={{ marginRight: 15 }} />
+                            <span style={{ fontSize: 24, color: '#6b7280', fontWeight: 'bold' }}>Test Archive</span>
                         </div>
                     </div>
                 ),
-                { width: 1200, height: 630 }
+                {
+                    width: 1200,
+                    height: 630,
+                }
             );
         };
 
         // 1. K-Pop Hunter Logic
         if (type === 'kpop-hunter') {
             return handleKPopRequest(res, renderDefault);
+        }
+
+        // 8. Money Script 2026 Logic
+        if (type === 'money-script-2026') {
+            return handleMoneyScriptRequest(res, renderDefault);
         }
 
         // 2. Diabetes Logic
