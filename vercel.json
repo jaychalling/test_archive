@@ -10,6 +10,30 @@
             "use": "@vercel/python"
         }
     ],
+    "redirects": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "2026puritytest.com"
+                }
+            ],
+            "destination": "https://www.test-archive.com/test/rice-purity",
+            "permanent": true
+        },
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "www.2026puritytest.com"
+                }
+            ],
+            "destination": "https://www.test-archive.com/test/rice-purity",
+            "permanent": true
+        }
+    ],
     "routes": [
         {
             "src": "/api/(?!og)(.*)",
