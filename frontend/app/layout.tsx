@@ -50,6 +50,12 @@ export const metadata: Metadata = {
     title: "Test Archive",
     description: "Your go-to library for every type of test. Whether you need a serious health check-up or a fun break, find the perfect assessment for you right here.",
   },
+
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 import Navbar from "@/components/Navbar";

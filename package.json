@@ -6,6 +6,8 @@
     "lint": "npm run lint --prefix frontend"
   },
   "dependencies": {
-    "@next/third-parties": "^16.1.1"
+    "@next/third-parties": "^16.1.1",
+    "@notionhq/client": "^5.6.0",
+    "dotenv": "^17.2.3"
   }
 }
