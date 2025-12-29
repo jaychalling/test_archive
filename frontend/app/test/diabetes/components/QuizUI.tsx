@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Loader2 } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronRight, HeartPulse, Activity } from 'lucide-react';
 
 export const QUESTIONS = [
     {
@@ -281,10 +279,16 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
 
     if (isAnalyzing) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 animate-in fade-in duration-500">
-                <Loader2 className="w-16 h-16 text-blue-600 animate-spin mb-6" />
-                <h2 className="text-2xl font-bold text-slate-800 mb-2">Analyzing your health data...</h2>
+            <div className="flex flex-col items-center justify-center min-h-[80vh] text-center px-6 animate-in fade-in duration-700">
+                <div className="relative w-24 h-24 mb-8">
+                    <div className="absolute inset-0 border-4 border-emerald-100 border-t-emerald-600 rounded-full animate-spin" />
+                    <div className="absolute inset-0 flex items-center justify-center animate-pulse">
+                        <HeartPulse className="w-10 h-10 text-emerald-600" />
+                    </div>
+                </div>
+                <h2 className="text-2xl font-bold mb-2 text-slate-900">Analyzing Your Health Data...</h2>
                 <p className="text-slate-500">Checking symptoms against medical standards.</p>
+                <div className="mt-6 flex gap-2 justify-center"><Activity className="animate-bounce text-emerald-400" /></div>
             </div>
         );
     }
@@ -299,66 +303,44 @@ export default function QuizUI({ onFinish }: QuizUIProps) {
     const progress = ((currentQuestionIndex + 1) / QUESTIONS.length) * 100;
 
     return (
-        <div className="min-h-[80vh] bg-gray-50 flex flex-col font-sans">
-            <header className="px-6 py-3 flex flex-col items-center sticky top-0 bg-gray-50 z-10 transition-colors border-b border-gray-100">
-                <div className="flex items-center justify-between w-full mb-2">
-                    <Link href="/" className="p-2 -ml-2 hover:bg-white rounded-full transition-colors text-slate-600">
-                        <ArrowLeft className="w-6 h-6" />
-                    </Link>
-                    <h1 className="text-base font-bold text-slate-900 uppercase tracking-tight">Type 2 Diabetes Risk Test</h1>
-                    <div className="w-8"></div>
+        <div className="max-w-md mx-auto px-6 py-6 min-h-[60vh]">
+            <div className="mb-3">
+                <h1 className="text-base font-bold text-slate-900">Type 2 Diabetes Risk Test</h1>
+            </div>
+
+            <div className="mb-4">
+                <div className="flex justify-between text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">
+                    <span>Question {currentQuestionIndex + 1}</span>
+                    <span>{Math.round(progress)}%</span>
                 </div>
-
-                <div className="w-full">
-                    <div className="flex justify-between text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">
-                        <span>Question {currentQuestionIndex + 1}</span>
-                        <span>{Math.round(progress)}%</span>
-                    </div>
-                    <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
-                        <motion.div
-                            className="h-full bg-blue-600"
-                            initial={{ width: 0 }}
-                            animate={{ width: `${progress}%` }}
-                            transition={{ duration: 0.3 }}
-                        />
-                    </div>
+                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-600 transition-all duration-300 ease-out" style={{ width: `${progress}%` }} />
                 </div>
-            </header>
+            </div>
 
-            <main className="flex-grow flex flex-col justify-center px-6 py-4 max-w-2xl mx-auto w-full">
-
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentQuestionIndex}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 leading-tight">
-                            {currentQ.text}
-                        </h2>
-
-                        <div className="space-y-3">
-                            {currentQ.options.map((opt, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => handleAnswer(idx)}
-                                    className="w-full bg-white p-4 rounded-xl border border-gray-200 text-left hover:border-blue-500 hover:shadow-md transition-all group flex items-center justify-between"
-                                >
-                                    <span className="font-medium text-slate-700 group-hover:text-blue-700">{opt.label}</span>
-                                    <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </button>
-                            ))}
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-
-                <div className="mt-8 pt-6 border-t border-gray-200 text-slate-500 text-sm">
-                    <h3 className="font-bold text-slate-700 mb-2">Why this question?</h3>
-                    <p>This assessment follows standard medical screening guidelines for Type 2 Diabetes risk factors including genetics, lifestyle, and symptoms. Note: This result is for informational purposes only and is not a medical diagnosis.</p>
+            <div key={currentQuestionIndex} className="animate-in slide-in-from-right-4 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 leading-tight">{currentQ.text}</h2>
+                <div className="grid gap-3">
+                    {currentQ.options.map((opt, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => handleAnswer(idx)}
+                            disabled={isTransitioning}
+                            className="w-full p-4 text-left border border-slate-200 rounded-xl hover:border-emerald-500 hover:bg-emerald-50 active:scale-[0.98] transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <div className="flex justify-between items-center">
+                                <span className="font-medium text-slate-700 group-hover:text-emerald-900">{opt.label}</span>
+                                <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-transform group-hover:translate-x-1" />
+                            </div>
+                        </button>
+                    ))}
                 </div>
-            </main>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-slate-100 text-slate-500 text-sm">
+                <h3 className="font-bold text-slate-700 mb-2">About this Test</h3>
+                <p>This assessment follows standard medical screening guidelines for Type 2 Diabetes risk factors including genetics, lifestyle, and symptoms. Note: This result is for informational purposes only and is not a medical diagnosis.</p>
+            </div>
         </div>
     );
 }

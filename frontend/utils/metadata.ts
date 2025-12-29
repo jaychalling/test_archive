@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-type TestType = 'kpop-hunter' | 'diabetes' | 'body-age' | 'cognitive-brain' | 'rice-purity' | 'gender-role';
+type TestType = 'kpop-hunter' | 'diabetes' | 'body-age' | 'cognitive-brain' | 'rice-purity' | 'gender-role' | 'iq-test';
 
 interface MetadataConfig {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

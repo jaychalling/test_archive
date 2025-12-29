@@ -6,6 +6,7 @@ import { handleKPopRequest } from '../../test/kpop-hunter/og/og-template';
 import { handleCognitiveRequest } from '../../test/cognitive-brain/og/og-template';
 import { handleDiabetesRequest } from '../../test/diabetes/og/og-template';
 import { handleBodyAgeRequest } from '../../test/body-age/og/og-template';
+import { handleIQTestRequest } from '../../test/iq-test/og/og-template';
 
 // Base64 이미지가 크기 때문에 Node.js 런타임 사용 (Edge는 4MB 제한 걸릴 수 있음)
 export const runtime = 'nodejs';
@@ -61,6 +62,11 @@ export async function GET(request: Request) {
         if (type === 'gender-role') {
             const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
             return handleGenderRoleRequest(res, renderDefault, origin);
+        }
+
+        // 7. IQ Test Logic
+        if (type === 'iq-test') {
+            return handleIQTestRequest(res, renderDefault);
         }
 
         return new Response('Test type not found', { status: 404 });

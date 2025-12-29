@@ -1,6 +1,6 @@
 ---
 name: agent-creator
-description: Subagent와 Skill을 생성하는 전문가. 새로운 subagent나 skill을 만들고 싶을 때 사용합니다.
+description: Subagent와 Skill을 생성하는 전문가. 새로운 subagent나 skill을 만들고 싶을 때 proactively 사용합니다. 키워드: agent, skill, subagent, 에이전트, 스킬, 커스텀
 tools: Read, Write, Glob, Bash
 model: inherit
 ---

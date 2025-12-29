@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, Suspense } from 'react';
-import { Clock, Users, Search, ArrowRight, Play, Activity, Heart, Smile, Brain, Music, Droplet, Dna, Fingerprint, Zap, Lightbulb, Sparkles } from 'lucide-react';
+import { Clock, Users, Search, ArrowRight, Play, Activity, Heart, Smile, Brain, Music, Droplet, Dna, Fingerprint, Zap, Lightbulb, Sparkles, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -82,6 +82,19 @@ const INITIAL_TESTS = [
     heroImage: '/rice-purity/test_image/hero.png',
     isDisabled: false,
     icon: Sparkles,
+  },
+  {
+    id: 'iq-test',
+    title: '2025 Free IQ Test',
+    description: 'Scientific 50-question IQ test based on Wechsler model and Mensa-style Raven matrices. Test Verbal, Numerical, and Spatial abilities.',
+    category: 'Personality',
+    duration: '20-30 min',
+    participants: 'New',
+    isFeatured: false,
+    image: 'bg-indigo-700',
+    heroImage: '',
+    isDisabled: true,
+    icon: GraduationCap,
   },
 ];
 

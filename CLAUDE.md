@@ -41,3 +41,16 @@ Next.js frontend + Flask backend 모노레포, Vercel 배포.
 
 1. `npm run build` 성공 확인
 2. `frontend/app/sitemap.ts` 새 라우트 포함 확인
+
+## Custom Agents
+
+특정 작업 시 아래 subagent를 사용하세요. Claude Code가 자동으로 위임하거나, 명시적으로 요청할 수 있습니다.
+
+| 작업 유형 | Agent | 트리거 키워드 |
+|----------|-------|--------------|
+| 테스트/퀴즈 생성·수정 | `test-generator` | 테스트, 퀴즈, 심리테스트, 검사, 진단 |
+| Subagent/Skill 생성 | `agent-creator` | agent, skill, 에이전트, 스킬 |
+
+**사용 예시:**
+- "새 테스트 만들어줘" → `test-generator` 자동 사용
+- "test-generator로 퀴즈 추가해줘" → 명시적 사용
