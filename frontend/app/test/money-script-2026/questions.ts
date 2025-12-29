@@ -129,8 +129,12 @@ export function calculateResult(answers: number[]): string {
     };
 
     answers.forEach((score, index) => {
-        const category = QUESTIONS[index].category;
-        scores[category] += score;
+        const question = QUESTIONS[index];
+        if (!question) return; // Safety check
+        const category = question.category;
+        if (scores[category] !== undefined) {
+            scores[category] += score;
+        }
     });
 
     let maxScore = -1;
