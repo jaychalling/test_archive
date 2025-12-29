@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { generateTestMetadata } from '@/utils/metadata';
 // Client component import
-import MoneyScriptClientPage from './MoneyScriptClientPage';
+import MoneyScriptClientPage from './MoneyScriptClientPage'
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     return generateTestMetadata({
