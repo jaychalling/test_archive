@@ -2,16 +2,15 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-    const url = request.nextUrl.clone();
-    const host = request.headers.get('host');
+    const { pathname } = request.nextUrl;
+    const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || '';
 
     // Handle 2026puritytest.com redirection
-    if (host === '2026puritytest.com' || host === 'www.2026puritytest.com') {
-        // Redirect to the rice-purity test if not already there
-        if (!url.pathname.startsWith('/test/rice-purity')) {
+    if (host.includes('2026puritytest.com')) {
+        // Redirect to the rice-purity test if not already there and not an internal Next.js request
+        if (!pathname.startsWith('/test/rice-purity') && !pathname.startsWith('/_next') && !pathname.includes('favicon.ico')) {
+            const url = request.nextUrl.clone();
             url.pathname = '/test/rice-purity';
-            // Use permanent redirect (308) to match previous behavior if desired, 
-            // but 307 is safer while debugging. Let's use 307 for now.
             return NextResponse.redirect(url);
         }
     }
