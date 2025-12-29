@@ -12,7 +12,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         searchParams,
         testType: 'gender-role',
         baseTitle: '2026 GENDER ROLE TEST | Test Archive',
-        description: 'Analyze your Masculinity, Femininity, and Situational Flexibility based on modern psychology (GGDP Model).',
+        description: "This test measures personality traits (Agency and Communion) based on modern psychological frameworks. It is a tool for self-exploration and does not define your identity or social standing.",
         getResultTitle: (res: string) => {
             // Need a simple way to get type from res string (Base64 json)
             try {

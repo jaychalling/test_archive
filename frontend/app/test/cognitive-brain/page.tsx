@@ -7,7 +7,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
         searchParams,
         testType: 'cognitive-brain',
         baseTitle: "Cognitive Brain Test | Precision Assessment",
-        description: "Analyzes frontal, temporal, and parietal functions with 20 precision tests to estimate your brain health age.",
+        description: "This assessment is designed for self-estimation of cognitive traits and should not be used as a clinical psychological evaluation. Results may vary based on environmental factors and testing conditions.",
         getResultTitle: (res) => {
             const parts = res.split('-');
             const age = parts[0] || '??';

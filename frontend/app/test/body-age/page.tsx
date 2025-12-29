@@ -10,7 +10,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
         searchParams,
         testType: 'body-age',
         baseTitle: "Biological Age Test | Vitality Check",
-        description: "Analyze your lifestyle, flexibility, and cardio health to estimate your biological age.",
+        description: "This test is for educational and awareness purposes only. It does not provide a medical diagnosis or professional healthcare advice. Please consult a medical professional for health-related concerns.",
         getResultTitle: (res) => {
             try {
                 const [_, ageStr] = res.split('-');

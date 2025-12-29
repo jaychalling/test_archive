@@ -7,7 +7,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
         searchParams,
         testType: 'money-script-2026',
         baseTitle: 'Money Script & 2026 Financial Psychology Test',
-        description: 'Discover your unconscious beliefs about money and how they align with the 2026 "Red Horse" economy.',
+        description: "This test analyzes financial behavioral patterns for self-reflection. It is not financial advice or a guarantee of future economic outcomes. Use these insights as a starting point for better money management.",
     });
 }
 

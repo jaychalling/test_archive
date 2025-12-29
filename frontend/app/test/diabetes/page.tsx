@@ -14,7 +14,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         searchParams,
         testType: 'diabetes',
         baseTitle: "Type 2 Diabetes Risk Test: Assess Your Risk",
-        description: "Assess your diabetes risk based on your dietary habits and lifestyle. Check it in just 3 minutes.",
+        description: "This test is for educational and awareness purposes only. It does not provide a medical diagnosis or professional healthcare advice. Please consult a medical professional for health-related concerns.",
         getResultTitle: (res: string) => "High Risk Level detected! 🚨",
         getResultDescription: (res: string) => "High Risk Level detected. 🚨 Time to change my lifestyle. Check your diabetes risk in just 3 minutes."
     });

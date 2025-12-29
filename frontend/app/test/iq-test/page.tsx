@@ -14,7 +14,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         searchParams,
         testType: 'iq-test',
         baseTitle: "2025 Free IQ Test | Scientific Intelligence Assessment",
-        description: "Take our comprehensive 50-question IQ test based on Wechsler model and Mensa-style Raven matrices. Test your Verbal, Numerical, and Spatial reasoning abilities.",
+        description: "This assessment is designed for self-estimation of cognitive traits and should not be used as a clinical psychological evaluation. Results may vary based on environmental factors and testing conditions.",
         getResultTitle: (res: string) => {
             const result = calculateResult(res);
             return `IQ Score: ${result.iqScore} - ${result.category.label}`;
