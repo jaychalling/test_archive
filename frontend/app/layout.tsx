@@ -42,7 +42,10 @@ export const metadata: Metadata = {
   },
 
   verification: {
-    google: "SThx-uzJP9AYUQ7B-RBhhhUeMwzg7i9DoAiF9gMXtdg",
+    google: [
+      "SThx-uzJP9AYUQ7B-RBhhhUeMwzg7i9DoAiF9gMXtdg",
+      "S9u-IoLoQSCDR-67pvLsR0GMWaDqejzZ4ceXQpsX_Uc"
+    ],
   },
 
   twitter: {

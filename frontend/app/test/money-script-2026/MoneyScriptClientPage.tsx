@@ -22,6 +22,14 @@ export default function MoneyScriptClientPage() {
         // Decode if Base64
         try {
             // Check if it looks like base64 (simple check)
+            // Note: searchParams automatically decodes URI components, so '+' becomes ' ' if not encoded properly in URL.
+            // But if we generated URL with encodeURIComponent, searchParams.get will give us back the '+' correctly.
+
+            // If the string has spaces, it might be due to '+' substitution. We can try to fix it.
+            if (res.includes(' ')) {
+                res = res.replace(/ /g, '+');
+            }
+
             if (/^[A-Za-z0-9+/=]+$/.test(res) && res.length % 4 === 0) {
                 const decoded = atob(res);
                 // If decoded is one of the valid types (simple validation)
@@ -52,7 +60,8 @@ export default function MoneyScriptClientPage() {
     const handleFinish = (result: string) => {
         setResultCode(result);
         const encoded = btoa(result);
-        router.push(`?res=${encoded}`, { scroll: false });
+        // Important: Encode URL component to preserve '+' and other chars
+        router.push(`?res=${encodeURIComponent(encoded)}`, { scroll: false });
         setStep('result');
         window.scrollTo(0, 0);
     };

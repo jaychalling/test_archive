@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Flame, Coins, Shield, Crown, RefreshCcw, Share2, AlertTriangle, TrendingUp, Cpu, Lock, Home, Copy } from 'lucide-react';
+import { Flame, Coins, Shield, Crown, RefreshCcw, Share2, AlertTriangle, TrendingUp, Cpu, Lock, Home } from 'lucide-react';
 import Link from 'next/link';
 import { RESULTS, MoneyScriptType } from '../questions';
 
@@ -18,6 +18,8 @@ export default function AnalysisReport({ resultCode }: Props) {
     }
 
     const { icon: Icon } = result;
+
+    if (!Icon) return null;
 
     const handleShare = async () => {
         if (navigator.share) {
@@ -70,7 +72,6 @@ export default function AnalysisReport({ resultCode }: Props) {
                             {result.description}
                         </p>
                     </div>
-
                     {/* Right: 2026 Forecast */}
                     <div className="bg-gradient-to-br from-red-950 to-neutral-900 border border-red-900/30 rounded-3xl p-8 relative">
                         <h4 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
@@ -107,7 +108,6 @@ export default function AnalysisReport({ resultCode }: Props) {
                 </div>
 
                 {/* Actions */}
-                {/* Actions */}
                 <div className="max-w-lg mx-auto mb-16 space-y-3">
                     <div className="grid grid-cols-2 gap-3">
                         <button
@@ -124,7 +124,7 @@ export default function AnalysisReport({ resultCode }: Props) {
                             onClick={handleShare}
                             className="px-4 py-3 rounded-xl bg-red-900 text-white hover:bg-red-800 transition-colors font-bold flex items-center justify-center gap-2 text-sm"
                         >
-                            <Copy className="w-4 h-4" /> Share Result
+                            <Share2 className="w-4 h-4" /> Share Result
                         </button>
                     </div>
 
