@@ -31,6 +31,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-pink-600',
     heroImage: '/kpop-hunter/test_image/hero.png',
+    isDisabled: false,
     icon: Music,
   },
   {
@@ -43,6 +44,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-blue-600',
     heroImage: '/diabetes/test_image/hero.png',
+    isDisabled: false,
     icon: Droplet,
   },
   {
@@ -55,6 +57,7 @@ const INITIAL_TESTS = [
     isFeatured: false,
     image: 'bg-indigo-600',
     heroImage: '/body-age/test_image/hero.png',
+    isDisabled: false,
     icon: Dna,
   },
   {
@@ -103,7 +106,7 @@ const INITIAL_TESTS = [
     category: 'Personality',
     duration: '10 min',
     participants: 'New',
-    isFeatured: true,
+    isFeatured: false,
     image: 'bg-red-900',
     heroImage: '',
     isDisabled: false,
