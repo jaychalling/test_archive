@@ -11,7 +11,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         searchParams,
         testType: 'rice-purity',
         baseTitle: '2026 Rice Purity Test | Test Archive',
-        description: "This test is a historical internet tradition intended for entertainment purposes only. It includes mature themes; however, it is not a judgment of your character or moral standing.",
+        description: "This 2026 edition of the Rice Purity Test is an updated version of the historical internet tradition, specifically recalibrated to reflect modern lifestyle and contemporary experiences. This test is for entertainment purposes only and includes mature themes. It is not a clinical assessment or a judgment of your character or moral standing.",
         getResultTitle: (res) => {
             const score = Number.parseInt(res, 10);
             if (Number.isNaN(score)) return '2026 Rice Purity Test';
