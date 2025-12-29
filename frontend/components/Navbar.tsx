@@ -12,21 +12,32 @@ export default function Navbar() {
     const searchParams = useSearchParams();
     const initialSearch = searchParams.get('q') || '';
 
-    const handleSearch = (val: string) => {
-        const params = new URLSearchParams(searchParams.toString());
-        if (val) {
-            params.set('q', val);
-        } else {
-            params.delete('q');
-        }
+    // Debounce timer logic
+    const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
-        // Always navigate to home on search if not already there, 
-        // or just update current URL if on home.
+    const handleSearch = (val: string) => {
+        // 1. If we are on the home page, just emit an event for instant JS filtering
         if (pathname === '/') {
-            router.replace(`/?${params.toString()}`);
+            const event = new CustomEvent('test-search-event', { detail: val });
+            window.dispatchEvent(event);
         } else {
+            // 2. If we are NOT on home page, navigate to home with query param
+            const params = new URLSearchParams();
+            if (val) params.set('q', val);
             router.push(`/?${params.toString()}`);
         }
+    };
+
+    const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+
+        // 300ms debounce to prevent flickering
+        timerRef.current = setTimeout(() => {
+            handleSearch(val);
+        }, 300);
     };
 
     return (
@@ -52,7 +63,7 @@ export default function Navbar() {
                             placeholder="Search tests..."
                             className="bg-transparent border-none outline-none text-sm ml-2 w-48"
                             defaultValue={initialSearch}
-                            onChange={(e) => handleSearch(e.target.value)}
+                            onChange={onSearchChange}
                         />
                     </div>
                 </div>

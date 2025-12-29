@@ -119,7 +119,25 @@ const CATEGORIES = ['All', 'Health', 'Personality', 'Fun'];
 function HomeContent() {
   const [activeCategory, setActiveCategory] = useState('All');
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get('q') || '';
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Sync initial search from URL (on first load)
+  React.useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) setSearchQuery(q);
+  }, [searchParams]);
+
+  // Listen for custom JS search event from Navbar
+  React.useEffect(() => {
+    const handleCustomSearch = (e: CustomEvent<string>) => {
+      setSearchQuery(e.detail);
+    };
+
+    window.addEventListener('test-search-event', handleCustomSearch as EventListener);
+    return () => {
+      window.removeEventListener('test-search-event', handleCustomSearch as EventListener);
+    };
+  }, []);
 
   // Filter Logic
   const filteredTests = INITIAL_TESTS.filter((test) => {
