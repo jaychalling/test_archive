@@ -76,7 +76,7 @@ export default function QuizUI({ onFinish }: Props) {
                             key={score}
                             onClick={() => handleAnswer(score)}
                             className={`
-                                aspect-square rounded-xl md:rounded-2xl border transition-all duration-200 flex flex-col items-center justify-center gap-1 group
+                                relative aspect-square rounded-xl md:rounded-2xl border transition-all duration-200 flex flex-col items-center justify-center gap-1 group
                                 ${score <= 3
                                     ? 'border-neutral-700 hover:border-stone-500 hover:bg-neutral-800 text-stone-400'
                                     : 'border-red-900/30 hover:border-red-500 hover:bg-red-900/20 text-red-100'}
@@ -85,7 +85,7 @@ export default function QuizUI({ onFinish }: Props) {
                             <span className={`text-lg md:text-2xl font-bold ${score >= 5 ? 'text-red-500' : 'text-stone-300'}`}>
                                 {score}
                             </span>
-                            <span className="text-[0.6rem] md:text-xs uppercase font-bold tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity text-center px-1">
+                            <span className="absolute bottom-2 text-[0.6rem] md:text-xs uppercase font-bold tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity text-center px-1">
                                 {score === 1 ? 'Disagree' : score === 6 ? 'Agree' : ''}
                             </span>
                         </button>

@@ -1,6 +1,6 @@
-# Walkthrough: Money Script Test Refactor
+# Walkthrough: Money Script Test Refactor & Fixes
 
-Refactored the initial monolithic implementation of the `money-script-2026` test to align with the project's standard architecture defined in `AGENT.md`.
+Refactored the `money-script-2026` test to align with project standards, updated assets, and fixed UI glitches.
 
 ## Changes Made
 
@@ -10,16 +10,20 @@ Refactored the initial monolithic implementation of the `money-script-2026` test
     - `components/Landing.tsx`: Entry screen with "Fire & Metal" theme.
     - `components/QuizUI.tsx`: Quiz interface with progress bar and Likert scale.
     - `components/AnalysisReport.tsx`: Result page with 2026 forecast and sharing.
-- **Main Wrapper**: Updated `MoneyScriptClientPage.tsx` to orchestrate these components using URL state (`?res=...`).
+- **Main Wrapper**: Updated `MoneyScriptClientPage.tsx` to orchestrate components using URL state.
 
-### 2. Open Graph Integration
-- Created `og/og-template.tsx` for dynamic social preview images.
-- Registered handler in `frontend/app/api/og/route.tsx`.
+### 2. UI Fixes
+- **Button Alignment**: Fixed "삐뚤빼뚤" (misaligned) numbers in the Likert scale buttons.
+    - *Cause*: Hidden "Agree/Disagree" labels were taking up layout space in the flex container.
+    - *Fix*: Changed labels to `absolute` positioning so they don't affect the number's centering.
+- **Result Actions**: Updated `AnalysisReport.tsx` to use the standard 4-button grid layout (Share Test, Share Result, Retest, Home).
 
-### 3. Verification
-- **Build**: `npm run build` passed successfully (17 static pages).
-- **Files**: Confirmed creation of new directories and component files.
+### 3. Asset Updates
+- **Rice Purity Test**: Updated hero image to `hero-2026.jpg` and removed redundant title text overlay.
+
+## Verification
+- **Build**: `npm run build` passed successfully.
+- **Visuals**: Confirmed button layout logic ensures perfect centering and action grid matches standard.
 
 ## Next Steps
-- Deploy to Vercel to verify live OG image generation.
-- Perform user testing on mobile to ensure touch targets in `QuizUI` are optimal.
+- Deploy to Vercel to verify live changes.

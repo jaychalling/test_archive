@@ -109,23 +109,32 @@ export default function AnalysisReport({ resultCode }: Props) {
                 {/* Actions */}
                 <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-16">
                     <button
-                        onClick={handleShare}
-                        className="col-span-2 px-6 py-4 rounded-xl bg-red-900 text-white hover:bg-red-800 transition-colors font-bold flex items-center justify-center gap-2"
+                        onClick={() => {
+                            navigator.clipboard.writeText(window.location.origin + window.location.pathname);
+                            alert('Test Link Copied!');
+                        }}
+                        className="px-4 py-3 rounded-xl bg-neutral-800 text-stone-300 hover:bg-neutral-700 transition-colors font-bold flex items-center justify-center gap-2 text-sm"
                     >
-                        <Share2 className="w-4 h-4" /> Share Result
+                        <Share2 className="w-4 h-4" /> Share Test
+                    </button>
+
+                    <button
+                        onClick={handleShare}
+                        className="px-4 py-3 rounded-xl bg-red-900 text-white hover:bg-red-800 transition-colors font-bold flex items-center justify-center gap-2 text-sm"
+                    >
+                        <TrendingUp className="w-4 h-4" /> Share Result
+                    </button>
+
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="px-4 py-3 rounded-xl bg-neutral-800 text-stone-300 hover:bg-neutral-700 transition-colors font-bold flex items-center justify-center gap-2 text-sm"
+                    >
+                        <RefreshCcw className="w-4 h-4" /> Retest
                     </button>
 
                     <Link
-                        href="/test/money-script-2026"
-                        className="px-6 py-3 rounded-xl bg-neutral-800 text-stone-400 hover:bg-neutral-700 transition-colors font-semibold flex items-center justify-center gap-2 w-full"
-                        onClick={() => window.location.href = '/test/money-script-2026'} // Force reload to clear state
-                    >
-                        <RefreshCcw className="w-4 h-4" /> Retest
-                    </Link>
-
-                    <Link
                         href="/"
-                        className="px-6 py-3 rounded-xl bg-stone-100 text-neutral-900 hover:bg-white transition-colors font-bold flex items-center justify-center gap-2 w-full"
+                        className="px-4 py-3 rounded-xl bg-stone-100 text-neutral-900 hover:bg-white transition-colors font-bold flex items-center justify-center gap-2 text-sm"
                     >
                         <Home className="w-4 h-4" /> Home
                     </Link>
