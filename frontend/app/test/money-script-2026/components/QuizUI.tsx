@@ -76,7 +76,7 @@ export default function QuizUI({ onFinish }: Props) {
                             key={score}
                             onClick={() => handleAnswer(score)}
                             className={`
-                                relative aspect-square rounded-xl md:rounded-2xl border transition-all duration-200 flex flex-col items-center justify-center gap-1 group
+                                relative aspect-square rounded-xl md:rounded-2xl border transition-all duration-200 flex flex-col items-center justify-center group
                                 ${score <= 3
                                     ? 'border-neutral-700 hover:border-stone-500 hover:bg-neutral-800 text-stone-400'
                                     : 'border-red-900/30 hover:border-red-500 hover:bg-red-900/20 text-red-100'}
