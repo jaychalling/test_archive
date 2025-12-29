@@ -1,5 +1,30 @@
 import { ImageResponse } from 'next/og';
-import { RESULTS, MoneyScriptType } from '../questions';
+
+// Define local types/data to avoid importing complex files with React components (Icons)
+type MoneyScriptType = 'Avoidance' | 'Worship' | 'Status' | 'Vigilance';
+
+const OG_RESULTS: Record<string, { title: string; archetype: string; colorHex: string }> = {
+    Avoidance: {
+        title: 'Money Avoidance',
+        archetype: 'The Ascetic / Renouncer',
+        colorHex: '#a8a29e', // stone-400
+    },
+    Worship: {
+        title: 'Money Worship',
+        archetype: 'The Dreamer / Alchemist',
+        colorHex: '#f59e0b', // amber-500
+    },
+    Status: {
+        title: 'Money Status',
+        archetype: 'The Aristocrat / Performer',
+        colorHex: '#c084fc', // purple-400
+    },
+    Vigilance: {
+        title: 'Money Vigilance',
+        archetype: 'The Guardian / Steward',
+        colorHex: '#34d399', // emerald-400
+    },
+};
 
 export function handleMoneyScriptRequest(
     res: string | null,
@@ -23,7 +48,7 @@ export function handleMoneyScriptRequest(
         return renderDefault('ERROR', 'Invalid Result', '#991b1b', '⚠️');
     }
 
-    const result = RESULTS[resultCode as MoneyScriptType];
+    const result = OG_RESULTS[resultCode];
 
     if (!result) {
         return renderDefault('ERROR', 'Unknown Result', '#991b1b', '⚠️');
@@ -73,7 +98,7 @@ export function handleMoneyScriptRequest(
                         style={{
                             fontSize: 72,
                             fontWeight: 900,
-                            color: result.color.replace('text-', '').replace('stone-400', '#a8a29e').replace('amber-500', '#f59e0b').replace('purple-400', '#c084fc').replace('emerald-400', '#34d399'), // Simple color mapping approximation
+                            color: result.colorHex,
                             textAlign: 'center',
                             textShadow: '0 0 40px rgba(0,0,0,0.5)',
                         }}
