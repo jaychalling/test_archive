@@ -7,11 +7,9 @@ export function middleware(request: NextRequest) {
 
     // Handle 2026puritytest.com redirection
     if (host.includes('2026puritytest.com')) {
-        // Redirect to the rice-purity test if not already there and not an internal Next.js request
+        // If they are not already on the destination page, redirect them to the main domain's test page
         if (!pathname.startsWith('/test/rice-purity') && !pathname.startsWith('/_next') && !pathname.includes('favicon.ico')) {
-            const url = request.nextUrl.clone();
-            url.pathname = '/test/rice-purity';
-            return NextResponse.redirect(url);
+            return NextResponse.redirect('https://www.test-archive.com/test/rice-purity', 307);
         }
     }
 
