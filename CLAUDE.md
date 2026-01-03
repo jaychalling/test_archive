@@ -25,9 +25,9 @@ Next.js frontend + Flask backend 모노레포, Vercel 배포.
 - `/*` → Frontend (Next.js)
 
 **Key Paths:**
-- `frontend/app/test/[test-id]/` - 테스트 페이지들
-- `frontend/app/api/og/route.tsx` - OG 이미지 라우팅 (렌더링 로직 금지)
-- `frontend/utils/metadata.ts` - 메타데이터 유틸리티
+- `app/test/[test-id]/` - 테스트 페이지들
+- `app/api/og/route.tsx` - OG 이미지 라우팅 (렌더링 로직 금지)
+- `utils/metadata.ts` - 메타데이터 유틸리티
 
 ## Core Rules
 
@@ -40,7 +40,7 @@ Next.js frontend + Flask backend 모노레포, Vercel 배포.
 ## Pre-Push
 
 1. `npm run build` 성공 확인
-2. `frontend/app/sitemap.ts` 새 라우트 포함 확인
+2. `app/sitemap.ts` 새 라우트 포함 확인
 
 ## Custom Agents
 

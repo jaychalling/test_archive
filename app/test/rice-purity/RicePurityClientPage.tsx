@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Landing from './components/Landing';
 import QuizUI from './components/QuizUI';
@@ -12,6 +12,8 @@ export default function RicePurityClientPage() {
     const [step, setStep] = useState<'landing' | 'quiz' | 'result'>('landing');
     const [score, setScore] = useState(100);
 
+    // URL에서 결과 복구 (공유 링크 지원) - 필수 기능
+    /* eslint-disable react-hooks/set-state-in-effect */
     useEffect(() => {
         let res = searchParams.get('res');
         if (!res) return;
@@ -28,6 +30,7 @@ export default function RicePurityClientPage() {
         setScore(parsedScore);
         setStep('result');
     }, [searchParams]);
+    /* eslint-enable react-hooks/set-state-in-effect */
 
     const handleStart = () => {
         setStep('quiz');
