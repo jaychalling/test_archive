@@ -10,7 +10,8 @@
       "Bash(taskkill:*)",
       "Bash(cmd.exe /c \"taskkill /PID 34280 /F\")",
       "Bash(netstat:*)",
-      "Bash(powershell.exe -Command \"Stop-Process -Id 34280 -Force\")"
+      "Bash(powershell.exe -Command \"Stop-Process -Id 34280 -Force\")",
+      "Bash(git push:*)"
     ]
   },
   "hooks": {
