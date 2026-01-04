@@ -5,44 +5,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 @layer base {
+  /* 기본 테마 (Hub) - 인디고/보라 */
   :root {
-    --background: 195 30% 98%;
-    --foreground: 200 25% 15%;
+    --background: 250 30% 98%;
+    --foreground: 250 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 200 25% 15%;
+    --card-foreground: 250 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 200 25% 15%;
+    --popover-foreground: 250 25% 15%;
 
-    --primary: 175 60% 40%;
+    --primary: 262 83% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 25% 93%;
-    --secondary-foreground: 200 25% 25%;
+    --secondary: 250 25% 93%;
+    --secondary-foreground: 250 25% 25%;
 
-    --muted: 195 20% 95%;
-    --muted-foreground: 200 15% 50%;
+    --muted: 250 20% 95%;
+    --muted-foreground: 250 15% 50%;
 
-    --accent: 175 50% 92%;
-    --accent-foreground: 175 60% 30%;
+    --accent: 262 50% 92%;
+    --accent-foreground: 262 60% 30%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 195 25% 88%;
-    --input: 195 25% 88%;
-    --ring: 175 60% 40%;
+    --border: 250 25% 88%;
+    --input: 250 25% 88%;
+    --ring: 262 83% 58%;
 
     --radius: 0.75rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(175 60% 40%), hsl(195 70% 45%));
-    --gradient-hero: linear-gradient(160deg, hsl(195 30% 98%) 0%, hsl(175 40% 95%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(195 30% 99%) 100%);
-    
-    --shadow-soft: 0 4px 20px -4px hsl(200 25% 15% / 0.08);
-    --shadow-card: 0 8px 30px -8px hsl(200 25% 15% / 0.12);
-    --shadow-elevated: 0 20px 50px -15px hsl(200 25% 15% / 0.15);
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%), hsl(280 70% 55%));
+    --gradient-hero: linear-gradient(160deg, hsl(250 30% 98%) 0%, hsl(270 40% 96%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(260 30% 99%) 100%);
+
+    --shadow-soft: 0 4px 20px -4px hsl(250 25% 15% / 0.08);
+    --shadow-card: 0 8px 30px -8px hsl(250 25% 15% / 0.12);
+    --shadow-elevated: 0 20px 50px -15px hsl(250 25% 15% / 0.15);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -54,39 +55,72 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Rice Purity Test 테마 - 로즈/핑크 */
+  .theme-purity {
+    --background: 340 30% 98%;
+    --foreground: 340 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 340 25% 15%;
+
+    --primary: 340 75% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 340 25% 93%;
+    --secondary-foreground: 340 25% 25%;
+
+    --muted: 340 20% 95%;
+    --muted-foreground: 340 15% 50%;
+
+    --accent: 340 50% 92%;
+    --accent-foreground: 340 60% 30%;
+
+    --border: 340 25% 88%;
+    --input: 340 25% 88%;
+    --ring: 340 75% 55%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(340 75% 55%), hsl(320 65% 58%));
+    --gradient-hero: linear-gradient(160deg, hsl(340 30% 98%) 0%, hsl(330 40% 96%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(340 30% 99%) 100%);
+
+    --shadow-soft: 0 4px 20px -4px hsl(340 25% 15% / 0.08);
+    --shadow-card: 0 8px 30px -8px hsl(340 25% 15% / 0.12);
+    --shadow-elevated: 0 20px 50px -15px hsl(340 25% 15% / 0.15);
+  }
+
   .dark {
-    --background: 200 25% 8%;
-    --foreground: 195 20% 95%;
+    --background: 250 25% 8%;
+    --foreground: 250 20% 95%;
 
-    --card: 200 25% 12%;
-    --card-foreground: 195 20% 95%;
+    --card: 250 25% 12%;
+    --card-foreground: 250 20% 95%;
 
-    --popover: 200 25% 12%;
-    --popover-foreground: 195 20% 95%;
+    --popover: 250 25% 12%;
+    --popover-foreground: 250 20% 95%;
 
-    --primary: 175 55% 50%;
-    --primary-foreground: 200 25% 8%;
+    --primary: 262 75% 60%;
+    --primary-foreground: 250 25% 8%;
 
-    --secondary: 200 20% 18%;
-    --secondary-foreground: 195 20% 90%;
+    --secondary: 250 20% 18%;
+    --secondary-foreground: 250 20% 90%;
 
-    --muted: 200 20% 18%;
-    --muted-foreground: 195 15% 60%;
+    --muted: 250 20% 18%;
+    --muted-foreground: 250 15% 60%;
 
-    --accent: 175 40% 20%;
-    --accent-foreground: 175 55% 70%;
+    --accent: 262 40% 20%;
+    --accent-foreground: 262 55% 70%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 200 20% 20%;
-    --input: 200 20% 20%;
-    --ring: 175 55% 50%;
+    --border: 250 20% 20%;
+    --input: 250 20% 20%;
+    --ring: 262 75% 60%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(175 55% 50%), hsl(195 60% 55%));
-    --gradient-hero: linear-gradient(160deg, hsl(200 25% 8%) 0%, hsl(200 30% 12%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(200 25% 12%) 0%, hsl(200 25% 10%) 100%);
-    
+    --gradient-primary: linear-gradient(135deg, hsl(262 75% 60%), hsl(280 60% 55%));
+    --gradient-hero: linear-gradient(160deg, hsl(250 25% 8%) 0%, hsl(260 30% 12%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(250 25% 12%) 0%, hsl(250 25% 10%) 100%);
+
     --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
     --shadow-card: 0 8px 30px -8px hsl(0 0% 0% / 0.4);
     --shadow-elevated: 0 20px 50px -15px hsl(0 0% 0% / 0.5);
@@ -152,7 +186,7 @@
 
 @layer components {
   .test-card {
-    @apply gradient-card rounded-2xl p-6 shadow-card border border-border/50 
+    @apply gradient-card rounded-2xl p-6 shadow-card border border-border/50
            transition-all duration-300 hover:shadow-elevated hover:-translate-y-1;
   }
 

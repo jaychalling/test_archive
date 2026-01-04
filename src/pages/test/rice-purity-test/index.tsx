@@ -41,7 +41,7 @@ const RicePurityTest = () => {
 
   if (showResults) {
     return (
-      <div className="min-h-screen gradient-hero">
+      <div className="min-h-screen gradient-hero theme-purity">
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -59,7 +59,7 @@ const RicePurityTest = () => {
   }
 
   return (
-    <div className="min-h-screen gradient-hero">
+    <div className="min-h-screen gradient-hero theme-purity">
       <Header />
 
       <main className="container mx-auto px-4 py-8">
