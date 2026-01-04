@@ -8,14 +8,15 @@ interface TestCardProps {
   duration: string;
   path: string;
   icon: React.ReactNode;
+  iconBgColor?: string;
 }
 
-const TestCard = ({ title, description, questionCount, duration, path, icon }: TestCardProps) => {
+const TestCard = ({ title, description, questionCount, duration, path, icon, iconBgColor }: TestCardProps) => {
   return (
     <Link to={path} className="block group">
       <div className="test-card">
         <div className="flex items-start justify-between mb-4">
-          <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center text-primary-foreground">
+          <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-white ${iconBgColor || 'gradient-primary'}`}>
             {icon}
           </div>
           <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />

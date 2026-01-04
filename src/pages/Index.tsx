@@ -39,6 +39,7 @@ const Index = () => {
               duration="10-15분"
               path="/test/rice-purity-test"
               icon={<Sparkles className="w-6 h-6" />}
+              iconBgColor="bg-pink-500"
             />
             <TestCard
               title="Political Compass Test"
@@ -47,6 +48,7 @@ const Index = () => {
               duration="5-10분"
               path="/political-compass-test"
               icon={<Compass className="w-6 h-6" />}
+              iconBgColor="bg-blue-600"
             />
             <TestCard
               title="BDSM 성향 테스트"
@@ -55,6 +57,7 @@ const Index = () => {
               duration="5-10분"
               path="/bdsm-test"
               icon={<Heart className="w-6 h-6" />}
+              iconBgColor="bg-rose-700"
             />
             <TestCard
               title="사랑의 언어 테스트"
@@ -63,6 +66,7 @@ const Index = () => {
               duration="5-10분"
               path="/love-language-test"
               icon={<HeartHandshake className="w-6 h-6" />}
+              iconBgColor="bg-red-400"
             />
             <TestCard
               title="애착 유형 테스트"
@@ -71,6 +75,7 @@ const Index = () => {
               duration="5-10분"
               path="/attachment-style-test"
               icon={<Users className="w-6 h-6" />}
+              iconBgColor="bg-teal-500"
             />
             <TestCard
               title="Big Five 성격 테스트"
@@ -79,6 +84,7 @@ const Index = () => {
               duration="10-15분"
               path="/big-five-test"
               icon={<Brain className="w-6 h-6" />}
+              iconBgColor="bg-indigo-500"
             />
             <TestCard
               title="에니어그램 테스트"
@@ -87,6 +93,7 @@ const Index = () => {
               duration="5-10분"
               path="/enneagram-test"
               icon={<Circle className="w-6 h-6" />}
+              iconBgColor="bg-purple-600"
             />
             <TestCard
               title="16가지 성격 유형 테스트"
@@ -95,6 +102,7 @@ const Index = () => {
               duration="5-10분"
               path="/16-personality-test"
               icon={<Layers className="w-6 h-6" />}
+              iconBgColor="bg-emerald-500"
             />
             <TestCard
               title="D&D 성향 테스트"
@@ -103,6 +111,7 @@ const Index = () => {
               duration="5-10분"
               path="/moral-alignment-test"
               icon={<Scale className="w-6 h-6" />}
+              iconBgColor="bg-amber-500"
             />
             <TestCard
               title="내향/외향성 테스트"
@@ -111,6 +120,7 @@ const Index = () => {
               duration="3-5분"
               path="/introvert-extrovert-test"
               icon={<Users2 className="w-6 h-6" />}
+              iconBgColor="bg-orange-500"
             />
           </div>
         </section>
