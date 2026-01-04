@@ -9,7 +9,7 @@ import {
   BdsmResult,
   bdsmTraitDescriptions,
 } from "@/data/bdsmTestQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, AlertCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -48,15 +48,48 @@ const getSecondaryTrait = (result: BdsmResult): string => {
 const BdsmTest = () => {
   const [answers, setAnswers] = useState<Record<number, BdsmAnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = bdsmQuestions.length;
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const allQuestionsAnswered = answeredCount === totalQuestions;
 
   const handleAnswer = (questionId: number, value: BdsmAnswerValue) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
+
+    // 마지막 질문이 아니면 0.3초 후 다음 질문으로 이동
+    if (!isLastQuestion) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -67,6 +100,7 @@ const BdsmTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -208,59 +242,88 @@ const BdsmTest = () => {
           </div>
 
           {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
             <ProgressBar current={answeredCount} total={totalQuestions} />
-          </div>
-
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {bdsmQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 30, 500)}ms` }}
-              >
-                <div className="flex gap-3 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
-                    {index + 1}.
-                  </span>
-                  <span className="text-sm text-foreground">{question.text}</span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 ml-8">
-                  {bdsmAnswerOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleAnswer(question.id, option.value)}
-                      className={cn(
-                        "px-3 py-1.5 text-xs rounded-full border transition-all duration-200",
-                        answers[question.id] === option.value
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <div className="text-center pb-12">
-            <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
-            >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
-            </Button>
-            <p className="text-xs text-muted-foreground mt-3">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
+            <p className="text-center text-sm text-muted-foreground mt-2">
+              {currentQuestion + 1} / {totalQuestions}
             </p>
+          </div>
+
+          {/* Single Question View */}
+          <div className="min-h-[300px] flex flex-col justify-center mb-8">
+            {(() => {
+              const question = bdsmQuestions[currentQuestion];
+              return (
+                <div
+                  key={question.id}
+                  className={cn(
+                    "test-card transition-all duration-300",
+                    isTransitioning ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"
+                  )}
+                >
+                  <div className="flex gap-3 mb-6">
+                    <span className="text-sm font-medium text-primary min-w-[36px]">
+                      Q{currentQuestion + 1}.
+                    </span>
+                    <span className="text-base text-foreground leading-relaxed">{question.text}</span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 ml-10">
+                    {bdsmAnswerOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => handleAnswer(question.id, option.value)}
+                        className={cn(
+                          "px-4 py-2 text-sm rounded-full border transition-all duration-200",
+                          answers[question.id] === option.value
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center pb-12">
+            <Button
+              onClick={handlePrevQuestion}
+              variant="outline"
+              disabled={currentQuestion === 0}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              이전
+            </Button>
+
+            <p className="text-xs text-muted-foreground">
+              {answeredCount}/{totalQuestions}개 응답 완료
+            </p>
+
+            {isLastQuestion && allQuestionsAnswered ? (
+              <Button
+                onClick={handleSubmit}
+                className="gradient-primary border-0 gap-2 px-6 shadow-elevated hover:shadow-card transition-all duration-300"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                결과 보기
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNextQuestion}
+                variant="outline"
+                disabled={currentQuestion === totalQuestions - 1}
+                className="gap-2"
+              >
+                다음
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            )}
           </div>
         </div>
       </main>

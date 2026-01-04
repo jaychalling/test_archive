@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
@@ -8,7 +8,7 @@ import {
   LoveLanguageResult,
   loveLanguageDescriptions,
 } from "@/data/loveLanguageQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Heart } from "lucide-react";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -53,15 +53,57 @@ const languageColors: Record<LoveLanguage, string> = {
 const LoveLanguageTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerChoice>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showCompleteButton, setShowCompleteButton] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = loveLanguageQuestions.length;
+  const currentQuestionData = loveLanguageQuestions[currentQuestion];
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const allQuestionsAnswered = answeredCount === totalQuestions;
+
+  // Check if we should show the complete button
+  useEffect(() => {
+    if (isLastQuestion && answers[currentQuestionData.id] && allQuestionsAnswered) {
+      setShowCompleteButton(true);
+    } else {
+      setShowCompleteButton(false);
+    }
+  }, [isLastQuestion, answers, currentQuestionData.id, allQuestionsAnswered]);
 
   const handleAnswer = (questionId: number, choice: AnswerChoice) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: choice,
     }));
+
+    // Auto-advance to next question after 0.3 seconds (except for last question)
+    if (!isLastQuestion) {
+      setTimeout(() => {
+        goToNextQuestion();
+      }, 300);
+    }
+  };
+
+  const goToNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
+  };
+
+  const goToPreviousQuestion = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -72,6 +114,8 @@ const LoveLanguageTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
+    setShowCompleteButton(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -246,64 +290,93 @@ const LoveLanguageTest = () => {
           </div>
 
           {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
             <ProgressBar current={answeredCount} total={totalQuestions} />
+            <div className="text-center mt-2">
+              <span className="text-sm font-medium text-foreground">
+                {currentQuestion + 1}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {" "}/ {totalQuestions}
+              </span>
+            </div>
           </div>
 
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {loveLanguageQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 30, 500)}ms` }}
+          {/* Single Question with Fade Animation */}
+          <div
+            className={cn(
+              "test-card transition-all duration-300 ease-in-out",
+              isTransitioning ? "opacity-0 transform translate-y-2" : "opacity-100 transform translate-y-0"
+            )}
+          >
+            <div className="text-xs font-medium text-muted-foreground mb-4">
+              {currentQuestion + 1}. 다음 중 더 선호하는 것은?
+            </div>
+
+            <div className="grid gap-3">
+              <button
+                onClick={() => handleAnswer(currentQuestionData.id, "A")}
+                className={cn(
+                  "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
+                  answers[currentQuestionData.id] === "A"
+                    ? "border-pink-500 bg-pink-500/10 text-foreground"
+                    : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
+                )}
               >
-                <div className="text-xs font-medium text-muted-foreground mb-4">
-                  {index + 1}. 다음 중 더 선호하는 것은?
-                </div>
-
-                <div className="grid gap-3">
-                  <button
-                    onClick={() => handleAnswer(question.id, "A")}
-                    className={cn(
-                      "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
-                      answers[question.id] === "A"
-                        ? "border-pink-500 bg-pink-500/10 text-foreground"
-                        : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <span className="font-medium mr-2">A.</span>
-                    {question.optionA.text}
-                  </button>
-                  <button
-                    onClick={() => handleAnswer(question.id, "B")}
-                    className={cn(
-                      "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
-                      answers[question.id] === "B"
-                        ? "border-pink-500 bg-pink-500/10 text-foreground"
-                        : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <span className="font-medium mr-2">B.</span>
-                    {question.optionB.text}
-                  </button>
-                </div>
-              </div>
-            ))}
+                <span className="font-medium mr-2">A.</span>
+                {currentQuestionData.optionA.text}
+              </button>
+              <button
+                onClick={() => handleAnswer(currentQuestionData.id, "B")}
+                className={cn(
+                  "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
+                  answers[currentQuestionData.id] === "B"
+                    ? "border-pink-500 bg-pink-500/10 text-foreground"
+                    : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <span className="font-medium mr-2">B.</span>
+                {currentQuestionData.optionB.text}
+              </button>
+            </div>
           </div>
 
-          {/* Submit Button */}
-          <div className="text-center pb-12">
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center mt-6">
             <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+              onClick={goToPreviousQuestion}
+              variant="outline"
+              disabled={currentQuestion === 0}
+              className="gap-2"
             >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
+              <ChevronLeft className="w-4 h-4" />
+              이전
             </Button>
-            <p className="text-xs text-muted-foreground mt-3">
+
+            {showCompleteButton ? (
+              <Button
+                onClick={handleSubmit}
+                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                결과 보기
+              </Button>
+            ) : (
+              <Button
+                onClick={goToNextQuestion}
+                variant="outline"
+                disabled={currentQuestion === totalQuestions - 1}
+                className="gap-2"
+              >
+                다음
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+
+          {/* Progress Info */}
+          <div className="text-center py-8">
+            <p className="text-xs text-muted-foreground">
               {answeredCount}/{totalQuestions}개 질문 응답 완료
             </p>
           </div>

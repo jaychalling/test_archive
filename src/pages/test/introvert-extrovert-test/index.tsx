@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
@@ -17,7 +17,7 @@ import {
   typeTextColors,
   typeBgColors,
 } from "@/data/introvertExtrovertQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Users2, Zap, AlertCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, Share2, Users2, Zap, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -75,15 +75,49 @@ const calculateResults = (answers: Record<number, AnswerValue>): IntrovertExtrov
 const IntrovertExtrovertTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = introvertExtrovertQuestions.length;
+  const currentQuestionData = introvertExtrovertQuestions[currentQuestion];
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const allQuestionsAnswered = answeredCount === totalQuestions;
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
+
+    // 마지막 질문이 아니면 0.3초 후 다음 질문으로 이동
+    if (!isLastQuestion) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -94,6 +128,7 @@ const IntrovertExtrovertTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -392,75 +427,126 @@ ${typeInfo.description}`;
             </p>
           </div>
 
-          {/* Dimension Overview */}
-          <div className="test-card mb-6">
-            <h3 className="text-sm font-medium text-foreground mb-3">측정하는 5가지 요소</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-xs">
-              {dimensionOrder.map((dimension) => (
-                <div key={dimension} className="p-2 rounded-lg text-center bg-muted/50">
-                  <div className="font-medium text-foreground">
-                    {dimensionDescriptions[dimension].name}
-                  </div>
-                </div>
-              ))}
+          {/* Progress */}
+          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+            <ProgressBar current={answeredCount} total={totalQuestions} />
+            {/* 현재 질문 번호 / 전체 질문 수 */}
+            <div className="text-center mt-3">
+              <span className="text-sm font-medium text-foreground">
+                {currentQuestion + 1}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {" "}/ {totalQuestions}
+              </span>
             </div>
           </div>
 
-          {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
-            <ProgressBar current={answeredCount} total={totalQuestions} />
-          </div>
-
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {introvertExtrovertQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 30, 500)}ms` }}
-              >
-                <div className="flex gap-3 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
-                    {index + 1}.
-                  </span>
-                  <span className="text-sm text-foreground">{question.text}</span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 ml-8">
-                  {answerOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleAnswer(question.id, option.value)}
-                      className={cn(
-                        "px-3 py-1.5 text-xs rounded-full border transition-all duration-200",
-                        answers[question.id] === option.value
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <div className="text-center pb-12">
-            <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+          {/* Single Question Display */}
+          <div className="min-h-[280px] flex items-center justify-center mb-8">
+            <div
+              className={cn(
+                "test-card w-full transition-all duration-300",
+                isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+              )}
             >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
-            </Button>
-            <p className="text-xs text-muted-foreground mt-3">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
-            </p>
+              <div className="flex gap-3 mb-6">
+                <span className="text-lg font-semibold text-primary min-w-[36px]">
+                  Q{currentQuestion + 1}.
+                </span>
+                <span className="text-lg text-foreground leading-relaxed">
+                  {currentQuestionData.text}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-3 justify-center">
+                {answerOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleAnswer(currentQuestionData.id, option.value)}
+                    disabled={isTransitioning}
+                    className={cn(
+                      "px-5 py-2.5 text-sm rounded-full border-2 transition-all duration-200 font-medium",
+                      answers[currentQuestionData.id] === option.value
+                        ? "border-primary bg-primary text-primary-foreground scale-105"
+                        : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex items-center justify-between mb-8">
+            <Button
+              onClick={handlePrevQuestion}
+              variant="outline"
+              disabled={currentQuestion === 0 || isTransitioning}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              이전
+            </Button>
+
+            <div className="flex gap-1">
+              {introvertExtrovertQuestions.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (!isTransitioning) {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setCurrentQuestion(index);
+                        setIsTransitioning(false);
+                      }, 150);
+                    }
+                  }}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all duration-200",
+                    currentQuestion === index
+                      ? "bg-primary w-4"
+                      : answers[introvertExtrovertQuestions[index].id] !== undefined
+                        ? "bg-primary/50"
+                        : "bg-muted-foreground/30"
+                  )}
+                />
+              ))}
+            </div>
+
+            <Button
+              onClick={handleNextQuestion}
+              variant="outline"
+              disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
+              className="gap-2"
+            >
+              다음
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
+
+          {/* Submit Button - 마지막 질문에서 답변 완료 시 표시 */}
+          {isLastQuestion && answers[currentQuestionData.id] !== undefined && (
+            <div className="text-center pb-12 animate-fade-in">
+              <Button
+                onClick={handleSubmit}
+                size="lg"
+                disabled={!allQuestionsAnswered}
+                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                결과 보기
+              </Button>
+              {!allQuestionsAnswered && (
+                <p className="text-xs text-muted-foreground mt-3">
+                  {answeredCount}/{totalQuestions}개 질문 응답 완료
+                  <br />
+                  모든 질문에 답변해주세요.
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </main>
     </div>

@@ -17,7 +17,7 @@ import {
   scoreLevelLabels,
   getPersonalityProfile,
 } from "@/data/bigFiveQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -60,15 +60,48 @@ const calculateResults = (answers: Record<number, AnswerValue>): BigFiveResult =
 const BigFiveTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = bigFiveQuestions.length;
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const allQuestionsAnswered = answeredCount === totalQuestions;
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
+
+    // 마지막 질문이 아니면 0.3초 후 다음 질문으로 이동
+    if (!isLastQuestion) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -79,6 +112,7 @@ const BigFiveTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -395,77 +429,90 @@ ${profile.summary}
             </p>
           </div>
 
-          {/* Trait Overview */}
-          <div className="test-card mb-6">
-            <h3 className="text-sm font-medium text-foreground mb-3">측정하는 5가지 성격 특성 (OCEAN)</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-xs">
-              {traitOrder.map((trait) => (
-                <div key={trait} className={cn("p-2 rounded-lg text-center", `${traitColors[trait].replace('bg-', 'bg-')}/10`)}>
-                  <div className={cn("font-medium", traitTextColors[trait])}>
-                    {bigFiveDescriptions[trait].name}
-                  </div>
-                  <div className="text-muted-foreground text-[10px]">
-                    {bigFiveDescriptions[trait].nameEn}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+          <div className="mb-6">
             <ProgressBar current={answeredCount} total={totalQuestions} />
           </div>
 
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {bigFiveQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 20, 500)}ms` }}
-              >
-                <div className="flex gap-3 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
-                    {index + 1}.
-                  </span>
-                  <span className="text-sm text-foreground">{question.text}</span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 ml-8">
-                  {answerOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleAnswer(question.id, option.value)}
-                      className={cn(
-                        "px-3 py-1.5 text-xs rounded-full border transition-all duration-200",
-                        answers[question.id] === option.value
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
+          {/* Question Number */}
+          <div className="text-center mb-6">
+            <span className="text-lg font-medium text-foreground">
+              {currentQuestion + 1} / {totalQuestions}
+            </span>
           </div>
 
-          {/* Submit Button */}
-          <div className="text-center pb-12">
-            <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+          {/* Current Question Card */}
+          <div className="min-h-[250px] flex items-center justify-center mb-8">
+            <div
+              className={cn(
+                "test-card w-full transition-all duration-300",
+                isTransitioning ? "opacity-0 transform scale-95" : "opacity-100 transform scale-100"
+              )}
             >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
+              {(() => {
+                const question = bigFiveQuestions[currentQuestion];
+                return (
+                  <>
+                    <div className="text-center mb-6">
+                      <span className="text-lg text-foreground leading-relaxed">
+                        {question.text}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-3">
+                      {answerOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => handleAnswer(question.id, option.value)}
+                          disabled={isTransitioning}
+                          className={cn(
+                            "px-5 py-3 text-sm rounded-xl border-2 transition-all duration-200 min-w-[100px]",
+                            answers[question.id] === option.value
+                              ? "border-primary bg-primary text-primary-foreground shadow-lg transform scale-105"
+                              : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                          )}
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center pb-12">
+            <Button
+              onClick={handlePrevQuestion}
+              variant="outline"
+              disabled={currentQuestion === 0 || isTransitioning}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              이전
             </Button>
-            <p className="text-xs text-muted-foreground mt-3">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
-            </p>
+
+            {isLastQuestion && allQuestionsAnswered ? (
+              <Button
+                onClick={handleSubmit}
+                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                결과 보기
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNextQuestion}
+                variant="outline"
+                disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
+                className="gap-2"
+              >
+                다음
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            )}
           </div>
         </div>
       </main>

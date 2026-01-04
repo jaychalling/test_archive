@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
@@ -10,7 +10,7 @@ import {
   AttachmentResult,
   attachmentStyleDescriptions,
 } from "@/data/attachmentStyleQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Users } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -88,15 +88,57 @@ const styleBgColors: Record<AttachmentStyle, string> = {
 const AttachmentStyleTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showCompleteButton, setShowCompleteButton] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = attachmentStyleQuestions.length;
+  const currentQuestionData = attachmentStyleQuestions[currentQuestion];
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const allAnswered = answeredCount === totalQuestions;
+
+  // 마지막 질문 답변 후 결과 보기 버튼 표시
+  useEffect(() => {
+    if (isLastQuestion && answers[currentQuestionData.id] !== undefined) {
+      setShowCompleteButton(true);
+    }
+  }, [isLastQuestion, answers, currentQuestionData.id]);
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
+
+    // 마지막 질문이 아닌 경우에만 자동으로 다음 질문으로 이동
+    if (!isLastQuestion) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -107,6 +149,8 @@ const AttachmentStyleTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
+    setShowCompleteButton(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -382,60 +426,121 @@ ${styleInfo.description}`;
           </div>
 
           {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
             <ProgressBar current={answeredCount} total={totalQuestions} />
+            <div className="text-center mt-2">
+              <span className="text-sm font-medium text-foreground">
+                {currentQuestion + 1}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {" "}/ {totalQuestions}
+              </span>
+            </div>
           </div>
 
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {attachmentStyleQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 30, 500)}ms` }}
-              >
-                <div className="flex gap-3 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
-                    {index + 1}.
-                  </span>
-                  <span className="text-sm text-foreground">{question.text}</span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 ml-8">
-                  {answerOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleAnswer(question.id, option.value)}
-                      className={cn(
-                        "px-3 py-1.5 text-xs rounded-full border transition-all duration-200",
-                        answers[question.id] === option.value
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <div className="text-center pb-12">
-            <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+          {/* Single Question View */}
+          <div className="min-h-[300px] flex flex-col justify-center mb-8">
+            <div
+              className={cn(
+                "test-card transition-all duration-300",
+                isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+              )}
             >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
-            </Button>
-            <p className="text-xs text-muted-foreground mt-3">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
-            </p>
+              <div className="flex gap-3 mb-6">
+                <span className="text-lg font-semibold text-primary min-w-[36px]">
+                  Q{currentQuestion + 1}.
+                </span>
+                <span className="text-lg text-foreground leading-relaxed">
+                  {currentQuestionData.text}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2 justify-center">
+                {answerOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleAnswer(currentQuestionData.id, option.value)}
+                    className={cn(
+                      "px-4 py-2 text-sm rounded-full border transition-all duration-200",
+                      answers[currentQuestionData.id] === option.value
+                        ? "border-primary bg-primary text-primary-foreground scale-105"
+                        : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:scale-105"
+                    )}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex items-center justify-between gap-4 mb-8">
+            <Button
+              onClick={handlePrevQuestion}
+              variant="outline"
+              disabled={currentQuestion === 0}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              이전
+            </Button>
+
+            <div className="flex gap-1">
+              {attachmentStyleQuestions.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      setCurrentQuestion(index);
+                      setIsTransitioning(false);
+                    }, 150);
+                  }}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all duration-200",
+                    currentQuestion === index
+                      ? "bg-primary w-4"
+                      : answers[attachmentStyleQuestions[index].id] !== undefined
+                      ? "bg-primary/50"
+                      : "bg-muted-foreground/30"
+                  )}
+                />
+              ))}
+            </div>
+
+            <Button
+              onClick={handleNextQuestion}
+              variant="outline"
+              disabled={currentQuestion === totalQuestions - 1}
+              className="gap-2"
+            >
+              다음
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
+
+          {/* Submit Button - 마지막 질문 답변 후 또는 모든 답변 완료 시 표시 */}
+          {(showCompleteButton || allAnswered) && (
+            <div className="text-center pb-12 animate-fade-in">
+              <Button
+                onClick={handleSubmit}
+                size="lg"
+                disabled={!allAnswered}
+                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                결과 보기
+              </Button>
+              {!allAnswered && (
+                <p className="text-xs text-muted-foreground mt-3">
+                  {answeredCount}/{totalQuestions}개 질문 응답 완료
+                  <br />
+                  모든 질문에 답변해주세요
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </main>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
@@ -17,7 +17,7 @@ import {
   typeGroups,
   getTypeGroup,
 } from "@/data/personalityTypeQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Layers } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -78,15 +78,60 @@ const calculateResults = (answers: Record<number, AnswerChoice>): PersonalityRes
 const SixteenPersonalityTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerChoice>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showCompleteButton, setShowCompleteButton] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = personalityQuestions.length;
+  const currentQ = personalityQuestions[currentQuestion];
+  const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const allAnswered = answeredCount === totalQuestions;
+
+  // Check if all questions are answered to show complete button
+  useEffect(() => {
+    if (allAnswered && isLastQuestion) {
+      setShowCompleteButton(true);
+    }
+  }, [allAnswered, isLastQuestion]);
 
   const handleAnswer = (questionId: number, choice: AnswerChoice) => {
     setAnswers((prev) => ({
       ...prev,
       [questionId]: choice,
     }));
+
+    // Auto-advance to next question after 0.3 seconds
+    if (!isLastQuestion) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 300);
+    } else {
+      // Last question answered
+      setShowCompleteButton(true);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -97,6 +142,8 @@ const SixteenPersonalityTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
+    setShowCompleteButton(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -457,72 +504,131 @@ ${typeInfo.description}`;
           </div>
 
           {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 rounded-lg">
             <ProgressBar current={answeredCount} total={totalQuestions} />
+            <div className="text-center mt-2">
+              <span className="text-sm font-medium text-foreground">
+                {currentQuestion + 1}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {" "}/{" "}{totalQuestions}
+              </span>
+            </div>
           </div>
 
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {personalityQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 20, 500)}ms` }}
-              >
-                <div className="flex gap-3 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
-                    {index + 1}.
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    더 가까운 문장을 선택하세요
-                  </span>
-                </div>
-
-                <div className="space-y-2 ml-8">
-                  <button
-                    onClick={() => handleAnswer(question.id, "A")}
-                    className={cn(
-                      "w-full p-3 text-left text-sm rounded-lg border transition-all duration-200",
-                      answers[question.id] === "A"
-                        ? "border-primary bg-primary/10 text-foreground"
-                        : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <span className="font-medium mr-2">A.</span>
-                    {question.optionA.text}
-                  </button>
-                  <button
-                    onClick={() => handleAnswer(question.id, "B")}
-                    className={cn(
-                      "w-full p-3 text-left text-sm rounded-lg border transition-all duration-200",
-                      answers[question.id] === "B"
-                        ? "border-primary bg-primary/10 text-foreground"
-                        : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <span className="font-medium mr-2">B.</span>
-                    {question.optionB.text}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Submit Button */}
-          <div className="text-center pb-12">
-            <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+          {/* Single Question Display */}
+          <div className="min-h-[300px] relative">
+            <div
+              className={cn(
+                "test-card transition-all duration-300",
+                isTransitioning ? "opacity-0 transform translate-x-4" : "opacity-100 transform translate-x-0"
+              )}
             >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
-            </Button>
-            <p className="text-xs text-muted-foreground mt-3">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
-            </p>
+              <div className="flex gap-3 mb-6">
+                <span className="text-lg font-semibold text-primary min-w-[40px]">
+                  Q{currentQuestion + 1}.
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  더 가까운 문장을 선택하세요
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                <button
+                  onClick={() => handleAnswer(currentQ.id, "A")}
+                  disabled={isTransitioning}
+                  className={cn(
+                    "w-full p-4 text-left text-base rounded-xl border-2 transition-all duration-200",
+                    answers[currentQ.id] === "A"
+                      ? "border-primary bg-primary/10 text-foreground shadow-md"
+                      : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  <span className="font-semibold text-primary mr-3">A.</span>
+                  {currentQ.optionA.text}
+                </button>
+                <button
+                  onClick={() => handleAnswer(currentQ.id, "B")}
+                  disabled={isTransitioning}
+                  className={cn(
+                    "w-full p-4 text-left text-base rounded-xl border-2 transition-all duration-200",
+                    answers[currentQ.id] === "B"
+                      ? "border-primary bg-primary/10 text-foreground shadow-md"
+                      : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  <span className="font-semibold text-primary mr-3">B.</span>
+                  {currentQ.optionB.text}
+                </button>
+              </div>
+            </div>
           </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center mt-6 mb-8">
+            <Button
+              onClick={handlePrevious}
+              variant="outline"
+              disabled={currentQuestion === 0 || isTransitioning}
+              className="gap-2"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              이전
+            </Button>
+
+            <div className="flex gap-1">
+              {personalityQuestions.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    if (!isTransitioning) {
+                      setIsTransitioning(true);
+                      setTimeout(() => {
+                        setCurrentQuestion(idx);
+                        setIsTransitioning(false);
+                      }, 150);
+                    }
+                  }}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all duration-200",
+                    idx === currentQuestion
+                      ? "bg-primary w-4"
+                      : answers[personalityQuestions[idx].id]
+                      ? "bg-primary/50"
+                      : "bg-muted-foreground/30"
+                  )}
+                />
+              ))}
+            </div>
+
+            <Button
+              onClick={handleNext}
+              variant="outline"
+              disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
+              className="gap-2"
+            >
+              다음
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          </div>
+
+          {/* Submit Button - Show when all answered or on last question with answer */}
+          {showCompleteButton && (
+            <div className="text-center pb-12 animate-fade-in">
+              <Button
+                onClick={handleSubmit}
+                size="lg"
+                disabled={answeredCount < totalQuestions}
+                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                결과 보기
+              </Button>
+              <p className="text-xs text-muted-foreground mt-3">
+                {answeredCount}/{totalQuestions}개 질문 응답 완료
+              </p>
+            </div>
+          )}
         </div>
       </main>
     </div>

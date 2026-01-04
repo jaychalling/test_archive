@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
@@ -17,7 +17,7 @@ import {
   getCenter,
   centerInfo,
 } from "@/data/enneagramQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Circle } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Circle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -79,6 +79,9 @@ const calculateResults = (answers: Record<number, AnswerValue>): EnneagramResult
 const EnneagramTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showViewResultButton, setShowViewResultButton] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = enneagramQuestions.length;
@@ -88,6 +91,39 @@ const EnneagramTest = () => {
       ...prev,
       [questionId]: value,
     }));
+
+    // 마지막 질문인 경우 결과 보기 버튼 표시
+    if (currentQuestion === totalQuestions - 1) {
+      setShowViewResultButton(true);
+    } else {
+      // 0.3초 후 자동으로 다음 질문으로 이동
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 300);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (currentQuestion > 0) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev - 1);
+        setIsTransitioning(false);
+        setShowViewResultButton(false);
+      }, 150);
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < totalQuestions - 1) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentQuestion((prev) => prev + 1);
+        setIsTransitioning(false);
+      }, 150);
+    }
   };
 
   const handleSubmit = () => {
@@ -98,6 +134,8 @@ const EnneagramTest = () => {
   const handleReset = () => {
     setAnswers({});
     setShowResults(false);
+    setCurrentQuestion(0);
+    setShowViewResultButton(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -521,55 +559,89 @@ const EnneagramTest = () => {
           {/* Progress */}
           <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
             <ProgressBar current={answeredCount} total={totalQuestions} />
+            <p className="text-center text-sm text-muted-foreground mt-2">
+              {currentQuestion + 1} / {totalQuestions}
+            </p>
           </div>
 
-          {/* Questions */}
-          <div className="space-y-4 mb-8">
-            {enneagramQuestions.map((question, index) => (
-              <div
-                key={question.id}
-                className="test-card animate-fade-in"
-                style={{ animationDelay: `${Math.min(index * 20, 500)}ms` }}
-              >
-                <div className="flex gap-3 mb-4">
-                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
-                    {index + 1}.
-                  </span>
-                  <span className="text-sm text-foreground">{question.text}</span>
-                </div>
+          {/* Single Question View */}
+          <div className="min-h-[300px] flex flex-col justify-center mb-8">
+            {(() => {
+              const question = enneagramQuestions[currentQuestion];
+              return (
+                <div
+                  key={question.id}
+                  className={cn(
+                    "test-card transition-all duration-300",
+                    isTransitioning ? "opacity-0 transform translate-x-4" : "opacity-100 transform translate-x-0"
+                  )}
+                >
+                  <div className="flex gap-3 mb-6">
+                    <span className="text-lg font-semibold text-primary min-w-[40px]">
+                      Q{currentQuestion + 1}.
+                    </span>
+                    <span className="text-lg text-foreground">{question.text}</span>
+                  </div>
 
-                <div className="flex flex-wrap gap-2 ml-8">
-                  {answerOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleAnswer(question.id, option.value)}
-                      className={cn(
-                        "px-3 py-1.5 text-xs rounded-full border transition-all duration-200",
-                        answers[question.id] === option.value
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    {answerOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        onClick={() => handleAnswer(question.id, option.value)}
+                        className={cn(
+                          "px-5 py-3 text-sm rounded-xl border-2 transition-all duration-200 min-w-[100px]",
+                          answers[question.id] === option.value
+                            ? "border-primary bg-primary text-primary-foreground scale-105 shadow-lg"
+                            : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })()}
           </div>
 
-          {/* Submit Button */}
-          <div className="text-center pb-12">
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center pb-8">
             <Button
-              onClick={handleSubmit}
-              size="lg"
-              disabled={answeredCount < totalQuestions}
-              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+              onClick={handlePrevQuestion}
+              variant="outline"
+              disabled={currentQuestion === 0}
+              className="gap-2"
             >
-              <CheckCircle2 className="w-5 h-5" />
-              결과 확인하기
+              <ChevronLeft className="w-4 h-4" />
+              이전
             </Button>
-            <p className="text-xs text-muted-foreground mt-3">
+
+            {showViewResultButton ? (
+              <Button
+                onClick={handleSubmit}
+                size="lg"
+                disabled={answeredCount < totalQuestions}
+                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+              >
+                <CheckCircle2 className="w-5 h-5" />
+                결과 보기
+              </Button>
+            ) : (
+              <Button
+                onClick={handleNextQuestion}
+                variant="outline"
+                disabled={currentQuestion === totalQuestions - 1}
+                className="gap-2"
+              >
+                다음
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+
+          {/* Answered Count Info */}
+          <div className="text-center pb-12">
+            <p className="text-xs text-muted-foreground">
               {answeredCount}/{totalQuestions}개 질문 응답 완료
             </p>
           </div>
