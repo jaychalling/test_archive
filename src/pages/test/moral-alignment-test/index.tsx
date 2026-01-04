@@ -1,0 +1,427 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
+import ProgressBar from "@/components/ProgressBar";
+import {
+  moralAlignmentQuestions,
+  answerOptions,
+  AnswerValue,
+  AlignmentType,
+  alignmentData,
+} from "@/data/moralAlignmentQuestions";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
+
+interface AlignmentResult {
+  goodEvil: number; // -10 ~ +10 (Evil ~ Good)
+  lawfulChaotic: number; // -10 ~ +10 (Chaotic ~ Lawful)
+}
+
+const getAlignmentType = (
+  goodEvil: number,
+  lawfulChaotic: number
+): AlignmentType => {
+  // Good/Evil 분류
+  let geCategory: "good" | "neutral" | "evil";
+  if (goodEvil > 3) geCategory = "good";
+  else if (goodEvil < -3) geCategory = "evil";
+  else geCategory = "neutral";
+
+  // Lawful/Chaotic 분류
+  let lcCategory: "lawful" | "neutral" | "chaotic";
+  if (lawfulChaotic > 3) lcCategory = "lawful";
+  else if (lawfulChaotic < -3) lcCategory = "chaotic";
+  else lcCategory = "neutral";
+
+  // 조합
+  if (lcCategory === "lawful" && geCategory === "good") return "lawfulGood";
+  if (lcCategory === "neutral" && geCategory === "good") return "neutralGood";
+  if (lcCategory === "chaotic" && geCategory === "good") return "chaoticGood";
+  if (lcCategory === "lawful" && geCategory === "neutral") return "lawfulNeutral";
+  if (lcCategory === "neutral" && geCategory === "neutral") return "trueNeutral";
+  if (lcCategory === "chaotic" && geCategory === "neutral") return "chaoticNeutral";
+  if (lcCategory === "lawful" && geCategory === "evil") return "lawfulEvil";
+  if (lcCategory === "neutral" && geCategory === "evil") return "neutralEvil";
+  return "chaoticEvil";
+};
+
+const alignmentGrid: { type: AlignmentType; label: string }[][] = [
+  [
+    { type: "lawfulGood", label: "질서 선" },
+    { type: "neutralGood", label: "중립 선" },
+    { type: "chaoticGood", label: "혼돈 선" },
+  ],
+  [
+    { type: "lawfulNeutral", label: "질서 중립" },
+    { type: "trueNeutral", label: "완전 중립" },
+    { type: "chaoticNeutral", label: "혼돈 중립" },
+  ],
+  [
+    { type: "lawfulEvil", label: "질서 악" },
+    { type: "neutralEvil", label: "중립 악" },
+    { type: "chaoticEvil", label: "혼돈 악" },
+  ],
+];
+
+const gridColors: Record<AlignmentType, string> = {
+  lawfulGood: "bg-yellow-500/30",
+  neutralGood: "bg-green-500/30",
+  chaoticGood: "bg-orange-500/30",
+  lawfulNeutral: "bg-blue-500/30",
+  trueNeutral: "bg-gray-500/30",
+  chaoticNeutral: "bg-purple-500/30",
+  lawfulEvil: "bg-red-700/30",
+  neutralEvil: "bg-gray-700/30",
+  chaoticEvil: "bg-red-900/30",
+};
+
+const MoralAlignmentTest = () => {
+  const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const answeredCount = Object.keys(answers).length;
+  const totalQuestions = moralAlignmentQuestions.length;
+
+  const handleAnswer = (questionId: number, value: AnswerValue) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [questionId]: value,
+    }));
+  };
+
+  const calculateResult = (): AlignmentResult => {
+    let goodEvilScore = 0;
+    let lawfulChaoticScore = 0;
+
+    const goodEvilQuestions = moralAlignmentQuestions.filter(
+      (q) => q.axis === "goodEvil"
+    );
+    const lawfulChaoticQuestions = moralAlignmentQuestions.filter(
+      (q) => q.axis === "lawfulChaotic"
+    );
+
+    // 5점 척도를 -2 ~ +2로 변환 (3이 중립)
+    goodEvilQuestions.forEach((q) => {
+      const answer = answers[q.id] || 3;
+      const normalizedAnswer = (answer - 3) * q.direction;
+      goodEvilScore += normalizedAnswer;
+    });
+
+    lawfulChaoticQuestions.forEach((q) => {
+      const answer = answers[q.id] || 3;
+      const normalizedAnswer = (answer - 3) * q.direction;
+      lawfulChaoticScore += normalizedAnswer;
+    });
+
+    // -10 ~ +10 스케일로 정규화
+    const maxGoodEvilScore = goodEvilQuestions.length * 2;
+    const maxLawfulChaoticScore = lawfulChaoticQuestions.length * 2;
+
+    return {
+      goodEvil: (goodEvilScore / maxGoodEvilScore) * 10,
+      lawfulChaotic: (lawfulChaoticScore / maxLawfulChaoticScore) * 10,
+    };
+  };
+
+  const handleSubmit = () => {
+    setShowResults(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleReset = () => {
+    setAnswers({});
+    setShowResults(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleShare = async () => {
+    const result = calculateResult();
+    const alignmentType = getAlignmentType(result.goodEvil, result.lawfulChaotic);
+    const alignment = alignmentData[alignmentType];
+    const shareText = `나의 D&D 성향: ${alignment.name} (${alignment.nickname})\n선/악: ${result.goodEvil.toFixed(1)}\n질서/혼돈: ${result.lawfulChaotic.toFixed(1)}\n\nMoral Alignment Test`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Moral Alignment Test 결과",
+          text: shareText,
+          url: window.location.href,
+        });
+      } catch (err) {
+        // User cancelled or share failed
+      }
+    } else {
+      await navigator.clipboard.writeText(shareText);
+      alert("결과가 클립보드에 복사되었습니다!");
+    }
+  };
+
+  if (showResults) {
+    const result = calculateResult();
+    const alignmentType = getAlignmentType(result.goodEvil, result.lawfulChaotic);
+    const alignment = alignmentData[alignmentType];
+
+    // 3x3 그리드에서 위치 계산 (0~2 인덱스)
+    // lawfulChaotic: +10(Lawful) = 0, -10(Chaotic) = 2
+    // goodEvil: +10(Good) = 0, -10(Evil) = 2
+    const gridX = Math.round(((result.lawfulChaotic * -1) + 10) / 20 * 2);
+    const gridY = Math.round(((result.goodEvil * -1) + 10) / 20 * 2);
+
+    return (
+      <div className="min-h-screen gradient-hero">
+        <Header />
+        <main className="container mx-auto px-4 py-12">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            테스트 목록으로
+          </Link>
+
+          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+            <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
+              당신의 도덕적 성향
+            </h2>
+            <div
+              className={cn(
+                "text-3xl font-display font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent",
+                alignment.color
+              )}
+            >
+              {alignment.name}
+            </div>
+            <div className="text-xl text-muted-foreground mb-4">
+              "{alignment.nickname}"
+            </div>
+            <p className="text-muted-foreground mb-8 text-sm max-w-md mx-auto">
+              {alignment.description}
+            </p>
+
+            {/* 3x3 Alignment Grid */}
+            <div className="mb-8">
+              <div className="text-xs text-muted-foreground mb-2 flex justify-between px-8">
+                <span>Lawful (질서)</span>
+                <span>Chaotic (혼돈)</span>
+              </div>
+              <div className="relative max-w-[320px] mx-auto">
+                <div className="absolute -left-16 top-0 text-xs text-muted-foreground">
+                  Good (선)
+                </div>
+                <div className="absolute -left-16 bottom-0 text-xs text-muted-foreground">
+                  Evil (악)
+                </div>
+                <div className="grid grid-cols-3 gap-1">
+                  {alignmentGrid.map((row, rowIndex) =>
+                    row.map((cell, colIndex) => {
+                      const isSelected = cell.type === alignmentType;
+                      return (
+                        <div
+                          key={cell.type}
+                          className={cn(
+                            "aspect-square flex items-center justify-center text-xs p-2 rounded transition-all",
+                            gridColors[cell.type],
+                            isSelected
+                              ? "ring-2 ring-primary ring-offset-2 ring-offset-background scale-105 font-bold"
+                              : "opacity-60"
+                          )}
+                        >
+                          <span className="text-center leading-tight">
+                            {cell.label}
+                          </span>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Scores */}
+            <div className="grid grid-cols-2 gap-4 mb-8 text-sm">
+              <div className="p-4 rounded-lg bg-muted/50">
+                <div className="text-muted-foreground mb-1">선/악 축</div>
+                <div className="font-semibold text-lg">
+                  {result.goodEvil > 0 ? "선 (Good)" : result.goodEvil < 0 ? "악 (Evil)" : "중립"}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  ({result.goodEvil > 0 ? "+" : ""}{result.goodEvil.toFixed(1)})
+                </div>
+                <div className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-red-500 via-gray-400 to-green-500"
+                    style={{
+                      marginLeft: `${((result.goodEvil + 10) / 20) * 100 - 50}%`,
+                      width: "50%",
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>Evil</span>
+                  <span>Good</span>
+                </div>
+              </div>
+              <div className="p-4 rounded-lg bg-muted/50">
+                <div className="text-muted-foreground mb-1">질서/혼돈 축</div>
+                <div className="font-semibold text-lg">
+                  {result.lawfulChaotic > 0 ? "질서 (Lawful)" : result.lawfulChaotic < 0 ? "혼돈 (Chaotic)" : "중립"}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  ({result.lawfulChaotic > 0 ? "+" : ""}{result.lawfulChaotic.toFixed(1)})
+                </div>
+                <div className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-purple-500 via-gray-400 to-blue-500"
+                    style={{
+                      marginLeft: `${((result.lawfulChaotic + 10) / 20) * 100 - 50}%`,
+                      width: "50%",
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>Chaotic</span>
+                  <span>Lawful</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Traits */}
+            <div className="mb-8 text-left">
+              <h3 className="font-semibold text-foreground mb-3">주요 특징</h3>
+              <div className="flex flex-wrap gap-2">
+                {alignment.traits.map((trait, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                  >
+                    {trait}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Example Characters */}
+            <div className="mb-8 text-left">
+              <h3 className="font-semibold text-foreground mb-3">
+                대표적인 캐릭터
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {alignment.examples.map((example, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground"
+                  >
+                    {example}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-center">
+              <Button onClick={handleReset} variant="outline" className="gap-2">
+                <RotateCcw className="w-4 h-4" />
+                다시하기
+              </Button>
+              <Button
+                onClick={handleShare}
+                className="gap-2 gradient-primary border-0"
+              >
+                <Share2 className="w-4 h-4" />
+                공유하기
+              </Button>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen gradient-hero">
+      <Header />
+
+      <main className="container mx-auto px-4 py-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          테스트 목록으로
+        </Link>
+
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8 animate-fade-in">
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
+              Moral Alignment Test
+            </h1>
+            <p className="text-muted-foreground">
+              D&D 성향 테스트로 당신의 도덕적 성향을 알아보세요.
+              <br />
+              선/악, 질서/혼돈 두 축을 기준으로 9가지 성향 중 하나를 찾습니다.
+            </p>
+          </div>
+
+          {/* Progress */}
+          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+            <ProgressBar current={answeredCount} total={totalQuestions} />
+          </div>
+
+          {/* Questions */}
+          <div className="space-y-4 mb-8">
+            {moralAlignmentQuestions.map((question, index) => (
+              <div
+                key={question.id}
+                className="test-card animate-fade-in"
+                style={{ animationDelay: `${Math.min(index * 30, 500)}ms` }}
+              >
+                <div className="flex gap-3 mb-4">
+                  <span className="text-xs font-medium text-muted-foreground min-w-[28px]">
+                    {index + 1}.
+                  </span>
+                  <span className="text-sm text-foreground">{question.text}</span>
+                </div>
+
+                <div className="flex flex-wrap gap-2 ml-8">
+                  {answerOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => handleAnswer(question.id, option.value)}
+                      className={cn(
+                        "px-3 py-1.5 text-xs rounded-full border transition-all duration-200",
+                        answers[question.id] === option.value
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Submit Button */}
+          <div className="text-center pb-12">
+            <Button
+              onClick={handleSubmit}
+              size="lg"
+              disabled={answeredCount < totalQuestions}
+              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+            >
+              <CheckCircle2 className="w-5 h-5" />
+              결과 확인하기
+            </Button>
+            <p className="text-xs text-muted-foreground mt-3">
+              {answeredCount}/{totalQuestions}개 질문 응답 완료
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default MoralAlignmentTest;

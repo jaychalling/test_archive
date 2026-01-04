@@ -1,0 +1,316 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
+import ProgressBar from "@/components/ProgressBar";
+import {
+  loveLanguageQuestions,
+  LoveLanguage,
+  LoveLanguageResult,
+  loveLanguageDescriptions,
+} from "@/data/loveLanguageQuestions";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
+
+type AnswerChoice = "A" | "B";
+
+const calculateResults = (answers: Record<number, AnswerChoice>): LoveLanguageResult => {
+  const result: LoveLanguageResult = {
+    wordsOfAffirmation: 0,
+    actsOfService: 0,
+    receivingGifts: 0,
+    qualityTime: 0,
+    physicalTouch: 0,
+  };
+
+  loveLanguageQuestions.forEach((question) => {
+    const answer = answers[question.id];
+    if (answer === "A") {
+      result[question.optionA.language]++;
+    } else if (answer === "B") {
+      result[question.optionB.language]++;
+    }
+  });
+
+  return result;
+};
+
+const getRankedLanguages = (result: LoveLanguageResult): { language: LoveLanguage; score: number }[] => {
+  const entries = Object.entries(result) as [LoveLanguage, number][];
+  return entries
+    .map(([language, score]) => ({ language, score }))
+    .sort((a, b) => b.score - a.score);
+};
+
+const languageColors: Record<LoveLanguage, string> = {
+  wordsOfAffirmation: "bg-pink-500",
+  actsOfService: "bg-blue-500",
+  receivingGifts: "bg-amber-500",
+  qualityTime: "bg-green-500",
+  physicalTouch: "bg-purple-500",
+};
+
+const LoveLanguageTest = () => {
+  const [answers, setAnswers] = useState<Record<number, AnswerChoice>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const answeredCount = Object.keys(answers).length;
+  const totalQuestions = loveLanguageQuestions.length;
+
+  const handleAnswer = (questionId: number, choice: AnswerChoice) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [questionId]: choice,
+    }));
+  };
+
+  const handleSubmit = () => {
+    setShowResults(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleReset = () => {
+    setAnswers({});
+    setShowResults(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleShare = async () => {
+    const result = calculateResults(answers);
+    const ranked = getRankedLanguages(result);
+    const primaryLanguage = loveLanguageDescriptions[ranked[0].language];
+    const secondaryLanguage = loveLanguageDescriptions[ranked[1].language];
+
+    const shareText = `나의 사랑의 언어 테스트 결과\n\n1순위: ${primaryLanguage.name} (${ranked[0].score}점)\n2순위: ${secondaryLanguage.name} (${ranked[1].score}점)\n\n인정의 말: ${result.wordsOfAffirmation}점\n봉사: ${result.actsOfService}점\n선물: ${result.receivingGifts}점\n함께하는 시간: ${result.qualityTime}점\n스킨십: ${result.physicalTouch}점`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "사랑의 언어 테스트 결과",
+          text: shareText,
+          url: window.location.href,
+        });
+      } catch (err) {
+        // User cancelled or share failed
+      }
+    } else {
+      await navigator.clipboard.writeText(shareText);
+      alert("결과가 클립보드에 복사되었습니다!");
+    }
+  };
+
+  if (showResults) {
+    const result = calculateResults(answers);
+    const ranked = getRankedLanguages(result);
+    const primaryLanguage = ranked[0];
+    const secondaryLanguage = ranked[1];
+    const primaryInfo = loveLanguageDescriptions[primaryLanguage.language];
+    const secondaryInfo = loveLanguageDescriptions[secondaryLanguage.language];
+    const maxScore = 12; // 각 언어는 최대 12점 (30문제에서 각 언어가 12번 등장)
+
+    return (
+      <div className="min-h-screen gradient-hero">
+        <Header />
+        <main className="container mx-auto px-4 py-12">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            테스트 목록으로
+          </Link>
+
+          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Heart className="w-6 h-6 text-pink-500" />
+              <h2 className="font-display text-2xl font-semibold text-foreground">
+                당신의 사랑의 언어
+              </h2>
+            </div>
+
+            {/* Primary Language */}
+            <div className="p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 mb-6">
+              <div className="text-sm text-muted-foreground mb-1">1순위 사랑의 언어</div>
+              <div className="text-3xl font-display font-bold text-gradient mb-2">
+                {primaryInfo.name}
+              </div>
+              <div className="text-sm text-muted-foreground mb-3">
+                {primaryInfo.nameEn}
+              </div>
+              <p className="text-sm text-foreground">
+                {primaryInfo.description}
+              </p>
+            </div>
+
+            {/* Secondary Language */}
+            <div className="p-4 rounded-lg bg-muted/30 mb-6">
+              <div className="text-sm text-muted-foreground mb-1">2순위 사랑의 언어</div>
+              <div className="font-semibold text-foreground text-lg">
+                {secondaryInfo.name}
+              </div>
+              <div className="text-xs text-muted-foreground mb-2">
+                {secondaryInfo.nameEn}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {secondaryInfo.description}
+              </p>
+            </div>
+
+            {/* Score Bars */}
+            <div className="space-y-4 mb-8">
+              <h3 className="text-sm font-medium text-foreground text-left mb-3">
+                언어별 점수
+              </h3>
+              {ranked.map(({ language, score }) => (
+                <div key={language} className="text-left">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-sm font-medium text-foreground">
+                      {loveLanguageDescriptions[language].name}
+                    </span>
+                    <span className="text-sm text-muted-foreground">{score}점</span>
+                  </div>
+                  <div className="h-3 bg-muted rounded-full overflow-hidden">
+                    <div
+                      className={cn("h-full rounded-full transition-all duration-500", languageColors[language])}
+                      style={{ width: `${(score / maxScore) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Primary Language Details */}
+            <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
+              <h3 className="font-semibold text-foreground mb-3">
+                {primaryInfo.name}의 특징
+              </h3>
+              <ul className="space-y-2">
+                {primaryInfo.characteristics.map((char, idx) => (
+                  <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                    <span className="text-pink-500 mt-1">•</span>
+                    {char}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 p-3 rounded-lg bg-pink-500/10">
+                <div className="text-xs font-medium text-pink-600 mb-1">Tip</div>
+                <p className="text-sm text-foreground">{primaryInfo.tips}</p>
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-center">
+              <Button onClick={handleReset} variant="outline" className="gap-2">
+                <RotateCcw className="w-4 h-4" />
+                다시하기
+              </Button>
+              <Button
+                onClick={handleShare}
+                className="gap-2 gradient-primary border-0"
+              >
+                <Share2 className="w-4 h-4" />
+                공유하기
+              </Button>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen gradient-hero">
+      <Header />
+
+      <main className="container mx-auto px-4 py-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          테스트 목록으로
+        </Link>
+
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Heart className="w-8 h-8 text-pink-500" />
+            </div>
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
+              사랑의 언어 테스트
+            </h1>
+            <p className="text-muted-foreground">
+              각 질문에서 더 마음에 드는 선택지를 골라주세요.<br />
+              당신이 사랑을 표현하고 느끼는 방식을 알아봅니다.
+            </p>
+          </div>
+
+          {/* Progress */}
+          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
+            <ProgressBar current={answeredCount} total={totalQuestions} />
+          </div>
+
+          {/* Questions */}
+          <div className="space-y-4 mb-8">
+            {loveLanguageQuestions.map((question, index) => (
+              <div
+                key={question.id}
+                className="test-card animate-fade-in"
+                style={{ animationDelay: `${Math.min(index * 30, 500)}ms` }}
+              >
+                <div className="text-xs font-medium text-muted-foreground mb-4">
+                  {index + 1}. 다음 중 더 선호하는 것은?
+                </div>
+
+                <div className="grid gap-3">
+                  <button
+                    onClick={() => handleAnswer(question.id, "A")}
+                    className={cn(
+                      "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
+                      answers[question.id] === "A"
+                        ? "border-pink-500 bg-pink-500/10 text-foreground"
+                        : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <span className="font-medium mr-2">A.</span>
+                    {question.optionA.text}
+                  </button>
+                  <button
+                    onClick={() => handleAnswer(question.id, "B")}
+                    className={cn(
+                      "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
+                      answers[question.id] === "B"
+                        ? "border-pink-500 bg-pink-500/10 text-foreground"
+                        : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <span className="font-medium mr-2">B.</span>
+                    {question.optionB.text}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Submit Button */}
+          <div className="text-center pb-12">
+            <Button
+              onClick={handleSubmit}
+              size="lg"
+              disabled={answeredCount < totalQuestions}
+              className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+            >
+              <CheckCircle2 className="w-5 h-5" />
+              결과 확인하기
+            </Button>
+            <p className="text-xs text-muted-foreground mt-3">
+              {answeredCount}/{totalQuestions}개 질문 응답 완료
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default LoveLanguageTest;
