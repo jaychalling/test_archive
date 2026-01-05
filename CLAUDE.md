@@ -76,6 +76,11 @@ Result pages must follow this exact section order:
 - Trailing slashes required on all URLs
 - No query strings for results (use localStorage/sessionStorage or URL hash)
 
+### URL Exceptions (Legacy Links)
+| Test | URL | Reason |
+|------|-----|--------|
+| Rice Purity Test | `/test/rice-purity` | Already distributed links exist (no `-test` suffix) |
+
 ## Adding New Tests
 
 1. Create question data in `src/data/{test-name}Questions.ts`

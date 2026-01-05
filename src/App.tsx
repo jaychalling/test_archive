@@ -26,7 +26,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/test/rice-purity-test" element={<RicePurityTest />} />
+          <Route path="/test/rice-purity" element={<RicePurityTest />} />
           <Route path="/test/political-compass-test" element={<PoliticalCompassTest />} />
           <Route path="/test/bdsm-test" element={<BdsmTest />} />
           <Route path="/test/love-language-test" element={<LoveLanguageTest />} />

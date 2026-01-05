@@ -37,7 +37,7 @@ const Index = () => {
               description="Measure your purity score on a scale of 100. Find out how innocent you are."
               questionCount={100}
               duration="5-7 min"
-              path="/test/rice-purity-test"
+              path="/test/rice-purity"
               icon={<Sparkles className="w-6 h-6" />}
               iconBgColor="bg-pink-500"
             />
