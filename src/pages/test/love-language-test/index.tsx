@@ -165,7 +165,7 @@ const LoveLanguageTest = () => {
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Heart className="w-6 h-6 text-pink-500" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
@@ -241,6 +241,63 @@ const LoveLanguageTest = () => {
                 <div className="text-xs font-medium text-pink-600 mb-1">Tip</div>
                 <p className="text-sm text-foreground">{primaryInfo.tips}</p>
               </div>
+            </div>
+
+            {/* Detailed Description */}
+            <div className="text-left p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 mb-6">
+              <h3 className="font-semibold text-pink-600 mb-4 text-lg">{primaryInfo.name} 심층 분석</h3>
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                {primaryInfo.detailedDescription}
+              </p>
+            </div>
+
+            {/* Scientific Background */}
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg">과학적 배경</h3>
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                {primaryInfo.scientificBackground}
+              </p>
+            </div>
+
+            {/* Expression Methods */}
+            <div className="text-left p-6 rounded-xl bg-green-500/10 mb-6">
+              <h3 className="font-semibold text-green-600 mb-4 text-lg">{primaryInfo.name} 표현 방법</h3>
+              <ul className="space-y-2">
+                {primaryInfo.expressionMethods.map((method, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                    <span className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-green-600">{idx + 1}</span>
+                    </span>
+                    {method}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Recognition Signs */}
+            <div className="text-left p-6 rounded-xl bg-amber-500/10 mb-6">
+              <h3 className="font-semibold text-amber-600 mb-4 text-lg">알아보는 방법</h3>
+              <ul className="space-y-2">
+                {primaryInfo.recognitionSigns.map((sign, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                    {sign}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Partnership Tips */}
+            <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
+              <h3 className="font-semibold text-purple-600 mb-4 text-lg">파트너를 위한 팁</h3>
+              <ul className="space-y-2">
+                {primaryInfo.partnershipTips.map((tip, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                    <Heart className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" />
+                    {tip}
+                  </li>
+                ))}
+              </ul>
             </div>
 
             <div className="flex gap-3 justify-center">

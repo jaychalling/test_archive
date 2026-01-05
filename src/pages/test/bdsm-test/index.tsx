@@ -6,8 +6,9 @@ import {
   BdsmAnswerValue,
   BdsmResult,
   bdsmTraitDescriptions,
+  testBackground,
 } from "@/data/bdsmTestQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2, ChevronLeft, ChevronRight, BookOpen, Brain, Heart, MessageCircle, AlertCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -142,6 +143,22 @@ const BdsmTest = () => {
       switch: "bg-green-500",
     };
 
+    const traitTextColors: Record<string, string> = {
+      dominant: "text-red-600",
+      submissive: "text-blue-600",
+      sadism: "text-orange-600",
+      masochism: "text-purple-600",
+      switch: "text-green-600",
+    };
+
+    const traitBgColors: Record<string, string> = {
+      dominant: "bg-red-500/10",
+      submissive: "bg-blue-500/10",
+      sadism: "bg-orange-500/10",
+      masochism: "bg-purple-500/10",
+      switch: "bg-green-500/10",
+    };
+
     return (
       <div className="min-h-screen gradient-hero">
         <Header />
@@ -154,13 +171,16 @@ const BdsmTest = () => {
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-lg mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
               당신의 성향 분석 결과
             </h2>
-            <div className="text-3xl font-display font-bold text-gradient mb-2">
+            <div className={cn("text-3xl font-display font-bold mb-1", traitTextColors[mainTrait])}>
               {mainTraitInfo.name}
             </div>
+            <p className="text-sm text-muted-foreground mb-2">
+              {mainTraitInfo.nameEn}
+            </p>
             <p className="text-muted-foreground mb-6 text-sm">
               {mainTraitInfo.description}
             </p>
@@ -192,6 +212,101 @@ const BdsmTest = () => {
                     </div>
                   </div>
                 ))}
+            </div>
+
+            {/* Detailed Description */}
+            <div className={cn("text-left p-6 rounded-xl mb-6", traitBgColors[mainTrait])}>
+              <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", traitTextColors[mainTrait])}>
+                <BookOpen className="w-5 h-5" />
+                {mainTraitInfo.name} 상세 분석
+              </h3>
+              <p className="text-foreground leading-relaxed">
+                {mainTraitInfo.detailedDescription}
+              </p>
+            </div>
+
+            {/* Psychological Background */}
+            <div className="text-left p-6 rounded-xl bg-indigo-500/10 mb-6">
+              <h3 className="font-semibold text-indigo-600 mb-4 text-lg flex items-center gap-2">
+                <Brain className="w-5 h-5" />
+                심리학적 배경
+              </h3>
+              <p className="text-foreground leading-relaxed">
+                {mainTraitInfo.psychologicalBackground}
+              </p>
+            </div>
+
+            {/* Characteristics */}
+            <div className="text-left p-5 rounded-xl bg-cyan-500/10 mb-6">
+              <h3 className="font-semibold text-cyan-600 mb-4">주요 특성</h3>
+              <ul className="grid md:grid-cols-2 gap-2">
+                {mainTraitInfo.characteristics.map((char, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                    <span className="text-cyan-500 font-bold">•</span>
+                    {char}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Healthy Practices & Communication Tips */}
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="text-left p-5 rounded-xl bg-green-500/10">
+                <h3 className="font-semibold text-green-600 mb-4 flex items-center gap-2">
+                  <Heart className="w-5 h-5" />
+                  건강한 실천
+                </h3>
+                <ul className="space-y-2">
+                  {mainTraitInfo.healthyPractices.map((practice, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
+                      {practice}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="text-left p-5 rounded-xl bg-purple-500/10">
+                <h3 className="font-semibold text-purple-600 mb-4 flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5" />
+                  의사소통 팁
+                </h3>
+                <ul className="space-y-2">
+                  {mainTraitInfo.communicationTips.map((tip, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      {tip}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Test Background */}
+            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
+              <h3 className="font-semibold text-foreground mb-4 text-lg">BDSM 성향 테스트에 대하여</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-foreground mb-2">소개</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {testBackground.about}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground mb-2">동의와 안전</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {testBackground.consent}
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                  <h4 className="font-medium text-amber-600 mb-2 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4" />
+                    참고사항
+                  </h4>
+                  <p className="text-sm text-foreground leading-relaxed">
+                    {testBackground.disclaimer}
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="flex gap-3 justify-center">

@@ -204,178 +204,218 @@ ${profile.summary}
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Brain className="w-6 h-6 text-primary" />
-              <h2 className="font-display text-2xl font-semibold text-foreground">
-                당신의 Big Five 성격 프로필
-              </h2>
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Hero Section */}
+            <div className="test-card text-center animate-scale-in">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Brain className="w-8 h-8 text-primary" />
+                <h1 className="font-display text-3xl font-bold text-foreground">
+                  당신의 Big Five 성격 프로필
+                </h1>
+              </div>
+
+              {/* Summary */}
+              <div className="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 mb-6">
+                <p className="text-lg text-foreground font-medium mb-4">{profile.summary}</p>
+                <p className="text-sm text-muted-foreground">{profile.detailedSummary}</p>
+              </div>
+
+              {/* Radar Chart */}
+              <div className="mb-8">
+                <h2 className="text-lg font-semibold text-foreground mb-4">성격 특성 레이더 차트</h2>
+                <div className="relative w-full max-w-[300px] mx-auto aspect-square">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    {gridPaths.map((path, i) => (
+                      <path key={i} d={path} fill="none" stroke="currentColor" strokeWidth="0.3" className="text-border" />
+                    ))}
+                    {axisLines.map((line, i) => (
+                      <line key={i} x1="50" y1="50" x2={line.x2} y2={line.y2} stroke="currentColor" strokeWidth="0.3" className="text-border" />
+                    ))}
+                    <path d={radarPath} fill="hsl(var(--primary))" fillOpacity="0.3" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+                    {radarPoints.map((point, i) => (
+                      <circle key={i} cx={point.x} cy={point.y} r="2" fill="hsl(var(--primary))" />
+                    ))}
+                  </svg>
+                  {labelPositions.map((pos, i) => (
+                    <div
+                      key={i}
+                      className="absolute text-xs font-medium text-foreground transform -translate-x-1/2 -translate-y-1/2"
+                      style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+                    >
+                      {bigFiveDescriptions[pos.trait].name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Score Bars */}
+              <div className="space-y-4 mb-8">
+                <h2 className="text-lg font-semibold text-foreground text-left mb-3">특성별 점수</h2>
+                {traitOrder.map((trait) => {
+                  const score = result[trait];
+                  const level = getScoreLevel(score);
+                  const info = bigFiveDescriptions[trait];
+                  return (
+                    <div key={trait} className="text-left">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className={cn("text-sm font-medium", traitTextColors[trait])}>
+                          {info.name} ({info.nameEn})
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {score}% ({scoreLevelLabels[level]})
+                        </span>
+                      </div>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden">
+                        <div className={cn("h-full rounded-full transition-all duration-500", traitColors[trait])} style={{ width: `${score}%` }} />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Summary */}
-            <div className="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 mb-6">
-              <p className="text-foreground">{profile.summary}</p>
-            </div>
-
-            {/* Radar Chart */}
-            <div className="mb-8">
-              <h3 className="text-sm font-medium text-foreground mb-4">성격 특성 레이더 차트</h3>
-              <div className="relative w-full max-w-[300px] mx-auto aspect-square">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  {/* Grid lines */}
-                  {gridPaths.map((path, i) => (
-                    <path
-                      key={i}
-                      d={path}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="0.3"
-                      className="text-border"
-                    />
-                  ))}
-
-                  {/* Axis lines */}
-                  {axisLines.map((line, i) => (
-                    <line
-                      key={i}
-                      x1="50"
-                      y1="50"
-                      x2={line.x2}
-                      y2={line.y2}
-                      stroke="currentColor"
-                      strokeWidth="0.3"
-                      className="text-border"
-                    />
-                  ))}
-
-                  {/* Data polygon */}
-                  <path
-                    d={radarPath}
-                    fill="hsl(var(--primary))"
-                    fillOpacity="0.3"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="1.5"
-                  />
-
-                  {/* Data points */}
-                  {radarPoints.map((point, i) => (
-                    <circle
-                      key={i}
-                      cx={point.x}
-                      cy={point.y}
-                      r="2"
-                      fill="hsl(var(--primary))"
-                    />
-                  ))}
-                </svg>
-
-                {/* Labels */}
-                {labelPositions.map((pos, i) => (
-                  <div
-                    key={i}
-                    className="absolute text-xs font-medium text-foreground transform -translate-x-1/2 -translate-y-1/2"
-                    style={{
-                      left: `${pos.x}%`,
-                      top: `${pos.y}%`,
-                    }}
-                  >
-                    {bigFiveDescriptions[pos.trait].name}
-                  </div>
+            {/* Overall Interpretation - E-E-A-T Content */}
+            <div className="test-card">
+              <h2 className="font-display text-xl font-semibold text-foreground mb-4">종합 분석 리포트</h2>
+              <div className="prose prose-sm max-w-none text-foreground">
+                {profile.overallInterpretation.split('\n\n').map((paragraph, idx) => (
+                  <p key={idx} className="mb-4 text-sm leading-relaxed text-muted-foreground">{paragraph}</p>
                 ))}
               </div>
             </div>
 
-            {/* Score Bars */}
-            <div className="space-y-4 mb-8">
-              <h3 className="text-sm font-medium text-foreground text-left mb-3">
-                특성별 점수
-              </h3>
-              {traitOrder.map((trait) => {
-                const score = result[trait];
-                const level = getScoreLevel(score);
-                const info = bigFiveDescriptions[trait];
+            {/* Detailed Trait Analysis */}
+            <div className="test-card">
+              <h2 className="font-display text-xl font-semibold text-foreground mb-6">특성별 상세 분석</h2>
+              <div className="space-y-8">
+                {traitOrder.map((trait) => {
+                  const score = result[trait];
+                  const level = getScoreLevel(score);
+                  const info = bigFiveDescriptions[trait];
+                  const description = level === "high" ? info.highDescription : level === "low" ? info.lowDescription : info.mediumDescription;
+                  const traits = level === "high" || (level === "medium" && score >= 50) ? info.highTraits : info.lowTraits;
 
-                return (
-                  <div key={trait} className="text-left">
-                    <div className="flex justify-between items-center mb-1">
-                      <span className={cn("text-sm font-medium", traitTextColors[trait])}>
-                        {info.name} ({info.nameEn})
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {score}% ({scoreLevelLabels[level]})
-                      </span>
-                    </div>
-                    <div className="h-3 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className={cn("h-full rounded-full transition-all duration-500", traitColors[trait])}
-                        style={{ width: `${score}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  return (
+                    <div key={trait} className={cn("p-6 rounded-xl bg-gradient-to-br", traitBgColors[trait])}>
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className={cn("w-4 h-4 rounded-full", traitColors[trait])} />
+                        <h3 className={cn("text-lg font-semibold", traitTextColors[trait])}>
+                          {info.name} ({info.nameEn})
+                        </h3>
+                        <span className="text-sm text-muted-foreground ml-auto">
+                          {score}% - {scoreLevelLabels[level]}
+                        </span>
+                      </div>
 
-            {/* Trait Details */}
-            <div className="space-y-4 mb-8">
-              <h3 className="text-sm font-medium text-foreground text-left mb-3">
-                특성별 분석
-              </h3>
-              {traitOrder.map((trait) => {
-                const score = result[trait];
-                const level = getScoreLevel(score);
-                const info = bigFiveDescriptions[trait];
-                const traits = level === "high" || level === "medium" && score >= 50
-                  ? info.highTraits
-                  : info.lowTraits;
+                      {/* Scientific Background */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">과학적 배경</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{info.scientificBackground}</p>
+                      </div>
 
-                return (
-                  <div
-                    key={trait}
-                    className={cn("p-4 rounded-lg bg-gradient-to-br", traitBgColors[trait])}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className={cn("w-3 h-3 rounded-full", traitColors[trait])} />
-                      <span className={cn("font-semibold", traitTextColors[trait])}>
-                        {info.name}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {score}% - {scoreLevelLabels[level]}
-                      </span>
+                      {/* Personal Description */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">당신의 {info.name}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+                      </div>
+
+                      {/* Traits List */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">주요 특징</h4>
+                        <ul className="space-y-1">
+                          {traits.map((t, idx) => (
+                            <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                              <span className={traitTextColors[trait]}>•</span>
+                              {t}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Facets */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">하위 요인 (Facets)</h4>
+                        <div className="grid sm:grid-cols-2 gap-2">
+                          {info.facets.map((facet, idx) => (
+                            <div key={idx} className="p-2 bg-background/50 rounded-lg">
+                              <span className="text-xs font-medium text-foreground">{facet.name}</span>
+                              <p className="text-xs text-muted-foreground">{facet.description}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Career Implications */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">커리어 함의</h4>
+                        <ul className="space-y-1">
+                          {(level === "high" || (level === "medium" && score >= 50) ? info.careerImplications.high : info.careerImplications.low).slice(0, 3).map((item, idx) => (
+                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className={traitTextColors[trait]}>→</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Relationship Implications */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">관계에서의 의미</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {level === "high" || (level === "medium" && score >= 50) ? info.relationshipImplications.high : info.relationshipImplications.low}
+                        </p>
+                      </div>
+
+                      {/* Growth Strategies */}
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-foreground mb-2">성장 전략</h4>
+                        <ul className="space-y-1">
+                          {(level === "high" || (level === "medium" && score >= 50) ? info.growthStrategies.high : info.growthStrategies.low).map((strategy, idx) => (
+                            <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="text-green-500">✓</span>
+                              {strategy}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Research Findings */}
+                      <div>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">관련 연구 결과</h4>
+                        <ul className="space-y-1">
+                          {info.researchFindings.slice(0, 3).map((finding, idx) => (
+                            <li key={idx} className="text-xs text-muted-foreground italic flex items-start gap-2">
+                              <span className="text-blue-500">📚</span>
+                              {finding}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-3">{info.description}</p>
-                    <ul className="space-y-1">
-                      {traits.slice(0, 3).map((t, idx) => (
-                        <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                          <span className={traitTextColors[trait]}>-</span>
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             {/* Strengths & Growth Areas */}
-            <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                <h3 className="font-semibold text-green-600 mb-3">강점</h3>
-                <ul className="space-y-2">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="test-card">
+                <h2 className="font-display text-lg font-semibold text-green-600 mb-4">당신의 강점</h2>
+                <ul className="space-y-3">
                   {profile.strengths.map((strength, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 mt-0.5 text-green-500 flex-shrink-0" />
                       {strength}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="p-4 rounded-lg bg-amber-500/10 text-left">
-                <h3 className="font-semibold text-amber-600 mb-3">성장 영역</h3>
-                <ul className="space-y-2">
+              <div className="test-card">
+                <h2 className="font-display text-lg font-semibold text-amber-600 mb-4">성장 영역</h2>
+                <ul className="space-y-3">
                   {profile.growthAreas.map((area, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-amber-500">-</span>
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                      <span className="text-amber-500 text-lg">→</span>
                       {area}
                     </li>
                   ))}
@@ -383,17 +423,43 @@ ${profile.summary}
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
+            {/* Disclaimer and References */}
+            <div className="test-card bg-muted/30">
+              <h2 className="font-display text-lg font-semibold text-foreground mb-4">참고 사항</h2>
+              <div className="space-y-4 text-sm text-muted-foreground">
+                <p>
+                  <strong>테스트 신뢰도:</strong> 이 테스트는 Costa와 McCrae(1992)의 NEO-PI-R 모델을 기반으로 설계되었으며,
+                  Big Five 성격 모델은 현대 심리학에서 가장 과학적으로 검증된 성격 평가 프레임워크 중 하나입니다.
+                </p>
+                <p>
+                  <strong>제한 사항:</strong> 이 결과는 자기 보고식 평가에 기반하므로, 응답 시점의 기분이나 상황에 따라 달라질 수 있습니다.
+                  정확한 성격 평가를 위해서는 전문 심리학자와의 상담을 권장합니다.
+                </p>
+                <p>
+                  <strong>활용 방법:</strong> 이 결과는 자기 이해와 성장을 위한 참고 자료로 활용하세요.
+                  성격은 고정된 것이 아니며, 의식적인 노력과 경험을 통해 발전할 수 있습니다.
+                </p>
+                <div className="pt-4 border-t border-border/50">
+                  <h3 className="font-semibold text-foreground mb-2">주요 참고 문헌</h3>
+                  <ul className="space-y-1 text-xs">
+                    <li>• Costa, P. T., & McCrae, R. R. (1992). Revised NEO Personality Inventory (NEO-PI-R) and NEO Five-Factor Inventory (NEO-FFI) professional manual.</li>
+                    <li>• Roberts, B. W., et al. (2006). Patterns of mean-level change in personality traits across the life course.</li>
+                    <li>• Barrick, M. R., & Mount, M. K. (1991). The Big Five personality dimensions and job performance.</li>
+                    <li>• Steel, P., Schmidt, J., & Shultz, J. (2008). Refining the relationship between personality and subjective well-being.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-4 justify-center">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
+                <RotateCcw className="w-5 h-5" />
                 다시하기
               </Button>
-              <Button
-                onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
-              >
-                <Share2 className="w-4 h-4" />
-                공유하기
+              <Button onClick={handleShare} size="lg" className="gap-2 gradient-primary border-0">
+                <Share2 className="w-5 h-5" />
+                결과 공유하기
               </Button>
             </div>
           </div>

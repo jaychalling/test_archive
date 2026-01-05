@@ -201,7 +201,7 @@ ${typeInfo.description}`;
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Layers className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
@@ -229,6 +229,48 @@ ${typeInfo.description}`;
             <div className="p-4 rounded-lg bg-muted/50 mb-6 text-left">
               <p className="text-foreground">{typeInfo.description}</p>
             </div>
+
+            {/* Detailed Description */}
+            {typeInfo.detailedDescription && (
+              <div className="p-5 rounded-lg bg-muted/50 mb-6 text-left">
+                <h4 className="font-semibold text-foreground mb-3 text-lg">{result.typeCode} 유형 심층 분석</h4>
+                <p className="text-foreground leading-relaxed">{typeInfo.detailedDescription}</p>
+              </div>
+            )}
+
+            {/* Scientific Background */}
+            {typeInfo.scientificBackground && (
+              <div className="p-5 rounded-lg bg-blue-500/10 mb-6 text-left">
+                <h4 className="font-semibold text-blue-600 mb-3 text-lg">과학적 배경</h4>
+                <p className="text-foreground leading-relaxed">{typeInfo.scientificBackground}</p>
+              </div>
+            )}
+
+            {/* Cognitive Functions */}
+            {typeInfo.cognitiveFunctions && (
+              <div className="p-5 rounded-lg bg-purple-500/10 mb-6 text-left">
+                <h4 className="font-semibold text-purple-600 mb-3 text-lg">인지 기능 스택</h4>
+                <div className="grid md:grid-cols-2 gap-3 mb-4">
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <span className="text-xs text-muted-foreground">주 기능 (Dominant)</span>
+                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.dominant}</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <span className="text-xs text-muted-foreground">보조 기능 (Auxiliary)</span>
+                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.auxiliary}</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <span className="text-xs text-muted-foreground">3차 기능 (Tertiary)</span>
+                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.tertiary}</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/50">
+                    <span className="text-xs text-muted-foreground">열등 기능 (Inferior)</span>
+                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.inferior}</p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{typeInfo.cognitiveFunctions.description}</p>
+              </div>
+            )}
 
             {/* Dimension Bars */}
             <div className="space-y-4 mb-8">
@@ -395,7 +437,7 @@ ${typeInfo.description}`;
             {/* Careers */}
             <div className={cn("p-4 rounded-lg bg-gradient-to-br mb-6 text-left", typeBgColors[result.typeCode])}>
               <h4 className={cn("font-semibold mb-3", typeTextColors[result.typeCode])}>어울리는 직업군</h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {typeInfo.careers.map((career, idx) => (
                   <span
                     key={idx}
@@ -409,7 +451,95 @@ ${typeInfo.description}`;
                   </span>
                 ))}
               </div>
+              {typeInfo.careerDescription && (
+                <p className="text-sm text-foreground leading-relaxed">{typeInfo.careerDescription}</p>
+              )}
             </div>
+
+            {/* Relationship & Communication Style */}
+            {(typeInfo.relationshipStyle || typeInfo.communicationStyle) && (
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                {typeInfo.relationshipStyle && (
+                  <div className="p-4 rounded-lg bg-rose-500/10 text-left">
+                    <h4 className="font-semibold text-rose-600 mb-3">관계 스타일</h4>
+                    <p className="text-sm text-foreground leading-relaxed">{typeInfo.relationshipStyle}</p>
+                  </div>
+                )}
+                {typeInfo.communicationStyle && (
+                  <div className="p-4 rounded-lg bg-cyan-500/10 text-left">
+                    <h4 className="font-semibold text-cyan-600 mb-3">의사소통 스타일</h4>
+                    <p className="text-sm text-foreground leading-relaxed">{typeInfo.communicationStyle}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Growth Strategies */}
+            {typeInfo.growthStrategies && typeInfo.growthStrategies.length > 0 && (
+              <div className="p-5 rounded-lg bg-emerald-500/10 mb-6 text-left">
+                <h4 className="font-semibold text-emerald-600 mb-3">성장을 위한 조언</h4>
+                <ul className="space-y-2">
+                  {typeInfo.growthStrategies.map((strategy, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">{idx + 1}.</span>
+                      {strategy}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Stress Response */}
+            {typeInfo.stressResponse && (
+              <div className="p-5 rounded-lg bg-orange-500/10 mb-6 text-left">
+                <h4 className="font-semibold text-orange-600 mb-3">스트레스 반응</h4>
+                <p className="text-sm text-foreground leading-relaxed">{typeInfo.stressResponse}</p>
+              </div>
+            )}
+
+            {/* Compatible & Challenging Types */}
+            {(typeInfo.compatibleTypes || typeInfo.challengingTypes) && (
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                {typeInfo.compatibleTypes && typeInfo.compatibleTypes.length > 0 && (
+                  <div className="p-4 rounded-lg bg-green-500/10 text-left">
+                    <h4 className="font-semibold text-green-600 mb-3">궁합이 좋은 유형</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {typeInfo.compatibleTypes.map((type, idx) => (
+                        <span key={idx} className="px-3 py-1 rounded-full text-sm bg-green-500 text-white font-medium">
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {typeInfo.challengingTypes && typeInfo.challengingTypes.length > 0 && (
+                  <div className="p-4 rounded-lg bg-red-500/10 text-left">
+                    <h4 className="font-semibold text-red-600 mb-3">도전적인 조합</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {typeInfo.challengingTypes.map((type, idx) => (
+                        <span key={idx} className="px-3 py-1 rounded-full text-sm bg-red-500/80 text-white font-medium">
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Famous People */}
+            {typeInfo.famousPeople && typeInfo.famousPeople.length > 0 && (
+              <div className="p-4 rounded-lg bg-indigo-500/10 mb-6 text-left">
+                <h4 className="font-semibold text-indigo-600 mb-3">같은 유형의 유명인</h4>
+                <div className="flex flex-wrap gap-2">
+                  {typeInfo.famousPeople.map((person, idx) => (
+                    <span key={idx} className="px-3 py-1 rounded-full text-sm bg-indigo-500/20 text-indigo-700 border border-indigo-500/30">
+                      {person}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Dimension Details */}
             <div className="space-y-4 mb-8 text-left">

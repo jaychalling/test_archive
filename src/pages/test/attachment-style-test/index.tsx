@@ -202,7 +202,7 @@ ${styleInfo.description}`;
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Users className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
@@ -374,6 +374,80 @@ ${styleInfo.description}`;
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Detailed Description */}
+            <div className="text-left p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 mb-6">
+              <h3 className="font-semibold text-indigo-600 mb-4 text-lg">{styleInfo.name} 심층 분석</h3>
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                {styleInfo.detailedDescription}
+              </p>
+            </div>
+
+            {/* Scientific Background */}
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg">과학적 배경</h3>
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                {styleInfo.scientificBackground}
+              </p>
+            </div>
+
+            {/* Communication Tips */}
+            <div className="text-left p-6 rounded-xl bg-teal-500/10 mb-6">
+              <h3 className="font-semibold text-teal-600 mb-4 text-lg">소통 팁</h3>
+              <ul className="space-y-2">
+                {styleInfo.communicationTips.map((tip, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                    <span className="w-6 h-6 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-bold text-teal-600">{idx + 1}</span>
+                    </span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Healing Strategies */}
+            <div className="text-left p-6 rounded-xl bg-emerald-500/10 mb-6">
+              <h3 className="font-semibold text-emerald-600 mb-4 text-lg">치유 전략</h3>
+              <ul className="space-y-2">
+                {styleInfo.healingStrategies.map((strategy, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                    {strategy}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Compatible & Challenging Styles */}
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="text-left p-4 rounded-lg bg-green-500/10">
+                <h4 className="font-semibold text-green-600 mb-3">잘 맞는 유형</h4>
+                <div className="flex flex-wrap gap-2">
+                  {styleInfo.compatibleStyles.map((style) => (
+                    <span
+                      key={style}
+                      className="px-3 py-1.5 bg-green-500/20 text-green-700 rounded-full text-sm font-medium"
+                    >
+                      {attachmentStyleDescriptions[style].name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="text-left p-4 rounded-lg bg-orange-500/10">
+                <h4 className="font-semibold text-orange-600 mb-3">도전적인 유형</h4>
+                <div className="flex flex-wrap gap-2">
+                  {styleInfo.challengingStyles.map((style) => (
+                    <span
+                      key={style}
+                      className="px-3 py-1.5 bg-orange-500/20 text-orange-700 rounded-full text-sm font-medium"
+                    >
+                      {attachmentStyleDescriptions[style].name}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 

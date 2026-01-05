@@ -6,8 +6,11 @@ import {
   politicalCompassQuestions,
   answerOptions,
   AnswerValue,
+  getQuadrant,
+  quadrantDescriptions,
+  testBackground,
 } from "@/data/politicalCompassQuestions";
-import { ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Compass } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Compass, BookOpen, History, Users, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -16,30 +19,11 @@ interface CompassResult {
   social: number; // -10 ~ +10 (Libertarian ~ Authoritarian)
 }
 
-const getQuadrantLabel = (economic: number, social: number): string => {
-  const isLeft = economic < 0;
-  const isAuthoritarian = social > 0;
-
-  if (isLeft && isAuthoritarian) return "좌파 권위주의";
-  if (!isLeft && isAuthoritarian) return "우파 권위주의";
-  if (isLeft && !isAuthoritarian) return "좌파 자유주의";
-  return "우파 자유주의";
-};
-
-const getQuadrantDescription = (economic: number, social: number): string => {
-  const isLeft = economic < 0;
-  const isAuthoritarian = social > 0;
-
-  if (isLeft && isAuthoritarian) {
-    return "국가 주도의 경제 개입과 강력한 중앙 권력을 선호합니다. 평등을 위한 정부의 적극적인 역할을 지지합니다.";
-  }
-  if (!isLeft && isAuthoritarian) {
-    return "자유 시장 경제와 전통적 가치, 강력한 국가 권위를 지지합니다. 질서와 안정을 중시합니다.";
-  }
-  if (isLeft && !isAuthoritarian) {
-    return "경제적 평등과 개인의 자유를 모두 중시합니다. 진보적 가치와 사회적 자유를 지지합니다.";
-  }
-  return "자유 시장 경제와 개인의 자유를 모두 중시합니다. 정부의 개입을 최소화하고 개인의 권리를 존중합니다.";
+const colorClasses: Record<string, { bg: string; text: string }> = {
+  red: { bg: "bg-red-500/10", text: "text-red-600" },
+  blue: { bg: "bg-blue-500/10", text: "text-blue-600" },
+  green: { bg: "bg-green-500/10", text: "text-green-600" },
+  purple: { bg: "bg-purple-500/10", text: "text-purple-600" },
 };
 
 const PoliticalCompassTest = () => {
@@ -153,8 +137,9 @@ const PoliticalCompassTest = () => {
 
   if (showResults) {
     const result = calculateResult();
-    const quadrant = getQuadrantLabel(result.economic, result.social);
-    const description = getQuadrantDescription(result.economic, result.social);
+    const quadrantType = getQuadrant(result.economic, result.social);
+    const quadrantInfo = quadrantDescriptions[quadrantType];
+    const colors = colorClasses[quadrantInfo.color] || colorClasses.blue;
 
     // Calculate position for the dot (convert from -10~10 to 0~100%)
     const dotX = ((result.economic + 10) / 20) * 100;
@@ -172,14 +157,17 @@ const PoliticalCompassTest = () => {
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-lg mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
               당신의 정치 성향
             </h2>
-            <div className="text-3xl font-display font-bold text-gradient mb-4">
-              {quadrant}
+            <div className={cn("text-3xl font-display font-bold mb-2", colors.text)}>
+              {quadrantInfo.name}
             </div>
-            <p className="text-muted-foreground mb-8 text-sm">{description}</p>
+            <p className="text-sm text-muted-foreground mb-2">
+              {quadrantInfo.nameEn}
+            </p>
+            <p className="text-muted-foreground mb-8 text-sm">{quadrantInfo.description}</p>
 
             {/* Compass Chart */}
             <div className="relative w-full aspect-square max-w-[300px] mx-auto mb-8">
@@ -243,6 +231,102 @@ const PoliticalCompassTest = () => {
                 <div className="font-semibold">
                   {result.social > 0 ? "권위주의" : "자유주의"} (
                   {result.social.toFixed(1)})
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Description */}
+            <div className={cn("text-left p-6 rounded-xl mb-6", colors.bg)}>
+              <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", colors.text)}>
+                <BookOpen className="w-5 h-5" />
+                {quadrantInfo.name} 상세 분석
+              </h3>
+              <p className="text-foreground leading-relaxed">
+                {quadrantInfo.detailedDescription}
+              </p>
+            </div>
+
+            {/* Historical Background */}
+            <div className="text-left p-6 rounded-xl bg-amber-500/10 mb-6">
+              <h3 className="font-semibold text-amber-600 mb-4 text-lg flex items-center gap-2">
+                <History className="w-5 h-5" />
+                역사적 배경
+              </h3>
+              <p className="text-foreground leading-relaxed">
+                {quadrantInfo.historicalBackground}
+              </p>
+            </div>
+
+            {/* Key Policies & Famous Examples */}
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="text-left p-5 rounded-xl bg-cyan-500/10">
+                <h3 className="font-semibold text-cyan-600 mb-4">주요 정책/가치</h3>
+                <ul className="space-y-2">
+                  {quadrantInfo.keyPolicies.map((policy, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-cyan-500 font-bold">•</span>
+                      {policy}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="text-left p-5 rounded-xl bg-indigo-500/10">
+                <h3 className="font-semibold text-indigo-600 mb-4 flex items-center gap-2">
+                  <Users className="w-5 h-5" />
+                  대표적인 인물
+                </h3>
+                <ul className="space-y-2">
+                  {quadrantInfo.famousExamples.map((example, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-indigo-500 font-bold">•</span>
+                      {example}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Strengths & Weaknesses */}
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="text-left p-5 rounded-xl bg-green-500/10">
+                <h3 className="font-semibold text-green-600 mb-4">강점</h3>
+                <ul className="space-y-2">
+                  {quadrantInfo.strengthsAndWeaknesses.strengths.map((strength, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
+                      {strength}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="text-left p-5 rounded-xl bg-orange-500/10">
+                <h3 className="font-semibold text-orange-600 mb-4 flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5" />
+                  약점/비판
+                </h3>
+                <ul className="space-y-2">
+                  {quadrantInfo.strengthsAndWeaknesses.weaknesses.map((weakness, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-orange-500 font-bold">•</span>
+                      {weakness}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Test Background */}
+            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
+              <h3 className="font-semibold text-foreground mb-4 text-lg">Political Compass에 대하여</h3>
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {testBackground.history}
+                </p>
+                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                  <h4 className="font-medium text-amber-600 mb-2">참고사항</h4>
+                  <p className="text-sm text-foreground leading-relaxed">
+                    {testBackground.disclaimer}
+                  </p>
                 </div>
               </div>
             </div>

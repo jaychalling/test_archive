@@ -187,7 +187,7 @@ ${typeInfo.description}`;
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Users2 className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
@@ -335,6 +335,50 @@ ${typeInfo.description}`;
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
                       <AlertCircle className="w-4 h-4 mt-0.5 text-amber-500 flex-shrink-0" />
                       {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Detailed Description */}
+            <div className={cn("text-left p-6 rounded-xl mb-6", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
+              <h3 className={cn("font-semibold mb-4 text-lg", typeTextColors[result.personalityType])}>
+                {typeInfo.name} 상세 분석
+              </h3>
+              <p className="text-foreground leading-relaxed whitespace-pre-line">
+                {typeInfo.detailedDescription}
+              </p>
+            </div>
+
+            {/* Scientific Background */}
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg">과학적 배경</h3>
+              <p className="text-foreground leading-relaxed whitespace-pre-line">
+                {typeInfo.scientificBackground}
+              </p>
+            </div>
+
+            {/* Career Suggestions & Social Tips */}
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <div className="p-5 rounded-xl bg-purple-500/10 text-left">
+                <h3 className="font-semibold text-purple-600 mb-4">추천 직업/분야</h3>
+                <ul className="space-y-2">
+                  {typeInfo.careerSuggestions.map((career, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-purple-500 font-bold">•</span>
+                      {career}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="p-5 rounded-xl bg-cyan-500/10 text-left">
+                <h3 className="font-semibold text-cyan-600 mb-4">사회적 상호작용 팁</h3>
+                <ul className="space-y-2">
+                  {typeInfo.socialTips.map((tip, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-cyan-500 flex-shrink-0" />
+                      {tip}
                     </li>
                   ))}
                 </ul>

@@ -7,8 +7,9 @@ import {
   AnswerValue,
   AlignmentType,
   alignmentData,
+  testBackground,
 } from "@/data/moralAlignmentQuestions";
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2 } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, BookOpen, Lightbulb, TrendingUp, TrendingDown, Users, History } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -219,7 +220,7 @@ const MoralAlignmentTest = () => {
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
               당신의 도덕적 성향
             </h2>
@@ -231,8 +232,11 @@ const MoralAlignmentTest = () => {
             >
               {alignment.name}
             </div>
-            <div className="text-xl text-muted-foreground mb-4">
+            <div className="text-xl text-muted-foreground mb-2">
               "{alignment.nickname}"
+            </div>
+            <div className="text-sm text-primary mb-4">
+              {alignment.nameKo}
             </div>
             <p className="text-muted-foreground mb-8 text-sm max-w-md mx-auto">
               {alignment.description}
@@ -354,6 +358,104 @@ const MoralAlignmentTest = () => {
                     {example}
                   </span>
                 ))}
+              </div>
+            </div>
+
+            {/* Detailed Description */}
+            <div className="text-left p-6 rounded-xl bg-primary/5 mb-6">
+              <h3 className="font-semibold text-primary mb-4 text-lg flex items-center gap-2">
+                <BookOpen className="w-5 h-5" />
+                상세 분석
+              </h3>
+              <p className="text-foreground leading-relaxed">
+                {alignment.detailedDescription}
+              </p>
+            </div>
+
+            {/* Philosophical Background */}
+            <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
+              <h3 className="font-semibold text-purple-600 mb-4 text-lg flex items-center gap-2">
+                <Lightbulb className="w-5 h-5" />
+                철학적 배경
+              </h3>
+              <p className="text-foreground leading-relaxed">
+                {alignment.philosophicalBackground}
+              </p>
+            </div>
+
+            {/* Strengths & Weaknesses */}
+            <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="text-left p-5 rounded-xl bg-green-500/10">
+                <h3 className="font-semibold text-green-600 mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5" />
+                  강점
+                </h3>
+                <ul className="space-y-2">
+                  {alignment.strengths.map((strength, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
+                      {strength}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="text-left p-5 rounded-xl bg-red-500/10">
+                <h3 className="font-semibold text-red-600 mb-4 flex items-center gap-2">
+                  <TrendingDown className="w-5 h-5" />
+                  약점
+                </h3>
+                <ul className="space-y-2">
+                  {alignment.weaknesses.map((weakness, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                      <span className="text-red-500 font-bold">•</span>
+                      {weakness}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Real World Examples */}
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg flex items-center gap-2">
+                <Users className="w-5 h-5" />
+                현실 세계 예시
+              </h3>
+              <ul className="space-y-2">
+                {alignment.realWorldExamples.map((example, idx) => (
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                    <span className="text-blue-500 font-bold">•</span>
+                    {example}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Test Background */}
+            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
+              <h3 className="font-semibold text-foreground mb-4 text-lg flex items-center gap-2">
+                <History className="w-5 h-5" />
+                도덕적 성향 테스트에 대하여
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-foreground mb-2">역사</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {testBackground.history}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-foreground mb-2">목적</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {testBackground.purpose}
+                  </p>
+                </div>
+                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                  <h4 className="font-medium text-amber-600 mb-2">참고사항</h4>
+                  <p className="text-sm text-foreground leading-relaxed">
+                    {testBackground.disclaimer}
+                  </p>
+                </div>
               </div>
             </div>
 

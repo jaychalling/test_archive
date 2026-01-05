@@ -209,7 +209,7 @@ const EnneagramTest = () => {
             테스트 목록으로
           </Link>
 
-          <div className="test-card text-center animate-scale-in max-w-2xl mx-auto">
+          <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Circle className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
@@ -467,6 +467,68 @@ const EnneagramTest = () => {
                 <div className="p-4 rounded-lg bg-rose-500/10">
                   <h4 className="font-semibold text-rose-600 mb-2">스트레스 방향</h4>
                   <p className="text-sm text-foreground">{mainInfo.stressDirection}</p>
+                </div>
+              </div>
+
+              {/* Detailed Description */}
+              <div className="p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
+                <h4 className="font-semibold text-indigo-600 mb-4 text-lg">{mainInfo.title} 심층 분석</h4>
+                <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                  {mainInfo.detailedDescription}
+                </p>
+              </div>
+
+              {/* Scientific Background */}
+              <div className="p-6 rounded-xl bg-blue-500/10">
+                <h4 className="font-semibold text-blue-600 mb-4 text-lg">심리학적 배경</h4>
+                <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                  {mainInfo.scientificBackground}
+                </p>
+              </div>
+
+              {/* Relationship Pattern */}
+              <div className="p-6 rounded-xl bg-rose-500/10">
+                <h4 className="font-semibold text-rose-600 mb-4 text-lg">관계 패턴</h4>
+                <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                  {mainInfo.relationshipPattern}
+                </p>
+              </div>
+
+              {/* Work Style */}
+              <div className="p-6 rounded-xl bg-teal-500/10">
+                <h4 className="font-semibold text-teal-600 mb-4 text-lg">업무 스타일</h4>
+                <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+                  {mainInfo.workStyle}
+                </p>
+              </div>
+
+              {/* Growth Strategies */}
+              <div className="p-6 rounded-xl bg-emerald-500/10">
+                <h4 className="font-semibold text-emerald-600 mb-4 text-lg">성장 전략</h4>
+                <ul className="space-y-2">
+                  {mainInfo.growthStrategies.map((strategy, idx) => (
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-xs font-bold text-emerald-600">{idx + 1}</span>
+                      </span>
+                      {strategy}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Famous People */}
+              <div className="p-6 rounded-xl bg-purple-500/10">
+                <h4 className="font-semibold text-purple-600 mb-4 text-lg">대표적인 인물</h4>
+                <div className="flex flex-wrap gap-2">
+                  {mainInfo.famousPeople.map((person, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1.5 bg-purple-500/20 text-purple-700 rounded-full text-sm font-medium"
+                    >
+                      {person}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
