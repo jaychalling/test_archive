@@ -52,12 +52,9 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
         <div className="text-sm text-muted-foreground">/ 100</div>
       </div>
 
-      <h2 className="font-display text-2xl font-semibold text-foreground mb-1">
+      <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
         {scoreRange.title}
       </h2>
-      <p className={cn("text-lg font-medium mb-2", colors.text)}>
-        {scoreRange.titleKo}
-      </p>
       <p className="text-muted-foreground mb-8">
         {scoreRange.description}
       </p>

@@ -252,19 +252,19 @@ ${typeInfo.description}`;
                 <h4 className="font-semibold text-purple-600 mb-3 text-lg">Cognitive Function Stack</h4>
                 <div className="grid md:grid-cols-2 gap-3 mb-4">
                   <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">주 기능 (Dominant)</span>
+                    <span className="text-xs text-muted-foreground">Dominant Function</span>
                     <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.dominant}</p>
                   </div>
                   <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">보조 기능 (Auxiliary)</span>
+                    <span className="text-xs text-muted-foreground">Auxiliary Function</span>
                     <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.auxiliary}</p>
                   </div>
                   <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">3차 기능 (Tertiary)</span>
+                    <span className="text-xs text-muted-foreground">Tertiary Function</span>
                     <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.tertiary}</p>
                   </div>
                   <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">열등 기능 (Inferior)</span>
+                    <span className="text-xs text-muted-foreground">Inferior Function</span>
                     <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.inferior}</p>
                   </div>
                 </div>
