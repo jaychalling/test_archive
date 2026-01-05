@@ -9,7 +9,7 @@ import {
   bdsmTraitDescriptions,
   testBackground,
 } from "@/data/bdsmTestQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, ChevronLeft, ChevronRight, BookOpen, Brain, Heart, MessageCircle, AlertCircle } from "lucide-react";
+import { CheckCircle2, RotateCcw, Share2, ChevronLeft, ChevronRight, BookOpen, Brain, Heart, MessageCircle, AlertCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -175,14 +175,6 @@ const BdsmTest = () => {
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
               Your Results
@@ -352,12 +344,7 @@ const BdsmTest = () => {
       />
       {/* 상단 바 */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur-sm">
-        <button
-          onClick={() => navigate(-1)}
-          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
+        <div></div>
         <h1 className="font-semibold text-foreground">BDSM Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}

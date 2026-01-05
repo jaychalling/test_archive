@@ -15,6 +15,9 @@ import EnneagramTest from "./pages/test/enneagram-test";
 import SixteenPersonalityTest from "./pages/test/16-personality-test";
 import MoralAlignmentTest from "./pages/test/moral-alignment-test";
 import IntrovertExtrovertTest from "./pages/test/introvert-extrovert-test";
+import EmotionalIntelligenceTest from "./pages/test/emotional-intelligence-test";
+import CareerAptitudeTest from "./pages/test/career-aptitude-test";
+import CommunicationStyleTest from "./pages/test/communication-style-test";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +41,9 @@ const App = () => (
             <Route path="/test/16-personality-test" element={<SixteenPersonalityTest />} />
             <Route path="/test/moral-alignment-test" element={<MoralAlignmentTest />} />
             <Route path="/test/introvert-extrovert-test" element={<IntrovertExtrovertTest />} />
+            <Route path="/test/emotional-intelligence-test" element={<EmotionalIntelligenceTest />} />
+            <Route path="/test/career-aptitude-test" element={<CareerAptitudeTest />} />
+            <Route path="/test/communication-style-test" element={<CommunicationStyleTest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

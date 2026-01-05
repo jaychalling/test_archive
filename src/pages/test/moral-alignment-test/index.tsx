@@ -10,7 +10,7 @@ import {
   alignmentData,
   testBackground,
 } from "@/data/moralAlignmentQuestions";
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, BookOpen, Lightbulb, TrendingUp, TrendingDown, Users, History } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, BookOpen, Lightbulb, TrendingUp, TrendingDown, Users, History } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -224,14 +224,6 @@ const MoralAlignmentTest = () => {
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
               Your Moral Alignment
@@ -500,12 +492,7 @@ const MoralAlignmentTest = () => {
       />
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur-sm">
-        <button
-          onClick={() => navigate("/")}
-          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
+        <div></div>
         <h1 className="font-display font-semibold text-foreground">
           Moral Alignment
         </h1>

@@ -11,7 +11,7 @@ import {
   quadrantDescriptions,
   testBackground,
 } from "@/data/politicalCompassQuestions";
-import { ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Compass, BookOpen, History, Users, AlertCircle } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Compass, BookOpen, History, Users, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -161,14 +161,6 @@ const PoliticalCompassTest = () => {
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
               Your Political Orientation
@@ -374,13 +366,6 @@ const PoliticalCompassTest = () => {
       />
       {/* Top Bar */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-sm">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Back to Tests</span>
-        </Link>
         <div className="flex items-center gap-2">
           <Compass className="w-5 h-5 text-primary" />
           <span className="text-sm font-medium text-foreground">Political Spectrum</span>

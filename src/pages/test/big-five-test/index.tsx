@@ -18,7 +18,7 @@ import {
   scoreLevelLabels,
   getPersonalityProfile,
 } from "@/data/bigFiveQuestions";
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -208,14 +208,6 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <div className="max-w-4xl mx-auto space-y-8">
             {/* Hero Section */}
             <div className="test-card text-center animate-scale-in">
@@ -490,13 +482,6 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
       />
       {/* Top Bar */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-sm">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Back to Tests</span>
-        </Link>
         <div className="flex items-center gap-2">
           <Brain className="w-5 h-5 text-primary" />
           <span className="text-sm font-medium text-foreground">Big Five</span>

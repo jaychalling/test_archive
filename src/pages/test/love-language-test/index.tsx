@@ -9,7 +9,7 @@ import {
   LoveLanguageResult,
   loveLanguageDescriptions,
 } from "@/data/loveLanguageQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckCircle2, RotateCcw, Share2, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -169,14 +169,6 @@ const LoveLanguageTest = () => {
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Heart className="w-6 h-6 text-pink-500" />
@@ -342,14 +334,6 @@ const LoveLanguageTest = () => {
       <Header />
 
       <main className="container mx-auto px-4 py-8">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tests
-        </Link>
-
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8 animate-fade-in">

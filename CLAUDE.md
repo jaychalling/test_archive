@@ -57,8 +57,11 @@ src/
 ### Key Patterns
 - Path alias: `@/` maps to `src/`
 - Use `cn()` from `@/lib/utils` for conditional Tailwind classes
-- Test file naming: `src/pages/test/{slug}-test/index.tsx` (exception: rice-purity)
-- Data file naming: `src/data/{testName}Questions.ts`
+- Test page naming: `src/pages/test/{slug}-test/index.tsx` (exception: rice-purity which has no `-test` suffix)
+- Data file naming: `src/data/{testName}Questions.ts` (camelCase)
+- SEO: Use `react-helmet-async` for meta tags (see `SEOHead` component)
+- Icons: Lucide React library is available
+- State: Local state with `useState` for test answers; TanStack Query available if needed
 
 ## Business Rules (Critical)
 
@@ -101,10 +104,19 @@ Result pages must follow this exact section order:
 
 ## Adding New Tests
 
-1. Create question data in `src/data/{test-name}Questions.ts`
-2. Create page component in `src/pages/{TestName}.tsx`
+**IMPORTANT**: Follow the detailed workflow in `src/docs/new-test-workflow.md` for E-E-A-T compliant tests.
+
+Quick steps:
+1. Create question data in `src/data/{testName}Questions.ts` (camelCase)
+2. Create page component in `src/pages/test/{test-name}-test/index.tsx` (kebab-case)
 3. Add route in `src/App.tsx`
 4. Add TestCard to Index.tsx grid
+5. Add SEO config to `src/data/testSeoConfig.ts`
+
+Key conventions:
+- Data files use camelCase: `bigFiveQuestions.ts`, `loveLanguageQuestions.ts`
+- Page directories use kebab-case with `-test` suffix: `big-five-test/`, `love-language-test/`
+- URL paths match page directories: `/test/big-five-test`, `/test/love-language-test`
 
 ### Test JSON Schema (for future data-driven tests)
 ```json
@@ -129,16 +141,21 @@ Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
 
 ## Implemented Tests (Tier 0 - Complete)
 All 10 launch-essential tests are implemented:
-1. Rice Purity Test (`/test/rice-purity` - legacy URL, no `-test` suffix)
-2. Political Compass Test
-3. BDSM Test (adult content - check ad policies)
-4. Love Language Test
-5. Attachment Style Test
-6. Big Five Personality Test (OCEAN)
-7. Enneagram Test
-8. 16 Personality Style Test (avoid "MBTI" trademark)
-9. Moral Alignment Test (D&D alignment)
-10. Introvert vs Extrovert Test
+
+| Test Name | URL Path | Data File |
+|-----------|----------|-----------|
+| Rice Purity Test | `/test/rice-purity` ⚠️ | `ricePurityQuestions.ts` |
+| Political Compass Test | `/test/political-compass-test` | `politicalCompassQuestions.ts` |
+| BDSM Test | `/test/bdsm-test` | `bdsmTestQuestions.ts` |
+| Love Language Test | `/test/love-language-test` | `loveLanguageQuestions.ts` |
+| Attachment Style Test | `/test/attachment-style-test` | `attachmentStyleQuestions.ts` |
+| Big Five Test | `/test/big-five-test` | `bigFiveQuestions.ts` |
+| Enneagram Test | `/test/enneagram-test` | `enneagramQuestions.ts` |
+| 16 Personality Test | `/test/16-personality-test` | `personalityTypeQuestions.ts` |
+| Moral Alignment Test | `/test/moral-alignment-test` | `moralAlignmentQuestions.ts` |
+| Introvert/Extrovert Test | `/test/introvert-extrovert-test` | `introvertExtrovertQuestions.ts` |
+
+⚠️ Rice Purity Test uses legacy URL without `-test` suffix (distributed links exist)
 
 See `plans/Tier 0 런칭 필수 10개.md` for Tier 1 and Tier 2 test lists.
 

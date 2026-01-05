@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import TestCard from "@/components/TestCard";
 import { SEOHead, createWebSiteSchema } from "@/components/SEOHead";
-import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2 } from "lucide-react";
+import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2, Lightbulb, Briefcase, MessageSquare } from "lucide-react";
 
 const Index = () => {
   return (
@@ -128,6 +128,33 @@ const Index = () => {
               path="/test/introvert-extrovert-test"
               icon={<Users2 className="w-6 h-6" />}
               iconBgColor="bg-orange-500"
+            />
+            <TestCard
+              title="Emotional Intelligence Test"
+              description="Measure your EQ across 5 areas: self-awareness, self-regulation, motivation, empathy, and social skills."
+              questionCount={25}
+              duration="5-7 min"
+              path="/test/emotional-intelligence-test"
+              icon={<Lightbulb className="w-6 h-6" />}
+              iconBgColor="bg-cyan-500"
+            />
+            <TestCard
+              title="Career Aptitude Test"
+              description="Discover your ideal career path with Holland's RIASEC model. Find which of 6 types fits you best."
+              questionCount={30}
+              duration="5 min"
+              path="/test/career-aptitude-test"
+              icon={<Briefcase className="w-6 h-6" />}
+              iconBgColor="bg-green-600"
+            />
+            <TestCard
+              title="Communication Style Test"
+              description="Identify your communication pattern: assertive, passive, aggressive, or passive-aggressive."
+              questionCount={28}
+              duration="5 min"
+              path="/test/communication-style-test"
+              icon={<MessageSquare className="w-6 h-6" />}
+              iconBgColor="bg-violet-500"
             />
           </div>
         </section>

@@ -17,7 +17,7 @@ import {
   getCenter,
   centerInfo,
 } from "@/data/enneagramQuestions";
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Circle } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Circle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -213,14 +213,6 @@ Growth Direction: ${mainInfo.growthDirection}`;
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Circle className="w-6 h-6 text-primary" />
@@ -599,12 +591,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
       />
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
-        <Link
-          to="/"
-          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
+        <div></div>
         <h1 className="font-medium text-foreground">Enneagram Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}

@@ -5,7 +5,7 @@ import ProgressBar from "@/components/ProgressBar";
 import ResultCard from "@/components/ResultCard";
 import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import { ricePurityQuestions } from "@/data/ricePurityQuestions";
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const RicePurityTest = () => {
@@ -103,14 +103,6 @@ const RicePurityTest = () => {
         />
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tests
-          </Link>
-
           <ResultCard score={calculateScore()} onReset={handleReset} />
         </main>
       </div>
@@ -128,14 +120,6 @@ const RicePurityTest = () => {
       <Header />
 
       <main className="container mx-auto px-4 py-8">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tests
-        </Link>
-
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8 animate-fade-in">
