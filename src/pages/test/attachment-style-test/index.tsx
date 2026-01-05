@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   attachmentStyleQuestions,
   AnswerValue,
@@ -182,6 +183,11 @@ ${styleInfo.description}`;
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Attachment Style Test', path: '/test/attachment-style-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResults(answers);
     const styleInfo = attachmentStyleDescriptions[result.primaryStyle];
@@ -192,6 +198,12 @@ ${styleInfo.description}`;
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your Attachment Style - Test Results"
+          description="Understand your attachment style and how it affects your relationships. See your anxiety and avoidance levels."
+          path="/test/attachment-style-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -472,6 +484,12 @@ ${styleInfo.description}`;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Attachment Style Test - Find Your Pattern"
+        description="Discover your attachment style in relationships. Are you secure, anxious, avoidant, or fearful-avoidant? For entertainment purposes only."
+        path="/test/attachment-style-test/"
+        jsonLd={breadcrumbSchema}
+      />
       {/* 상단 바 */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <button

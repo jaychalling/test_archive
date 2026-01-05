@@ -1,10 +1,17 @@
 import Header from "@/components/Header";
 import TestCard from "@/components/TestCard";
+import { SEOHead, createWebSiteSchema } from "@/components/SEOHead";
 import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2 } from "lucide-react";
 
 const Index = () => {
   return (
     <div className="min-h-screen gradient-hero">
+      <SEOHead
+        title="Test Archive - Free Online Personality Tests"
+        description="Take free online personality tests including Rice Purity Test, Big Five, 16 Personalities, Enneagram, and more. Discover insights about yourself. For entertainment only."
+        path="/"
+        jsonLd={createWebSiteSchema()}
+      />
       <Header />
 
       <main className="container mx-auto px-4 py-12">

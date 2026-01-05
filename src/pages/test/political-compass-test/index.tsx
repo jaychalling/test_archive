@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   politicalCompassQuestions,
   answerOptions,
@@ -135,6 +136,11 @@ const PoliticalCompassTest = () => {
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Political Compass Test', path: '/test/political-compass-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResult();
     const quadrantType = getQuadrant(result.economic, result.social);
@@ -147,6 +153,12 @@ const PoliticalCompassTest = () => {
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your Political Orientation - Political Compass Test"
+          description="Discover your political orientation on the compass. See where you stand between left/right and authoritarian/libertarian."
+          path="/test/political-compass-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -354,6 +366,12 @@ const PoliticalCompassTest = () => {
 
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
+      <SEOHead
+        title="Political Compass Test - Where Do You Stand?"
+        description="Take the Political Compass Test and map your political views on a 2D spectrum with economic and social axes. For entertainment purposes only."
+        path="/test/political-compass-test/"
+        jsonLd={breadcrumbSchema}
+      />
       {/* Top Bar */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-sm">
         <Link

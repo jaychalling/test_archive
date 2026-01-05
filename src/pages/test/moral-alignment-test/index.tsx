@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   moralAlignmentQuestions,
   answerOptions,
@@ -197,6 +198,11 @@ const MoralAlignmentTest = () => {
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Moral Alignment Test', path: '/test/moral-alignment-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResult();
     const alignmentType = getAlignmentType(result.goodEvil, result.lawfulChaotic);
@@ -210,6 +216,12 @@ const MoralAlignmentTest = () => {
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your Moral Alignment - Test Results"
+          description="Discover your D&D-style moral alignment and what it says about your values and ethics."
+          path="/test/moral-alignment-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -480,6 +492,12 @@ const MoralAlignmentTest = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Moral Alignment Test - D&D Alignment Chart"
+        description="Find your moral alignment among 9 types. Are you lawful, neutral, or chaotic? Good, neutral, or evil? For entertainment purposes only."
+        path="/test/moral-alignment-test/"
+        jsonLd={breadcrumbSchema}
+      />
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur-sm">
         <button

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   bigFiveQuestions,
   answerOptions,
@@ -148,6 +149,11 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Big Five Test', path: '/test/big-five-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResults(answers);
     const profile = getPersonalityProfile(result);
@@ -194,6 +200,12 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your Big Five Personality Profile"
+          description="See your Big Five personality scores and understand your OCEAN profile. The most research-backed personality model."
+          path="/test/big-five-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -470,6 +482,12 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
+      <SEOHead
+        title="Big Five Personality Test (OCEAN) - 50 Questions"
+        description="Take the Big Five Personality Test to measure your Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism. For entertainment only."
+        path="/test/big-five-test/"
+        jsonLd={breadcrumbSchema}
+      />
       {/* Top Bar */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-sm">
         <Link

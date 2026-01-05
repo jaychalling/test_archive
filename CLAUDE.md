@@ -8,12 +8,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Claude should communicate in Korean (한국어로 대화)**
 
-## Commands (pure-rice-tests/)
+## Commands
 
 ```bash
-cd pure-rice-tests
 npm install          # Install dependencies
-npm run dev          # Start dev server at localhost:8080
+npm run dev          # Start dev server (localhost:8080)
 npm run build        # Production build
 npm run build:dev    # Development build
 npm run lint         # Run ESLint
@@ -29,18 +28,37 @@ npm run preview      # Preview production build
 - **Routing**: React Router DOM
 - **State**: TanStack Query (configured), React Hook Form + Zod (available)
 
-### Directory Structure (pure-rice-tests/)
-- `src/pages/` - Route components (Index, RicePurityTest, NotFound)
-- `src/components/` - App components (Header, TestCard, QuestionItem, ProgressBar, ResultCard)
-- `src/components/ui/` - shadcn/ui primitives (do not modify directly)
-- `src/data/` - Static question data arrays
-- `src/lib/utils.ts` - `cn()` helper for Tailwind class merging
-- `src/hooks/` - Custom hooks (use-mobile, use-toast)
+### Directory Structure
+```
+src/
+├── pages/
+│   ├── Index.tsx                      # Hub page
+│   ├── NotFound.tsx
+│   └── test/
+│       └── [test-name]-test/
+│           └── index.tsx              # Each test's page + result
+├── components/
+│   ├── ui/                            # shadcn/ui (do not modify)
+│   ├── Header.tsx, TestCard.tsx
+│   ├── ProgressBar.tsx, ResultCard.tsx
+│   └── QuestionItem.tsx
+├── data/
+│   └── [testName]Questions.ts         # Questions + result bands
+├── templates/
+│   ├── eeat-data-template.ts          # E-E-A-T data interface
+│   └── eeat-result-sections.tsx       # Reusable result UI
+├── agents/                            # AI agent prompts
+├── docs/
+│   └── new-test-workflow.md           # Step-by-step test creation guide
+├── hooks/
+└── lib/utils.ts                       # cn() helper
+```
 
 ### Key Patterns
 - Path alias: `@/` maps to `src/`
 - Use `cn()` from `@/lib/utils` for conditional Tailwind classes
-- Test scoring: 100 minus number of checked items
+- Test file naming: `src/pages/test/{slug}-test/index.tsx` (exception: rice-purity)
+- Data file naming: `src/data/{testName}Questions.ts`
 
 ## Business Rules (Critical)
 
@@ -109,8 +127,9 @@ Result pages must follow this exact section order:
 ```
 Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
 
-## Planned Tests (Tier 0 - Launch Essential)
-1. Rice Purity Test ✓ (implemented)
+## Implemented Tests (Tier 0 - Complete)
+All 10 launch-essential tests are implemented:
+1. Rice Purity Test (`/test/rice-purity` - legacy URL, no `-test` suffix)
 2. Political Compass Test
 3. BDSM Test (adult content - check ad policies)
 4. Love Language Test
@@ -120,6 +139,8 @@ Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
 8. 16 Personality Style Test (avoid "MBTI" trademark)
 9. Moral Alignment Test (D&D alignment)
 10. Introvert vs Extrovert Test
+
+See `plans/Tier 0 런칭 필수 10개.md` for Tier 1 and Tier 2 test lists.
 
 ## Quality Gates (CI Checks)
 These should fail deployment:
@@ -132,6 +153,7 @@ These should fail deployment:
 - Trailing slash violations
 
 ## Reference Documents
-- [Test-archive operation rule.md](Test-archive%20operation%20rule.md) - Operating philosophy and rules
-- [Test-archive.com 개발 Rule v1.0.md](Test-archive.com%20개발%20Rule%20v1.0.md) - Detailed development rules
-- [Tier 0 런칭 필수 10개.md](Tier%200%20런칭%20필수%2010개.md) - Launch-essential test list
+- [Test-archive operation rule.md](plans/Test-archive%20operation%20rule.md) - Operating philosophy and rules
+- [Test-archive.com 개발 Rule v1.0.md](plans/Test-archive.com%20개발%20Rule%20v1.0.md) - Detailed development rules
+- [Tier 0 런칭 필수 10개.md](plans/Tier%200%20런칭%20필수%2010개.md) - Launch-essential test list
+- [new-test-workflow.md](src/docs/new-test-workflow.md) - Step-by-step guide for adding new tests

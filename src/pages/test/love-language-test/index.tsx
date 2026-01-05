@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   loveLanguageQuestions,
   LoveLanguage,
@@ -144,6 +145,11 @@ const LoveLanguageTest = () => {
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Love Language Test', path: '/test/love-language-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResults(answers);
     const ranked = getRankedLanguages(result);
@@ -155,6 +161,12 @@ const LoveLanguageTest = () => {
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your Love Language - Affection Style Results"
+          description="See your love language results and learn how you express affection. Improve your relationships with this insight."
+          path="/test/love-language-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -321,6 +333,12 @@ const LoveLanguageTest = () => {
 
   return (
     <div className="min-h-screen gradient-hero">
+      <SEOHead
+        title="Love Language Test - 5 Affection Styles"
+        description="Discover your primary love language with this 30-question test. Learn how you prefer to give and receive love. For entertainment purposes only."
+        path="/test/love-language-test/"
+        jsonLd={breadcrumbSchema}
+      />
       <Header />
 
       <main className="container mx-auto px-4 py-8">

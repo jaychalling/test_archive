@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
 import ResultCard from "@/components/ResultCard";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import { ricePurityQuestions } from "@/data/ricePurityQuestions";
 import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -86,9 +87,20 @@ const RicePurityTest = () => {
   const currentQuestionAnswered = answeredQuestions.has(currentQuestion);
   const allQuestionsAnswered = answeredQuestions.size === totalQuestions;
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Rice Purity Test', path: '/test/rice-purity/' },
+  ]);
+
   if (showResults) {
     return (
       <div className="min-h-screen gradient-hero theme-purity">
+        <SEOHead
+          title="Your Rice Purity Score - Original Rice Purity Test"
+          description="See your Rice Purity Test score and what it means. Compare your purity score with others. For entertainment purposes only."
+          path="/test/rice-purity/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -107,6 +119,12 @@ const RicePurityTest = () => {
 
   return (
     <div className="min-h-screen gradient-hero theme-purity">
+      <SEOHead
+        title="Original Rice Purity Test - 100 Questions"
+        description="Take the Original Rice Purity Test with 100 questions. Check your purity score and see what it means. The classic innocence test for entertainment."
+        path="/test/rice-purity/"
+        jsonLd={breadcrumbSchema}
+      />
       <Header />
 
       <main className="container mx-auto px-4 py-8">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   enneagramQuestions,
   answerOptions,
@@ -169,6 +170,11 @@ Growth Direction: ${mainInfo.growthDirection}`;
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Enneagram Test', path: '/test/enneagram-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResults(answers);
     const mainInfo = enneagramTypeInfo[result.mainType];
@@ -199,6 +205,12 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your Enneagram Type - Test Results"
+          description="See your Enneagram type and wing. Understand your core motivations and how to grow."
+          path="/test/enneagram-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -579,6 +591,12 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Enneagram Test - Find Your Type (1-9)"
+        description="Discover your Enneagram type among 9 personality types. Learn about your core motivations, fears, and desires. For entertainment purposes only."
+        path="/test/enneagram-test/"
+        jsonLd={breadcrumbSchema}
+      />
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <Link

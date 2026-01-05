@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   bdsmQuestions,
   BdsmAnswerValue,
@@ -128,6 +129,11 @@ const BdsmTest = () => {
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'BDSM Test', path: '/test/bdsm-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResults(answers);
     const mainTrait = getMainTrait(result);
@@ -161,6 +167,12 @@ const BdsmTest = () => {
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your BDSM Profile - BDSM Test Results"
+          description="See your BDSM test results and what they mean. Understand your preferences in relationship dynamics."
+          path="/test/bdsm-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -332,6 +344,12 @@ const BdsmTest = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="BDSM Test - Discover Your Preferences"
+        description="Take the BDSM Test to explore your relationship dynamics preferences. A self-assessment test for adults. For entertainment purposes only."
+        path="/test/bdsm-test/"
+        jsonLd={breadcrumbSchema}
+      />
       {/* 상단 바 */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur-sm">
         <button

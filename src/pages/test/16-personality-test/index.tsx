@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
+import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
   personalityQuestions,
   AnswerChoice,
@@ -182,6 +183,11 @@ ${typeInfo.description}`;
     }
   };
 
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: '16 Personality Test', path: '/test/16-personality-test/' },
+  ]);
+
   if (showResults) {
     const result = calculateResults(answers);
     const typeInfo = personalityTypeInfo[result.typeCode];
@@ -191,6 +197,12 @@ ${typeInfo.description}`;
 
     return (
       <div className="min-h-screen gradient-hero">
+        <SEOHead
+          title="Your 16 Personality Type - Test Results"
+          description="See your 16 personality type result. Understand your cognitive functions and preferences."
+          path="/test/16-personality-test/"
+          jsonLd={breadcrumbSchema}
+        />
         <Header />
         <main className="container mx-auto px-4 py-12">
           <Link
@@ -584,6 +596,12 @@ ${typeInfo.description}`;
 
   return (
     <div className="min-h-screen gradient-hero">
+      <SEOHead
+        title="16 Personalities Test - Find Your Type"
+        description="Discover your personality type among 16 types. Analyze 4 dimensions: energy, information, decisions, and lifestyle. For entertainment purposes only."
+        path="/test/16-personality-test/"
+        jsonLd={breadcrumbSchema}
+      />
       <Header />
 
       <main className="container mx-auto px-4 py-8">
