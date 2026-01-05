@@ -46,7 +46,7 @@ const Index = () => {
               description="Map your political views on a 2D compass with economic left/right and social authoritarian/libertarian axes."
               questionCount={22}
               duration="2-5 min"
-              path="/political-compass-test"
+              path="/test/political-compass-test"
               icon={<Compass className="w-6 h-6" />}
               iconBgColor="bg-blue-600"
             />
@@ -55,7 +55,7 @@ const Index = () => {
               description="An adult self-assessment test. Explore your preferences in relationship dynamics."
               questionCount={25}
               duration="2-5 min"
-              path="/bdsm-test"
+              path="/test/bdsm-test"
               icon={<Heart className="w-6 h-6" />}
               iconBgColor="bg-rose-700"
             />
@@ -64,7 +64,7 @@ const Index = () => {
               description="Discover your primary love language among the 5 types. Understand how you give and receive love."
               questionCount={30}
               duration="2-5 min"
-              path="/love-language-test"
+              path="/test/love-language-test"
               icon={<HeartHandshake className="w-6 h-6" />}
               iconBgColor="bg-red-400"
             />
@@ -73,7 +73,7 @@ const Index = () => {
               description="Analyze your attachment style in relationships. Find your type based on anxiety and avoidance axes."
               questionCount={24}
               duration="2-5 min"
-              path="/attachment-style-test"
+              path="/test/attachment-style-test"
               icon={<Users className="w-6 h-6" />}
               iconBgColor="bg-teal-500"
             />
@@ -82,7 +82,7 @@ const Index = () => {
               description="The most widely used personality model in psychology (OCEAN). Measures openness, conscientiousness, extraversion, agreeableness, and neuroticism."
               questionCount={50}
               duration="5-7 min"
-              path="/big-five-test"
+              path="/test/big-five-test"
               icon={<Brain className="w-6 h-6" />}
               iconBgColor="bg-indigo-500"
             />
@@ -91,7 +91,7 @@ const Index = () => {
               description="Discover your core motivations, fears, and desires through 9 personality types. Includes wing type analysis."
               questionCount={36}
               duration="2-5 min"
-              path="/enneagram-test"
+              path="/test/enneagram-test"
               icon={<Circle className="w-6 h-6" />}
               iconBgColor="bg-purple-600"
             />
@@ -100,7 +100,7 @@ const Index = () => {
               description="Find your type among 16 personalities by analyzing 4 dimensions: energy, information, decisions, and lifestyle."
               questionCount={40}
               duration="2-5 min"
-              path="/16-personality-test"
+              path="/test/16-personality-test"
               icon={<Layers className="w-6 h-6" />}
               iconBgColor="bg-emerald-500"
             />
@@ -109,7 +109,7 @@ const Index = () => {
               description="Find your moral alignment among 9 types (Lawful Good to Chaotic Evil) based on good/evil and lawful/chaotic axes."
               questionCount={24}
               duration="2-5 min"
-              path="/moral-alignment-test"
+              path="/test/moral-alignment-test"
               icon={<Scale className="w-6 h-6" />}
               iconBgColor="bg-amber-500"
             />
@@ -118,7 +118,7 @@ const Index = () => {
               description="Find your position on the introvert-extrovert spectrum. Analyze 5 factors including energy recharge style and social preferences."
               questionCount={20}
               duration="1-2 min"
-              path="/introvert-extrovert-test"
+              path="/test/introvert-extrovert-test"
               icon={<Users2 className="w-6 h-6" />}
               iconBgColor="bg-orange-500"
             />

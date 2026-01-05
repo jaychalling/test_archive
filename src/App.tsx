@@ -27,15 +27,15 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/test/rice-purity-test" element={<RicePurityTest />} />
-          <Route path="/political-compass-test" element={<PoliticalCompassTest />} />
-          <Route path="/bdsm-test" element={<BdsmTest />} />
-          <Route path="/love-language-test" element={<LoveLanguageTest />} />
-          <Route path="/attachment-style-test" element={<AttachmentStyleTest />} />
-          <Route path="/big-five-test" element={<BigFiveTest />} />
-          <Route path="/enneagram-test" element={<EnneagramTest />} />
-          <Route path="/16-personality-test" element={<SixteenPersonalityTest />} />
-          <Route path="/moral-alignment-test" element={<MoralAlignmentTest />} />
-          <Route path="/introvert-extrovert-test" element={<IntrovertExtrovertTest />} />
+          <Route path="/test/political-compass-test" element={<PoliticalCompassTest />} />
+          <Route path="/test/bdsm-test" element={<BdsmTest />} />
+          <Route path="/test/love-language-test" element={<LoveLanguageTest />} />
+          <Route path="/test/attachment-style-test" element={<AttachmentStyleTest />} />
+          <Route path="/test/big-five-test" element={<BigFiveTest />} />
+          <Route path="/test/enneagram-test" element={<EnneagramTest />} />
+          <Route path="/test/16-personality-test" element={<SixteenPersonalityTest />} />
+          <Route path="/test/moral-alignment-test" element={<MoralAlignmentTest />} />
+          <Route path="/test/introvert-extrovert-test" element={<IntrovertExtrovertTest />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
