@@ -19,7 +19,7 @@ const Header = () => {
             to="/" 
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            테스트 목록
+            Test List
           </Link>
         </nav>
       </div>

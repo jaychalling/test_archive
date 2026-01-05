@@ -126,12 +126,12 @@ const LoveLanguageTest = () => {
     const primaryLanguage = loveLanguageDescriptions[ranked[0].language];
     const secondaryLanguage = loveLanguageDescriptions[ranked[1].language];
 
-    const shareText = `나의 사랑의 언어 테스트 결과\n\n1순위: ${primaryLanguage.name} (${ranked[0].score}점)\n2순위: ${secondaryLanguage.name} (${ranked[1].score}점)\n\n인정의 말: ${result.wordsOfAffirmation}점\n봉사: ${result.actsOfService}점\n선물: ${result.receivingGifts}점\n함께하는 시간: ${result.qualityTime}점\n스킨십: ${result.physicalTouch}점`;
+    const shareText = `My Love Language Test Result\n\n1st: ${primaryLanguage.name} (${ranked[0].score} points)\n2nd: ${secondaryLanguage.name} (${ranked[1].score} points)\n\nWords of Affirmation: ${result.wordsOfAffirmation}\nActs of Service: ${result.actsOfService}\nReceiving Gifts: ${result.receivingGifts}\nQuality Time: ${result.qualityTime}\nPhysical Touch: ${result.physicalTouch}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "사랑의 언어 테스트 결과",
+          title: "Love Language Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -140,7 +140,7 @@ const LoveLanguageTest = () => {
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -162,20 +162,20 @@ const LoveLanguageTest = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Heart className="w-6 h-6 text-pink-500" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                당신의 사랑의 언어
+                Your Love Language
               </h2>
             </div>
 
             {/* Primary Language */}
             <div className="p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 mb-6">
-              <div className="text-sm text-muted-foreground mb-1">1순위 사랑의 언어</div>
+              <div className="text-sm text-muted-foreground mb-1">Primary Love Language</div>
               <div className="text-3xl font-display font-bold text-gradient mb-2">
                 {primaryInfo.name}
               </div>
@@ -189,7 +189,7 @@ const LoveLanguageTest = () => {
 
             {/* Secondary Language */}
             <div className="p-4 rounded-lg bg-muted/30 mb-6">
-              <div className="text-sm text-muted-foreground mb-1">2순위 사랑의 언어</div>
+              <div className="text-sm text-muted-foreground mb-1">Secondary Love Language</div>
               <div className="font-semibold text-foreground text-lg">
                 {secondaryInfo.name}
               </div>
@@ -204,7 +204,7 @@ const LoveLanguageTest = () => {
             {/* Score Bars */}
             <div className="space-y-4 mb-8">
               <h3 className="text-sm font-medium text-foreground text-left mb-3">
-                언어별 점수
+                Scores by Language
               </h3>
               {ranked.map(({ language, score }) => (
                 <div key={language} className="text-left">
@@ -212,7 +212,7 @@ const LoveLanguageTest = () => {
                     <span className="text-sm font-medium text-foreground">
                       {loveLanguageDescriptions[language].name}
                     </span>
-                    <span className="text-sm text-muted-foreground">{score}점</span>
+                    <span className="text-sm text-muted-foreground">{score} pts</span>
                   </div>
                   <div className="h-3 bg-muted rounded-full overflow-hidden">
                     <div
@@ -227,7 +227,7 @@ const LoveLanguageTest = () => {
             {/* Primary Language Details */}
             <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
               <h3 className="font-semibold text-foreground mb-3">
-                {primaryInfo.name}의 특징
+                Characteristics of {primaryInfo.name}
               </h3>
               <ul className="space-y-2">
                 {primaryInfo.characteristics.map((char, idx) => (
@@ -245,7 +245,7 @@ const LoveLanguageTest = () => {
 
             {/* Detailed Description */}
             <div className="text-left p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 mb-6">
-              <h3 className="font-semibold text-pink-600 mb-4 text-lg">{primaryInfo.name} 심층 분석</h3>
+              <h3 className="font-semibold text-pink-600 mb-4 text-lg">{primaryInfo.name} - In-Depth Analysis</h3>
               <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                 {primaryInfo.detailedDescription}
               </p>
@@ -253,7 +253,7 @@ const LoveLanguageTest = () => {
 
             {/* Scientific Background */}
             <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg">과학적 배경</h3>
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg">Scientific Background</h3>
               <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                 {primaryInfo.scientificBackground}
               </p>
@@ -261,7 +261,7 @@ const LoveLanguageTest = () => {
 
             {/* Expression Methods */}
             <div className="text-left p-6 rounded-xl bg-green-500/10 mb-6">
-              <h3 className="font-semibold text-green-600 mb-4 text-lg">{primaryInfo.name} 표현 방법</h3>
+              <h3 className="font-semibold text-green-600 mb-4 text-lg">How to Express {primaryInfo.name}</h3>
               <ul className="space-y-2">
                 {primaryInfo.expressionMethods.map((method, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -276,7 +276,7 @@ const LoveLanguageTest = () => {
 
             {/* Recognition Signs */}
             <div className="text-left p-6 rounded-xl bg-amber-500/10 mb-6">
-              <h3 className="font-semibold text-amber-600 mb-4 text-lg">알아보는 방법</h3>
+              <h3 className="font-semibold text-amber-600 mb-4 text-lg">How to Recognize It</h3>
               <ul className="space-y-2">
                 {primaryInfo.recognitionSigns.map((sign, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -289,7 +289,7 @@ const LoveLanguageTest = () => {
 
             {/* Partnership Tips */}
             <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
-              <h3 className="font-semibold text-purple-600 mb-4 text-lg">파트너를 위한 팁</h3>
+              <h3 className="font-semibold text-purple-600 mb-4 text-lg">Tips for Partners</h3>
               <ul className="space-y-2">
                 {primaryInfo.partnershipTips.map((tip, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -303,14 +303,14 @@ const LoveLanguageTest = () => {
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -329,7 +329,7 @@ const LoveLanguageTest = () => {
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
+          Back to Tests
         </Link>
 
         <div className="max-w-2xl mx-auto">
@@ -339,11 +339,11 @@ const LoveLanguageTest = () => {
               <Heart className="w-8 h-8 text-pink-500" />
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              사랑의 언어 테스트
+              Love Language Test
             </h1>
             <p className="text-muted-foreground">
-              각 질문에서 더 마음에 드는 선택지를 골라주세요.<br />
-              당신이 사랑을 표현하고 느끼는 방식을 알아봅니다.
+              Choose the option you prefer for each question.<br />
+              Discover how you express and receive love.
             </p>
           </div>
 
@@ -368,7 +368,7 @@ const LoveLanguageTest = () => {
             )}
           >
             <div className="text-xs font-medium text-muted-foreground mb-4">
-              {currentQuestion + 1}. 다음 중 더 선호하는 것은?
+              {currentQuestion + 1}. Which do you prefer?
             </div>
 
             <div className="grid gap-3">
@@ -408,7 +408,7 @@ const LoveLanguageTest = () => {
               className="gap-2"
             >
               <ChevronLeft className="w-4 h-4" />
-              이전
+              Previous
             </Button>
 
             {showCompleteButton ? (
@@ -417,7 +417,7 @@ const LoveLanguageTest = () => {
                 className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300"
               >
                 <CheckCircle2 className="w-5 h-5" />
-                결과 보기
+                View Results
               </Button>
             ) : (
               <Button
@@ -426,7 +426,7 @@ const LoveLanguageTest = () => {
                 disabled={currentQuestion === totalQuestions - 1}
                 className="gap-2"
               >
-                다음
+                Next
                 <ChevronRight className="w-4 h-4" />
               </Button>
             )}
@@ -435,7 +435,7 @@ const LoveLanguageTest = () => {
           {/* Progress Info */}
           <div className="text-center py-8">
             <p className="text-xs text-muted-foreground">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
+              {answeredCount}/{totalQuestions} questions answered
             </p>
           </div>
         </div>

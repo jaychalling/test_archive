@@ -117,12 +117,12 @@ const PoliticalCompassTest = () => {
   const handleShare = async () => {
     const result = calculateResult();
     const quadrant = getQuadrantLabel(result.economic, result.social);
-    const shareText = `나의 정치 성향: ${quadrant}\n경제: ${result.economic > 0 ? "우파" : "좌파"} (${result.economic.toFixed(1)})\n사회: ${result.social > 0 ? "권위주의" : "자유주의"} (${result.social.toFixed(1)})`;
+    const shareText = `My Political Compass: ${quadrant}\nEconomic: ${result.economic > 0 ? "Right" : "Left"} (${result.economic.toFixed(1)})\nSocial: ${result.social > 0 ? "Authoritarian" : "Libertarian"} (${result.social.toFixed(1)})`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Political Compass Test 결과",
+          title: "Political Compass Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -131,7 +131,7 @@ const PoliticalCompassTest = () => {
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -154,12 +154,12 @@ const PoliticalCompassTest = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
-              당신의 정치 성향
+              Your Political Orientation
             </h2>
             <div className={cn("text-3xl font-display font-bold mb-2", colors.text)}>
               {quadrantInfo.name}
@@ -174,16 +174,16 @@ const PoliticalCompassTest = () => {
               {/* Background quadrants */}
               <div className="absolute inset-0 grid grid-cols-2 grid-rows-2">
                 <div className="bg-red-500/20 rounded-tl-lg flex items-center justify-center text-xs text-muted-foreground">
-                  좌파 권위주의
+                  Left Authoritarian
                 </div>
                 <div className="bg-blue-500/20 rounded-tr-lg flex items-center justify-center text-xs text-muted-foreground">
-                  우파 권위주의
+                  Right Authoritarian
                 </div>
                 <div className="bg-green-500/20 rounded-bl-lg flex items-center justify-center text-xs text-muted-foreground">
-                  좌파 자유주의
+                  Left Libertarian
                 </div>
                 <div className="bg-purple-500/20 rounded-br-lg flex items-center justify-center text-xs text-muted-foreground">
-                  우파 자유주의
+                  Right Libertarian
                 </div>
               </div>
 
@@ -193,16 +193,16 @@ const PoliticalCompassTest = () => {
 
               {/* Axis labels */}
               <div className="absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full text-xs text-muted-foreground">
-                좌파
+                Left
               </div>
               <div className="absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full text-xs text-muted-foreground">
-                우파
+                Right
               </div>
               <div className="absolute left-1/2 -top-2 -translate-x-1/2 -translate-y-full text-xs text-muted-foreground">
-                권위주의
+                Authoritarian
               </div>
               <div className="absolute left-1/2 -bottom-2 -translate-x-1/2 translate-y-full text-xs text-muted-foreground">
-                자유주의
+                Libertarian
               </div>
 
               {/* Result dot */}
@@ -218,18 +218,18 @@ const PoliticalCompassTest = () => {
             {/* Scores */}
             <div className="grid grid-cols-2 gap-4 mb-8 text-sm">
               <div className="p-3 rounded-lg bg-muted/50">
-                <div className="text-muted-foreground mb-1">경제 (좌/우)</div>
+                <div className="text-muted-foreground mb-1">Economic (Left/Right)</div>
                 <div className="font-semibold">
-                  {result.economic > 0 ? "우파" : "좌파"} (
+                  {result.economic > 0 ? "Right" : "Left"} (
                   {result.economic.toFixed(1)})
                 </div>
               </div>
               <div className="p-3 rounded-lg bg-muted/50">
                 <div className="text-muted-foreground mb-1">
-                  사회 (권위/자유)
+                  Social (Auth./Lib.)
                 </div>
                 <div className="font-semibold">
-                  {result.social > 0 ? "권위주의" : "자유주의"} (
+                  {result.social > 0 ? "Authoritarian" : "Libertarian"} (
                   {result.social.toFixed(1)})
                 </div>
               </div>
@@ -239,7 +239,7 @@ const PoliticalCompassTest = () => {
             <div className={cn("text-left p-6 rounded-xl mb-6", colors.bg)}>
               <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", colors.text)}>
                 <BookOpen className="w-5 h-5" />
-                {quadrantInfo.name} 상세 분석
+                {quadrantInfo.name} - Detailed Analysis
               </h3>
               <p className="text-foreground leading-relaxed">
                 {quadrantInfo.detailedDescription}
@@ -250,7 +250,7 @@ const PoliticalCompassTest = () => {
             <div className="text-left p-6 rounded-xl bg-amber-500/10 mb-6">
               <h3 className="font-semibold text-amber-600 mb-4 text-lg flex items-center gap-2">
                 <History className="w-5 h-5" />
-                역사적 배경
+                Historical Background
               </h3>
               <p className="text-foreground leading-relaxed">
                 {quadrantInfo.historicalBackground}
@@ -260,7 +260,7 @@ const PoliticalCompassTest = () => {
             {/* Key Policies & Famous Examples */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="text-left p-5 rounded-xl bg-cyan-500/10">
-                <h3 className="font-semibold text-cyan-600 mb-4">주요 정책/가치</h3>
+                <h3 className="font-semibold text-cyan-600 mb-4">Key Policies/Values</h3>
                 <ul className="space-y-2">
                   {quadrantInfo.keyPolicies.map((policy, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -273,7 +273,7 @@ const PoliticalCompassTest = () => {
               <div className="text-left p-5 rounded-xl bg-indigo-500/10">
                 <h3 className="font-semibold text-indigo-600 mb-4 flex items-center gap-2">
                   <Users className="w-5 h-5" />
-                  대표적인 인물
+                  Notable Figures
                 </h3>
                 <ul className="space-y-2">
                   {quadrantInfo.famousExamples.map((example, idx) => (
@@ -289,7 +289,7 @@ const PoliticalCompassTest = () => {
             {/* Strengths & Weaknesses */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="text-left p-5 rounded-xl bg-green-500/10">
-                <h3 className="font-semibold text-green-600 mb-4">강점</h3>
+                <h3 className="font-semibold text-green-600 mb-4">Strengths</h3>
                 <ul className="space-y-2">
                   {quadrantInfo.strengthsAndWeaknesses.strengths.map((strength, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -302,7 +302,7 @@ const PoliticalCompassTest = () => {
               <div className="text-left p-5 rounded-xl bg-orange-500/10">
                 <h3 className="font-semibold text-orange-600 mb-4 flex items-center gap-2">
                   <AlertCircle className="w-5 h-5" />
-                  약점/비판
+                  Weaknesses/Criticisms
                 </h3>
                 <ul className="space-y-2">
                   {quadrantInfo.strengthsAndWeaknesses.weaknesses.map((weakness, idx) => (
@@ -317,13 +317,13 @@ const PoliticalCompassTest = () => {
 
             {/* Test Background */}
             <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="font-semibold text-foreground mb-4 text-lg">Political Compass에 대하여</h3>
+              <h3 className="font-semibold text-foreground mb-4 text-lg">About the Political Compass</h3>
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {testBackground.history}
                 </p>
                 <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <h4 className="font-medium text-amber-600 mb-2">참고사항</h4>
+                  <h4 className="font-medium text-amber-600 mb-2">Note</h4>
                   <p className="text-sm text-foreground leading-relaxed">
                     {testBackground.disclaimer}
                   </p>
@@ -334,14 +334,14 @@ const PoliticalCompassTest = () => {
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -361,7 +361,7 @@ const PoliticalCompassTest = () => {
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">테스트 목록</span>
+          <span className="hidden sm:inline">Back to Tests</span>
         </Link>
         <div className="flex items-center gap-2">
           <Compass className="w-5 h-5 text-primary" />
@@ -398,8 +398,8 @@ const PoliticalCompassTest = () => {
                   {/* Scale */}
                   <div className="space-y-4">
                     <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>강하게 반대</span>
-                      <span>강하게 동의</span>
+                      <span>Strongly Disagree</span>
+                      <span>Strongly Agree</span>
                     </div>
                     <div className="flex justify-between gap-2">
                       {answerOptions.map((option, index) => (
@@ -437,7 +437,7 @@ const PoliticalCompassTest = () => {
             className="gap-2"
           >
             <ChevronLeft className="w-5 h-5" />
-            이전
+            Previous
           </Button>
 
           {isLastQuestion && allQuestionsAnswered ? (
@@ -447,7 +447,7 @@ const PoliticalCompassTest = () => {
               className="gradient-primary border-0 gap-2 px-8"
             >
               <CheckCircle2 className="w-5 h-5" />
-              결과 보기
+              View Results
             </Button>
           ) : (
             <Button
@@ -457,7 +457,7 @@ const PoliticalCompassTest = () => {
               disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
               className="gap-2"
             >
-              다음
+              Next
               <ChevronRight className="w-5 h-5" />
             </Button>
           )}

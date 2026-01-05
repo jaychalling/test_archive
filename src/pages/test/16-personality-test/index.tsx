@@ -153,23 +153,23 @@ const SixteenPersonalityTest = () => {
     const typeInfo = personalityTypeInfo[result.typeCode];
     const { EI, SN, TF, JP } = result.dimensionScores;
 
-    const shareText = `나의 16가지 성격 유형 테스트 결과
+    const shareText = `My 16 Personality Type Test Results
 
-유형: ${result.typeCode} - ${typeInfo.name}
-별명: ${typeInfo.nickname}
+Type: ${result.typeCode} - ${typeInfo.name}
+Nickname: ${typeInfo.nickname}
 
-차원별 결과:
-- 에너지 방향: E ${EI.percentageA}% / I ${EI.percentageB}%
-- 정보 수집: S ${SN.percentageA}% / N ${SN.percentageB}%
-- 의사결정: T ${TF.percentageA}% / F ${TF.percentageB}%
-- 생활 양식: J ${JP.percentageA}% / P ${JP.percentageB}%
+Dimension Results:
+- Energy Direction: E ${EI.percentageA}% / I ${EI.percentageB}%
+- Information Gathering: S ${SN.percentageA}% / N ${SN.percentageB}%
+- Decision Making: T ${TF.percentageA}% / F ${TF.percentageB}%
+- Lifestyle: J ${JP.percentageA}% / P ${JP.percentageB}%
 
 ${typeInfo.description}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "16가지 성격 유형 테스트 결과",
+          title: "16 Personality Type Test Results",
           text: shareText,
           url: window.location.href,
         });
@@ -178,7 +178,7 @@ ${typeInfo.description}`;
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -198,14 +198,14 @@ ${typeInfo.description}`;
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Layers className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                당신의 성격 유형 결과
+                Your Personality Type Result
               </h2>
             </div>
 
@@ -233,7 +233,7 @@ ${typeInfo.description}`;
             {/* Detailed Description */}
             {typeInfo.detailedDescription && (
               <div className="p-5 rounded-lg bg-muted/50 mb-6 text-left">
-                <h4 className="font-semibold text-foreground mb-3 text-lg">{result.typeCode} 유형 심층 분석</h4>
+                <h4 className="font-semibold text-foreground mb-3 text-lg">{result.typeCode} Type In-Depth Analysis</h4>
                 <p className="text-foreground leading-relaxed">{typeInfo.detailedDescription}</p>
               </div>
             )}
@@ -241,7 +241,7 @@ ${typeInfo.description}`;
             {/* Scientific Background */}
             {typeInfo.scientificBackground && (
               <div className="p-5 rounded-lg bg-blue-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-blue-600 mb-3 text-lg">과학적 배경</h4>
+                <h4 className="font-semibold text-blue-600 mb-3 text-lg">Scientific Background</h4>
                 <p className="text-foreground leading-relaxed">{typeInfo.scientificBackground}</p>
               </div>
             )}
@@ -249,7 +249,7 @@ ${typeInfo.description}`;
             {/* Cognitive Functions */}
             {typeInfo.cognitiveFunctions && (
               <div className="p-5 rounded-lg bg-purple-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-purple-600 mb-3 text-lg">인지 기능 스택</h4>
+                <h4 className="font-semibold text-purple-600 mb-3 text-lg">Cognitive Function Stack</h4>
                 <div className="grid md:grid-cols-2 gap-3 mb-4">
                   <div className="p-3 rounded-lg bg-background/50">
                     <span className="text-xs text-muted-foreground">주 기능 (Dominant)</span>
@@ -275,18 +275,18 @@ ${typeInfo.description}`;
             {/* Dimension Bars */}
             <div className="space-y-4 mb-8">
               <h3 className="text-sm font-medium text-foreground text-left mb-4">
-                차원별 성향 비율
+                Dimension Preference Ratios
               </h3>
 
               {/* E/I */}
               <div className="text-left">
                 <div className="flex justify-between items-center mb-2 text-sm">
                   <span className={cn("font-medium", EI.dominant === "A" ? "text-primary" : "text-muted-foreground")}>
-                    E 외향 {EI.percentageA}%
+                    E Extroversion {EI.percentageA}%
                   </span>
                   <span className="text-xs text-muted-foreground">{dimensionInfo.EI.name}</span>
                   <span className={cn("font-medium", EI.dominant === "B" ? "text-primary" : "text-muted-foreground")}>
-                    {EI.percentageB}% 내향 I
+                    {EI.percentageB}% Introversion I
                   </span>
                 </div>
                 <div className="h-3 bg-muted rounded-full overflow-hidden flex">
@@ -311,11 +311,11 @@ ${typeInfo.description}`;
               <div className="text-left">
                 <div className="flex justify-between items-center mb-2 text-sm">
                   <span className={cn("font-medium", SN.dominant === "A" ? "text-primary" : "text-muted-foreground")}>
-                    S 감각 {SN.percentageA}%
+                    S Sensing {SN.percentageA}%
                   </span>
                   <span className="text-xs text-muted-foreground">{dimensionInfo.SN.name}</span>
                   <span className={cn("font-medium", SN.dominant === "B" ? "text-primary" : "text-muted-foreground")}>
-                    {SN.percentageB}% 직관 N
+                    {SN.percentageB}% Intuition N
                   </span>
                 </div>
                 <div className="h-3 bg-muted rounded-full overflow-hidden flex">
@@ -340,11 +340,11 @@ ${typeInfo.description}`;
               <div className="text-left">
                 <div className="flex justify-between items-center mb-2 text-sm">
                   <span className={cn("font-medium", TF.dominant === "A" ? "text-primary" : "text-muted-foreground")}>
-                    T 사고 {TF.percentageA}%
+                    T Thinking {TF.percentageA}%
                   </span>
                   <span className="text-xs text-muted-foreground">{dimensionInfo.TF.name}</span>
                   <span className={cn("font-medium", TF.dominant === "B" ? "text-primary" : "text-muted-foreground")}>
-                    {TF.percentageB}% 감정 F
+                    {TF.percentageB}% Feeling F
                   </span>
                 </div>
                 <div className="h-3 bg-muted rounded-full overflow-hidden flex">
@@ -369,11 +369,11 @@ ${typeInfo.description}`;
               <div className="text-left">
                 <div className="flex justify-between items-center mb-2 text-sm">
                   <span className={cn("font-medium", JP.dominant === "A" ? "text-primary" : "text-muted-foreground")}>
-                    J 판단 {JP.percentageA}%
+                    J Judging {JP.percentageA}%
                   </span>
                   <span className="text-xs text-muted-foreground">{dimensionInfo.JP.name}</span>
                   <span className={cn("font-medium", JP.dominant === "B" ? "text-primary" : "text-muted-foreground")}>
-                    {JP.percentageB}% 인식 P
+                    {JP.percentageB}% Perceiving P
                   </span>
                 </div>
                 <div className="h-3 bg-muted rounded-full overflow-hidden flex">
@@ -397,7 +397,7 @@ ${typeInfo.description}`;
 
             {/* Characteristics */}
             <div className="p-4 rounded-lg bg-muted/50 mb-6 text-left">
-              <h4 className="text-sm font-semibold mb-3 text-foreground">주요 특성</h4>
+              <h4 className="text-sm font-semibold mb-3 text-foreground">Key Characteristics</h4>
               <ul className="space-y-1.5">
                 {typeInfo.characteristics.map((char, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -411,7 +411,7 @@ ${typeInfo.description}`;
             {/* Strengths & Weaknesses */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                <h4 className="font-semibold text-green-600 mb-3">강점</h4>
+                <h4 className="font-semibold text-green-600 mb-3">Strengths</h4>
                 <ul className="space-y-1.5">
                   {typeInfo.strengths.map((strength, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -422,7 +422,7 @@ ${typeInfo.description}`;
                 </ul>
               </div>
               <div className="p-4 rounded-lg bg-amber-500/10 text-left">
-                <h4 className="font-semibold text-amber-600 mb-3">약점</h4>
+                <h4 className="font-semibold text-amber-600 mb-3">Weaknesses</h4>
                 <ul className="space-y-1.5">
                   {typeInfo.weaknesses.map((weakness, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -436,7 +436,7 @@ ${typeInfo.description}`;
 
             {/* Careers */}
             <div className={cn("p-4 rounded-lg bg-gradient-to-br mb-6 text-left", typeBgColors[result.typeCode])}>
-              <h4 className={cn("font-semibold mb-3", typeTextColors[result.typeCode])}>어울리는 직업군</h4>
+              <h4 className={cn("font-semibold mb-3", typeTextColors[result.typeCode])}>Suitable Careers</h4>
               <div className="flex flex-wrap gap-2 mb-4">
                 {typeInfo.careers.map((career, idx) => (
                   <span
@@ -461,13 +461,13 @@ ${typeInfo.description}`;
               <div className="grid md:grid-cols-2 gap-4 mb-6">
                 {typeInfo.relationshipStyle && (
                   <div className="p-4 rounded-lg bg-rose-500/10 text-left">
-                    <h4 className="font-semibold text-rose-600 mb-3">관계 스타일</h4>
+                    <h4 className="font-semibold text-rose-600 mb-3">Relationship Style</h4>
                     <p className="text-sm text-foreground leading-relaxed">{typeInfo.relationshipStyle}</p>
                   </div>
                 )}
                 {typeInfo.communicationStyle && (
                   <div className="p-4 rounded-lg bg-cyan-500/10 text-left">
-                    <h4 className="font-semibold text-cyan-600 mb-3">의사소통 스타일</h4>
+                    <h4 className="font-semibold text-cyan-600 mb-3">Communication Style</h4>
                     <p className="text-sm text-foreground leading-relaxed">{typeInfo.communicationStyle}</p>
                   </div>
                 )}
@@ -477,7 +477,7 @@ ${typeInfo.description}`;
             {/* Growth Strategies */}
             {typeInfo.growthStrategies && typeInfo.growthStrategies.length > 0 && (
               <div className="p-5 rounded-lg bg-emerald-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-emerald-600 mb-3">성장을 위한 조언</h4>
+                <h4 className="font-semibold text-emerald-600 mb-3">Growth Advice</h4>
                 <ul className="space-y-2">
                   {typeInfo.growthStrategies.map((strategy, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -492,7 +492,7 @@ ${typeInfo.description}`;
             {/* Stress Response */}
             {typeInfo.stressResponse && (
               <div className="p-5 rounded-lg bg-orange-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-orange-600 mb-3">스트레스 반응</h4>
+                <h4 className="font-semibold text-orange-600 mb-3">Stress Response</h4>
                 <p className="text-sm text-foreground leading-relaxed">{typeInfo.stressResponse}</p>
               </div>
             )}
@@ -502,7 +502,7 @@ ${typeInfo.description}`;
               <div className="grid md:grid-cols-2 gap-4 mb-6">
                 {typeInfo.compatibleTypes && typeInfo.compatibleTypes.length > 0 && (
                   <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                    <h4 className="font-semibold text-green-600 mb-3">궁합이 좋은 유형</h4>
+                    <h4 className="font-semibold text-green-600 mb-3">Compatible Types</h4>
                     <div className="flex flex-wrap gap-2">
                       {typeInfo.compatibleTypes.map((type, idx) => (
                         <span key={idx} className="px-3 py-1 rounded-full text-sm bg-green-500 text-white font-medium">
@@ -514,7 +514,7 @@ ${typeInfo.description}`;
                 )}
                 {typeInfo.challengingTypes && typeInfo.challengingTypes.length > 0 && (
                   <div className="p-4 rounded-lg bg-red-500/10 text-left">
-                    <h4 className="font-semibold text-red-600 mb-3">도전적인 조합</h4>
+                    <h4 className="font-semibold text-red-600 mb-3">Challenging Combinations</h4>
                     <div className="flex flex-wrap gap-2">
                       {typeInfo.challengingTypes.map((type, idx) => (
                         <span key={idx} className="px-3 py-1 rounded-full text-sm bg-red-500/80 text-white font-medium">
@@ -530,7 +530,7 @@ ${typeInfo.description}`;
             {/* Famous People */}
             {typeInfo.famousPeople && typeInfo.famousPeople.length > 0 && (
               <div className="p-4 rounded-lg bg-indigo-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-indigo-600 mb-3">같은 유형의 유명인</h4>
+                <h4 className="font-semibold text-indigo-600 mb-3">Famous People of the Same Type</h4>
                 <div className="flex flex-wrap gap-2">
                   {typeInfo.famousPeople.map((person, idx) => (
                     <span key={idx} className="px-3 py-1 rounded-full text-sm bg-indigo-500/20 text-indigo-700 border border-indigo-500/30">
@@ -544,7 +544,7 @@ ${typeInfo.description}`;
             {/* Dimension Details */}
             <div className="space-y-4 mb-8 text-left">
               <h3 className="text-sm font-medium text-foreground mb-3">
-                차원별 상세 설명
+                Detailed Dimension Descriptions
               </h3>
               {(["EI", "SN", "TF", "JP"] as Dimension[]).map((dim) => {
                 const score = result.dimensionScores[dim];
@@ -566,14 +566,14 @@ ${typeInfo.description}`;
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -592,7 +592,7 @@ ${typeInfo.description}`;
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
+          Back to Tests
         </Link>
 
         <div className="max-w-2xl mx-auto">
@@ -602,34 +602,34 @@ ${typeInfo.description}`;
               <Layers className="w-8 h-8 text-primary" />
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              16가지 성격 유형 테스트
+              16 Personality Type Test
             </h1>
             <p className="text-muted-foreground">
-              각 질문에서 자신에게 더 가까운 문장을 선택하세요.
+              For each question, select the statement that best describes you.
               <br />
-              16가지 성격 유형 중 당신의 유형을 찾습니다.
+              Find your personality type among 16 types.
             </p>
           </div>
 
           {/* Dimension Overview */}
           <div className="test-card mb-6">
-            <h3 className="text-sm font-medium text-foreground mb-3">측정하는 4가지 차원</h3>
+            <h3 className="text-sm font-medium text-foreground mb-3">4 Dimensions Measured</h3>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="p-2 rounded-lg bg-primary/10 text-center">
                 <div className="font-medium text-primary">E / I</div>
-                <div className="text-muted-foreground">에너지 방향</div>
+                <div className="text-muted-foreground">Energy Direction</div>
               </div>
               <div className="p-2 rounded-lg bg-primary/10 text-center">
                 <div className="font-medium text-primary">S / N</div>
-                <div className="text-muted-foreground">정보 수집</div>
+                <div className="text-muted-foreground">Information Gathering</div>
               </div>
               <div className="p-2 rounded-lg bg-primary/10 text-center">
                 <div className="font-medium text-primary">T / F</div>
-                <div className="text-muted-foreground">의사결정</div>
+                <div className="text-muted-foreground">Decision Making</div>
               </div>
               <div className="p-2 rounded-lg bg-primary/10 text-center">
                 <div className="font-medium text-primary">J / P</div>
-                <div className="text-muted-foreground">생활 양식</div>
+                <div className="text-muted-foreground">Lifestyle</div>
               </div>
             </div>
           </div>
@@ -660,7 +660,7 @@ ${typeInfo.description}`;
                   Q{currentQuestion + 1}.
                 </span>
                 <span className="text-sm text-muted-foreground">
-                  더 가까운 문장을 선택하세요
+                  Select the statement that best describes you
                 </span>
               </div>
 
@@ -704,7 +704,7 @@ ${typeInfo.description}`;
               className="gap-2"
             >
               <ChevronLeft className="w-4 h-4" />
-              이전
+              Previous
             </Button>
 
             <div className="flex gap-1">
@@ -738,7 +738,7 @@ ${typeInfo.description}`;
               disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
               className="gap-2"
             >
-              다음
+              Next
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
@@ -753,10 +753,10 @@ ${typeInfo.description}`;
                 className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
               >
                 <CheckCircle2 className="w-5 h-5" />
-                결과 보기
+                View Results
               </Button>
               <p className="text-xs text-muted-foreground mt-3">
-                {answeredCount}/{totalQuestions}개 질문 응답 완료
+                {answeredCount}/{totalQuestions} questions answered
               </p>
             </div>
           )}

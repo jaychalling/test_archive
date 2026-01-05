@@ -1,5 +1,5 @@
-// 16가지 성격 유형 테스트 (16 Personality Style Test)
-// 4가지 차원: E/I, S/N, T/F, J/P
+// 16 Personality Types Test (16 Personality Style Test)
+// 4 Dimensions: E/I, S/N, T/F, J/P
 
 export type Dimension = "EI" | "SN" | "TF" | "JP";
 
@@ -8,28 +8,28 @@ export interface PersonalityQuestion {
   dimension: Dimension;
   optionA: {
     text: string;
-    type: "E" | "S" | "T" | "J"; // 첫 번째 선택지의 유형
+    type: "E" | "S" | "T" | "J"; // Type of the first option
   };
   optionB: {
     text: string;
-    type: "I" | "N" | "F" | "P"; // 두 번째 선택지의 유형
+    type: "I" | "N" | "F" | "P"; // Type of the second option
   };
 }
 
 export type AnswerChoice = "A" | "B";
 
-// 40개 질문 (각 차원당 10개)
+// 40 questions (10 per dimension)
 export const personalityQuestions: PersonalityQuestion[] = [
-  // === E/I (외향/내향) - 에너지 방향 10문항 ===
+  // === E/I (Extraversion/Introversion) - Energy Direction 10 questions ===
   {
     id: 1,
     dimension: "EI",
     optionA: {
-      text: "사람들과 어울리면 에너지가 충전된다.",
+      text: "I feel energized when socializing with people.",
       type: "E",
     },
     optionB: {
-      text: "혼자만의 시간을 가지면 에너지가 충전된다.",
+      text: "I feel energized when I have time alone.",
       type: "I",
     },
   },
@@ -37,11 +37,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 2,
     dimension: "EI",
     optionA: {
-      text: "말을 하면서 생각을 정리하는 편이다.",
+      text: "I tend to organize my thoughts while talking.",
       type: "E",
     },
     optionB: {
-      text: "충분히 생각한 후에 말하는 편이다.",
+      text: "I tend to think thoroughly before speaking.",
       type: "I",
     },
   },
@@ -49,11 +49,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 3,
     dimension: "EI",
     optionA: {
-      text: "넓고 다양한 친구 관계를 선호한다.",
+      text: "I prefer having a wide variety of friendships.",
       type: "E",
     },
     optionB: {
-      text: "깊고 소수의 친구 관계를 선호한다.",
+      text: "I prefer having deep connections with a small number of friends.",
       type: "I",
     },
   },
@@ -61,11 +61,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 4,
     dimension: "EI",
     optionA: {
-      text: "파티나 모임에 참석하면 활기를 얻는다.",
+      text: "I feel energized when attending parties or gatherings.",
       type: "E",
     },
     optionB: {
-      text: "파티나 모임 후에는 혼자 쉬고 싶다.",
+      text: "After parties or gatherings, I want to rest alone.",
       type: "I",
     },
   },
@@ -73,11 +73,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 5,
     dimension: "EI",
     optionA: {
-      text: "새로운 사람을 만나는 것이 즐겁다.",
+      text: "I enjoy meeting new people.",
       type: "E",
     },
     optionB: {
-      text: "이미 아는 사람들과 시간을 보내는 것이 편하다.",
+      text: "I feel more comfortable spending time with people I already know.",
       type: "I",
     },
   },
@@ -85,11 +85,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 6,
     dimension: "EI",
     optionA: {
-      text: "먼저 행동하고 나중에 생각하는 편이다.",
+      text: "I tend to act first and think later.",
       type: "E",
     },
     optionB: {
-      text: "충분히 생각한 후에 행동하는 편이다.",
+      text: "I tend to think thoroughly before acting.",
       type: "I",
     },
   },
@@ -97,11 +97,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 7,
     dimension: "EI",
     optionA: {
-      text: "적극적으로 대화를 이끄는 편이다.",
+      text: "I tend to actively lead conversations.",
       type: "E",
     },
     optionB: {
-      text: "대화를 듣고 필요할 때만 말하는 편이다.",
+      text: "I tend to listen to conversations and speak only when necessary.",
       type: "I",
     },
   },
@@ -109,11 +109,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 8,
     dimension: "EI",
     optionA: {
-      text: "외부 세계의 사람과 활동에 관심이 많다.",
+      text: "I am interested in people and activities in the external world.",
       type: "E",
     },
     optionB: {
-      text: "내면세계의 생각과 감정에 관심이 많다.",
+      text: "I am interested in thoughts and emotions in my inner world.",
       type: "I",
     },
   },
@@ -121,11 +121,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 9,
     dimension: "EI",
     optionA: {
-      text: "그룹 활동을 할 때 능률이 오른다.",
+      text: "I am more productive when working in groups.",
       type: "E",
     },
     optionB: {
-      text: "혼자 작업할 때 집중이 더 잘 된다.",
+      text: "I concentrate better when working alone.",
       type: "I",
     },
   },
@@ -133,25 +133,25 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 10,
     dimension: "EI",
     optionA: {
-      text: "생각을 바로바로 말로 표현하는 편이다.",
+      text: "I tend to express my thoughts verbally right away.",
       type: "E",
     },
     optionB: {
-      text: "글로 생각을 표현하는 것이 더 편하다.",
+      text: "I feel more comfortable expressing my thoughts in writing.",
       type: "I",
     },
   },
 
-  // === S/N (감각/직관) - 정보 수집 방식 10문항 ===
+  // === S/N (Sensing/Intuition) - Information Gathering 10 questions ===
   {
     id: 11,
     dimension: "SN",
     optionA: {
-      text: "현재의 사실과 구체적인 정보에 집중한다.",
+      text: "I focus on present facts and concrete information.",
       type: "S",
     },
     optionB: {
-      text: "미래의 가능성과 의미에 집중한다.",
+      text: "I focus on future possibilities and meanings.",
       type: "N",
     },
   },
@@ -159,11 +159,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 12,
     dimension: "SN",
     optionA: {
-      text: "직접 경험한 것을 신뢰하는 편이다.",
+      text: "I tend to trust what I have directly experienced.",
       type: "S",
     },
     optionB: {
-      text: "직감이나 영감을 신뢰하는 편이다.",
+      text: "I tend to trust my intuition or inspiration.",
       type: "N",
     },
   },
@@ -171,11 +171,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 13,
     dimension: "SN",
     optionA: {
-      text: "세부 사항과 디테일을 잘 파악한다.",
+      text: "I am good at grasping details and specifics.",
       type: "S",
     },
     optionB: {
-      text: "전체적인 그림과 패턴을 잘 파악한다.",
+      text: "I am good at grasping the big picture and patterns.",
       type: "N",
     },
   },
@@ -183,11 +183,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 14,
     dimension: "SN",
     optionA: {
-      text: "실용적이고 현실적인 접근을 선호한다.",
+      text: "I prefer practical and realistic approaches.",
       type: "S",
     },
     optionB: {
-      text: "창의적이고 혁신적인 접근을 선호한다.",
+      text: "I prefer creative and innovative approaches.",
       type: "N",
     },
   },
@@ -195,11 +195,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 15,
     dimension: "SN",
     optionA: {
-      text: "검증된 방법을 따르는 것이 안전하다고 생각한다.",
+      text: "I think it is safer to follow proven methods.",
       type: "S",
     },
     optionB: {
-      text: "새로운 방법을 시도하는 것이 재미있다고 생각한다.",
+      text: "I think it is fun to try new methods.",
       type: "N",
     },
   },
@@ -207,11 +207,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 16,
     dimension: "SN",
     optionA: {
-      text: "단계별로 순서대로 일을 처리하는 것을 선호한다.",
+      text: "I prefer handling tasks step by step in order.",
       type: "S",
     },
     optionB: {
-      text: "직관에 따라 유연하게 일을 처리하는 것을 선호한다.",
+      text: "I prefer handling tasks flexibly following my intuition.",
       type: "N",
     },
   },
@@ -219,11 +219,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 17,
     dimension: "SN",
     optionA: {
-      text: "사실적이고 명확한 정보를 선호한다.",
+      text: "I prefer factual and clear information.",
       type: "S",
     },
     optionB: {
-      text: "은유적이고 추상적인 개념을 선호한다.",
+      text: "I prefer metaphorical and abstract concepts.",
       type: "N",
     },
   },
@@ -231,11 +231,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 18,
     dimension: "SN",
     optionA: {
-      text: "지금 일어나고 있는 일에 주목한다.",
+      text: "I pay attention to what is happening now.",
       type: "S",
     },
     optionB: {
-      text: "앞으로 일어날 수 있는 일에 주목한다.",
+      text: "I pay attention to what could happen in the future.",
       type: "N",
     },
   },
@@ -243,11 +243,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 19,
     dimension: "SN",
     optionA: {
-      text: "구체적인 예시와 사례로 설명하는 것을 좋아한다.",
+      text: "I like explaining with specific examples and cases.",
       type: "S",
     },
     optionB: {
-      text: "개념과 이론으로 설명하는 것을 좋아한다.",
+      text: "I like explaining with concepts and theories.",
       type: "N",
     },
   },
@@ -255,25 +255,25 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 20,
     dimension: "SN",
     optionA: {
-      text: "익숙하고 안정적인 환경이 편하다.",
+      text: "I feel comfortable in familiar and stable environments.",
       type: "S",
     },
     optionB: {
-      text: "변화와 새로운 도전이 자극이 된다.",
+      text: "I am stimulated by change and new challenges.",
       type: "N",
     },
   },
 
-  // === T/F (사고/감정) - 의사결정 방식 10문항 ===
+  // === T/F (Thinking/Feeling) - Decision Making 10 questions ===
   {
     id: 21,
     dimension: "TF",
     optionA: {
-      text: "논리와 분석을 바탕으로 결정한다.",
+      text: "I make decisions based on logic and analysis.",
       type: "T",
     },
     optionB: {
-      text: "가치와 감정을 바탕으로 결정한다.",
+      text: "I make decisions based on values and emotions.",
       type: "F",
     },
   },
@@ -281,11 +281,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 22,
     dimension: "TF",
     optionA: {
-      text: "객관적인 사실이 중요하다고 생각한다.",
+      text: "I think objective facts are important.",
       type: "T",
     },
     optionB: {
-      text: "사람들의 감정이 중요하다고 생각한다.",
+      text: "I think people's feelings are important.",
       type: "F",
     },
   },
@@ -293,11 +293,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 23,
     dimension: "TF",
     optionA: {
-      text: "공정함과 원칙을 중시한다.",
+      text: "I value fairness and principles.",
       type: "T",
     },
     optionB: {
-      text: "조화와 배려를 중시한다.",
+      text: "I value harmony and consideration.",
       type: "F",
     },
   },
@@ -305,11 +305,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 24,
     dimension: "TF",
     optionA: {
-      text: "비판을 건설적인 피드백으로 받아들인다.",
+      text: "I take criticism as constructive feedback.",
       type: "T",
     },
     optionB: {
-      text: "비판을 개인적으로 받아들이는 경향이 있다.",
+      text: "I tend to take criticism personally.",
       type: "F",
     },
   },
@@ -317,11 +317,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 25,
     dimension: "TF",
     optionA: {
-      text: "머리로 이해하는 것이 더 중요하다.",
+      text: "Understanding with the head is more important.",
       type: "T",
     },
     optionB: {
-      text: "마음으로 공감하는 것이 더 중요하다.",
+      text: "Empathizing with the heart is more important.",
       type: "F",
     },
   },
@@ -329,11 +329,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 26,
     dimension: "TF",
     optionA: {
-      text: "솔직하고 직접적으로 의견을 말한다.",
+      text: "I express my opinions honestly and directly.",
       type: "T",
     },
     optionB: {
-      text: "상대방의 기분을 고려해서 부드럽게 말한다.",
+      text: "I speak gently, considering the other person's feelings.",
       type: "F",
     },
   },
@@ -341,11 +341,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 27,
     dimension: "TF",
     optionA: {
-      text: "논쟁에서 이기는 것이 중요하다.",
+      text: "Winning the argument is important.",
       type: "T",
     },
     optionB: {
-      text: "관계를 유지하는 것이 더 중요하다.",
+      text: "Maintaining the relationship is more important.",
       type: "F",
     },
   },
@@ -353,11 +353,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 28,
     dimension: "TF",
     optionA: {
-      text: "문제 해결에 초점을 맞춘다.",
+      text: "I focus on problem solving.",
       type: "T",
     },
     optionB: {
-      text: "감정적 지지에 초점을 맞춘다.",
+      text: "I focus on emotional support.",
       type: "F",
     },
   },
@@ -365,11 +365,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 29,
     dimension: "TF",
     optionA: {
-      text: "일의 효율성을 우선시한다.",
+      text: "I prioritize work efficiency.",
       type: "T",
     },
     optionB: {
-      text: "사람들의 만족을 우선시한다.",
+      text: "I prioritize people's satisfaction.",
       type: "F",
     },
   },
@@ -377,25 +377,25 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 30,
     dimension: "TF",
     optionA: {
-      text: "냉정하고 객관적이라는 말을 듣는다.",
+      text: "I am told I am cool and objective.",
       type: "T",
     },
     optionB: {
-      text: "따뜻하고 친절하다는 말을 듣는다.",
+      text: "I am told I am warm and kind.",
       type: "F",
     },
   },
 
-  // === J/P (판단/인식) - 생활 양식 10문항 ===
+  // === J/P (Judging/Perceiving) - Lifestyle 10 questions ===
   {
     id: 31,
     dimension: "JP",
     optionA: {
-      text: "계획을 세우고 그대로 진행하는 것을 좋아한다.",
+      text: "I like making plans and following through with them.",
       type: "J",
     },
     optionB: {
-      text: "상황에 따라 유연하게 대처하는 것을 좋아한다.",
+      text: "I like responding flexibly to situations.",
       type: "P",
     },
   },
@@ -403,11 +403,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 32,
     dimension: "JP",
     optionA: {
-      text: "마감 기한 전에 일을 끝내는 것이 편하다.",
+      text: "I feel more comfortable finishing work before deadlines.",
       type: "J",
     },
     optionB: {
-      text: "마감 직전에 집중력이 올라간다.",
+      text: "My concentration peaks right before deadlines.",
       type: "P",
     },
   },
@@ -415,11 +415,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 33,
     dimension: "JP",
     optionA: {
-      text: "정리정돈이 잘 되어 있어야 마음이 편하다.",
+      text: "I feel at ease when things are well organized.",
       type: "J",
     },
     optionB: {
-      text: "어느 정도 어수선해도 괜찮다.",
+      text: "I am okay with some level of messiness.",
       type: "P",
     },
   },
@@ -427,11 +427,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 34,
     dimension: "JP",
     optionA: {
-      text: "결정을 빨리 내리고 진행하는 것을 선호한다.",
+      text: "I prefer making decisions quickly and moving forward.",
       type: "J",
     },
     optionB: {
-      text: "다양한 가능성을 열어두고 결정을 미루는 편이다.",
+      text: "I tend to keep options open and delay decisions.",
       type: "P",
     },
   },
@@ -439,11 +439,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 35,
     dimension: "JP",
     optionA: {
-      text: "일정과 규칙이 있으면 안정감을 느낀다.",
+      text: "I feel secure with schedules and rules.",
       type: "J",
     },
     optionB: {
-      text: "일정과 규칙에 구속받는 느낌이 든다.",
+      text: "I feel constrained by schedules and rules.",
       type: "P",
     },
   },
@@ -451,11 +451,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 36,
     dimension: "JP",
     optionA: {
-      text: "목표를 세우고 체계적으로 달성해 나간다.",
+      text: "I set goals and systematically work toward achieving them.",
       type: "J",
     },
     optionB: {
-      text: "흥미가 이끄는 대로 자유롭게 탐색한다.",
+      text: "I freely explore wherever my interests lead me.",
       type: "P",
     },
   },
@@ -463,11 +463,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 37,
     dimension: "JP",
     optionA: {
-      text: "한 번 시작한 일은 끝을 봐야 직성이 풀린다.",
+      text: "Once I start something, I need to see it through to the end.",
       type: "J",
     },
     optionB: {
-      text: "여러 가지 일을 동시에 진행하는 것이 재미있다.",
+      text: "I find it fun to work on multiple things simultaneously.",
       type: "P",
     },
   },
@@ -475,11 +475,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 38,
     dimension: "JP",
     optionA: {
-      text: "예측 가능하고 안정적인 생활을 선호한다.",
+      text: "I prefer a predictable and stable life.",
       type: "J",
     },
     optionB: {
-      text: "즉흥적이고 변화가 많은 생활을 선호한다.",
+      text: "I prefer a spontaneous and varied life.",
       type: "P",
     },
   },
@@ -487,11 +487,11 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 39,
     dimension: "JP",
     optionA: {
-      text: "약속 시간에 항상 정확하게 맞춰 간다.",
+      text: "I always arrive on time for appointments.",
       type: "J",
     },
     optionB: {
-      text: "약속 시간에 늦는 경우가 종종 있다.",
+      text: "I am sometimes late for appointments.",
       type: "P",
     },
   },
@@ -499,17 +499,17 @@ export const personalityQuestions: PersonalityQuestion[] = [
     id: 40,
     dimension: "JP",
     optionA: {
-      text: "to-do 리스트를 작성하고 체크하는 것을 좋아한다.",
+      text: "I like making to-do lists and checking them off.",
       type: "J",
     },
     optionB: {
-      text: "to-do 리스트 없이도 자연스럽게 일을 처리한다.",
+      text: "I handle tasks naturally without to-do lists.",
       type: "P",
     },
   },
 ];
 
-// 16가지 유형 정보
+// 16 Personality Type Information
 export type PersonalityType =
   | "ISTJ" | "ISFJ" | "INFJ" | "INTJ"
   | "ISTP" | "ISFP" | "INFP" | "INTP"
@@ -548,887 +548,887 @@ export interface PersonalityTypeInfo {
 export const personalityTypeInfo: Record<PersonalityType, PersonalityTypeInfo> = {
   ISTJ: {
     type: "ISTJ",
-    name: "청렴결백한 논리주의자",
-    nickname: "소금형",
+    name: "The Logistician",
+    nickname: "The Inspector",
     emoji: "",
-    description: "사실에 근거한 사고를 하며, 책임감이 강하고 신중합니다. 전통과 질서를 중시하고, 맡은 일을 묵묵히 수행하는 현실주의자입니다.",
-    detailedDescription: "ISTJ는 전체 인구의 약 11-14%를 차지하는 가장 흔한 성격 유형 중 하나입니다. 이들은 조직과 사회의 근간을 이루는 핵심 인력으로, 묵묵히 자신의 의무를 다하며 안정적인 환경을 만들어갑니다. ISTJ는 과거의 경험과 검증된 방법을 중시하며, 새로운 것보다는 확실한 것을 선호합니다. 이들의 강한 책임감과 신뢰성은 어떤 조직에서든 귀중한 자산이 됩니다. Carl Jung의 심리 유형론에 따르면, ISTJ는 내향적 감각(Si)을 주 기능으로 사용하여 과거 경험을 상세히 기억하고 이를 현재 상황에 적용합니다.",
-    scientificBackground: "ISTJ 유형은 MBTI(Myers-Briggs Type Indicator)에서 가장 잘 연구된 유형 중 하나입니다. Isabel Briggs Myers와 Katharine Cook Briggs가 Carl Jung의 심리 유형론을 바탕으로 개발한 이 체계는 1940년대부터 발전해왔습니다. 연구에 따르면 ISTJ는 높은 직업 만족도와 조직 충성도를 보이며, 구조화된 환경에서 최고의 성과를 발휘합니다. 신경과학적 관점에서, 내향적 감각 우세형은 해마와 관련된 기억 처리 영역의 활성화가 높은 경향을 보입니다.",
+    description: "Fact-based thinkers with a strong sense of responsibility and caution. Realists who value tradition and order, diligently carrying out their duties.",
+    detailedDescription: "ISTJ is one of the most common personality types, comprising about 11-14% of the general population. They are the backbone of organizations and society, quietly fulfilling their obligations and creating stable environments. ISTJs value past experiences and proven methods, preferring certainty over novelty. Their strong sense of responsibility and reliability makes them invaluable assets in any organization. According to Carl Jung's psychological types, ISTJs use Introverted Sensing (Si) as their dominant function, allowing them to remember past experiences in detail and apply them to current situations.",
+    scientificBackground: "The ISTJ type is one of the most well-researched types in the MBTI (Myers-Briggs Type Indicator). Developed by Isabel Briggs Myers and Katharine Cook Briggs based on Carl Jung's psychological types theory, this system has evolved since the 1940s. Research shows that ISTJs demonstrate high job satisfaction and organizational loyalty, performing best in structured environments. From a neuroscience perspective, introverted sensing dominant types tend to show higher activation in hippocampus-related memory processing areas.",
     cognitiveFunctions: {
-      dominant: "내향적 감각 (Si)",
-      auxiliary: "외향적 사고 (Te)",
-      tertiary: "내향적 감정 (Fi)",
-      inferior: "외향적 직관 (Ne)",
-      description: "ISTJ는 내향적 감각(Si)을 통해 과거 경험과 사실을 상세히 기억하고 비교합니다. 보조 기능인 외향적 사고(Te)로 효율적인 시스템을 구축하고 논리적 결정을 내립니다. 3차 기능인 내향적 감정(Fi)은 강한 개인적 가치관을 형성하며, 열등 기능인 외향적 직관(Ne)은 새로운 가능성을 탐색하는 데 어려움을 줄 수 있습니다."
+      dominant: "Introverted Sensing (Si)",
+      auxiliary: "Extraverted Thinking (Te)",
+      tertiary: "Introverted Feeling (Fi)",
+      inferior: "Extraverted Intuition (Ne)",
+      description: "ISTJs use Introverted Sensing (Si) to remember and compare past experiences and facts in detail. Their auxiliary function, Extraverted Thinking (Te), helps them build efficient systems and make logical decisions. Their tertiary function, Introverted Feeling (Fi), forms strong personal values, while their inferior function, Extraverted Intuition (Ne), may cause difficulty in exploring new possibilities."
     },
     characteristics: [
-      "신뢰할 수 있고 책임감이 강함",
-      "체계적이고 조직적으로 일을 처리함",
-      "규칙과 전통을 존중함",
-      "사실과 현실에 기반한 판단을 함",
-      "인내심이 강하고 꾸준함",
-      "세부 사항에 대한 뛰어난 기억력",
-      "명확한 기대와 절차를 선호함"
+      "Reliable and highly responsible",
+      "Handles work systematically and organizationally",
+      "Respects rules and traditions",
+      "Makes judgments based on facts and reality",
+      "Patient and consistent",
+      "Excellent memory for details",
+      "Prefers clear expectations and procedures"
     ],
     strengths: [
-      "뛰어난 집중력과 끈기",
-      "정확하고 꼼꼼한 업무 처리",
-      "약속을 철저히 지킴",
-      "안정적이고 신뢰할 수 있음",
-      "강한 직업 윤리와 헌신",
-      "실용적인 문제 해결 능력"
+      "Outstanding focus and perseverance",
+      "Accurate and meticulous work handling",
+      "Keeps promises thoroughly",
+      "Stable and trustworthy",
+      "Strong work ethic and dedication",
+      "Practical problem-solving abilities"
     ],
     weaknesses: [
-      "변화에 적응하는 데 시간이 걸림",
-      "감정 표현이 서툴 수 있음",
-      "융통성이 부족할 수 있음",
-      "타인의 감정을 간과할 수 있음",
-      "새로운 아이디어에 회의적일 수 있음"
+      "Takes time to adapt to change",
+      "May struggle with emotional expression",
+      "Can lack flexibility",
+      "May overlook others' feelings",
+      "Can be skeptical of new ideas"
     ],
-    careers: ["회계사", "법률가", "공무원", "은행원", "군인", "엔지니어", "의사", "치과의사", "판사", "경찰관"],
-    careerDescription: "ISTJ는 명확한 규칙과 절차가 있는 환경에서 뛰어난 성과를 보입니다. 정확성과 책임감이 중요한 직업에서 특히 빛을 발하며, 조직의 안정성을 유지하는 역할을 잘 수행합니다. 법률, 금융, 의료, 행정 분야에서 많은 ISTJ가 성공적인 경력을 쌓고 있습니다.",
-    relationshipStyle: "ISTJ는 관계에서 충성스럽고 헌신적인 파트너입니다. 말보다 행동으로 사랑을 표현하며, 약속을 지키고 실질적인 지원을 제공합니다. 감정 표현이 서툴 수 있지만, 한번 마음을 연 사람에게는 깊은 신뢰와 안정감을 제공합니다. 전통적인 역할과 기대를 중시하며, 장기적이고 안정적인 관계를 추구합니다.",
-    communicationStyle: "직접적이고 사실에 기반한 의사소통을 선호합니다. 불필요한 감정적 표현보다는 명확하고 구체적인 정보 전달을 중시합니다. 경청을 잘 하지만, 자신의 의견을 표현할 때는 신중하게 생각한 후에 말합니다.",
+    careers: ["Accountant", "Lawyer", "Civil Servant", "Banker", "Military Officer", "Engineer", "Doctor", "Dentist", "Judge", "Police Officer"],
+    careerDescription: "ISTJs excel in environments with clear rules and procedures. They particularly shine in jobs requiring accuracy and responsibility, performing well in roles that maintain organizational stability. Many ISTJs build successful careers in law, finance, healthcare, and administration.",
+    relationshipStyle: "ISTJs are loyal and dedicated partners in relationships. They express love through actions rather than words, keeping promises and providing practical support. While they may struggle with emotional expression, they offer deep trust and stability to those they open up to. They value traditional roles and expectations, seeking long-term, stable relationships.",
+    communicationStyle: "They prefer direct, fact-based communication. They value clear, specific information delivery over unnecessary emotional expression. They listen well but speak only after careful consideration.",
     growthStrategies: [
-      "감정을 인식하고 표현하는 연습을 해보세요",
-      "때로는 검증되지 않은 새로운 방법도 시도해보세요",
-      "타인의 감정적 필요에 더 주의를 기울여보세요",
-      "유연성을 기르기 위해 즉흥적인 활동에 참여해보세요",
-      "완벽하지 않아도 괜찮다는 것을 받아들여보세요"
+      "Practice recognizing and expressing emotions",
+      "Sometimes try unproven new methods",
+      "Pay more attention to others' emotional needs",
+      "Participate in spontaneous activities to develop flexibility",
+      "Accept that it's okay not to be perfect"
     ],
-    stressResponse: "ISTJ는 스트레스를 받으면 더욱 규칙과 절차에 집착할 수 있습니다. 극심한 스트레스 상황에서는 열등 기능인 외향적 직관(Ne)이 부정적으로 발현되어, 끔찍한 미래 시나리오를 상상하거나 비현실적인 재앙을 걱정할 수 있습니다. 스트레스 해소를 위해 익숙한 활동과 루틴으로 돌아가는 것이 도움이 됩니다.",
-    famousPeople: ["워렌 버핏", "안젤라 메르켈", "조지 워싱턴", "덴젤 워싱턴"],
+    stressResponse: "When stressed, ISTJs may become more fixated on rules and procedures. In extreme stress, their inferior function Extraverted Intuition (Ne) may manifest negatively, causing them to imagine terrible future scenarios or worry about unrealistic catastrophes. Returning to familiar activities and routines helps relieve stress.",
+    famousPeople: ["Warren Buffett", "Angela Merkel", "George Washington", "Denzel Washington"],
     compatibleTypes: ["ESTP", "ESFP", "ISTJ", "ISFJ"],
     challengingTypes: ["ENFP", "ENTP", "INFP", "INTP"],
   },
   ISFJ: {
     type: "ISFJ",
-    name: "용감한 수호자",
-    nickname: "임금 뒷편의 권력형",
+    name: "The Defender",
+    nickname: "The Protector",
     emoji: "",
-    description: "따뜻하고 헌신적이며, 주변 사람들을 돌보는 것을 좋아합니다. 조용히 책임을 다하며 실질적인 도움을 주는 것에 기쁨을 느낍니다.",
-    detailedDescription: "ISFJ는 전체 인구의 약 13%를 차지하는 가장 흔한 성격 유형입니다. 이들은 '수호자'라는 별명에 걸맞게 가족, 친구, 동료를 헌신적으로 돌봅니다. ISFJ는 타인의 필요를 민감하게 감지하고, 실질적인 도움을 제공하는 것에서 깊은 만족을 느낍니다. 이들은 조용하지만 강인하며, 필요할 때는 자신이 보호하는 사람들을 위해 용감하게 나설 수 있습니다. 전통과 안정을 중시하며, 사회의 기반을 튼튼히 유지하는 역할을 합니다.",
-    scientificBackground: "ISFJ는 MBTI 연구에서 가장 이타적인 유형으로 분류됩니다. 심리학 연구에 따르면, ISFJ는 다른 유형에 비해 더 높은 수준의 공감 능력과 친사회적 행동을 보입니다. 이들의 내향적 감각(Si) 우세는 과거 경험을 상세히 기억하고 이를 타인을 돌보는 데 활용하게 합니다. 신경과학적으로, 높은 공감 능력은 거울 뉴런 시스템의 활성화와 관련이 있습니다.",
+    description: "Warm and devoted, they enjoy caring for those around them. They find joy in quietly fulfilling responsibilities and providing practical help.",
+    detailedDescription: "ISFJ is one of the most common personality types, comprising about 13% of the general population. True to their 'Defender' nickname, they devotedly care for family, friends, and colleagues. ISFJs are sensitive to others' needs and find deep satisfaction in providing practical help. They are quiet but strong, capable of bravely standing up for those they protect when needed. They value tradition and stability, playing a role in maintaining the foundations of society.",
+    scientificBackground: "ISFJ is classified as the most altruistic type in MBTI research. According to psychological studies, ISFJs show higher levels of empathy and prosocial behavior compared to other types. Their dominant Introverted Sensing (Si) allows them to remember past experiences in detail and use them to care for others. Neuroscientifically, high empathy is associated with mirror neuron system activation.",
     cognitiveFunctions: {
-      dominant: "내향적 감각 (Si)",
-      auxiliary: "외향적 감정 (Fe)",
-      tertiary: "내향적 사고 (Ti)",
-      inferior: "외향적 직관 (Ne)",
-      description: "ISFJ는 내향적 감각(Si)을 통해 과거의 경험과 세부 사항을 기억하고 이를 현재에 적용합니다. 보조 기능인 외향적 감정(Fe)으로 타인의 감정에 공감하고 조화를 추구합니다. 3차 기능인 내향적 사고(Ti)는 논리적 분석을 가능하게 하며, 열등 기능인 외향적 직관(Ne)은 새로운 가능성 탐색에 어려움을 줄 수 있습니다."
+      dominant: "Introverted Sensing (Si)",
+      auxiliary: "Extraverted Feeling (Fe)",
+      tertiary: "Introverted Thinking (Ti)",
+      inferior: "Extraverted Intuition (Ne)",
+      description: "ISFJs use Introverted Sensing (Si) to remember past experiences and details and apply them to the present. Their auxiliary function, Extraverted Feeling (Fe), helps them empathize with others and seek harmony. Their tertiary function, Introverted Thinking (Ti), enables logical analysis, while their inferior function, Extraverted Intuition (Ne), may cause difficulty in exploring new possibilities."
     },
     characteristics: [
-      "타인을 배려하고 돌보는 것을 좋아함",
-      "책임감이 강하고 성실함",
-      "전통과 안정을 중시함",
-      "세심하고 관찰력이 뛰어남",
-      "겸손하고 조용함",
-      "뛰어난 기억력으로 중요한 날짜와 세부사항을 기억함",
-      "실질적인 도움을 제공하는 것에서 기쁨을 느낌"
+      "Enjoys caring for and looking after others",
+      "Highly responsible and sincere",
+      "Values tradition and stability",
+      "Observant and attentive to details",
+      "Humble and quiet",
+      "Excellent memory for important dates and details",
+      "Finds joy in providing practical help"
     ],
     strengths: [
-      "뛰어난 기억력과 세심함",
-      "타인에 대한 깊은 배려",
-      "신뢰할 수 있고 헌신적임",
-      "실용적인 문제 해결 능력",
-      "조화로운 환경 조성 능력",
-      "인내심과 끈기"
+      "Excellent memory and attention to detail",
+      "Deep consideration for others",
+      "Reliable and dedicated",
+      "Practical problem-solving abilities",
+      "Ability to create harmonious environments",
+      "Patience and perseverance"
     ],
     weaknesses: [
-      "자신의 필요를 간과하는 경향",
-      "변화를 받아들이기 어려움",
-      "비판에 민감할 수 있음",
-      "거절을 잘 못함",
-      "과도한 자기희생 가능성"
+      "Tendency to neglect their own needs",
+      "Difficulty accepting change",
+      "Can be sensitive to criticism",
+      "Difficulty saying no",
+      "Potential for excessive self-sacrifice"
     ],
-    careers: ["간호사", "사회복지사", "교사", "행정직", "사서", "영양사", "유치원 교사", "상담사", "물리치료사", "치과위생사"],
-    careerDescription: "ISFJ는 타인을 직접 돕고 돌볼 수 있는 직업에서 높은 만족도를 느낍니다. 의료, 교육, 사회복지 분야에서 뛰어난 성과를 보이며, 조직의 지원 역할에서도 탁월합니다. 안정적이고 명확한 기대가 있는 환경에서 최선의 성과를 발휘합니다.",
-    relationshipStyle: "ISFJ는 관계에서 따뜻하고 헌신적인 파트너입니다. 파트너의 필요를 세심하게 파악하고 실질적인 지원을 제공합니다. 사랑을 행동으로 표현하며, 기념일과 특별한 순간을 소중히 여깁니다. 갈등을 피하려는 경향이 있어, 자신의 필요를 표현하는 것이 어려울 수 있습니다.",
-    communicationStyle: "부드럽고 배려심 있는 의사소통을 합니다. 상대방의 감정을 고려하여 말하며, 직접적인 비판보다는 긍정적인 방식으로 피드백을 전달합니다. 경청을 잘 하고, 상대방이 편안하게 느끼도록 노력합니다.",
+    careers: ["Nurse", "Social Worker", "Teacher", "Administrator", "Librarian", "Dietitian", "Kindergarten Teacher", "Counselor", "Physical Therapist", "Dental Hygienist"],
+    careerDescription: "ISFJs feel highly satisfied in jobs where they can directly help and care for others. They excel in healthcare, education, and social welfare fields, and also do well in organizational support roles. They perform best in stable environments with clear expectations.",
+    relationshipStyle: "ISFJs are warm and devoted partners in relationships. They sensitively identify their partner's needs and provide practical support. They express love through actions and cherish anniversaries and special moments. Their tendency to avoid conflict may make it difficult to express their own needs.",
+    communicationStyle: "They communicate gently and considerately. They speak with attention to the other person's feelings, delivering feedback in positive ways rather than direct criticism. They listen well and strive to make others feel comfortable.",
     growthStrategies: [
-      "자신의 필요와 감정을 인식하고 표현하는 연습을 해보세요",
-      "때로는 '아니오'라고 말하는 것이 건강하다는 것을 인식하세요",
-      "변화를 위협이 아닌 성장의 기회로 바라보세요",
-      "완벽하지 않아도 괜찮다는 것을 받아들여보세요",
-      "자기 돌봄의 시간을 의도적으로 마련하세요"
+      "Practice recognizing and expressing your own needs and feelings",
+      "Recognize that sometimes saying 'no' is healthy",
+      "View change as an opportunity for growth rather than a threat",
+      "Accept that it's okay not to be perfect",
+      "Intentionally make time for self-care"
     ],
-    stressResponse: "ISFJ는 스트레스를 받으면 과도하게 타인을 돌보려 하거나, 반대로 완전히 철회할 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 직관(Ne)이 부정적으로 발현되어, 최악의 시나리오를 상상하고 미래에 대한 두려움에 사로잡힐 수 있습니다.",
-    famousPeople: ["마더 테레사", "케이트 미들턴", "비욘세", "앤 해서웨이"],
+    stressResponse: "When stressed, ISFJs may excessively try to care for others or, conversely, completely withdraw. In extreme stress, their inferior function Extraverted Intuition (Ne) may manifest negatively, causing them to imagine worst-case scenarios and become consumed by fear about the future.",
+    famousPeople: ["Mother Teresa", "Kate Middleton", "Beyonce", "Anne Hathaway"],
     compatibleTypes: ["ESTP", "ESFP", "ISFJ", "ISTJ"],
     challengingTypes: ["ENTP", "ENFP", "INTP", "INFP"],
   },
   INFJ: {
     type: "INFJ",
-    name: "선의의 옹호자",
-    nickname: "예언자형",
+    name: "The Advocate",
+    nickname: "The Counselor",
     emoji: "",
-    description: "깊은 통찰력을 가진 이상주의자로, 조용히 영향력을 행사합니다. 인류애적 가치를 중시하며 의미 있는 삶을 추구합니다.",
-    detailedDescription: "INFJ는 전체 인구의 약 1-3%만을 차지하는 가장 희귀한 성격 유형입니다. '옹호자'라는 별명답게, 이들은 조용히 하지만 강력하게 자신이 믿는 대의를 위해 일합니다. INFJ는 뛰어난 직관력으로 타인의 감정과 동기를 깊이 이해하며, 복잡한 인간 본성에 대한 통찰력을 가지고 있습니다. 이들은 이상주의자이면서도 실용적인 행동가로, 세상을 더 나은 곳으로 만들기 위해 구체적인 단계를 밟아갑니다. Carl Jung의 심리 유형론에 따르면, INFJ는 내향적 직관(Ni)을 주 기능으로 사용하여 미래의 가능성을 예견하고 깊은 통찰을 얻습니다.",
-    scientificBackground: "INFJ는 MBTI 연구에서 가장 많이 연구된 희귀 유형입니다. 심리학 연구에 따르면, INFJ는 높은 수준의 공감 능력과 직관적 통찰력을 보이며, 이는 신경과학적으로 전전두엽 피질과 변연계의 독특한 연결 패턴과 관련이 있습니다. 연구에 의하면 INFJ는 상담, 교육, 창작 분야에서 높은 직업 만족도를 보이며, 의미 있는 일을 할 때 최고의 성과를 발휘합니다. 이들의 직관적 판단 능력은 패턴 인식과 미래 예측에 탁월함을 보여주며, 이는 복잡한 상황에서 핵심을 파악하는 능력으로 나타납니다.",
+    description: "Idealists with deep insight who quietly exert influence. They value humanitarian causes and seek a meaningful life.",
+    detailedDescription: "INFJ is the rarest personality type, comprising only about 1-3% of the general population. True to their 'Advocate' nickname, they quietly but powerfully work for causes they believe in. INFJs deeply understand others' emotions and motivations through outstanding intuition and possess insight into complex human nature. They are idealists yet practical activists, taking concrete steps to make the world a better place. According to Carl Jung's psychological types, INFJs use Introverted Intuition (Ni) as their dominant function, allowing them to foresee future possibilities and gain deep insights.",
+    scientificBackground: "INFJ is the most studied rare type in MBTI research. According to psychological studies, INFJs show high levels of empathy and intuitive insight, which is neuroscientifically related to unique connection patterns between the prefrontal cortex and limbic system. Research shows INFJs have high job satisfaction in counseling, education, and creative fields, performing best when doing meaningful work. Their intuitive judgment ability shows excellence in pattern recognition and future prediction, manifesting as the ability to grasp the essence of complex situations.",
     cognitiveFunctions: {
-      dominant: "내향적 직관 (Ni)",
-      auxiliary: "외향적 감정 (Fe)",
-      tertiary: "내향적 사고 (Ti)",
-      inferior: "외향적 감각 (Se)",
-      description: "INFJ는 내향적 직관(Ni)을 통해 미래의 가능성과 패턴을 인식하고 깊은 통찰을 얻습니다. 보조 기능인 외향적 감정(Fe)으로 타인의 감정에 공감하고 조화로운 관계를 추구합니다. 3차 기능인 내향적 사고(Ti)는 논리적 분석과 일관된 체계 구축을 가능하게 합니다. 열등 기능인 외향적 감각(Se)은 현재 순간과 감각적 경험에 충분히 집중하는 데 어려움을 줄 수 있습니다."
+      dominant: "Introverted Intuition (Ni)",
+      auxiliary: "Extraverted Feeling (Fe)",
+      tertiary: "Introverted Thinking (Ti)",
+      inferior: "Extraverted Sensing (Se)",
+      description: "INFJs use Introverted Intuition (Ni) to recognize future possibilities and patterns and gain deep insights. Their auxiliary function, Extraverted Feeling (Fe), helps them empathize with others and pursue harmonious relationships. Their tertiary function, Introverted Thinking (Ti), enables logical analysis and building consistent systems. Their inferior function, Extraverted Sensing (Se), may cause difficulty in fully focusing on the present moment and sensory experiences."
     },
     characteristics: [
-      "깊은 통찰력과 직관력",
-      "이상주의적이고 원칙적",
-      "타인을 돕고자 하는 열망",
-      "창의적이고 영감을 주는 비전",
-      "조용하지만 확고한 의지",
-      "복잡한 감정을 이해하는 능력",
-      "미래 지향적 사고"
+      "Deep insight and intuition",
+      "Idealistic and principled",
+      "Desire to help others",
+      "Creative and inspiring vision",
+      "Quiet but firm determination",
+      "Ability to understand complex emotions",
+      "Future-oriented thinking"
     ],
     strengths: [
-      "뛰어난 공감 능력",
-      "깊은 통찰력과 직관",
-      "강한 원칙과 가치관",
-      "창의적인 문제 해결",
-      "헌신적이고 열정적",
-      "영감을 주는 비전 제시 능력"
+      "Outstanding empathy ability",
+      "Deep insight and intuition",
+      "Strong principles and values",
+      "Creative problem-solving",
+      "Dedicated and passionate",
+      "Ability to present inspiring visions"
     ],
     weaknesses: [
-      "비현실적인 기대를 가질 수 있음",
-      "비판에 민감함",
-      "완벽주의적 성향",
-      "번아웃에 취약할 수 있음",
-      "결정을 내리기 어려울 수 있음"
+      "May have unrealistic expectations",
+      "Sensitive to criticism",
+      "Perfectionist tendencies",
+      "Vulnerable to burnout",
+      "May have difficulty making decisions"
     ],
-    careers: ["상담사", "심리학자", "작가", "예술가", "교수", "종교인", "사회복지사", "HR 전문가", "비영리단체 활동가"],
-    careerDescription: "INFJ는 의미 있는 일을 통해 타인에게 긍정적인 영향을 미칠 수 있는 직업에서 번성합니다. 상담, 교육, 창작, 사회 변화 분야에서 뛰어난 성과를 보이며, 자신의 가치관과 일치하는 조직에서 일할 때 최고의 헌신을 보여줍니다. 깊은 사고와 창의성이 요구되는 역할에서 특히 빛을 발합니다.",
-    relationshipStyle: "INFJ는 관계에서 깊고 의미 있는 연결을 추구합니다. 표면적인 관계보다 소수의 깊은 관계를 선호하며, 파트너의 감정과 필요를 직관적으로 이해합니다. 헌신적이고 충성스러운 파트너이지만, 자신의 필요를 표현하는 데 어려움을 겪을 수 있습니다. 이상적인 관계에 대한 높은 기대를 가지고 있으며, 진정한 이해와 감정적 친밀감을 중요시합니다.",
-    communicationStyle: "사려 깊고 의미 있는 의사소통을 선호합니다. 표면적인 대화보다 깊이 있는 주제에 대해 이야기하는 것을 좋아하며, 비유와 상징을 사용하여 복잡한 개념을 표현합니다. 경청을 잘 하고 타인의 말 속에 숨겨진 의미를 파악하는 능력이 뛰어납니다.",
+    careers: ["Counselor", "Psychologist", "Writer", "Artist", "Professor", "Religious Leader", "Social Worker", "HR Professional", "Non-profit Activist"],
+    careerDescription: "INFJs thrive in jobs where they can positively impact others through meaningful work. They excel in counseling, education, creative, and social change fields, showing the highest dedication when working for organizations aligned with their values. They particularly shine in roles requiring deep thinking and creativity.",
+    relationshipStyle: "INFJs seek deep and meaningful connections in relationships. They prefer a few deep relationships over superficial ones and intuitively understand their partner's emotions and needs. They are dedicated and loyal partners but may struggle to express their own needs. They have high expectations for ideal relationships and value genuine understanding and emotional intimacy.",
+    communicationStyle: "They prefer thoughtful and meaningful communication. They enjoy discussing deep topics rather than superficial conversations and use metaphors and symbols to express complex concepts. They listen well and excel at grasping hidden meanings in others' words.",
     growthStrategies: [
-      "완벽하지 않은 현실도 받아들이는 연습을 해보세요",
-      "자신의 필요와 한계를 인식하고 표현하세요",
-      "현재 순간에 더 집중하는 마음챙김을 실천해보세요",
-      "비판을 개인적 공격이 아닌 성장의 기회로 바라보세요",
-      "모든 사람을 구할 수 없다는 것을 받아들이세요"
+      "Practice accepting imperfect reality",
+      "Recognize and express your own needs and limits",
+      "Practice mindfulness to focus more on the present moment",
+      "View criticism as an opportunity for growth rather than personal attack",
+      "Accept that you cannot save everyone"
     ],
-    stressResponse: "INFJ는 스트레스를 받으면 자신의 비전에 더욱 집착하거나, 타인으로부터 완전히 철회할 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 감각(Se)이 부정적으로 발현되어, 충동적인 감각 추구(과식, 과소비 등)나 세부 사항에 대한 과도한 집착을 보일 수 있습니다. 휴식과 혼자만의 시간이 회복에 필수적입니다.",
-    famousPeople: ["넬슨 만델라", "마틴 루터 킹", "칼 융", "니콜 키드먼"],
+    stressResponse: "When stressed, INFJs may become more fixated on their vision or completely withdraw from others. In extreme stress, their inferior function Extraverted Sensing (Se) may manifest negatively, showing impulsive sensation-seeking (overeating, overspending, etc.) or excessive obsession with details. Rest and alone time are essential for recovery.",
+    famousPeople: ["Nelson Mandela", "Martin Luther King Jr.", "Carl Jung", "Nicole Kidman"],
     compatibleTypes: ["ENFP", "ENTP", "INFJ", "INTJ"],
     challengingTypes: ["ESTP", "ESFP", "ISTP", "ESTJ"],
   },
   INTJ: {
     type: "INTJ",
-    name: "용의주도한 전략가",
-    nickname: "과학자형",
+    name: "The Architect",
+    nickname: "The Mastermind",
     emoji: "",
-    description: "독립적이고 분석적인 전략가로, 높은 기준과 명확한 비전을 가지고 있습니다. 지식과 역량을 중시하며 효율성을 추구합니다.",
-    detailedDescription: "INTJ는 전체 인구의 약 2-4%를 차지하는 희귀한 유형입니다. '전략가' 또는 '건축가'로 불리는 이들은 복잡한 시스템을 이해하고 장기적인 계획을 세우는 데 탁월합니다. INTJ는 지식에 대한 깊은 갈증을 가지고 있으며, 끊임없이 자신과 주변 환경을 개선하려 합니다. 이들은 비효율성을 참지 못하고, 자신만의 높은 기준에 따라 탁월함을 추구합니다. 독립적이고 자기 확신이 강하며, 다른 사람들의 의견에 쉽게 흔들리지 않습니다. Carl Jung의 심리 유형론에 따르면, INTJ는 내향적 직관(Ni)을 주 기능으로 사용하여 미래를 예견하고 전략적 비전을 구축합니다.",
-    scientificBackground: "INTJ는 MBTI 연구에서 가장 전략적이고 독립적인 유형으로 분류됩니다. 심리학 연구에 따르면, INTJ는 높은 수준의 분석적 사고와 장기 계획 능력을 보이며, 이는 전전두엽 피질의 높은 활성화와 관련이 있습니다. 연구에 의하면 INTJ는 과학, 기술, 전략 분야에서 높은 성취를 보이며, 독립적으로 일할 때 최고의 성과를 발휘합니다. 이들의 시스템적 사고 능력은 복잡한 문제를 분해하고 효율적인 해결책을 찾는 데 탁월함을 보여줍니다.",
+    description: "Independent and analytical strategists with high standards and clear vision. They value knowledge and competence while pursuing efficiency.",
+    detailedDescription: "INTJ is a rare type comprising about 2-4% of the general population. Called 'Strategist' or 'Architect,' they excel at understanding complex systems and making long-term plans. INTJs have a deep thirst for knowledge, constantly striving to improve themselves and their environment. They cannot tolerate inefficiency and pursue excellence according to their own high standards. They are independent and self-assured, not easily swayed by others' opinions. According to Carl Jung's psychological types, INTJs use Introverted Intuition (Ni) as their dominant function to foresee the future and build strategic visions.",
+    scientificBackground: "INTJ is classified as the most strategic and independent type in MBTI research. According to psychological studies, INTJs show high levels of analytical thinking and long-term planning ability, which is related to high activation of the prefrontal cortex. Research shows INTJs achieve high success in science, technology, and strategy fields, performing best when working independently. Their systemic thinking ability shows excellence in breaking down complex problems and finding efficient solutions.",
     cognitiveFunctions: {
-      dominant: "내향적 직관 (Ni)",
-      auxiliary: "외향적 사고 (Te)",
-      tertiary: "내향적 감정 (Fi)",
-      inferior: "외향적 감각 (Se)",
-      description: "INTJ는 내향적 직관(Ni)을 통해 미래의 패턴을 인식하고 장기적인 비전을 구축합니다. 보조 기능인 외향적 사고(Te)로 효율적인 시스템을 설계하고 논리적으로 목표를 달성합니다. 3차 기능인 내향적 감정(Fi)은 깊은 개인적 가치관을 형성하며, 열등 기능인 외향적 감각(Se)은 현재의 감각적 경험에 충분히 몰입하는 데 어려움을 줄 수 있습니다."
+      dominant: "Introverted Intuition (Ni)",
+      auxiliary: "Extraverted Thinking (Te)",
+      tertiary: "Introverted Feeling (Fi)",
+      inferior: "Extraverted Sensing (Se)",
+      description: "INTJs use Introverted Intuition (Ni) to recognize future patterns and build long-term visions. Their auxiliary function, Extraverted Thinking (Te), helps them design efficient systems and logically achieve goals. Their tertiary function, Introverted Feeling (Fi), forms deep personal values, while their inferior function, Extraverted Sensing (Se), may cause difficulty in fully immersing in present sensory experiences."
     },
     characteristics: [
-      "전략적 사고와 장기적 비전",
-      "독립적이고 자기 확신이 강함",
-      "지적 호기심이 풍부함",
-      "높은 기준과 기대치",
-      "효율성과 개선을 추구함",
-      "논리적이고 분석적인 접근",
-      "시스템적 사고 능력"
+      "Strategic thinking and long-term vision",
+      "Independent and self-assured",
+      "Rich intellectual curiosity",
+      "High standards and expectations",
+      "Pursues efficiency and improvement",
+      "Logical and analytical approach",
+      "Systemic thinking ability"
     ],
     strengths: [
-      "뛰어난 분석력과 전략적 사고",
-      "독립적인 문제 해결 능력",
-      "높은 자기 기준과 목표",
-      "지속적인 자기 발전",
-      "복잡한 시스템 이해 능력",
-      "장기적인 계획 수립 능력"
+      "Outstanding analytical and strategic thinking",
+      "Independent problem-solving ability",
+      "High personal standards and goals",
+      "Continuous self-improvement",
+      "Ability to understand complex systems",
+      "Long-term planning ability"
     ],
     weaknesses: [
-      "지나친 완벽주의",
-      "감정 표현이 서툴 수 있음",
-      "타인에게 비판적일 수 있음",
-      "사회적 규범을 무시할 수 있음",
-      "인내심이 부족할 수 있음"
+      "Excessive perfectionism",
+      "May struggle with emotional expression",
+      "Can be critical of others",
+      "May ignore social norms",
+      "May lack patience"
     ],
-    careers: ["과학자", "전략 컨설턴트", "프로그래머", "투자 분석가", "의사", "건축가", "시스템 엔지니어", "연구원", "CEO"],
-    careerDescription: "INTJ는 복잡한 문제를 해결하고 시스템을 설계하는 역할에서 뛰어납니다. 독립적으로 일할 수 있는 환경과 지적인 도전이 있는 직업을 선호합니다. 과학, 기술, 전략, 연구 분야에서 탁월한 성과를 보이며, 자신의 비전을 실현할 수 있는 리더십 역할에서도 성공합니다.",
-    relationshipStyle: "INTJ는 관계에서 지적인 연결과 상호 성장을 중요시합니다. 깊고 의미 있는 관계를 소수만 유지하며, 표면적인 사교 활동에는 관심이 적습니다. 파트너에게 충성스럽고 헌신적이지만, 감정 표현이 서툴러 무심하게 보일 수 있습니다. 지적으로 자극을 주고받을 수 있는 파트너를 선호하며, 상호 독립성과 개인 공간을 존중합니다.",
-    communicationStyle: "직접적이고 논리적인 의사소통을 선호합니다. 불필요한 감정적 표현이나 우회적인 말을 싫어하며, 핵심을 빠르게 파악하고 전달합니다. 자신의 의견을 확신 있게 표현하며, 논리적인 토론을 즐깁니다. 때로는 너무 직접적이어서 무례하게 느껴질 수 있습니다.",
+    careers: ["Scientist", "Strategy Consultant", "Programmer", "Investment Analyst", "Doctor", "Architect", "Systems Engineer", "Researcher", "CEO"],
+    careerDescription: "INTJs excel in roles solving complex problems and designing systems. They prefer environments where they can work independently with intellectual challenges. They show outstanding performance in science, technology, strategy, and research fields, and also succeed in leadership roles where they can realize their vision.",
+    relationshipStyle: "INTJs value intellectual connection and mutual growth in relationships. They maintain only a few deep relationships and have little interest in superficial social activities. They are loyal and dedicated to partners but may appear indifferent due to difficulty with emotional expression. They prefer partners who can intellectually stimulate each other, respecting mutual independence and personal space.",
+    communicationStyle: "They prefer direct and logical communication. They dislike unnecessary emotional expression or roundabout ways, quickly grasping and delivering the core message. They express their opinions with confidence and enjoy logical debates. Sometimes they may come across as rude due to being too direct.",
     growthStrategies: [
-      "타인의 감정과 관점을 더 고려하는 연습을 해보세요",
-      "완벽하지 않아도 행동으로 옮기는 것이 중요함을 인식하세요",
-      "감정을 표현하고 공유하는 연습을 해보세요",
-      "모든 것을 통제할 수 없다는 것을 받아들이세요",
-      "현재 순간을 즐기는 마음챙김을 실천해보세요"
+      "Practice considering others' emotions and perspectives more",
+      "Recognize that it's important to act even if not perfect",
+      "Practice expressing and sharing emotions",
+      "Accept that you cannot control everything",
+      "Practice mindfulness to enjoy the present moment"
     ],
-    stressResponse: "INTJ는 스트레스를 받으면 더욱 철회하고 고립될 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 감각(Se)이 부정적으로 발현되어, 충동적인 감각 추구(과음, 과식, 과소비)나 세부 사항에 대한 과도한 집착을 보일 수 있습니다. 지적인 활동과 혼자만의 시간이 회복에 도움이 됩니다.",
-    famousPeople: ["일론 머스크", "마크 저커버그", "아이작 뉴턴", "프리드리히 니체"],
+    stressResponse: "When stressed, INTJs may withdraw and isolate themselves further. In extreme stress, their inferior function Extraverted Sensing (Se) may manifest negatively, showing impulsive sensation-seeking (excessive drinking, eating, spending) or obsessive fixation on details. Intellectual activities and alone time help recovery.",
+    famousPeople: ["Elon Musk", "Mark Zuckerberg", "Isaac Newton", "Friedrich Nietzsche"],
     compatibleTypes: ["ENFP", "ENTP", "INTJ", "INFJ"],
     challengingTypes: ["ESFP", "ESFJ", "ISFP", "ISFJ"],
   },
   ISTP: {
     type: "ISTP",
-    name: "만능 재주꾼",
-    nickname: "백과사전형",
+    name: "The Virtuoso",
+    nickname: "The Craftsman",
     emoji: "",
-    description: "논리적이고 실용적인 문제 해결사입니다. 호기심이 많고 손으로 직접 해보는 것을 좋아하며, 위기 상황에서 침착하게 대처합니다.",
-    detailedDescription: "ISTP는 전체 인구의 약 4-6%를 차지하는 유형입니다. '장인' 또는 '기능인'으로 불리는 이들은 손으로 직접 무언가를 만들고 고치는 것을 즐깁니다. ISTP는 뛰어난 관찰력과 분석력으로 사물이 어떻게 작동하는지 빠르게 파악하며, 실용적인 문제 해결에 탁월합니다. 위기 상황에서 놀라울 정도로 침착하며, 즉각적인 판단과 행동 능력이 뛰어납니다. 자유와 독립을 중시하며, 지나친 규칙이나 구속을 싫어합니다. Carl Jung의 심리 유형론에 따르면, ISTP는 내향적 사고(Ti)를 주 기능으로 사용하여 논리적 분석과 문제 해결에 능합니다.",
-    scientificBackground: "ISTP는 MBTI 연구에서 가장 실용적이고 행동 지향적인 유형 중 하나로 분류됩니다. 심리학 연구에 따르면, ISTP는 높은 수준의 공간 지각 능력과 기계적 추론 능력을 보이며, 이는 두정엽의 특정 영역 활성화와 관련이 있습니다. 연구에 의하면 ISTP는 위기 상황에서 뛰어난 침착성과 빠른 의사결정 능력을 보이며, 이는 교감신경계의 효율적인 조절 능력과 연관됩니다. 기술적, 기계적 분야에서 높은 직업 만족도를 보입니다.",
+    description: "Logical and practical problem solvers. Curious and hands-on, they stay calm in crisis situations.",
+    detailedDescription: "ISTP comprises about 4-6% of the general population. Called 'Craftsman' or 'Virtuoso,' they enjoy making and fixing things with their hands. ISTPs quickly understand how things work through excellent observation and analysis skills, excelling at practical problem-solving. They are remarkably calm in crisis situations with outstanding quick judgment and action abilities. They value freedom and independence, disliking excessive rules or constraints. According to Carl Jung's psychological types, ISTPs use Introverted Thinking (Ti) as their dominant function, excelling at logical analysis and problem-solving.",
+    scientificBackground: "ISTP is classified as one of the most practical and action-oriented types in MBTI research. According to psychological studies, ISTPs show high levels of spatial perception and mechanical reasoning ability, which is related to specific parietal lobe activation. Research shows ISTPs demonstrate excellent composure and quick decision-making in crisis situations, associated with efficient autonomic nervous system regulation. They show high job satisfaction in technical and mechanical fields.",
     cognitiveFunctions: {
-      dominant: "내향적 사고 (Ti)",
-      auxiliary: "외향적 감각 (Se)",
-      tertiary: "내향적 직관 (Ni)",
-      inferior: "외향적 감정 (Fe)",
-      description: "ISTP는 내향적 사고(Ti)를 통해 사물의 작동 원리를 논리적으로 분석하고 이해합니다. 보조 기능인 외향적 감각(Se)으로 현재 환경의 세부 사항을 민감하게 인식하고 빠르게 반응합니다. 3차 기능인 내향적 직관(Ni)은 문제 해결에 대한 통찰을 제공하며, 열등 기능인 외향적 감정(Fe)은 타인의 감정을 이해하고 조화로운 관계를 유지하는 데 어려움을 줄 수 있습니다."
+      dominant: "Introverted Thinking (Ti)",
+      auxiliary: "Extraverted Sensing (Se)",
+      tertiary: "Introverted Intuition (Ni)",
+      inferior: "Extraverted Feeling (Fe)",
+      description: "ISTPs use Introverted Thinking (Ti) to logically analyze and understand how things work. Their auxiliary function, Extraverted Sensing (Se), makes them sensitively aware of environmental details and quick to react. Their tertiary function, Introverted Intuition (Ni), provides insight for problem-solving, while their inferior function, Extraverted Feeling (Fe), may cause difficulty understanding others' emotions and maintaining harmonious relationships."
     },
     characteristics: [
-      "논리적이고 분석적인 사고",
-      "실용적인 문제 해결 능력",
-      "적응력이 뛰어남",
-      "위기 상황에서 침착함",
-      "독립적이고 자유로운 영혼",
-      "손재주가 뛰어남",
-      "현재 순간에 집중함"
+      "Logical and analytical thinking",
+      "Practical problem-solving ability",
+      "Highly adaptable",
+      "Calm in crisis situations",
+      "Independent and free-spirited",
+      "Excellent manual dexterity",
+      "Focused on the present moment"
     ],
     strengths: [
-      "뛰어난 기술적 능력",
-      "위기 대처 능력",
-      "유연하고 적응력이 높음",
-      "관찰력이 뛰어남",
-      "실용적인 문제 해결",
-      "침착하고 냉정한 판단력"
+      "Outstanding technical ability",
+      "Crisis management skills",
+      "Flexible and highly adaptable",
+      "Excellent observation skills",
+      "Practical problem-solving",
+      "Calm and cool judgment"
     ],
     weaknesses: [
-      "감정 표현이 어려움",
-      "장기적인 약속을 꺼림",
-      "무뚝뚝하게 보일 수 있음",
-      "규칙에 반항적일 수 있음",
-      "지루함을 잘 참지 못함"
+      "Difficulty expressing emotions",
+      "Reluctant to make long-term commitments",
+      "May appear cold",
+      "Can be rebellious toward rules",
+      "Low tolerance for boredom"
     ],
-    careers: ["엔지니어", "정비사", "파일럿", "요리사", "운동선수", "경찰관", "소방관", "외과의사", "법의학자", "건축기사"],
-    careerDescription: "ISTP는 손을 사용하여 실제로 무언가를 만들거나 고치는 일에서 만족을 느낍니다. 기술적 전문성이 요구되고 즉각적인 문제 해결이 필요한 직업에서 뛰어난 성과를 보입니다. 위기 상황에서의 침착함은 응급 서비스, 의료, 법 집행 분야에서 귀중한 자질입니다. 독립적으로 일할 수 있는 환경을 선호합니다.",
-    relationshipStyle: "ISTP는 관계에서 독립성과 개인 공간을 중요시합니다. 말보다 행동으로 사랑을 표현하며, 실질적인 도움을 제공하는 것을 좋아합니다. 감정 표현이 서툴러 무관심하게 보일 수 있지만, 한번 마음을 연 사람에게는 충성스럽습니다. 함께 활동을 공유하는 것을 통해 친밀감을 형성합니다.",
-    communicationStyle: "간결하고 직접적인 의사소통을 선호합니다. 불필요한 감정적 표현이나 긴 설명을 싫어하며, 핵심만 빠르게 전달합니다. 행동으로 보여주는 것을 말보다 선호하며, 실용적인 정보 교환에 집중합니다.",
+    careers: ["Engineer", "Mechanic", "Pilot", "Chef", "Athlete", "Police Officer", "Firefighter", "Surgeon", "Forensic Scientist", "Construction Technician"],
+    careerDescription: "ISTPs find satisfaction in work where they can use their hands to actually make or fix things. They excel in jobs requiring technical expertise and immediate problem-solving. Their composure in crisis situations is a valuable quality in emergency services, healthcare, and law enforcement. They prefer environments where they can work independently.",
+    relationshipStyle: "ISTPs value independence and personal space in relationships. They express love through actions rather than words and enjoy providing practical help. While they may appear indifferent due to difficulty with emotional expression, they are loyal to those they open up to. They build intimacy through sharing activities together.",
+    communicationStyle: "They prefer concise and direct communication. They dislike unnecessary emotional expression or long explanations, quickly delivering the core message. They prefer showing through action rather than words and focus on practical information exchange.",
     growthStrategies: [
-      "감정을 인식하고 표현하는 연습을 해보세요",
-      "장기적인 계획을 세우고 그에 맞춰 약속하는 연습을 해보세요",
-      "타인의 감정적 필요에 더 주의를 기울여보세요",
-      "때로는 루틴과 구조도 도움이 된다는 것을 인식하세요",
-      "충동적인 결정 전에 잠시 멈추고 생각해보세요"
+      "Practice recognizing and expressing emotions",
+      "Practice making long-term plans and commitments",
+      "Pay more attention to others' emotional needs",
+      "Recognize that sometimes routine and structure can be helpful",
+      "Pause and think before making impulsive decisions"
     ],
-    stressResponse: "ISTP는 스트레스를 받으면 더욱 철회하거나 위험한 활동에 몰두할 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 감정(Fe)이 부정적으로 발현되어, 감정 폭발이나 타인에 대한 비난, 또는 관계에서의 과민 반응을 보일 수 있습니다. 물리적 활동과 혼자만의 시간이 회복에 도움이 됩니다.",
-    famousPeople: ["마이클 조던", "톰 크루즈", "클린트 이스트우드", "브루스 리"],
+    stressResponse: "When stressed, ISTPs may withdraw further or engage in risky activities. In extreme stress, their inferior function Extraverted Feeling (Fe) may manifest negatively, showing emotional outbursts, blaming others, or hypersensitivity in relationships. Physical activity and alone time help recovery.",
+    famousPeople: ["Michael Jordan", "Tom Cruise", "Clint Eastwood", "Bruce Lee"],
     compatibleTypes: ["ESTJ", "ENTJ", "ISTP", "ESTP"],
     challengingTypes: ["ENFJ", "ESFJ", "INFJ", "ISFJ"],
   },
   ISFP: {
     type: "ISFP",
-    name: "호기심 많은 예술가",
-    nickname: "성인군자형",
+    name: "The Adventurer",
+    nickname: "The Composer",
     emoji: "",
-    description: "온화하고 감성적인 예술가 유형입니다. 현재 순간을 즐기며, 자신만의 가치관에 따라 조용히 자신을 표현합니다.",
-    detailedDescription: "ISFP는 전체 인구의 약 5-9%를 차지하는 유형입니다. '예술가' 또는 '모험가'로 불리는 이들은 감각적인 경험과 미적 아름다움에 깊이 끌립니다. ISFP는 현재 순간을 충분히 경험하고 즐기며, 자신만의 독특한 방식으로 세상을 표현합니다. 조용하지만 내면에는 강한 가치관을 가지고 있으며, 이 가치관에 위배되는 것에는 단호하게 저항합니다. 타인을 판단하지 않고 있는 그대로 받아들이며, 모든 생명체에 대한 깊은 존중을 보여줍니다. Carl Jung의 심리 유형론에 따르면, ISFP는 내향적 감정(Fi)을 주 기능으로 사용하여 깊은 개인적 가치관과 진정성을 추구합니다.",
-    scientificBackground: "ISFP는 MBTI 연구에서 가장 예술적이고 감각적인 유형 중 하나로 분류됩니다. 심리학 연구에 따르면, ISFP는 높은 수준의 미적 감수성과 감각적 인식 능력을 보이며, 이는 우뇌 활성화 패턴과 관련이 있습니다. 연구에 의하면 ISFP는 예술, 디자인, 돌봄 분야에서 높은 직업 만족도를 보이며, 자신의 가치관과 일치하는 일을 할 때 최고의 성과를 발휘합니다. 이들의 공감 능력과 현재에 대한 집중력은 동물, 자연, 그리고 타인과의 깊은 연결을 가능하게 합니다.",
+    description: "A gentle and emotional artist type. They enjoy the present moment and quietly express themselves according to their own values.",
+    detailedDescription: "ISFP comprises about 5-9% of the general population. Called 'Artist' or 'Adventurer,' they are deeply drawn to sensory experiences and aesthetic beauty. ISFPs fully experience and enjoy the present moment, expressing the world in their own unique way. Though quiet, they have strong inner values and firmly resist anything that violates these values. They accept others as they are without judgment, showing deep respect for all living beings. According to Carl Jung's psychological types, ISFPs use Introverted Feeling (Fi) as their dominant function to pursue deep personal values and authenticity.",
+    scientificBackground: "ISFP is classified as one of the most artistic and sensory types in MBTI research. According to psychological studies, ISFPs show high levels of aesthetic sensitivity and sensory perception ability, related to right-brain activation patterns. Research shows ISFPs have high job satisfaction in art, design, and caregiving fields, performing best when doing work aligned with their values. Their empathy and focus on the present enable deep connections with animals, nature, and others.",
     cognitiveFunctions: {
-      dominant: "내향적 감정 (Fi)",
-      auxiliary: "외향적 감각 (Se)",
-      tertiary: "내향적 직관 (Ni)",
-      inferior: "외향적 사고 (Te)",
-      description: "ISFP는 내향적 감정(Fi)을 통해 깊은 개인적 가치관을 발전시키고 진정성을 추구합니다. 보조 기능인 외향적 감각(Se)으로 현재 순간의 감각적 경험을 충분히 즐기고 환경에 민감하게 반응합니다. 3차 기능인 내향적 직관(Ni)은 미래에 대한 통찰을 제공하며, 열등 기능인 외향적 사고(Te)는 객관적 분석과 체계적 조직에 어려움을 줄 수 있습니다."
+      dominant: "Introverted Feeling (Fi)",
+      auxiliary: "Extraverted Sensing (Se)",
+      tertiary: "Introverted Intuition (Ni)",
+      inferior: "Extraverted Thinking (Te)",
+      description: "ISFPs use Introverted Feeling (Fi) to develop deep personal values and pursue authenticity. Their auxiliary function, Extraverted Sensing (Se), helps them fully enjoy present sensory experiences and respond sensitively to the environment. Their tertiary function, Introverted Intuition (Ni), provides insight into the future, while their inferior function, Extraverted Thinking (Te), may cause difficulty with objective analysis and systematic organization."
     },
     characteristics: [
-      "감성적이고 예술적 감각",
-      "유연하고 개방적",
-      "현재 순간을 즐김",
-      "개인적 가치관을 중시",
-      "조용하고 친절함",
-      "타인을 판단하지 않음",
-      "자연과 동물에 대한 사랑"
+      "Emotional and artistic sensibility",
+      "Flexible and open-minded",
+      "Enjoys the present moment",
+      "Values personal principles",
+      "Quiet and kind",
+      "Non-judgmental of others",
+      "Love for nature and animals"
     ],
     strengths: [
-      "뛰어난 미적 감각",
-      "유연하고 적응력이 높음",
-      "타인에 대한 배려심",
-      "실용적인 창의성",
-      "현재 순간에 집중하는 능력",
-      "진정성과 진실함"
+      "Outstanding aesthetic sense",
+      "Flexible and highly adaptable",
+      "Considerate of others",
+      "Practical creativity",
+      "Ability to focus on the present moment",
+      "Authenticity and sincerity"
     ],
     weaknesses: [
-      "계획을 세우는 것이 어려움",
-      "비판에 민감함",
-      "갈등을 피하려는 경향",
-      "자기 주장이 약할 수 있음",
-      "장기적 계획에 어려움"
+      "Difficulty making plans",
+      "Sensitive to criticism",
+      "Tendency to avoid conflict",
+      "May lack assertiveness",
+      "Difficulty with long-term planning"
     ],
-    careers: ["예술가", "디자이너", "뮤지션", "패션 디자이너", "간호사", "수의사", "사진작가", "물리치료사", "조경사", "요리사"],
-    careerDescription: "ISFP는 창의적 자기표현과 감각적 경험이 가능한 직업에서 번성합니다. 예술, 디자인, 음악, 패션 분야에서 뛰어난 성과를 보이며, 타인이나 동물을 돌보는 직업에서도 만족을 느낍니다. 유연한 환경과 개인의 가치관을 존중받을 수 있는 직장을 선호합니다.",
-    relationshipStyle: "ISFP는 관계에서 따뜻하고 배려심 있는 파트너입니다. 말보다 행동으로 사랑을 표현하며, 파트너와 함께 감각적인 경험을 공유하는 것을 좋아합니다. 조화로운 관계를 중시하지만, 자신의 가치관에 대해서는 타협하지 않습니다. 깊은 감정적 연결을 추구하며, 진정한 이해와 수용을 바랍니다.",
-    communicationStyle: "부드럽고 비판단적인 의사소통을 합니다. 말보다 행동이나 예술적 표현을 통해 자신을 전달하는 것을 선호합니다. 갈등을 피하려 하며, 직접적인 대립보다는 조용히 물러서는 경향이 있습니다. 경청을 잘 하고 타인의 감정에 공감합니다.",
+    careers: ["Artist", "Designer", "Musician", "Fashion Designer", "Nurse", "Veterinarian", "Photographer", "Physical Therapist", "Landscape Designer", "Chef"],
+    careerDescription: "ISFPs thrive in jobs allowing creative self-expression and sensory experiences. They excel in art, design, music, and fashion fields and also find satisfaction in caring for others or animals. They prefer flexible environments where their personal values are respected.",
+    relationshipStyle: "ISFPs are warm and considerate partners in relationships. They express love through actions rather than words and enjoy sharing sensory experiences with their partner. They value harmonious relationships but do not compromise on their values. They seek deep emotional connection and desire genuine understanding and acceptance.",
+    communicationStyle: "They communicate gently and non-judgmentally. They prefer expressing themselves through actions or artistic expression rather than words. They tend to avoid conflict, quietly stepping back rather than direct confrontation. They listen well and empathize with others' feelings.",
     growthStrategies: [
-      "자신의 의견과 필요를 더 적극적으로 표현하는 연습을 해보세요",
-      "장기적인 목표를 세우고 계획하는 연습을 해보세요",
-      "건설적인 비판을 성장의 기회로 받아들이세요",
-      "때로는 갈등을 회피하지 않고 직면하는 것이 필요함을 인식하세요",
-      "논리적 분석과 객관적 평가 능력을 개발해보세요"
+      "Practice expressing your opinions and needs more actively",
+      "Practice setting long-term goals and planning",
+      "Accept constructive criticism as an opportunity for growth",
+      "Recognize that sometimes confronting conflict is necessary rather than avoiding it",
+      "Develop logical analysis and objective evaluation abilities"
     ],
-    stressResponse: "ISFP는 스트레스를 받으면 자신만의 공간으로 철회하거나, 비판에 과민 반응할 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 사고(Te)가 부정적으로 발현되어, 지나치게 비판적이 되거나 통제적인 행동을 보일 수 있습니다. 자연 속에서 시간을 보내거나 창의적 활동이 회복에 도움이 됩니다.",
-    famousPeople: ["마이클 잭슨", "오드리 햅번", "밥 딜런", "리아나"],
+    stressResponse: "When stressed, ISFPs may withdraw to their own space or overreact to criticism. In extreme stress, their inferior function Extraverted Thinking (Te) may manifest negatively, becoming overly critical or showing controlling behavior. Time in nature or creative activities help recovery.",
+    famousPeople: ["Michael Jackson", "Audrey Hepburn", "Bob Dylan", "Rihanna"],
     compatibleTypes: ["ESFJ", "ENFJ", "ISFP", "ESFP"],
     challengingTypes: ["ENTJ", "ESTJ", "INTJ", "ENTP"],
   },
   INFP: {
     type: "INFP",
-    name: "열정적인 중재자",
-    nickname: "잔다르크형",
+    name: "The Mediator",
+    nickname: "The Healer",
     emoji: "",
-    description: "이상주의적이고 공감 능력이 뛰어난 명상가입니다. 진정한 자아를 찾고, 타인을 돕고 세상을 더 나은 곳으로 만들고자 합니다.",
-    detailedDescription: "INFP는 전체 인구의 약 4-5%를 차지하는 유형입니다. '치유자' 또는 '중재자'로 불리는 이들은 깊은 이상주의와 강한 도덕적 나침반을 가지고 있습니다. INFP는 자신의 내면 세계가 풍부하며, 상상력과 창의성이 뛰어납니다. 모든 사람 안에 있는 선함을 믿으며, 세상을 더 나은 곳으로 만들고자 하는 열망을 가지고 있습니다. 진정성과 자기 정체성을 매우 중요시하며, 자신의 가치관에 맞게 살기 위해 노력합니다. Carl Jung의 심리 유형론에 따르면, INFP는 내향적 감정(Fi)을 주 기능으로 사용하여 깊은 개인적 가치관과 진정성을 추구합니다.",
-    scientificBackground: "INFP는 MBTI 연구에서 가장 이상주의적이고 공감 능력이 뛰어난 유형 중 하나로 분류됩니다. 심리학 연구에 따르면, INFP는 높은 수준의 감정적 깊이와 창의적 사고를 보이며, 이는 변연계와 창의성 관련 뇌 영역의 활성화와 관련이 있습니다. 연구에 의하면 INFP는 글쓰기, 예술, 상담, 사회 변화 분야에서 높은 직업 만족도를 보이며, 의미 있는 일을 할 때 최고의 성과를 발휘합니다. 이들의 공감 능력은 타인의 감정을 깊이 이해하고 연결하는 능력으로 나타납니다.",
+    description: "An idealistic and highly empathetic dreamer. They seek their true self and want to help others and make the world a better place.",
+    detailedDescription: "INFP comprises about 4-5% of the general population. Called 'Healer' or 'Mediator,' they have deep idealism and a strong moral compass. INFPs have rich inner worlds with outstanding imagination and creativity. They believe in the goodness within everyone and have a desire to make the world a better place. They highly value authenticity and self-identity, striving to live according to their values. According to Carl Jung's psychological types, INFPs use Introverted Feeling (Fi) as their dominant function to pursue deep personal values and authenticity.",
+    scientificBackground: "INFP is classified as one of the most idealistic and empathetic types in MBTI research. According to psychological studies, INFPs show high levels of emotional depth and creative thinking, related to limbic system and creativity-related brain region activation. Research shows INFPs have high job satisfaction in writing, art, counseling, and social change fields, performing best when doing meaningful work. Their empathy enables deep understanding and connection with others' feelings.",
     cognitiveFunctions: {
-      dominant: "내향적 감정 (Fi)",
-      auxiliary: "외향적 직관 (Ne)",
-      tertiary: "내향적 감각 (Si)",
-      inferior: "외향적 사고 (Te)",
-      description: "INFP는 내향적 감정(Fi)을 통해 깊은 개인적 가치관을 발전시키고 진정성을 추구합니다. 보조 기능인 외향적 직관(Ne)으로 다양한 가능성을 탐색하고 창의적 연결을 만듭니다. 3차 기능인 내향적 감각(Si)은 과거 경험에서 의미를 찾게 하며, 열등 기능인 외향적 사고(Te)는 객관적 분석과 효율적 조직에 어려움을 줄 수 있습니다."
+      dominant: "Introverted Feeling (Fi)",
+      auxiliary: "Extraverted Intuition (Ne)",
+      tertiary: "Introverted Sensing (Si)",
+      inferior: "Extraverted Thinking (Te)",
+      description: "INFPs use Introverted Feeling (Fi) to develop deep personal values and pursue authenticity. Their auxiliary function, Extraverted Intuition (Ne), helps them explore various possibilities and make creative connections. Their tertiary function, Introverted Sensing (Si), helps them find meaning from past experiences, while their inferior function, Extraverted Thinking (Te), may cause difficulty with objective analysis and efficient organization."
     },
     characteristics: [
-      "깊은 공감 능력과 이상주의",
-      "창의적이고 상상력이 풍부함",
-      "강한 내적 가치관",
-      "자기 표현에 대한 열망",
-      "조화와 평화를 추구함",
-      "진정성과 자기 정체성 중시",
-      "깊은 감정적 경험"
+      "Deep empathy and idealism",
+      "Creative and imaginative",
+      "Strong internal values",
+      "Desire for self-expression",
+      "Seeks harmony and peace",
+      "Values authenticity and self-identity",
+      "Deep emotional experiences"
     ],
     strengths: [
-      "뛰어난 공감 능력",
-      "창의적이고 독창적",
-      "강한 원칙과 진정성",
-      "깊은 헌신과 열정",
-      "글쓰기와 자기표현 능력",
-      "타인의 감정을 이해하는 능력"
+      "Outstanding empathy ability",
+      "Creative and original",
+      "Strong principles and authenticity",
+      "Deep dedication and passion",
+      "Writing and self-expression abilities",
+      "Ability to understand others' feelings"
     ],
     weaknesses: [
-      "비현실적인 기대",
-      "자기 비판적인 경향",
-      "일상적인 업무에 지루함",
-      "갈등 상황에서 어려움",
-      "감정에 압도될 수 있음"
+      "Unrealistic expectations",
+      "Self-critical tendencies",
+      "Boredom with routine tasks",
+      "Difficulty in conflict situations",
+      "Can be overwhelmed by emotions"
     ],
-    careers: ["작가", "심리상담사", "사회운동가", "예술가", "음악가", "교사", "그래픽 디자이너", "영화제작자", "도서관사서", "번역가"],
-    careerDescription: "INFP는 창의적 자기표현과 의미 있는 기여가 가능한 직업에서 번성합니다. 글쓰기, 예술, 상담, 사회 운동 분야에서 뛰어난 성과를 보이며, 자신의 가치관과 일치하는 조직에서 일할 때 최고의 헌신을 보여줍니다. 독립적으로 일할 수 있는 환경과 창의적 자유를 선호합니다.",
-    relationshipStyle: "INFP는 관계에서 깊고 의미 있는 연결을 추구합니다. 이상적인 관계에 대한 높은 기대를 가지고 있으며, 완벽한 '영혼의 짝'을 찾고자 합니다. 충성스럽고 헌신적인 파트너이며, 파트너의 감정과 필요에 깊이 공감합니다. 그러나 갈등을 피하려 하고 자신의 필요를 표현하는 데 어려움을 겪을 수 있습니다.",
-    communicationStyle: "사려 깊고 감정적으로 깊이 있는 의사소통을 선호합니다. 비유와 상징, 이야기를 통해 자신을 표현하며, 글쓰기를 통한 소통에 능합니다. 갈등을 피하려 하며, 조화로운 대화 환경을 선호합니다. 깊은 주제에 대한 대화를 즐기지만, 표면적인 잡담은 어색해할 수 있습니다.",
+    careers: ["Writer", "Counselor", "Social Activist", "Artist", "Musician", "Teacher", "Graphic Designer", "Filmmaker", "Librarian", "Translator"],
+    careerDescription: "INFPs thrive in jobs allowing creative self-expression and meaningful contribution. They excel in writing, art, counseling, and social movement fields, showing the highest dedication when working for organizations aligned with their values. They prefer environments with independence and creative freedom.",
+    relationshipStyle: "INFPs seek deep and meaningful connections in relationships. They have high expectations for ideal relationships and seek the perfect 'soulmate.' They are loyal and dedicated partners, deeply empathizing with their partner's emotions and needs. However, they may avoid conflict and struggle to express their own needs.",
+    communicationStyle: "They prefer thoughtful and emotionally deep communication. They express themselves through metaphors, symbols, and stories, and are skilled at communicating through writing. They prefer harmonious conversation environments while tending to avoid conflict. They enjoy conversations about deep topics but may feel awkward with superficial small talk.",
     growthStrategies: [
-      "현실적인 기대를 갖는 연습을 해보세요",
-      "자기 비판보다 자기 수용을 연습하세요",
-      "때로는 행동이 완벽한 계획보다 중요함을 인식하세요",
-      "건강한 방식으로 갈등에 직면하는 법을 배우세요",
-      "논리적 분석과 객관적 평가 능력을 개발해보세요"
+      "Practice having realistic expectations",
+      "Practice self-acceptance rather than self-criticism",
+      "Recognize that sometimes action is more important than perfect planning",
+      "Learn to face conflict in healthy ways",
+      "Develop logical analysis and objective evaluation abilities"
     ],
-    stressResponse: "INFP는 스트레스를 받으면 자신의 내면 세계로 철회하거나, 비관적이 될 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 사고(Te)가 부정적으로 발현되어, 지나치게 비판적이거나 냉소적이 되고, 사소한 일에 집착할 수 있습니다. 창의적 활동과 자연 속 시간이 회복에 도움이 됩니다.",
-    famousPeople: ["윌리엄 셰익스피어", "J.R.R. 톨킨", "에드가 앨런 포", "다이애나 왕세자비"],
+    stressResponse: "When stressed, INFPs may withdraw into their inner world or become pessimistic. In extreme stress, their inferior function Extraverted Thinking (Te) may manifest negatively, becoming overly critical or cynical and obsessing over small matters. Creative activities and time in nature help recovery.",
+    famousPeople: ["William Shakespeare", "J.R.R. Tolkien", "Edgar Allan Poe", "Princess Diana"],
     compatibleTypes: ["ENFJ", "ENTJ", "INFP", "ENFP"],
     challengingTypes: ["ESTJ", "ESTP", "ISTJ", "ISTP"],
   },
   INTP: {
     type: "INTP",
-    name: "논리적인 사색가",
-    nickname: "아이디어 뱅크형",
+    name: "The Logician",
+    nickname: "The Thinker",
     emoji: "",
-    description: "분석적이고 객관적인 사색가입니다. 복잡한 문제를 논리적으로 해결하는 것을 즐기며, 지식과 이해에 대한 갈증이 있습니다.",
-    detailedDescription: "INTP는 전체 인구의 약 3-5%를 차지하는 유형입니다. '논리학자' 또는 '사색가'로 불리는 이들은 지적 탐구에 대한 끝없는 갈증을 가지고 있습니다. INTP는 복잡한 문제를 분석하고 이론적 모델을 구축하는 것을 즐기며, '왜'라는 질문에 대한 답을 찾는 것에 열정을 보입니다. 독창적인 사고와 혁신적인 아이디어로 유명하며, 기존의 가정에 도전하고 새로운 관점을 제시합니다. 지적 정직성을 높이 평가하며, 논리적 일관성을 추구합니다. Carl Jung의 심리 유형론에 따르면, INTP는 내향적 사고(Ti)를 주 기능으로 사용하여 논리적 분석과 체계적 이해를 추구합니다.",
-    scientificBackground: "INTP는 MBTI 연구에서 가장 분석적이고 이론 지향적인 유형으로 분류됩니다. 심리학 연구에 따르면, INTP는 높은 수준의 추상적 사고와 패턴 인식 능력을 보이며, 이는 전전두엽 피질의 특정 영역 활성화와 관련이 있습니다. 연구에 의하면 INTP는 과학, 기술, 철학, 수학 분야에서 높은 성취를 보이며, 복잡한 문제를 독립적으로 해결할 때 최고의 성과를 발휘합니다. 이들의 혁신적 사고는 여러 분야에서 패러다임 전환을 이끌어왔습니다.",
+    description: "An analytical and objective thinker. They enjoy logically solving complex problems and have a thirst for knowledge and understanding.",
+    detailedDescription: "INTP comprises about 3-5% of the general population. Called 'Logician' or 'Thinker,' they have an endless thirst for intellectual inquiry. INTPs enjoy analyzing complex problems and building theoretical models, showing passion for finding answers to 'why' questions. They are famous for original thinking and innovative ideas, challenging existing assumptions and presenting new perspectives. They highly value intellectual honesty and pursue logical consistency. According to Carl Jung's psychological types, INTPs use Introverted Thinking (Ti) as their dominant function to pursue logical analysis and systematic understanding.",
+    scientificBackground: "INTP is classified as the most analytical and theory-oriented type in MBTI research. According to psychological studies, INTPs show high levels of abstract thinking and pattern recognition ability, related to specific prefrontal cortex activation. Research shows INTPs achieve high success in science, technology, philosophy, and mathematics fields, performing best when independently solving complex problems. Their innovative thinking has led paradigm shifts in multiple fields.",
     cognitiveFunctions: {
-      dominant: "내향적 사고 (Ti)",
-      auxiliary: "외향적 직관 (Ne)",
-      tertiary: "내향적 감각 (Si)",
-      inferior: "외향적 감정 (Fe)",
-      description: "INTP는 내향적 사고(Ti)를 통해 논리적 일관성과 정확성을 추구하며 복잡한 시스템을 분석합니다. 보조 기능인 외향적 직관(Ne)으로 다양한 가능성과 연결을 탐색하고 혁신적인 아이디어를 생성합니다. 3차 기능인 내향적 감각(Si)은 과거 경험에서 데이터를 수집하게 하며, 열등 기능인 외향적 감정(Fe)은 타인의 감정을 인식하고 사회적 조화를 유지하는 데 어려움을 줄 수 있습니다."
+      dominant: "Introverted Thinking (Ti)",
+      auxiliary: "Extraverted Intuition (Ne)",
+      tertiary: "Introverted Sensing (Si)",
+      inferior: "Extraverted Feeling (Fe)",
+      description: "INTPs use Introverted Thinking (Ti) to pursue logical consistency and accuracy and analyze complex systems. Their auxiliary function, Extraverted Intuition (Ne), helps them explore various possibilities and connections and generate innovative ideas. Their tertiary function, Introverted Sensing (Si), helps them collect data from past experiences, while their inferior function, Extraverted Feeling (Fe), may cause difficulty in recognizing others' emotions and maintaining social harmony."
     },
     characteristics: [
-      "논리적이고 분석적인 사고",
-      "지적 호기심이 강함",
-      "독창적인 아이디어",
-      "독립적이고 자율적",
-      "이론과 시스템에 관심",
-      "추상적 개념에 능함",
-      "열린 마음과 객관성"
+      "Logical and analytical thinking",
+      "Strong intellectual curiosity",
+      "Original ideas",
+      "Independent and autonomous",
+      "Interest in theories and systems",
+      "Skilled with abstract concepts",
+      "Open-minded and objective"
     ],
     strengths: [
-      "뛰어난 분석력",
-      "창의적인 문제 해결",
-      "객관적이고 논리적",
-      "지속적인 학습 의지",
-      "혁신적 사고 능력",
-      "복잡한 시스템 이해력"
+      "Outstanding analytical ability",
+      "Creative problem-solving",
+      "Objective and logical",
+      "Continuous desire for learning",
+      "Innovative thinking ability",
+      "Ability to understand complex systems"
     ],
     weaknesses: [
-      "사회적 상황에서 어색함",
-      "감정 표현이 어려움",
-      "실행력이 부족할 수 있음",
-      "세부 사항을 놓칠 수 있음",
-      "완벽한 이론 추구로 결정이 늦어짐"
+      "Awkwardness in social situations",
+      "Difficulty expressing emotions",
+      "May lack execution ability",
+      "May miss details",
+      "Decisions delayed by pursuit of perfect theory"
     ],
-    careers: ["과학자", "철학자", "프로그래머", "수학자", "교수", "시스템 분석가", "소프트웨어 개발자", "데이터 과학자", "연구원", "건축가"],
-    careerDescription: "INTP는 복잡한 문제를 분석하고 이론적 모델을 구축하는 직업에서 번성합니다. 과학, 기술, 철학, 연구 분야에서 뛰어난 성과를 보이며, 독립적으로 깊이 사고할 수 있는 환경을 선호합니다. 지적 자극과 학습 기회가 풍부한 직업에서 높은 만족도를 느낍니다.",
-    relationshipStyle: "INTP는 관계에서 지적인 연결과 상호 이해를 중요시합니다. 감정 표현이 서툴지만, 한번 마음을 연 사람에게는 충성스럽고 헌신적입니다. 독립적인 공간과 시간을 필요로 하며, 지적으로 자극을 주고받을 수 있는 파트너를 선호합니다. 감정적 요구보다는 논리적 소통을 선호합니다.",
-    communicationStyle: "논리적이고 정확한 의사소통을 선호합니다. 복잡한 아이디어를 설명하는 것을 즐기지만, 감정적 표현이나 잡담에는 어색해합니다. 토론과 지적 교류를 즐기며, 아이디어의 논리적 일관성을 중시합니다. 때로는 너무 분석적이어서 감정적 연결이 부족하게 느껴질 수 있습니다.",
+    careers: ["Scientist", "Philosopher", "Programmer", "Mathematician", "Professor", "Systems Analyst", "Software Developer", "Data Scientist", "Researcher", "Architect"],
+    careerDescription: "INTPs thrive in jobs analyzing complex problems and building theoretical models. They excel in science, technology, philosophy, and research fields, preferring environments where they can think deeply and independently. They feel high satisfaction in jobs with intellectual stimulation and learning opportunities.",
+    relationshipStyle: "INTPs value intellectual connection and mutual understanding in relationships. Though they struggle with emotional expression, they are loyal and dedicated to those they open up to. They need independent space and time, preferring partners who can intellectually stimulate each other. They prefer logical communication over emotional demands.",
+    communicationStyle: "They prefer logical and precise communication. They enjoy explaining complex ideas but feel awkward with emotional expression or small talk. They enjoy debates and intellectual exchange, valuing logical consistency of ideas. Sometimes they may feel lacking in emotional connection due to being too analytical.",
     growthStrategies: [
-      "아이디어를 실제로 실행하는 연습을 해보세요",
-      "감정을 인식하고 표현하는 연습을 해보세요",
-      "사회적 상호작용의 중요성을 인식하세요",
-      "완벽하지 않아도 결정을 내리는 연습을 하세요",
-      "타인의 감정적 필요에 더 주의를 기울여보세요"
+      "Practice putting ideas into actual execution",
+      "Practice recognizing and expressing emotions",
+      "Recognize the importance of social interaction",
+      "Practice making decisions even when not perfect",
+      "Pay more attention to others' emotional needs"
     ],
-    stressResponse: "INTP는 스트레스를 받으면 더욱 분석에 몰두하거나 사회적으로 철회할 수 있습니다. 극심한 스트레스에서는 열등 기능인 외향적 감정(Fe)이 부정적으로 발현되어, 감정 폭발이나 타인에 대한 과민 반응, 또는 인정에 대한 과도한 욕구를 보일 수 있습니다. 혼자만의 시간과 지적 활동이 회복에 도움이 됩니다.",
-    famousPeople: ["알베르트 아인슈타인", "빌 게이츠", "찰스 다윈", "에이브러햄 링컨"],
+    stressResponse: "When stressed, INTPs may become more absorbed in analysis or socially withdraw. In extreme stress, their inferior function Extraverted Feeling (Fe) may manifest negatively, showing emotional outbursts, hypersensitivity to others, or excessive need for recognition. Alone time and intellectual activities help recovery.",
+    famousPeople: ["Albert Einstein", "Bill Gates", "Charles Darwin", "Abraham Lincoln"],
     compatibleTypes: ["ENTJ", "ESTJ", "INTP", "ENTP"],
     challengingTypes: ["ESFJ", "ENFJ", "ISFJ", "ESFP"],
   },
   ESTP: {
     type: "ESTP",
-    name: "모험을 즐기는 사업가",
-    nickname: "수완좋은 활동가형",
+    name: "The Entrepreneur",
+    nickname: "The Dynamo",
     emoji: "",
-    description: "활동적이고 현실적인 문제 해결사입니다. 현재 순간에 집중하며, 위험을 감수하고 새로운 경험을 추구합니다.",
-    detailedDescription: "ESTP는 전체 인구의 약 4-5%를 차지하는 유형입니다. '사업가' 또는 '모험가'로 불리는 이들은 행동 지향적이고 현실적인 문제 해결사입니다. ESTP는 현재 순간을 충분히 살며, 새로운 경험과 모험을 추구합니다. 뛰어난 관찰력과 빠른 판단력으로 위기 상황에서 침착하게 대처하며, 사람들을 매료시키는 카리스마를 가지고 있습니다. 이론보다는 실제 행동을 중시하며, '일단 해보자'는 태도로 삶에 접근합니다. Carl Jung의 심리 유형론에 따르면, ESTP는 외향적 감각(Se)을 주 기능으로 사용하여 현재 환경에 민감하게 반응하고 즉각적인 행동을 취합니다.",
-    scientificBackground: "ESTP는 MBTI 연구에서 가장 행동 지향적이고 모험적인 유형으로 분류됩니다. 심리학 연구에 따르면, ESTP는 높은 수준의 감각 추구와 위험 감수 성향을 보이며, 이는 도파민 보상 시스템의 활성화와 관련이 있습니다. 연구에 의하면 ESTP는 빠른 의사결정이 요구되는 환경에서 뛰어난 성과를 보이며, 위기 상황에서의 침착함은 자율신경계의 효율적인 조절 능력과 연관됩니다. 영업, 응급 서비스, 스포츠 분야에서 높은 직업 만족도를 보입니다.",
+    description: "An active and realistic problem solver. They focus on the present moment, take risks, and pursue new experiences.",
+    detailedDescription: "ESTP comprises about 4-5% of the general population. Called 'Entrepreneur' or 'Dynamo,' they are action-oriented and realistic problem solvers. ESTPs live fully in the present moment, seeking new experiences and adventure. With excellent observation and quick judgment, they stay calm in crisis situations and have charisma that captivates people. They value action over theory, approaching life with a 'just do it' attitude. According to Carl Jung's psychological types, ESTPs use Extraverted Sensing (Se) as their dominant function to respond sensitively to the current environment and take immediate action.",
+    scientificBackground: "ESTP is classified as the most action-oriented and adventurous type in MBTI research. According to psychological studies, ESTPs show high levels of sensation-seeking and risk-taking tendencies, related to dopamine reward system activation. Research shows ESTPs demonstrate outstanding composure and quick decision-making in fast-paced environments, associated with efficient autonomic nervous system regulation. They show high job satisfaction in sales, emergency services, and sports.",
     cognitiveFunctions: {
-      dominant: "외향적 감각 (Se)",
-      auxiliary: "내향적 사고 (Ti)",
-      tertiary: "외향적 감정 (Fe)",
-      inferior: "내향적 직관 (Ni)",
-      description: "ESTP는 외향적 감각(Se)을 통해 현재 환경의 세부 사항을 예리하게 인식하고 즉각적으로 반응합니다. 보조 기능인 내향적 사고(Ti)로 상황을 논리적으로 분석하고 실용적인 해결책을 찾습니다. 3차 기능인 외향적 감정(Fe)은 사회적 상황을 읽고 매력을 발산하게 하며, 열등 기능인 내향적 직관(Ni)은 장기적인 결과를 예측하는 데 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Sensing (Se)",
+      auxiliary: "Introverted Thinking (Ti)",
+      tertiary: "Extraverted Feeling (Fe)",
+      inferior: "Introverted Intuition (Ni)",
+      description: "ESTPs use Extraverted Sensing (Se) to keenly perceive environmental details and react immediately. Their auxiliary function, Introverted Thinking (Ti), helps them logically analyze situations and find practical solutions. Their tertiary function, Extraverted Feeling (Fe), helps them read social situations and exude charm, while their inferior function, Introverted Intuition (Ni), may cause difficulty predicting long-term consequences."
     },
     characteristics: [
-      "활동적이고 에너지가 넘침",
-      "현실적이고 실용적",
-      "위험을 감수하는 모험가",
-      "사교적이고 매력적",
-      "빠른 상황 판단력",
-      "현재 순간에 집중",
-      "적응력이 뛰어남"
+      "Active and energetic",
+      "Realistic and practical",
+      "Risk-taking adventurer",
+      "Sociable and charming",
+      "Quick situational judgment",
+      "Focused on the present moment",
+      "Highly adaptable"
     ],
     strengths: [
-      "뛰어난 협상 능력",
-      "위기 대처 능력",
-      "현실적인 문제 해결",
-      "사교적이고 설득력 있음",
-      "빠른 행동력",
-      "관찰력과 상황 파악 능력"
+      "Outstanding negotiation ability",
+      "Crisis management skills",
+      "Realistic problem-solving",
+      "Sociable and persuasive",
+      "Quick action",
+      "Observation and situational awareness"
     ],
     weaknesses: [
-      "충동적인 결정",
-      "규칙을 무시하는 경향",
-      "장기적인 계획이 어려움",
-      "감정적 문제에 둔감할 수 있음",
-      "지루함에 대한 인내가 부족함"
+      "Impulsive decisions",
+      "Tendency to ignore rules",
+      "Difficulty with long-term planning",
+      "May be insensitive to emotional issues",
+      "Low tolerance for boredom"
     ],
-    careers: ["사업가", "영업직", "응급구조사", "운동선수", "배우", "경찰관", "소방관", "파일럿", "부동산 중개인", "마케터"],
-    careerDescription: "ESTP는 빠른 행동과 즉각적인 문제 해결이 요구되는 직업에서 번성합니다. 영업, 응급 서비스, 스포츠, 엔터테인먼트 분야에서 뛰어난 성과를 보이며, 사람들과 상호작용하고 흥미로운 도전이 있는 환경을 선호합니다. 책상에 앉아 있는 것보다 활동적인 역할을 좋아합니다.",
-    relationshipStyle: "ESTP는 관계에서 재미있고 흥미로운 파트너입니다. 함께 새로운 경험을 하고 모험을 즐기는 것을 좋아합니다. 현재 순간에 집중하며, 실질적인 방식으로 애정을 표현합니다. 그러나 장기적인 계획이나 깊은 감정적 대화에는 어려움을 겪을 수 있으며, 구속받는 것을 싫어합니다.",
-    communicationStyle: "직접적이고 활기찬 의사소통 스타일을 가지고 있습니다. 유머와 재치로 대화를 이끌며, 사람들을 매료시키는 능력이 있습니다. 실용적인 정보를 선호하고, 추상적이거나 이론적인 대화에는 지루해할 수 있습니다. 행동으로 보여주는 것을 말보다 선호합니다.",
+    careers: ["Entrepreneur", "Sales Professional", "Paramedic", "Athlete", "Actor", "Police Officer", "Firefighter", "Pilot", "Real Estate Agent", "Marketer"],
+    careerDescription: "ESTPs thrive in jobs requiring quick action and immediate problem-solving. They excel in sales, emergency services, sports, and entertainment, preferring environments with people interaction and exciting challenges. They prefer active roles over sitting at desks.",
+    relationshipStyle: "ESTPs are fun and exciting partners in relationships. They enjoy sharing new experiences and adventures together. They focus on the present moment and express affection in practical ways. However, they may struggle with long-term planning or deep emotional conversations and dislike feeling constrained.",
+    communicationStyle: "They have a direct and lively communication style. They lead conversations with humor and wit, having the ability to captivate people. They prefer practical information and may get bored with abstract or theoretical conversations. They prefer showing through action rather than words.",
     growthStrategies: [
-      "장기적인 결과를 고려하여 결정하는 연습을 해보세요",
-      "타인의 감정에 더 주의를 기울여보세요",
-      "충동적인 행동 전에 잠시 멈추고 생각해보세요",
-      "깊은 관계와 감정적 친밀감의 가치를 인식하세요",
-      "루틴과 일관성의 중요성을 받아들여보세요"
+      "Practice making decisions considering long-term consequences",
+      "Pay more attention to others' feelings",
+      "Pause and think before acting impulsively",
+      "Recognize the value of deep relationships and emotional intimacy",
+      "Accept the importance of routine and consistency"
     ],
-    stressResponse: "ESTP는 스트레스를 받으면 더욱 충동적이 되거나 위험한 행동에 몰두할 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 직관(Ni)이 부정적으로 발현되어, 비관적인 미래 예측이나 음모론적 사고, 또는 무의미함에 대한 실존적 고민을 경험할 수 있습니다. 신체 활동과 새로운 경험이 회복에 도움이 됩니다.",
-    famousPeople: ["도널드 트럼프", "마돈나", "어니스트 헤밍웨이", "잭 니클라우스"],
+    stressResponse: "When stressed, ESTPs may become more impulsive or engage in risky behavior. In extreme stress, their inferior function Introverted Intuition (Ni) may manifest negatively, experiencing pessimistic future predictions, conspiracy-theory thinking, or existential concerns about meaninglessness. Physical activity and new experiences help recovery.",
+    famousPeople: ["Donald Trump", "Madonna", "Ernest Hemingway", "Jack Nicklaus"],
     compatibleTypes: ["ISTJ", "ISFJ", "ESTP", "ESFP"],
     challengingTypes: ["INFJ", "INTJ", "INFP", "ENFJ"],
   },
   ESFP: {
     type: "ESFP",
-    name: "자유로운 영혼의 연예인",
-    nickname: "사교적인 유형",
+    name: "The Entertainer",
+    nickname: "The Performer",
     emoji: "",
-    description: "밝고 사교적인 연예인 유형입니다. 현재 순간을 즐기며, 주변 사람들에게 즐거움을 선사하는 것을 좋아합니다.",
-    detailedDescription: "ESFP는 전체 인구의 약 4-9%를 차지하는 유형입니다. '엔터테이너' 또는 '연예인'으로 불리는 이들은 삶의 즐거움을 추구하고 그 기쁨을 주변 사람들과 나누는 것을 좋아합니다. ESFP는 현재 순간을 충분히 경험하며, 어떤 상황에서든 파티의 중심이 되는 능력을 가지고 있습니다. 자연스러운 사교성과 따뜻한 성격으로 사람들을 끌어들이며, 모든 사람이 편안하게 느끼도록 만듭니다. 실용적이면서도 재미를 추구하며, 인생은 즐기기 위해 있다고 믿습니다. Carl Jung의 심리 유형론에 따르면, ESFP는 외향적 감각(Se)을 주 기능으로 사용하여 현재의 감각적 경험을 최대한 즐깁니다.",
-    scientificBackground: "ESFP는 MBTI 연구에서 가장 사교적이고 즐거움 추구적인 유형으로 분류됩니다. 심리학 연구에 따르면, ESFP는 높은 수준의 외향성과 긍정적 정서를 보이며, 이는 보상 관련 뇌 영역의 활성화와 관련이 있습니다. 연구에 의하면 ESFP는 사람들과 직접 상호작용하는 환경에서 높은 직업 만족도를 보이며, 엔터테인먼트, 서비스, 판매 분야에서 뛰어난 성과를 발휘합니다. 이들의 사교적 능력은 사회적 유대를 형성하고 유지하는 데 탁월함을 보여줍니다.",
+    description: "A bright and sociable entertainer type. They enjoy the present moment and love bringing joy to those around them.",
+    detailedDescription: "ESFP comprises about 4-9% of the general population. Called 'Entertainer' or 'Performer,' they pursue life's pleasures and enjoy sharing that joy with those around them. ESFPs fully experience the present moment and have the ability to become the center of any party. Their natural sociability and warm personality draw people in, making everyone feel comfortable. They are practical yet fun-seeking, believing life is meant to be enjoyed. According to Carl Jung's psychological types, ESFPs use Extraverted Sensing (Se) as their dominant function to fully enjoy present sensory experiences.",
+    scientificBackground: "ESFP is classified as the most sociable and pleasure-seeking type in MBTI research. According to psychological studies, ESFPs show high levels of extraversion and positive affect, related to reward-related brain region activation. Research shows ESFPs have high job satisfaction in environments with direct people interaction, excelling in entertainment, service, and sales fields. Their social ability shows excellence in forming and maintaining social bonds.",
     cognitiveFunctions: {
-      dominant: "외향적 감각 (Se)",
-      auxiliary: "내향적 감정 (Fi)",
-      tertiary: "외향적 사고 (Te)",
-      inferior: "내향적 직관 (Ni)",
-      description: "ESFP는 외향적 감각(Se)을 통해 현재 환경의 감각적 세부 사항에 민감하게 반응하고 경험을 즐깁니다. 보조 기능인 내향적 감정(Fi)으로 깊은 개인적 가치관을 형성하고 진정성을 추구합니다. 3차 기능인 외향적 사고(Te)는 실용적인 문제 해결을 가능하게 하며, 열등 기능인 내향적 직관(Ni)은 미래를 예측하고 장기적 계획을 세우는 데 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Sensing (Se)",
+      auxiliary: "Introverted Feeling (Fi)",
+      tertiary: "Extraverted Thinking (Te)",
+      inferior: "Introverted Intuition (Ni)",
+      description: "ESFPs use Extraverted Sensing (Se) to respond sensitively to sensory details in the current environment and enjoy experiences. Their auxiliary function, Introverted Feeling (Fi), helps them form deep personal values and pursue authenticity. Their tertiary function, Extraverted Thinking (Te), enables practical problem-solving, while their inferior function, Introverted Intuition (Ni), may cause difficulty predicting the future and making long-term plans."
     },
     characteristics: [
-      "밝고 긍정적인 에너지",
-      "사교적이고 친근함",
-      "현재 순간을 즐김",
-      "유연하고 적응력이 높음",
-      "실용적이고 현실적",
-      "타인을 즐겁게 만드는 능력",
-      "자발적이고 즉흥적"
+      "Bright and positive energy",
+      "Sociable and friendly",
+      "Enjoys the present moment",
+      "Flexible and highly adaptable",
+      "Practical and realistic",
+      "Ability to make others happy",
+      "Spontaneous and improvisational"
     ],
     strengths: [
-      "뛰어난 사교성",
-      "긍정적인 에너지",
-      "실용적인 문제 해결",
-      "유연한 대처 능력",
-      "사람들과의 연결 능력",
-      "현재에 집중하는 능력"
+      "Outstanding sociability",
+      "Positive energy",
+      "Practical problem-solving",
+      "Flexible coping ability",
+      "Ability to connect with people",
+      "Ability to focus on the present"
     ],
     weaknesses: [
-      "장기적인 계획이 어려움",
-      "비판에 민감함",
-      "충동적인 결정",
-      "지루함을 잘 참지 못함",
-      "갈등 회피 경향"
+      "Difficulty with long-term planning",
+      "Sensitive to criticism",
+      "Impulsive decisions",
+      "Low tolerance for boredom",
+      "Conflict avoidance tendency"
     ],
-    careers: ["연예인", "이벤트 플래너", "판매직", "관광가이드", "홍보 전문가", "요리사", "사회자", "교사", "플라이트 어텐던트", "사진작가"],
-    careerDescription: "ESFP는 사람들과 직접 상호작용하고 즐거움을 주는 직업에서 번성합니다. 엔터테인먼트, 서비스, 판매, 이벤트 분야에서 뛰어난 성과를 보이며, 활기차고 변화가 많은 환경을 선호합니다. 반복적이고 단조로운 업무보다는 매일 새로운 도전이 있는 역할에서 높은 만족도를 느낍니다.",
-    relationshipStyle: "ESFP는 관계에서 재미있고 애정 넘치는 파트너입니다. 현재 순간을 함께 즐기고 파트너를 기쁘게 하는 것을 좋아합니다. 실질적인 방식으로 사랑을 표현하며, 특별한 경험과 서프라이즈를 즐깁니다. 그러나 깊은 감정적 대화나 장기적인 계획에는 어려움을 겪을 수 있으며, 갈등을 피하려는 경향이 있습니다.",
-    communicationStyle: "활기차고 표현력이 풍부한 의사소통 스타일을 가지고 있습니다. 이야기를 생동감 있게 전달하고, 유머와 재치로 대화를 즐겁게 만듭니다. 직접적인 경험과 감각적인 세부 사항에 초점을 맞추며, 추상적인 이론보다는 실제적인 이야기를 선호합니다.",
+    careers: ["Entertainer", "Event Planner", "Sales Professional", "Tour Guide", "PR Specialist", "Chef", "Host/MC", "Teacher", "Flight Attendant", "Photographer"],
+    careerDescription: "ESFPs thrive in jobs with direct people interaction and bringing joy. They excel in entertainment, service, sales, and event fields, preferring lively environments with lots of change. They feel high satisfaction in roles with new challenges every day rather than repetitive, monotonous work.",
+    relationshipStyle: "ESFPs are fun and affectionate partners in relationships. They enjoy the present moment together and love making their partner happy. They express love in practical ways and enjoy special experiences and surprises. However, they may struggle with deep emotional conversations or long-term planning and tend to avoid conflict.",
+    communicationStyle: "They have a lively and expressive communication style. They tell stories vividly and make conversations enjoyable with humor and wit. They focus on direct experiences and sensory details, preferring real stories over abstract theories.",
     growthStrategies: [
-      "장기적인 목표와 계획을 세우는 연습을 해보세요",
-      "즉각적인 만족보다 미래의 이익을 고려해보세요",
-      "건설적인 비판을 성장의 기회로 받아들이세요",
-      "때로는 갈등에 직면하는 것이 필요함을 인식하세요",
-      "깊은 내면 탐구와 자기 성찰 시간을 가져보세요"
+      "Practice setting long-term goals and plans",
+      "Consider future benefits rather than immediate gratification",
+      "Accept constructive criticism as an opportunity for growth",
+      "Recognize that sometimes confronting conflict is necessary",
+      "Take time for deep inner exploration and self-reflection"
     ],
-    stressResponse: "ESFP는 스트레스를 받으면 더욱 즐거움을 추구하거나 충동적인 행동을 할 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 직관(Ni)이 부정적으로 발현되어, 비관적인 미래 예측이나 존재론적 불안, 또는 숨겨진 의미에 대한 집착을 보일 수 있습니다. 친구들과의 시간과 즐거운 활동이 회복에 도움이 됩니다.",
-    famousPeople: ["마릴린 먼로", "저스틴 비버", "아델", "엘튼 존"],
+    stressResponse: "When stressed, ESFPs may seek more pleasure or engage in impulsive behavior. In extreme stress, their inferior function Introverted Intuition (Ni) may manifest negatively, showing pessimistic future predictions, existential anxiety, or obsession with hidden meanings. Time with friends and enjoyable activities help recovery.",
+    famousPeople: ["Marilyn Monroe", "Justin Bieber", "Adele", "Elton John"],
     compatibleTypes: ["ISTJ", "ISFJ", "ESFP", "ESTP"],
     challengingTypes: ["INTJ", "INFJ", "INTP", "ENTJ"],
   },
   ENFP: {
     type: "ENFP",
-    name: "재기발랄한 활동가",
-    nickname: "스파크형",
+    name: "The Campaigner",
+    nickname: "The Champion",
     emoji: "",
-    description: "열정적이고 창의적인 자유로운 영혼입니다. 가능성에 대한 탐험을 즐기며, 타인에게 영감을 주는 것을 좋아합니다.",
-    detailedDescription: "ENFP는 전체 인구의 약 6-8%를 차지하는 유형입니다. '운동가' 또는 '열정가'로 불리는 이들은 가능성과 아이디어의 세계에서 살아갑니다. ENFP는 뛰어난 상상력과 열정으로 주변 사람들에게 영감을 주며, 새로운 아이디어와 프로젝트에 끊임없이 관심을 가집니다. 사람들과의 깊은 연결을 추구하고, 모든 사람의 잠재력을 믿습니다. 자유와 자기 표현을 중요시하며, 규칙과 제한에 구속받는 것을 싫어합니다. Carl Jung의 심리 유형론에 따르면, ENFP는 외향적 직관(Ne)을 주 기능으로 사용하여 끊임없이 새로운 가능성과 연결을 탐색합니다.",
-    scientificBackground: "ENFP는 MBTI 연구에서 가장 열정적이고 가능성 지향적인 유형으로 분류됩니다. 심리학 연구에 따르면, ENFP는 높은 수준의 개방성과 창의적 사고를 보이며, 이는 전전두엽 피질과 기본 모드 네트워크의 활발한 연결과 관련이 있습니다. 연구에 의하면 ENFP는 창의적, 사회적 분야에서 높은 직업 만족도를 보이며, 다양한 프로젝트와 사람들과 상호작용할 때 최고의 성과를 발휘합니다. 이들의 열정과 영감을 주는 능력은 리더십과 동기 부여에서 탁월함을 보여줍니다.",
+    description: "A passionate and creative free spirit. They enjoy exploring possibilities and love inspiring others.",
+    detailedDescription: "ENFP comprises about 6-8% of the general population. Called 'Campaigner' or 'Champion,' they live in a world of possibilities and ideas. ENFPs inspire those around them with outstanding imagination and passion, constantly interested in new ideas and projects. They seek deep connections with people and believe in everyone's potential. They value freedom and self-expression, disliking being constrained by rules and restrictions. According to Carl Jung's psychological types, ENFPs use Extraverted Intuition (Ne) as their dominant function to constantly explore new possibilities and connections.",
+    scientificBackground: "ENFP is classified as the most passionate and possibility-oriented type in MBTI research. According to psychological studies, ENFPs show high levels of openness and creative thinking, related to active connections between the prefrontal cortex and default mode network. Research shows ENFPs have high job satisfaction in creative and social fields, performing best when interacting with various projects and people. Their passion and inspiring ability show excellence in leadership and motivation.",
     cognitiveFunctions: {
-      dominant: "외향적 직관 (Ne)",
-      auxiliary: "내향적 감정 (Fi)",
-      tertiary: "외향적 사고 (Te)",
-      inferior: "내향적 감각 (Si)",
-      description: "ENFP는 외향적 직관(Ne)을 통해 가능성과 패턴을 탐색하고 창의적인 연결을 만듭니다. 보조 기능인 내향적 감정(Fi)으로 깊은 개인적 가치관을 발전시키고 진정성을 추구합니다. 3차 기능인 외향적 사고(Te)는 아이디어를 실현하는 데 도움을 주며, 열등 기능인 내향적 감각(Si)은 세부 사항과 루틴에 집중하는 데 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Intuition (Ne)",
+      auxiliary: "Introverted Feeling (Fi)",
+      tertiary: "Extraverted Thinking (Te)",
+      inferior: "Introverted Sensing (Si)",
+      description: "ENFPs use Extraverted Intuition (Ne) to explore possibilities and patterns and make creative connections. Their auxiliary function, Introverted Feeling (Fi), helps them develop deep personal values and pursue authenticity. Their tertiary function, Extraverted Thinking (Te), helps realize ideas, while their inferior function, Introverted Sensing (Si), may cause difficulty focusing on details and routines."
     },
     characteristics: [
-      "열정적이고 창의적",
-      "호기심이 많고 탐험적",
-      "사람들과의 연결을 중시",
-      "자유롭고 유연함",
-      "이상주의적이고 낙관적",
-      "영감을 주는 능력",
-      "가능성에 대한 열린 마음"
+      "Passionate and creative",
+      "Curious and exploratory",
+      "Values connections with people",
+      "Free and flexible",
+      "Idealistic and optimistic",
+      "Inspiring ability",
+      "Open mind toward possibilities"
     ],
     strengths: [
-      "뛰어난 창의성",
-      "열정적인 소통 능력",
-      "적응력과 유연성",
-      "타인에게 영감을 줌",
-      "사람들을 연결하는 능력",
-      "낙관적인 에너지"
+      "Outstanding creativity",
+      "Passionate communication ability",
+      "Adaptability and flexibility",
+      "Inspires others",
+      "Ability to connect people",
+      "Optimistic energy"
     ],
     weaknesses: [
-      "집중력 유지가 어려움",
-      "지나치게 이상주의적",
-      "세부 사항을 놓칠 수 있음",
-      "결정을 미루는 경향",
-      "프로젝트를 끝까지 완료하기 어려움"
+      "Difficulty maintaining focus",
+      "Overly idealistic",
+      "May miss details",
+      "Tendency to delay decisions",
+      "Difficulty completing projects to the end"
     ],
-    careers: ["컨설턴트", "기자", "마케터", "배우", "상담사", "작가", "기업가", "홍보 전문가", "코치", "교사"],
-    careerDescription: "ENFP는 창의성과 인간관계가 결합된 직업에서 번성합니다. 마케팅, 컨설팅, 상담, 창작 분야에서 뛰어난 성과를 보이며, 다양한 프로젝트와 사람들과 상호작용할 수 있는 환경을 선호합니다. 루틴하고 반복적인 업무보다는 새로운 아이디어를 탐색하고 실현할 수 있는 역할에서 높은 만족도를 느낍니다.",
-    relationshipStyle: "ENFP는 관계에서 열정적이고 낭만적인 파트너입니다. 깊은 감정적 연결을 추구하고, 파트너의 성장과 꿈을 적극적으로 지지합니다. 다양한 경험을 함께 나누고, 관계에 새로움과 재미를 불어넣는 것을 좋아합니다. 그러나 초기 열정이 식으면 새로운 것을 추구하거나, 갈등을 피하려는 경향이 있습니다.",
-    communicationStyle: "열정적이고 영감을 주는 의사소통 스타일을 가지고 있습니다. 아이디어와 가능성에 대해 흥분하며 이야기하고, 사람들을 자신의 비전에 동참하게 만드는 능력이 있습니다. 개인적이고 감정적인 연결을 중시하며, 다양한 주제에 대해 열린 대화를 즐깁니다.",
+    careers: ["Consultant", "Journalist", "Marketer", "Actor", "Counselor", "Writer", "Entrepreneur", "PR Specialist", "Coach", "Teacher"],
+    careerDescription: "ENFPs thrive in jobs combining creativity and human relationships. They excel in marketing, consulting, counseling, and creative fields, preferring environments with various projects and people interaction. They feel high satisfaction in roles exploring and realizing new ideas rather than routine, repetitive work.",
+    relationshipStyle: "ENFPs are passionate and romantic partners in relationships. They seek deep emotional connection and actively support their partner's growth and dreams. They love sharing various experiences and bringing newness and fun to relationships. However, when initial passion fades, they may seek new things or tend to avoid conflict.",
+    communicationStyle: "They have a passionate and inspiring communication style. They talk excitedly about ideas and possibilities and have the ability to get people to join their vision. They value personal and emotional connection and enjoy open conversations about various topics.",
     growthStrategies: [
-      "시작한 프로젝트를 끝까지 완료하는 연습을 해보세요",
-      "세부 사항과 실용적인 면에 더 주의를 기울여보세요",
-      "지나친 이상주의보다 현실적인 기대를 갖는 연습을 해보세요",
-      "결정을 미루지 않고 선택하는 연습을 해보세요",
-      "루틴과 일관성의 가치를 인식해보세요"
+      "Practice completing started projects to the end",
+      "Pay more attention to details and practical aspects",
+      "Practice having realistic expectations rather than excessive idealism",
+      "Practice making choices without delaying decisions",
+      "Recognize the value of routine and consistency"
     ],
-    stressResponse: "ENFP는 스트레스를 받으면 더욱 분주해지거나 여러 프로젝트 사이를 오갈 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 감각(Si)이 부정적으로 발현되어, 과거의 실패에 집착하거나 건강 문제에 대한 과도한 걱정, 또는 세부 사항에 대한 강박을 보일 수 있습니다. 창의적 활동과 긍정적인 사람들과의 시간이 회복에 도움이 됩니다.",
-    famousPeople: ["로빈 윌리엄스", "윌 스미스", "마크 트웨인", "월트 디즈니"],
+    stressResponse: "When stressed, ENFPs may become more scattered or jump between multiple projects. In extreme stress, their inferior function Introverted Sensing (Si) may manifest negatively, showing obsession with past failures, excessive worry about health issues, or compulsions about details. Creative activities and time with positive people help recovery.",
+    famousPeople: ["Robin Williams", "Will Smith", "Mark Twain", "Walt Disney"],
     compatibleTypes: ["INTJ", "INFJ", "ENFP", "ENTP"],
     challengingTypes: ["ISTJ", "ISFJ", "ESTJ", "ISTP"],
   },
   ENTP: {
     type: "ENTP",
-    name: "논쟁을 즐기는 변론가",
-    nickname: "발명가형",
+    name: "The Debater",
+    nickname: "The Visionary",
     emoji: "",
-    description: "창의적이고 전략적인 사고를 하는 논쟁가입니다. 새로운 아이디어와 가능성을 탐구하며, 지적인 토론을 즐깁니다.",
-    detailedDescription: "ENTP는 전체 인구의 약 2-5%를 차지하는 유형입니다. '변론가' 또는 '발명가'로 불리는 이들은 지적 도전과 토론을 사랑합니다. ENTP는 기존의 아이디어와 가정에 도전하고, 새로운 관점과 해결책을 제시하는 것을 즐깁니다. 빠른 사고와 재치로 유명하며, 어떤 주제에 대해서든 설득력 있게 논쟁할 수 있습니다. 혁신과 변화를 추구하며, 현 상태에 안주하는 것을 싫어합니다. Carl Jung의 심리 유형론에 따르면, ENTP는 외향적 직관(Ne)을 주 기능으로 사용하여 가능성을 탐색하고 창의적인 연결을 만듭니다.",
-    scientificBackground: "ENTP는 MBTI 연구에서 가장 혁신적이고 논쟁 지향적인 유형으로 분류됩니다. 심리학 연구에 따르면, ENTP는 높은 수준의 개방성과 빠른 인지적 유연성을 보이며, 이는 전전두엽 피질의 활발한 활동과 관련이 있습니다. 연구에 의하면 ENTP는 기업가정신, 혁신, 논쟁 관련 분야에서 높은 성취를 보이며, 지적 자극과 도전이 있는 환경에서 최고의 성과를 발휘합니다. 이들의 논쟁 능력은 비판적 사고와 다양한 관점 채택 능력에서 비롯됩니다.",
+    description: "A creative and strategic thinker who loves debate. They explore new ideas and possibilities and enjoy intellectual discussion.",
+    detailedDescription: "ENTP comprises about 2-5% of the general population. Called 'Debater' or 'Visionary,' they love intellectual challenges and debate. ENTPs enjoy challenging existing ideas and assumptions, presenting new perspectives and solutions. Famous for quick thinking and wit, they can persuasively argue any position. They seek innovation and change, disliking complacency with the status quo. According to Carl Jung's psychological types, ENTPs use Extraverted Intuition (Ne) as their dominant function to explore possibilities and make creative connections.",
+    scientificBackground: "ENTP is classified as the most innovative and debate-oriented type in MBTI research. According to psychological studies, ENTPs show high levels of openness and rapid cognitive flexibility, related to active prefrontal cortex activity. Research shows ENTPs achieve high success in entrepreneurship, innovation, and debate-related fields, performing best in environments with intellectual stimulation and challenge. Their debate ability stems from critical thinking and the ability to adopt diverse perspectives.",
     cognitiveFunctions: {
-      dominant: "외향적 직관 (Ne)",
-      auxiliary: "내향적 사고 (Ti)",
-      tertiary: "외향적 감정 (Fe)",
-      inferior: "내향적 감각 (Si)",
-      description: "ENTP는 외향적 직관(Ne)을 통해 가능성과 패턴을 탐색하고 창의적인 아이디어를 생성합니다. 보조 기능인 내향적 사고(Ti)로 논리적 일관성을 추구하고 아이디어를 분석합니다. 3차 기능인 외향적 감정(Fe)은 사회적 상황을 읽고 설득력을 발휘하게 하며, 열등 기능인 내향적 감각(Si)은 세부 사항과 루틴에 집중하는 데 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Intuition (Ne)",
+      auxiliary: "Introverted Thinking (Ti)",
+      tertiary: "Extraverted Feeling (Fe)",
+      inferior: "Introverted Sensing (Si)",
+      description: "ENTPs use Extraverted Intuition (Ne) to explore possibilities and patterns and generate creative ideas. Their auxiliary function, Introverted Thinking (Ti), helps them pursue logical consistency and analyze ideas. Their tertiary function, Extraverted Feeling (Fe), helps them read social situations and be persuasive, while their inferior function, Introverted Sensing (Si), may cause difficulty focusing on details and routines."
     },
     characteristics: [
-      "창의적이고 독창적인 사고",
-      "지적 호기심이 강함",
-      "논쟁과 토론을 즐김",
-      "빠른 상황 파악 능력",
-      "유연하고 적응력이 높음",
-      "기존 가정에 도전",
-      "재치와 유머 감각"
+      "Creative and original thinking",
+      "Strong intellectual curiosity",
+      "Enjoys debate and discussion",
+      "Quick situational awareness",
+      "Flexible and highly adaptable",
+      "Challenges existing assumptions",
+      "Wit and sense of humor"
     ],
     strengths: [
-      "뛰어난 아이디어 생성",
-      "빠른 분석력과 문제 해결",
-      "설득력 있는 커뮤니케이션",
-      "새로운 도전에 적극적",
-      "혁신적 사고",
-      "다양한 관점 채택 능력"
+      "Outstanding idea generation",
+      "Quick analysis and problem-solving",
+      "Persuasive communication",
+      "Active toward new challenges",
+      "Innovative thinking",
+      "Ability to adopt diverse perspectives"
     ],
     weaknesses: [
-      "프로젝트 완료가 어려움",
-      "규칙과 권위에 반항적",
-      "감정적 문제에 둔감할 수 있음",
-      "논쟁적으로 보일 수 있음",
-      "세부 사항과 루틴을 무시할 수 있음"
+      "Difficulty completing projects",
+      "Rebellious toward rules and authority",
+      "May be insensitive to emotional issues",
+      "May appear argumentative",
+      "May ignore details and routines"
     ],
-    careers: ["변호사", "기업가", "컨설턴트", "발명가", "감독", "마케터", "투자 분석가", "정치 평론가", "제품 개발자", "창업가"],
-    careerDescription: "ENTP는 혁신과 아이디어 생성이 중요한 직업에서 번성합니다. 기업가정신, 법률, 컨설팅, 마케팅 분야에서 뛰어난 성과를 보이며, 지적 도전과 다양성이 있는 환경을 선호합니다. 루틴하고 반복적인 업무보다는 새로운 문제를 해결하고 혁신을 이끌어내는 역할에서 높은 만족도를 느낍니다.",
-    relationshipStyle: "ENTP는 관계에서 지적이고 흥미로운 파트너입니다. 깊은 대화와 토론을 즐기며, 파트너와 함께 새로운 아이디어를 탐색하는 것을 좋아합니다. 독립성을 중요시하고 파트너의 성장을 지지합니다. 그러나 감정적 필요에 둔감할 수 있고, 논쟁을 즐기는 성향이 갈등으로 이어질 수 있습니다.",
-    communicationStyle: "재치 있고 논쟁적인 의사소통 스타일을 가지고 있습니다. 아이디어를 토론하고 도전하는 것을 즐기며, 어떤 관점이든 설득력 있게 주장할 수 있습니다. 빠른 재치와 유머로 대화를 이끌지만, 때로는 지나치게 도발적이거나 논쟁적으로 보일 수 있습니다.",
+    careers: ["Lawyer", "Entrepreneur", "Consultant", "Inventor", "Director", "Marketer", "Investment Analyst", "Political Commentator", "Product Developer", "Startup Founder"],
+    careerDescription: "ENTPs thrive in jobs where innovation and idea generation are important. They excel in entrepreneurship, law, consulting, and marketing, preferring environments with intellectual challenge and variety. They feel high satisfaction in roles solving new problems and driving innovation rather than routine, repetitive work.",
+    relationshipStyle: "ENTPs are intellectual and interesting partners in relationships. They enjoy deep conversations and debates and love exploring new ideas with their partner. They value independence and support their partner's growth. However, they may be insensitive to emotional needs, and their debate-loving tendency can lead to conflicts.",
+    communicationStyle: "They have a witty and argumentative communication style. They enjoy debating and challenging ideas and can persuasively argue any position. They lead conversations with quick wit and humor but may sometimes appear too provocative or argumentative.",
     growthStrategies: [
-      "시작한 프로젝트를 끝까지 완료하는 연습을 해보세요",
-      "타인의 감정적 필요에 더 주의를 기울여보세요",
-      "때로는 논쟁보다 경청이 필요함을 인식하세요",
-      "세부 사항과 실용적인 면에 주의를 기울여보세요",
-      "일관성과 신뢰성의 가치를 인식하세요"
+      "Practice completing started projects to the end",
+      "Pay more attention to others' emotional needs",
+      "Recognize that sometimes listening is needed rather than debate",
+      "Pay attention to details and practical aspects",
+      "Recognize the value of consistency and reliability"
     ],
-    stressResponse: "ENTP는 스트레스를 받으면 더욱 논쟁적이 되거나 여러 아이디어 사이를 오갈 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 감각(Si)이 부정적으로 발현되어, 과거의 세부 사항에 집착하거나 건강 문제에 대한 과도한 걱정, 또는 폐쇄적이고 방어적인 태도를 보일 수 있습니다. 지적 토론과 새로운 경험이 회복에 도움이 됩니다.",
-    famousPeople: ["토마스 에디슨", "벤자민 프랭클린", "소크라테스", "톰 행크스"],
+    stressResponse: "When stressed, ENTPs may become more argumentative or jump between multiple ideas. In extreme stress, their inferior function Introverted Sensing (Si) may manifest negatively, showing obsession with past details, excessive worry about health issues, or closed and defensive attitudes. Intellectual debate and new experiences help recovery.",
+    famousPeople: ["Thomas Edison", "Benjamin Franklin", "Socrates", "Tom Hanks"],
     compatibleTypes: ["INTJ", "INFJ", "ENTP", "ENFP"],
     challengingTypes: ["ISFJ", "ISTJ", "ESFJ", "ISFP"],
   },
   ESTJ: {
     type: "ESTJ",
-    name: "엄격한 관리자",
-    nickname: "사업가형",
+    name: "The Executive",
+    nickname: "The Supervisor",
     emoji: "",
-    description: "조직적이고 책임감 있는 관리자 유형입니다. 전통과 질서를 중시하며, 목표 달성을 위해 체계적으로 일을 추진합니다.",
-    detailedDescription: "ESTJ는 전체 인구의 약 8-12%를 차지하는 유형입니다. '경영자' 또는 '관리자'로 불리는 이들은 질서와 조직을 중요시합니다. ESTJ는 명확한 규칙과 절차를 선호하며, 목표 달성을 위해 체계적으로 일을 추진합니다. 책임감이 강하고 신뢰할 수 있으며, 공동체와 조직에 헌신합니다. 전통과 확립된 방법을 존중하고, 사회적 질서 유지에 기여합니다. 직접적이고 솔직한 의사소통 스타일을 가지고 있습니다. Carl Jung의 심리 유형론에 따르면, ESTJ는 외향적 사고(Te)를 주 기능으로 사용하여 효율적인 시스템을 구축하고 목표를 달성합니다.",
-    scientificBackground: "ESTJ는 MBTI 연구에서 가장 조직적이고 관리 지향적인 유형으로 분류됩니다. 심리학 연구에 따르면, ESTJ는 높은 수준의 책임감과 질서 추구 성향을 보이며, 이는 전전두엽 피질의 실행 기능 영역 활성화와 관련이 있습니다. 연구에 의하면 ESTJ는 경영, 법률, 군사, 행정 분야에서 높은 성취를 보이며, 명확한 구조와 기대가 있는 환경에서 최고의 성과를 발휘합니다. 이들의 리더십 능력은 조직의 효율성과 생산성 향상에 크게 기여합니다.",
+    description: "An organized and responsible manager type. They value tradition and order, systematically driving toward goal achievement.",
+    detailedDescription: "ESTJ comprises about 8-12% of the general population. Called 'Executive' or 'Supervisor,' they value order and organization. ESTJs prefer clear rules and procedures, systematically driving toward goal achievement. They are responsible, reliable, and dedicated to community and organization. They respect tradition and established methods, contributing to maintaining social order. They have a direct and straightforward communication style. According to Carl Jung's psychological types, ESTJs use Extraverted Thinking (Te) as their dominant function to build efficient systems and achieve goals.",
+    scientificBackground: "ESTJ is classified as the most organized and management-oriented type in MBTI research. According to psychological studies, ESTJs show high levels of responsibility and order-seeking tendencies, related to executive function area activation in the prefrontal cortex. Research shows ESTJs achieve high success in business, law, military, and administration fields, performing best in environments with clear structure and expectations. Their leadership ability greatly contributes to organizational efficiency and productivity improvement.",
     cognitiveFunctions: {
-      dominant: "외향적 사고 (Te)",
-      auxiliary: "내향적 감각 (Si)",
-      tertiary: "외향적 직관 (Ne)",
-      inferior: "내향적 감정 (Fi)",
-      description: "ESTJ는 외향적 사고(Te)를 통해 효율적인 시스템을 구축하고 논리적으로 결정을 내립니다. 보조 기능인 내향적 감각(Si)으로 과거 경험과 전통을 중시하고 세부 사항을 기억합니다. 3차 기능인 외향적 직관(Ne)은 새로운 가능성 탐색을 돕지만 제한적이며, 열등 기능인 내향적 감정(Fi)은 자신과 타인의 깊은 감정을 이해하는 데 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Thinking (Te)",
+      auxiliary: "Introverted Sensing (Si)",
+      tertiary: "Extraverted Intuition (Ne)",
+      inferior: "Introverted Feeling (Fi)",
+      description: "ESTJs use Extraverted Thinking (Te) to build efficient systems and make logical decisions. Their auxiliary function, Introverted Sensing (Si), helps them value past experiences and traditions and remember details. Their tertiary function, Extraverted Intuition (Ne), helps explore new possibilities but is limited, while their inferior function, Introverted Feeling (Fi), may cause difficulty understanding deep emotions in themselves and others."
     },
     characteristics: [
-      "조직적이고 체계적",
-      "책임감이 강하고 신뢰할 수 있음",
-      "전통과 규칙을 중시",
-      "직접적이고 솔직함",
-      "목표 지향적이고 실용적",
-      "공동체에 헌신적",
-      "결단력 있는 리더십"
+      "Organized and systematic",
+      "Highly responsible and reliable",
+      "Values tradition and rules",
+      "Direct and straightforward",
+      "Goal-oriented and practical",
+      "Dedicated to community",
+      "Decisive leadership"
     ],
     strengths: [
-      "뛰어난 조직력과 관리 능력",
-      "신뢰할 수 있고 책임감 있음",
-      "결단력 있는 리더십",
-      "효율적인 업무 처리",
-      "명확한 의사소통",
-      "목표 달성에 대한 집중력"
+      "Outstanding organizational and management ability",
+      "Reliable and responsible",
+      "Decisive leadership",
+      "Efficient work handling",
+      "Clear communication",
+      "Focus on goal achievement"
     ],
     weaknesses: [
-      "융통성이 부족할 수 있음",
-      "지나치게 권위적일 수 있음",
-      "감정적 표현이 어려움",
-      "변화를 받아들이기 어려움",
-      "타인의 감정을 간과할 수 있음"
+      "May lack flexibility",
+      "May be overly authoritative",
+      "Difficulty with emotional expression",
+      "Difficulty accepting change",
+      "May overlook others' feelings"
     ],
-    careers: ["경영자", "군장교", "판사", "은행장", "회계사", "프로젝트 매니저", "경찰관", "학교 행정가", "보험 중개인", "정치인"],
-    careerDescription: "ESTJ는 조직과 관리가 필요한 직업에서 번성합니다. 경영, 법률, 군사, 행정, 금융 분야에서 뛰어난 성과를 보이며, 명확한 규칙과 절차가 있는 환경을 선호합니다. 리더십 역할과 책임이 있는 위치에서 높은 만족도를 느끼며, 조직의 효율성을 향상시키는 데 탁월합니다.",
-    relationshipStyle: "ESTJ는 관계에서 충성스럽고 헌신적인 파트너입니다. 가족과 전통을 중요시하며, 안정적이고 예측 가능한 관계를 추구합니다. 실질적인 방식으로 사랑을 표현하고, 파트너와 가족을 위해 열심히 일합니다. 그러나 감정 표현이 서툴고 지나치게 통제적으로 보일 수 있습니다.",
-    communicationStyle: "직접적이고 명확한 의사소통 스타일을 가지고 있습니다. 사실에 기반하여 논리적으로 말하며, 우회적인 표현을 싫어합니다. 자신의 의견을 확신 있게 표현하고, 기대와 지시를 명확하게 전달합니다. 때로는 너무 직접적이어서 무례하게 느껴질 수 있습니다.",
+    careers: ["Executive", "Military Officer", "Judge", "Bank President", "Accountant", "Project Manager", "Police Officer", "School Administrator", "Insurance Broker", "Politician"],
+    careerDescription: "ESTJs thrive in jobs requiring organization and management. They excel in business, law, military, administration, and finance fields, preferring environments with clear rules and procedures. They feel high satisfaction in leadership roles with responsibility, excelling at improving organizational efficiency.",
+    relationshipStyle: "ESTJs are loyal and dedicated partners in relationships. They value family and tradition, seeking stable and predictable relationships. They express love in practical ways and work hard for their partner and family. However, they may struggle with emotional expression and appear overly controlling.",
+    communicationStyle: "They have a direct and clear communication style. They speak logically based on facts, disliking roundabout expressions. They express their opinions with confidence and clearly convey expectations and instructions. Sometimes they may come across as rude due to being too direct.",
     growthStrategies: [
-      "타인의 감정과 관점에 더 주의를 기울여보세요",
-      "때로는 새로운 방법도 효과적일 수 있음을 인식하세요",
-      "유연성을 기르고 변화에 적응하는 연습을 해보세요",
-      "감정을 표현하고 공유하는 연습을 해보세요",
-      "통제보다 협력의 가치를 인식해보세요"
+      "Pay more attention to others' emotions and perspectives",
+      "Recognize that sometimes new methods can also be effective",
+      "Practice developing flexibility and adapting to change",
+      "Practice expressing and sharing emotions",
+      "Recognize the value of cooperation over control"
     ],
-    stressResponse: "ESTJ는 스트레스를 받으면 더욱 통제적이거나 비판적이 될 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 감정(Fi)이 부정적으로 발현되어, 감정 폭발이나 자기 의심, 또는 인정받지 못한다는 느낌에 과민 반응을 보일 수 있습니다. 체계적인 활동과 신뢰할 수 있는 사람들과의 시간이 회복에 도움이 됩니다.",
-    famousPeople: ["힐러리 클린턴", "헨리 포드", "미셸 오바마", "조지 W. 부시"],
+    stressResponse: "When stressed, ESTJs may become more controlling or critical. In extreme stress, their inferior function Introverted Feeling (Fi) may manifest negatively, showing emotional outbursts, self-doubt, or hypersensitivity to feeling unappreciated. Systematic activities and time with trusted people help recovery.",
+    famousPeople: ["Hillary Clinton", "Henry Ford", "Michelle Obama", "George W. Bush"],
     compatibleTypes: ["ISTP", "ISFP", "ESTJ", "ISTJ"],
     challengingTypes: ["INFP", "ENFP", "INFJ", "INTP"],
   },
   ESFJ: {
     type: "ESFJ",
-    name: "사교적인 외교관",
-    nickname: "친선도모형",
+    name: "The Consul",
+    nickname: "The Provider",
     emoji: "",
-    description: "따뜻하고 사교적인 돌봄의 유형입니다. 조화로운 관계를 중시하며, 타인을 돕고 지지하는 것에서 기쁨을 찾습니다.",
-    detailedDescription: "ESFJ는 전체 인구의 약 9-13%를 차지하는 가장 흔한 유형 중 하나입니다. '영사' 또는 '제공자'로 불리는 이들은 타인을 돌보고 조화로운 관계를 유지하는 데 탁월합니다. ESFJ는 사회적 조화를 중요시하며, 모임의 분위기를 밝게 만드는 능력을 가지고 있습니다. 타인의 필요에 민감하게 반응하고, 실질적인 도움을 제공하는 것에서 깊은 만족을 느낍니다. 전통과 사회적 기대를 존중하며, 공동체에 기여하고자 합니다. Carl Jung의 심리 유형론에 따르면, ESFJ는 외향적 감정(Fe)을 주 기능으로 사용하여 타인의 감정에 공감하고 조화로운 환경을 조성합니다.",
-    scientificBackground: "ESFJ는 MBTI 연구에서 가장 사교적이고 돌봄 지향적인 유형으로 분류됩니다. 심리학 연구에 따르면, ESFJ는 높은 수준의 공감 능력과 친사회적 행동을 보이며, 이는 거울 뉴런 시스템과 변연계의 활발한 활동과 관련이 있습니다. 연구에 의하면 ESFJ는 서비스, 교육, 의료, 사회 복지 분야에서 높은 직업 만족도를 보이며, 타인과 직접 상호작용하고 도움을 제공할 때 최고의 성과를 발휘합니다. 이들의 사회적 조화 능력은 팀워크와 조직 문화 향상에 크게 기여합니다.",
+    description: "A warm and sociable caregiver type. They value harmonious relationships and find joy in helping and supporting others.",
+    detailedDescription: "ESFJ is one of the most common types, comprising about 9-13% of the general population. Called 'Consul' or 'Provider,' they excel at caring for others and maintaining harmonious relationships. ESFJs value social harmony and have the ability to brighten any gathering's atmosphere. They respond sensitively to others' needs and find deep satisfaction in providing practical help. They respect tradition and social expectations, wanting to contribute to the community. According to Carl Jung's psychological types, ESFJs use Extraverted Feeling (Fe) as their dominant function to empathize with others' emotions and create harmonious environments.",
+    scientificBackground: "ESFJ is classified as the most sociable and caregiving-oriented type in MBTI research. According to psychological studies, ESFJs show high levels of empathy and prosocial behavior, related to active mirror neuron system and limbic system activity. Research shows ESFJs have high job satisfaction in service, education, healthcare, and social welfare fields, performing best when directly interacting with and helping others. Their social harmony ability greatly contributes to teamwork and organizational culture improvement.",
     cognitiveFunctions: {
-      dominant: "외향적 감정 (Fe)",
-      auxiliary: "내향적 감각 (Si)",
-      tertiary: "외향적 직관 (Ne)",
-      inferior: "내향적 사고 (Ti)",
-      description: "ESFJ는 외향적 감정(Fe)을 통해 타인의 감정에 공감하고 사회적 조화를 추구합니다. 보조 기능인 내향적 감각(Si)으로 과거 경험과 전통을 중시하고 세부 사항을 기억합니다. 3차 기능인 외향적 직관(Ne)은 새로운 가능성 탐색을 돕지만 제한적이며, 열등 기능인 내향적 사고(Ti)는 논리적 분석과 객관적 평가에 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Feeling (Fe)",
+      auxiliary: "Introverted Sensing (Si)",
+      tertiary: "Extraverted Intuition (Ne)",
+      inferior: "Introverted Thinking (Ti)",
+      description: "ESFJs use Extraverted Feeling (Fe) to empathize with others' emotions and pursue social harmony. Their auxiliary function, Introverted Sensing (Si), helps them value past experiences and traditions and remember details. Their tertiary function, Extraverted Intuition (Ne), helps explore new possibilities but is limited, while their inferior function, Introverted Thinking (Ti), may cause difficulty with logical analysis and objective evaluation."
     },
     characteristics: [
-      "따뜻하고 친절함",
-      "사교적이고 협조적",
-      "책임감이 강함",
-      "타인의 필요에 민감함",
-      "전통과 조화를 중시",
-      "공동체 지향적",
-      "충성스럽고 헌신적"
+      "Warm and kind",
+      "Sociable and cooperative",
+      "Highly responsible",
+      "Sensitive to others' needs",
+      "Values tradition and harmony",
+      "Community-oriented",
+      "Loyal and dedicated"
     ],
     strengths: [
-      "뛰어난 대인 관계 능력",
-      "조직력과 책임감",
-      "타인을 돌보는 능력",
-      "긍정적인 분위기 조성",
-      "실용적인 도움 제공",
-      "강한 사회적 유대 형성"
+      "Outstanding interpersonal relationship abilities",
+      "Organizational skills and responsibility",
+      "Ability to care for others",
+      "Creating positive atmospheres",
+      "Providing practical help",
+      "Forming strong social bonds"
     ],
     weaknesses: [
-      "비판에 민감함",
-      "타인의 인정에 의존적",
-      "변화를 받아들이기 어려움",
-      "자신의 필요를 간과함",
-      "갈등 상황에서 스트레스를 받음"
+      "Sensitive to criticism",
+      "Dependent on others' approval",
+      "Difficulty accepting change",
+      "Neglects own needs",
+      "Stressed in conflict situations"
     ],
-    careers: ["교사", "간호사", "인사담당자", "이벤트 플래너", "사회복지사", "판매직", "호텔 매니저", "행정 보조", "상담사", "의료 관리자"],
-    careerDescription: "ESFJ는 타인을 직접 돕고 돌볼 수 있는 직업에서 번성합니다. 교육, 의료, 서비스, 인사 분야에서 뛰어난 성과를 보이며, 사람들과 상호작용하고 조화로운 환경을 만드는 역할에서 높은 만족도를 느낍니다. 팀워크가 중요하고 명확한 기대가 있는 환경을 선호합니다.",
-    relationshipStyle: "ESFJ는 관계에서 따뜻하고 헌신적인 파트너입니다. 파트너의 필요를 세심하게 살피고 실질적인 지원을 제공합니다. 전통적인 관계 형태와 가족 가치를 중요시하며, 기념일과 특별한 순간을 소중히 여깁니다. 그러나 파트너의 인정이 부족하면 상처받기 쉽고, 자신의 필요보다 타인의 필요를 우선시할 수 있습니다.",
-    communicationStyle: "따뜻하고 배려심 있는 의사소통 스타일을 가지고 있습니다. 상대방의 감정을 고려하여 부드럽게 말하며, 긍정적이고 격려하는 피드백을 제공합니다. 사회적 예절과 적절한 행동을 중시하며, 모두가 편안하게 느끼도록 노력합니다.",
+    careers: ["Teacher", "Nurse", "HR Professional", "Event Planner", "Social Worker", "Sales Professional", "Hotel Manager", "Administrative Assistant", "Counselor", "Healthcare Administrator"],
+    careerDescription: "ESFJs thrive in jobs where they can directly help and care for others. They excel in education, healthcare, service, and HR fields, feeling high satisfaction in roles creating harmonious environments through people interaction. They prefer environments where teamwork is important and expectations are clear.",
+    relationshipStyle: "ESFJs are warm and dedicated partners in relationships. They carefully attend to their partner's needs and provide practical support. They value traditional relationship forms and family values, cherishing anniversaries and special moments. However, they may be easily hurt when their partner's appreciation is lacking and may prioritize others' needs over their own.",
+    communicationStyle: "They have a warm and considerate communication style. They speak gently considering others' feelings and provide positive, encouraging feedback. They value social etiquette and appropriate behavior, striving to make everyone feel comfortable.",
     growthStrategies: [
-      "자신의 필요와 감정을 인식하고 표현하는 연습을 해보세요",
-      "때로는 비판이 성장의 기회임을 인식하세요",
-      "타인의 인정 없이도 자신의 가치를 알아가세요",
-      "변화를 위협이 아닌 기회로 바라보세요",
-      "논리적 분석 능력을 개발해보세요"
+      "Practice recognizing and expressing your own needs and feelings",
+      "Recognize that sometimes criticism is an opportunity for growth",
+      "Know your own worth without others' approval",
+      "View change as opportunity rather than threat",
+      "Develop logical analysis abilities"
     ],
-    stressResponse: "ESFJ는 스트레스를 받으면 더욱 타인을 돌보려 하거나, 과도하게 걱정할 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 사고(Ti)가 부정적으로 발현되어, 지나치게 비판적이거나 냉소적이 되고, 논리적 결함을 찾으려 할 수 있습니다. 사랑하는 사람들과의 시간과 일상적인 활동이 회복에 도움이 됩니다.",
-    famousPeople: ["테일러 스위프트", "제니퍼 가너", "휴 잭맨", "제니퍼 로페즈"],
+    stressResponse: "When stressed, ESFJs may try to care for others excessively or worry too much. In extreme stress, their inferior function Introverted Thinking (Ti) may manifest negatively, becoming overly critical or cynical and trying to find logical flaws. Time with loved ones and routine activities help recovery.",
+    famousPeople: ["Taylor Swift", "Jennifer Garner", "Hugh Jackman", "Jennifer Lopez"],
     compatibleTypes: ["ISTP", "ISFP", "ESFJ", "ISFJ"],
     challengingTypes: ["INTP", "INTJ", "ENTP", "INFP"],
   },
   ENFJ: {
     type: "ENFJ",
-    name: "정의로운 사회운동가",
-    nickname: "언변능숙형",
+    name: "The Protagonist",
+    nickname: "The Teacher",
     emoji: "",
-    description: "카리스마 있고 영감을 주는 지도자 유형입니다. 타인의 성장과 발전에 관심이 많으며, 이상적인 세상을 위해 노력합니다.",
-    detailedDescription: "ENFJ는 전체 인구의 약 2-5%를 차지하는 유형입니다. '주인공' 또는 '교사'로 불리는 이들은 타인의 성장과 발전을 돕는 데 깊은 열정을 가지고 있습니다. ENFJ는 카리스마 있는 리더로, 사람들을 비전에 동참시키고 그들의 최고의 잠재력을 끌어내는 능력이 탁월합니다. 강한 공감 능력으로 타인의 감정과 필요를 직관적으로 이해하며, 이상적인 사회를 위해 적극적으로 행동합니다. 조화와 협력을 중시하며, 모든 사람이 가치 있다고 느끼게 만드는 능력을 가지고 있습니다. Carl Jung의 심리 유형론에 따르면, ENFJ는 외향적 감정(Fe)을 주 기능으로 사용하여 타인과 깊이 연결하고 집단의 조화를 추구합니다.",
-    scientificBackground: "ENFJ는 MBTI 연구에서 가장 카리스마 있고 영향력 있는 유형으로 분류됩니다. 심리학 연구에 따르면, ENFJ는 높은 수준의 공감 능력과 사회적 지능을 보이며, 이는 전전두엽 피질과 변연계의 효율적인 연결과 관련이 있습니다. 연구에 의하면 ENFJ는 교육, 상담, 리더십 분야에서 높은 성취를 보이며, 타인의 성장을 돕고 비전을 공유할 때 최고의 성과를 발휘합니다. 이들의 리더십 스타일은 변혁적 리더십과 높은 상관관계를 보이며, 조직과 개인의 성장에 긍정적인 영향을 미칩니다.",
+    description: "A charismatic and inspiring leader type. They are deeply interested in others' growth and development, working toward an ideal world.",
+    detailedDescription: "ENFJ comprises about 2-5% of the general population. Called 'Protagonist' or 'Teacher,' they have deep passion for helping others grow and develop. ENFJs are charismatic leaders, excellent at getting people to join their vision and drawing out their highest potential. With strong empathy, they intuitively understand others' emotions and needs, actively working for an ideal society. They value harmony and cooperation, having the ability to make everyone feel valued. According to Carl Jung's psychological types, ENFJs use Extraverted Feeling (Fe) as their dominant function to deeply connect with others and pursue group harmony.",
+    scientificBackground: "ENFJ is classified as the most charismatic and influential type in MBTI research. According to psychological studies, ENFJs show high levels of empathy and social intelligence, related to efficient connections between the prefrontal cortex and limbic system. Research shows ENFJs achieve high success in education, counseling, and leadership fields, performing best when helping others grow and sharing vision. Their leadership style shows high correlation with transformational leadership, positively impacting organizational and individual growth.",
     cognitiveFunctions: {
-      dominant: "외향적 감정 (Fe)",
-      auxiliary: "내향적 직관 (Ni)",
-      tertiary: "외향적 감각 (Se)",
-      inferior: "내향적 사고 (Ti)",
-      description: "ENFJ는 외향적 감정(Fe)을 통해 타인의 감정에 공감하고 조화로운 관계를 형성합니다. 보조 기능인 내향적 직관(Ni)으로 미래의 가능성과 패턴을 인식하고 비전을 구축합니다. 3차 기능인 외향적 감각(Se)은 현재 상황에 대한 인식을 돕지만 제한적이며, 열등 기능인 내향적 사고(Ti)는 객관적 분석과 논리적 비판에 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Feeling (Fe)",
+      auxiliary: "Introverted Intuition (Ni)",
+      tertiary: "Extraverted Sensing (Se)",
+      inferior: "Introverted Thinking (Ti)",
+      description: "ENFJs use Extraverted Feeling (Fe) to empathize with others' emotions and form harmonious relationships. Their auxiliary function, Introverted Intuition (Ni), helps them recognize future possibilities and patterns and build vision. Their tertiary function, Extraverted Sensing (Se), helps with awareness of current situations but is limited, while their inferior function, Introverted Thinking (Ti), may cause difficulty with objective analysis and logical criticism."
     },
     characteristics: [
-      "카리스마 있고 영향력 있음",
-      "타인의 성장에 관심",
-      "공감 능력이 뛰어남",
-      "이상주의적이고 열정적",
-      "뛰어난 의사소통 능력",
-      "비전 지향적",
-      "사람들을 동기부여하는 능력"
+      "Charismatic and influential",
+      "Interest in others' growth",
+      "Outstanding empathy ability",
+      "Idealistic and passionate",
+      "Excellent communication skills",
+      "Vision-oriented",
+      "Ability to motivate people"
     ],
     strengths: [
-      "뛰어난 리더십",
-      "깊은 공감 능력",
-      "영감을 주는 소통 능력",
-      "타인을 동기부여하는 능력",
-      "비전 제시와 실현 능력",
-      "갈등 해결과 중재 능력"
+      "Outstanding leadership",
+      "Deep empathy ability",
+      "Inspiring communication ability",
+      "Ability to motivate others",
+      "Ability to present and realize vision",
+      "Conflict resolution and mediation ability"
     ],
     weaknesses: [
-      "타인의 문제를 너무 떠안음",
-      "비판에 민감함",
-      "자신의 필요를 간과함",
-      "지나치게 이상주의적",
-      "조작적으로 보일 수 있음"
+      "Takes on others' problems too much",
+      "Sensitive to criticism",
+      "Neglects own needs",
+      "Overly idealistic",
+      "May appear manipulative"
     ],
-    careers: ["교사", "상담사", "정치인", "마케팅 매니저", "HR 전문가", "작가", "비영리단체 대표", "기업 코치", "목사/종교 지도자", "사회사업가"],
-    careerDescription: "ENFJ는 타인의 성장과 발전을 돕는 직업에서 번성합니다. 교육, 상담, 리더십, 사회 변화 분야에서 뛰어난 성과를 보이며, 비전을 공유하고 사람들을 영감시킬 수 있는 역할에서 높은 만족도를 느낍니다. 협력적인 환경과 의미 있는 목표가 있는 조직에서 최고의 성과를 발휘합니다.",
-    relationshipStyle: "ENFJ는 관계에서 헌신적이고 지지적인 파트너입니다. 파트너의 성장과 행복에 깊이 투자하며, 관계를 더 좋게 만들기 위해 적극적으로 노력합니다. 깊은 감정적 연결을 추구하고, 파트너의 잠재력을 최대한 발휘하도록 격려합니다. 그러나 자신의 필요를 간과하거나 파트너를 변화시키려 할 수 있습니다.",
-    communicationStyle: "따뜻하고 영감을 주는 의사소통 스타일을 가지고 있습니다. 사람들을 격려하고 동기부여하는 말을 잘 하며, 복잡한 아이디어를 이해하기 쉽게 전달합니다. 비전과 가능성에 대해 열정적으로 이야기하며, 모든 사람이 들리고 가치 있다고 느끼게 만듭니다.",
+    careers: ["Teacher", "Counselor", "Politician", "Marketing Manager", "HR Professional", "Writer", "Non-profit Director", "Executive Coach", "Religious Leader", "Social Worker"],
+    careerDescription: "ENFJs thrive in jobs helping others grow and develop. They excel in education, counseling, leadership, and social change fields, feeling high satisfaction in roles where they can share vision and inspire people. They perform best in cooperative environments with meaningful goals.",
+    relationshipStyle: "ENFJs are dedicated and supportive partners in relationships. They deeply invest in their partner's growth and happiness, actively working to make the relationship better. They seek deep emotional connection and encourage their partner to reach their full potential. However, they may neglect their own needs or try to change their partner.",
+    communicationStyle: "They have a warm and inspiring communication style. They are good at encouraging and motivating people, delivering complex ideas in understandable ways. They speak passionately about vision and possibilities, making everyone feel heard and valued.",
     growthStrategies: [
-      "자신의 필요와 한계를 인식하고 존중하세요",
-      "때로는 타인의 문제가 그들 자신의 것임을 인정하세요",
-      "비판을 개인적 공격이 아닌 피드백으로 받아들이세요",
-      "논리적 분석과 객관적 평가 능력을 개발해보세요",
-      "모든 사람을 기쁘게 할 수 없다는 것을 받아들이세요"
+      "Recognize and respect your own needs and limits",
+      "Sometimes accept that others' problems are their own",
+      "Accept criticism as feedback rather than personal attack",
+      "Develop logical analysis and objective evaluation abilities",
+      "Accept that you cannot please everyone"
     ],
-    stressResponse: "ENFJ는 스트레스를 받으면 더욱 타인을 돌보려 하거나, 모든 사람을 만족시키려 할 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 사고(Ti)가 부정적으로 발현되어, 지나치게 비판적이거나 냉소적이 되고, 세부 사항에 대한 강박적 분석을 보일 수 있습니다. 의미 있는 활동과 신뢰하는 사람들과의 시간이 회복에 도움이 됩니다.",
-    famousPeople: ["버락 오바마", "오프라 윈프리", "마틴 루터 킹 주니어", "벤 애플렉"],
+    stressResponse: "When stressed, ENFJs may try to care for others more or try to satisfy everyone. In extreme stress, their inferior function Introverted Thinking (Ti) may manifest negatively, becoming overly critical or cynical and showing compulsive analysis of details. Meaningful activities and time with trusted people help recovery.",
+    famousPeople: ["Barack Obama", "Oprah Winfrey", "Martin Luther King Jr.", "Ben Affleck"],
     compatibleTypes: ["INFP", "ISFP", "ENFJ", "INFJ"],
     challengingTypes: ["ISTP", "INTP", "ESTP", "ISTJ"],
   },
   ENTJ: {
     type: "ENTJ",
-    name: "대담한 통솔자",
-    nickname: "지도자형",
+    name: "The Commander",
+    nickname: "The Field Marshal",
     emoji: "",
-    description: "자신감 있고 전략적인 리더 유형입니다. 높은 목표를 세우고 이를 달성하기 위해 사람들을 이끄는 능력이 탁월합니다.",
-    detailedDescription: "ENTJ는 전체 인구의 약 2-5%를 차지하는 유형입니다. '지휘관' 또는 '통솔자'로 불리는 이들은 타고난 리더로, 비전을 세우고 이를 실현하기 위해 사람들을 조직하고 이끄는 데 탁월합니다. ENTJ는 높은 목표와 야망을 가지고 있으며, 효율성과 성과를 추구합니다. 도전을 두려워하지 않고, 어려운 결정을 내리는 것을 주저하지 않습니다. 논리적이고 전략적인 사고로 복잡한 문제를 해결하며, 자신감 있게 자신의 비전을 추진합니다. Carl Jung의 심리 유형론에 따르면, ENTJ는 외향적 사고(Te)를 주 기능으로 사용하여 효율적인 시스템을 구축하고 목표를 달성합니다.",
-    scientificBackground: "ENTJ는 MBTI 연구에서 가장 전략적이고 리더십 지향적인 유형으로 분류됩니다. 심리학 연구에 따르면, ENTJ는 높은 수준의 성취 동기와 전략적 사고를 보이며, 이는 전전두엽 피질의 실행 기능 영역 활성화와 관련이 있습니다. 연구에 의하면 ENTJ는 경영, 법률, 정치, 기업가 분야에서 높은 성취를 보이며, 리더십 역할과 높은 책임이 있는 환경에서 최고의 성과를 발휘합니다. 이들의 리더십 스타일은 변혁적 리더십의 특성을 보이며, 조직의 성장과 혁신에 크게 기여합니다.",
+    description: "A confident and strategic leader type. They set high goals and excel at leading people to achieve them.",
+    detailedDescription: "ENTJ comprises about 2-5% of the general population. Called 'Commander' or 'Field Marshal,' they are natural leaders, excellent at setting vision and organizing and leading people to realize it. ENTJs have high goals and ambition, pursuing efficiency and results. They are not afraid of challenges and do not hesitate to make difficult decisions. They solve complex problems with logical and strategic thinking, confidently pursuing their vision. According to Carl Jung's psychological types, ENTJs use Extraverted Thinking (Te) as their dominant function to build efficient systems and achieve goals.",
+    scientificBackground: "ENTJ is classified as the most strategic and leadership-oriented type in MBTI research. According to psychological studies, ENTJs show high levels of achievement motivation and strategic thinking, related to executive function area activation in the prefrontal cortex. Research shows ENTJs achieve high success in business, law, politics, and entrepreneurship fields, performing best in leadership roles with high responsibility. Their leadership style shows characteristics of transformational leadership, greatly contributing to organizational growth and innovation.",
     cognitiveFunctions: {
-      dominant: "외향적 사고 (Te)",
-      auxiliary: "내향적 직관 (Ni)",
-      tertiary: "외향적 감각 (Se)",
-      inferior: "내향적 감정 (Fi)",
-      description: "ENTJ는 외향적 사고(Te)를 통해 효율적인 시스템을 구축하고 목표를 달성합니다. 보조 기능인 내향적 직관(Ni)으로 미래의 가능성과 패턴을 인식하고 장기적 비전을 구축합니다. 3차 기능인 외향적 감각(Se)은 현재 상황에 대한 인식을 돕지만 제한적이며, 열등 기능인 내향적 감정(Fi)은 자신과 타인의 깊은 감정을 이해하는 데 어려움을 줄 수 있습니다."
+      dominant: "Extraverted Thinking (Te)",
+      auxiliary: "Introverted Intuition (Ni)",
+      tertiary: "Extraverted Sensing (Se)",
+      inferior: "Introverted Feeling (Fi)",
+      description: "ENTJs use Extraverted Thinking (Te) to build efficient systems and achieve goals. Their auxiliary function, Introverted Intuition (Ni), helps them recognize future possibilities and patterns and build long-term vision. Their tertiary function, Extraverted Sensing (Se), helps with awareness of current situations but is limited, while their inferior function, Introverted Feeling (Fi), may cause difficulty understanding deep emotions in themselves and others."
     },
     characteristics: [
-      "자신감 있고 결단력 있음",
-      "전략적이고 비전 지향적",
-      "효율성과 성과를 중시",
-      "직접적이고 솔직함",
-      "리더십이 뛰어남",
-      "도전을 두려워하지 않음",
-      "목표 지향적이고 야망이 있음"
+      "Confident and decisive",
+      "Strategic and vision-oriented",
+      "Values efficiency and results",
+      "Direct and straightforward",
+      "Outstanding leadership",
+      "Not afraid of challenges",
+      "Goal-oriented with ambition"
     ],
     strengths: [
-      "뛰어난 전략적 사고",
-      "강력한 리더십",
-      "결단력 있는 의사결정",
-      "목표 달성에 대한 집중력",
-      "효율적인 조직 관리",
-      "자신감 있는 의사소통"
+      "Outstanding strategic thinking",
+      "Strong leadership",
+      "Decisive decision-making",
+      "Focus on goal achievement",
+      "Efficient organizational management",
+      "Confident communication"
     ],
     weaknesses: [
-      "지나치게 비판적일 수 있음",
-      "감정을 무시하는 경향",
-      "인내심이 부족할 수 있음",
-      "권위적으로 보일 수 있음",
-      "일-삶 균형에 어려움"
+      "Can be overly critical",
+      "Tendency to ignore emotions",
+      "May lack patience",
+      "May appear authoritative",
+      "Difficulty with work-life balance"
     ],
-    careers: ["CEO", "변호사", "경영 컨설턴트", "투자은행가", "정치인", "사업가", "대학 총장", "법관", "군 장성", "창업가"],
-    careerDescription: "ENTJ는 리더십과 전략적 사고가 요구되는 직업에서 번성합니다. 경영, 법률, 정치, 금융, 기업가 분야에서 뛰어난 성과를 보이며, 높은 책임과 권한이 있는 위치에서 최고의 만족도를 느낍니다. 도전적인 환경과 성장 기회가 있는 조직을 선호하며, 궁극적으로 최고 리더 위치를 추구합니다.",
-    relationshipStyle: "ENTJ는 관계에서 충성스럽고 헌신적인 파트너입니다. 관계도 목표처럼 접근하여 더 좋게 만들기 위해 노력합니다. 파트너의 성장을 지지하고 함께 성취를 추구합니다. 그러나 감정 표현이 서툴고 지나치게 논리적으로 접근하여 냉정하게 보일 수 있으며, 관계보다 일을 우선시할 수 있습니다.",
-    communicationStyle: "직접적이고 자신감 있는 의사소통 스타일을 가지고 있습니다. 자신의 아이디어와 의견을 명확하게 표현하며, 설득력 있게 비전을 전달합니다. 효율성을 중시하여 핵심을 빠르게 전달하고, 우회적인 표현을 싫어합니다. 때로는 너무 직접적이어서 상대방에게 위압감을 줄 수 있습니다.",
+    careers: ["CEO", "Lawyer", "Management Consultant", "Investment Banker", "Politician", "Business Owner", "University President", "Judge", "Military General", "Startup Founder"],
+    careerDescription: "ENTJs thrive in jobs requiring leadership and strategic thinking. They excel in business, law, politics, finance, and entrepreneurship fields, feeling highest satisfaction in positions with high responsibility and authority. They prefer organizations with challenging environments and growth opportunities, ultimately pursuing top leadership positions.",
+    relationshipStyle: "ENTJs are loyal and dedicated partners in relationships. They approach relationships like goals, working to make them better. They support their partner's growth and pursue achievement together. However, they may struggle with emotional expression and appear cold due to overly logical approaches, sometimes prioritizing work over relationships.",
+    communicationStyle: "They have a direct and confident communication style. They clearly express their ideas and opinions, persuasively conveying their vision. They value efficiency, quickly delivering the core message and disliking roundabout expressions. Sometimes they may intimidate others by being too direct.",
     growthStrategies: [
-      "타인의 감정과 관점에 더 주의를 기울여보세요",
-      "때로는 천천히 가는 것이 빠른 것임을 인식하세요",
-      "일-삶 균형의 중요성을 인식하세요",
-      "모든 것을 통제할 수 없다는 것을 받아들이세요",
-      "취약성을 보여주는 것도 강점일 수 있음을 인식하세요"
+      "Pay more attention to others' emotions and perspectives",
+      "Recognize that sometimes going slowly is faster",
+      "Recognize the importance of work-life balance",
+      "Accept that you cannot control everything",
+      "Recognize that showing vulnerability can also be a strength"
     ],
-    stressResponse: "ENTJ는 스트레스를 받으면 더욱 통제적이거나 일에 몰두할 수 있습니다. 극심한 스트레스에서는 열등 기능인 내향적 감정(Fi)이 부정적으로 발현되어, 감정 폭발이나 자기 의심, 또는 인정받지 못한다는 느낌에 과민 반응을 보일 수 있습니다. 운동과 같은 신체 활동과 성취감을 주는 활동이 회복에 도움이 됩니다.",
-    famousPeople: ["스티브 잡스", "마거릿 대처", "프랭클린 D. 루즈벨트", "고든 램지"],
+    stressResponse: "When stressed, ENTJs may become more controlling or absorbed in work. In extreme stress, their inferior function Introverted Feeling (Fi) may manifest negatively, showing emotional outbursts, self-doubt, or hypersensitivity to feeling unappreciated. Physical activities like exercise and achievement-oriented activities help recovery.",
+    famousPeople: ["Steve Jobs", "Margaret Thatcher", "Franklin D. Roosevelt", "Gordon Ramsay"],
     compatibleTypes: ["INTP", "ISTP", "ENTJ", "INTJ"],
     challengingTypes: ["ISFP", "INFP", "ISFJ", "ESFP"],
   },
 };
 
-// 차원 정보
+// Dimension Information
 export interface DimensionInfo {
   code: Dimension;
   name: string;
@@ -1439,67 +1439,67 @@ export interface DimensionInfo {
 export const dimensionInfo: Record<Dimension, DimensionInfo> = {
   EI: {
     code: "EI",
-    name: "에너지 방향",
+    name: "Energy Direction",
     poleA: {
       code: "E",
-      name: "외향성 (Extraversion)",
-      description: "외부 세계로부터 에너지를 얻으며, 사람들과 교류하는 것을 즐깁니다.",
+      name: "Extraversion (E)",
+      description: "Gains energy from the external world, enjoys interacting with people.",
     },
     poleB: {
       code: "I",
-      name: "내향성 (Introversion)",
-      description: "내면 세계에서 에너지를 얻으며, 혼자만의 시간과 깊은 사고를 즐깁니다.",
+      name: "Introversion (I)",
+      description: "Gains energy from the inner world, enjoys alone time and deep thinking.",
     },
   },
   SN: {
     code: "SN",
-    name: "정보 수집",
+    name: "Information Gathering",
     poleA: {
       code: "S",
-      name: "감각형 (Sensing)",
-      description: "오감을 통해 현재의 구체적인 사실과 세부 사항에 집중합니다.",
+      name: "Sensing (S)",
+      description: "Focuses on present concrete facts and details through the five senses.",
     },
     poleB: {
       code: "N",
-      name: "직관형 (iNtuition)",
-      description: "육감과 직관을 통해 미래의 가능성과 패턴을 포착합니다.",
+      name: "Intuition (N)",
+      description: "Captures future possibilities and patterns through intuition and insight.",
     },
   },
   TF: {
     code: "TF",
-    name: "의사결정",
+    name: "Decision Making",
     poleA: {
       code: "T",
-      name: "사고형 (Thinking)",
-      description: "논리와 객관적 분석을 바탕으로 합리적인 결정을 내립니다.",
+      name: "Thinking (T)",
+      description: "Makes rational decisions based on logic and objective analysis.",
     },
     poleB: {
       code: "F",
-      name: "감정형 (Feeling)",
-      description: "가치와 감정, 타인에 대한 영향을 고려하여 결정을 내립니다.",
+      name: "Feeling (F)",
+      description: "Makes decisions considering values, emotions, and impact on others.",
     },
   },
   JP: {
     code: "JP",
-    name: "생활 양식",
+    name: "Lifestyle",
     poleA: {
       code: "J",
-      name: "판단형 (Judging)",
-      description: "계획적이고 체계적으로 생활하며, 결정을 빨리 내리는 것을 선호합니다.",
+      name: "Judging (J)",
+      description: "Lives in a planned and systematic way, prefers making decisions quickly.",
     },
     poleB: {
       code: "P",
-      name: "인식형 (Perceiving)",
-      description: "유연하고 개방적으로 생활하며, 가능성을 열어두는 것을 선호합니다.",
+      name: "Perceiving (P)",
+      description: "Lives flexibly and openly, prefers keeping options open.",
     },
   },
 };
 
-// 결과 계산을 위한 타입
+// Types for result calculation
 export interface DimensionScore {
   dimension: Dimension;
-  poleA: number; // E, S, T, J 점수
-  poleB: number; // I, N, F, P 점수
+  poleA: number; // E, S, T, J score
+  poleB: number; // I, N, F, P score
   percentageA: number;
   percentageB: number;
   dominant: "A" | "B";
@@ -1515,7 +1515,7 @@ export interface PersonalityResult {
   };
 }
 
-// 색상 정의
+// Color definitions
 export const typeColors: Record<string, string> = {
   // Analysts (NT)
   INTJ: "bg-purple-500",
@@ -1577,29 +1577,29 @@ export const typeBgColors: Record<string, string> = {
   ESFP: "from-amber-500/10 to-orange-500/10",
 };
 
-// 유형 그룹
+// Type Groups
 export const typeGroups = {
   analysts: {
-    name: "분석가형",
-    description: "직관적이고 사고 지향적",
+    name: "Analysts",
+    description: "Intuitive and thinking-oriented",
     types: ["INTJ", "INTP", "ENTJ", "ENTP"] as PersonalityType[],
     color: "purple",
   },
   diplomats: {
-    name: "외교관형",
-    description: "직관적이고 감정 지향적",
+    name: "Diplomats",
+    description: "Intuitive and feeling-oriented",
     types: ["INFJ", "INFP", "ENFJ", "ENFP"] as PersonalityType[],
     color: "green",
   },
   sentinels: {
-    name: "관리자형",
-    description: "감각적이고 판단 지향적",
+    name: "Sentinels",
+    description: "Sensing and judging-oriented",
     types: ["ISTJ", "ISFJ", "ESTJ", "ESFJ"] as PersonalityType[],
     color: "blue",
   },
   explorers: {
-    name: "탐험가형",
-    description: "감각적이고 인식 지향적",
+    name: "Explorers",
+    description: "Sensing and perceiving-oriented",
     types: ["ISTP", "ISFP", "ESTP", "ESFP"] as PersonalityType[],
     color: "amber",
   },

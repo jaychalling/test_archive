@@ -136,17 +136,17 @@ const IntrovertExtrovertTest = () => {
     const result = calculateResults(answers);
     const typeInfo = personalityTypeDescriptions[result.personalityType];
 
-    const shareText = `나의 내향/외향성 테스트 결과
+    const shareText = `My Introvert/Extrovert Test Results
 
-유형: ${typeInfo.name} (${typeInfo.nameEn})
-외향성 점수: ${result.extroversionScore}%
+Type: ${typeInfo.nameEn}
+Extroversion Score: ${result.extroversionScore}%
 
 ${typeInfo.description}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "내향/외향성 테스트 결과",
+          title: "Introvert/Extrovert Test Results",
           text: shareText,
           url: window.location.href,
         });
@@ -155,7 +155,7 @@ ${typeInfo.description}`;
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -163,7 +163,7 @@ ${typeInfo.description}`;
     const result = calculateResults(answers);
     const typeInfo = personalityTypeDescriptions[result.personalityType];
 
-    // 스펙트럼 위치 계산
+    // Spectrum position calculation
     const spectrumPosition = result.extroversionScore;
 
     // 모든 유형 순서대로
@@ -184,20 +184,20 @@ ${typeInfo.description}`;
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Users2 className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                당신의 성격 유형
+                Your Personality Type
               </h2>
             </div>
 
             {/* Primary Type */}
             <div className={cn("p-6 rounded-xl bg-gradient-to-br mb-6", typeBgColors[result.personalityType])}>
-              <div className="text-sm text-muted-foreground mb-1">당신의 유형</div>
+              <div className="text-sm text-muted-foreground mb-1">Your Type</div>
               <div className={cn("text-3xl font-display font-bold mb-2", typeTextColors[result.personalityType])}>
                 {typeInfo.name}
               </div>
@@ -211,18 +211,18 @@ ${typeInfo.description}`;
 
             {/* Extroversion Score */}
             <div className="p-4 rounded-lg bg-muted/30 mb-6">
-              <div className="text-sm text-muted-foreground mb-2">외향성 점수</div>
+              <div className="text-sm text-muted-foreground mb-2">Extroversion Score</div>
               <div className={cn("text-4xl font-bold mb-2", typeTextColors[result.personalityType])}>
                 {result.extroversionScore}%
               </div>
               <div className="text-xs text-muted-foreground">
-                0% = 완전 내향 / 100% = 완전 외향
+                0% = Full Introvert / 100% = Full Extrovert
               </div>
             </div>
 
             {/* Spectrum Bar */}
             <div className="mb-8">
-              <h3 className="text-sm font-medium text-foreground mb-4">내향-외향 스펙트럼</h3>
+              <h3 className="text-sm font-medium text-foreground mb-4">Introvert-Extrovert Spectrum</h3>
               <div className="relative">
                 {/* Spectrum background */}
                 <div className="h-8 rounded-full overflow-hidden bg-gradient-to-r from-indigo-500 via-purple-500 to-orange-500">
@@ -244,9 +244,9 @@ ${typeInfo.description}`;
 
                 {/* Labels */}
                 <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-                  <span>내향형</span>
-                  <span>양향형</span>
-                  <span>외향형</span>
+                  <span>Introvert</span>
+                  <span>Ambivert</span>
+                  <span>Extrovert</span>
                 </div>
               </div>
             </div>
@@ -254,7 +254,7 @@ ${typeInfo.description}`;
             {/* Dimension Scores */}
             <div className="space-y-3 mb-8">
               <h3 className="text-sm font-medium text-foreground text-left mb-3">
-                차원별 점수
+                Dimension Scores
               </h3>
               {dimensionOrder.map((dimension) => {
                 const score = result.dimensionScores[dimension];
@@ -287,7 +287,7 @@ ${typeInfo.description}`;
             {/* Characteristics */}
             <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
               <h3 className="font-semibold text-foreground mb-3">
-                {typeInfo.name}의 특징
+                Characteristics of {typeInfo.name}
               </h3>
               <ul className="space-y-2">
                 {typeInfo.characteristics.map((char, idx) => (
@@ -303,7 +303,7 @@ ${typeInfo.description}`;
             <div className={cn("text-left p-4 rounded-lg mb-6", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
               <div className="flex items-center gap-2 mb-3">
                 <Zap className={cn("w-5 h-5", typeTextColors[result.personalityType])} />
-                <h3 className="font-semibold text-foreground">에너지 관리 팁</h3>
+                <h3 className="font-semibold text-foreground">Energy Management Tips</h3>
               </div>
               <ul className="space-y-2">
                 {typeInfo.energyTips.map((tip, idx) => (
@@ -318,7 +318,7 @@ ${typeInfo.description}`;
             {/* Strengths & Watch Points */}
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                <h3 className="font-semibold text-green-600 mb-3">강점</h3>
+                <h3 className="font-semibold text-green-600 mb-3">Strengths</h3>
                 <ul className="space-y-2">
                   {typeInfo.strengths.map((strength, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -329,7 +329,7 @@ ${typeInfo.description}`;
                 </ul>
               </div>
               <div className="p-4 rounded-lg bg-amber-500/10 text-left">
-                <h3 className="font-semibold text-amber-600 mb-3">주의할 점</h3>
+                <h3 className="font-semibold text-amber-600 mb-3">Watch Points</h3>
                 <ul className="space-y-2">
                   {typeInfo.watchPoints.map((point, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -344,7 +344,7 @@ ${typeInfo.description}`;
             {/* Detailed Description */}
             <div className={cn("text-left p-6 rounded-xl mb-6", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
               <h3 className={cn("font-semibold mb-4 text-lg", typeTextColors[result.personalityType])}>
-                {typeInfo.name} 상세 분석
+                {typeInfo.name} Detailed Analysis
               </h3>
               <p className="text-foreground leading-relaxed whitespace-pre-line">
                 {typeInfo.detailedDescription}
@@ -353,7 +353,7 @@ ${typeInfo.description}`;
 
             {/* Scientific Background */}
             <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg">과학적 배경</h3>
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg">Scientific Background</h3>
               <p className="text-foreground leading-relaxed whitespace-pre-line">
                 {typeInfo.scientificBackground}
               </p>
@@ -362,7 +362,7 @@ ${typeInfo.description}`;
             {/* Career Suggestions & Social Tips */}
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               <div className="p-5 rounded-xl bg-purple-500/10 text-left">
-                <h3 className="font-semibold text-purple-600 mb-4">추천 직업/분야</h3>
+                <h3 className="font-semibold text-purple-600 mb-4">Recommended Careers/Fields</h3>
                 <ul className="space-y-2">
                   {typeInfo.careerSuggestions.map((career, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -373,7 +373,7 @@ ${typeInfo.description}`;
                 </ul>
               </div>
               <div className="p-5 rounded-xl bg-cyan-500/10 text-left">
-                <h3 className="font-semibold text-cyan-600 mb-4">사회적 상호작용 팁</h3>
+                <h3 className="font-semibold text-cyan-600 mb-4">Social Interaction Tips</h3>
                 <ul className="space-y-2">
                   {typeInfo.socialTips.map((tip, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -387,7 +387,7 @@ ${typeInfo.description}`;
 
             {/* Type Overview */}
             <div className="text-left p-4 rounded-lg bg-muted/10 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">5가지 성격 유형</h3>
+              <h3 className="font-semibold text-foreground mb-3">5 Personality Types</h3>
               <div className="space-y-2">
                 {allTypes.map((type) => {
                   const info = personalityTypeDescriptions[type];
@@ -426,14 +426,14 @@ ${typeInfo.description}`;
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -444,7 +444,7 @@ ${typeInfo.description}`;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* 상단 바 */}
+      {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <Link
           to="/"
@@ -452,13 +452,13 @@ ${typeInfo.description}`;
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="font-semibold text-foreground">내향/외향성 테스트</h1>
+        <h1 className="font-semibold text-foreground">Introvert/Extrovert Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}
         </span>
       </div>
 
-      {/* 프로그레스 바 */}
+      {/* Progress Bar */}
       <div className="w-full h-1 bg-muted">
         <div
           className="h-full bg-primary transition-all duration-100"
@@ -466,7 +466,7 @@ ${typeInfo.description}`;
         />
       </div>
 
-      {/* 중앙 질문 영역 */}
+      {/* Center Question Area */}
       <main className="flex-1 flex flex-col justify-center px-6 py-8">
         <div
           className={cn(
@@ -474,22 +474,22 @@ ${typeInfo.description}`;
             isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
           )}
         >
-          {/* 질문 */}
+          {/* Question */}
           <div className="text-center mb-12">
             <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
               {currentQuestionData.text}
             </p>
           </div>
 
-          {/* 5점 척도 */}
+          {/* 5-Point Scale */}
           <div className="max-w-md mx-auto">
-            {/* 양끝 라벨 */}
+            {/* Scale Labels */}
             <div className="flex justify-between mb-3 px-2">
-              <span className="text-xs text-muted-foreground">전혀 아니다</span>
-              <span className="text-xs text-muted-foreground">매우 그렇다</span>
+              <span className="text-xs text-muted-foreground">Strongly Disagree</span>
+              <span className="text-xs text-muted-foreground">Strongly Agree</span>
             </div>
 
-            {/* 원형 버튼들 */}
+            {/* Scale Buttons */}
             <div className="flex gap-3 justify-center">
               {[1, 2, 3, 4, 5].map((value) => (
                 <button
@@ -511,7 +511,7 @@ ${typeInfo.description}`;
         </div>
       </main>
 
-      {/* 하단 고정 네비게이션 */}
+      {/* Bottom Fixed Navigation */}
       <div className="border-t bg-background/95 backdrop-blur-sm px-4 py-4">
         <div className="flex items-center gap-3 max-w-md mx-auto">
           <Button
@@ -521,7 +521,7 @@ ${typeInfo.description}`;
             className="flex-1 gap-2"
           >
             <ChevronLeft className="w-4 h-4" />
-            이전
+            Previous
           </Button>
 
           {isLastQuestion && allQuestionsAnswered ? (
@@ -530,7 +530,7 @@ ${typeInfo.description}`;
               className="flex-1 gap-2 gradient-primary border-0"
             >
               <CheckCircle2 className="w-4 h-4" />
-              결과 보기
+              View Results
             </Button>
           ) : (
             <Button
@@ -539,16 +539,16 @@ ${typeInfo.description}`;
               disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
               className="flex-1 gap-2"
             >
-              다음
+              Next
               <ChevronRight className="w-4 h-4" />
             </Button>
           )}
         </div>
 
-        {/* 미응답 안내 */}
+        {/* Unanswered Notice */}
         {isLastQuestion && !allQuestionsAnswered && (
           <p className="text-xs text-muted-foreground text-center mt-3">
-            {answeredCount}/{totalQuestions}개 응답 완료 - 모든 질문에 답변해주세요
+            {answeredCount}/{totalQuestions} answered - Please answer all questions
           </p>
         )}
       </div>

@@ -5,138 +5,138 @@ export interface BdsmQuestion {
 }
 
 export const bdsmQuestions: BdsmQuestion[] = [
-  // Dominant 성향 질문 (5개)
+  // Dominant trait questions (5)
   {
     id: 1,
-    text: "나는 관계에서 주도권을 가지는 것을 선호한다.",
+    text: "I prefer to take the lead in relationships.",
     category: "dominant",
   },
   {
     id: 2,
-    text: "상대방이 나의 결정을 따를 때 만족감을 느낀다.",
+    text: "I feel satisfied when my partner follows my decisions.",
     category: "dominant",
   },
   {
     id: 3,
-    text: "나는 계획을 세우고 상대방을 이끄는 역할이 편하다.",
+    text: "I feel comfortable making plans and guiding my partner.",
     category: "dominant",
   },
   {
     id: 4,
-    text: "상대방을 보호하고 돌보는 것에서 기쁨을 느낀다.",
+    text: "I find joy in protecting and caring for my partner.",
     category: "dominant",
   },
   {
     id: 5,
-    text: "나는 규칙을 정하고 그것이 지켜지길 원한다.",
+    text: "I like to set rules and want them to be followed.",
     category: "dominant",
   },
 
-  // Submissive 성향 질문 (5개)
+  // Submissive trait questions (5)
   {
     id: 6,
-    text: "신뢰하는 사람에게 결정을 맡기는 것이 편안하다.",
+    text: "I feel comfortable letting someone I trust make decisions.",
     category: "submissive",
   },
   {
     id: 7,
-    text: "상대방의 지시를 따르는 것에서 안정감을 느낀다.",
+    text: "I feel secure following my partner's directions.",
     category: "submissive",
   },
   {
     id: 8,
-    text: "나는 상대방을 기쁘게 하는 것에 큰 보람을 느낀다.",
+    text: "I find great fulfillment in pleasing my partner.",
     category: "submissive",
   },
   {
     id: 9,
-    text: "누군가에게 의지하고 보호받는 느낌이 좋다.",
+    text: "I like the feeling of depending on and being protected by someone.",
     category: "submissive",
   },
   {
     id: 10,
-    text: "상대방이 정한 규칙을 따르는 것이 자연스럽다.",
+    text: "Following rules set by my partner feels natural to me.",
     category: "submissive",
   },
 
-  // Sadism 성향 질문 (5개)
+  // Sadism trait questions (5)
   {
     id: 11,
-    text: "상대방의 반응을 이끌어내는 것을 즐긴다.",
+    text: "I enjoy eliciting reactions from my partner.",
     category: "sadism",
   },
   {
     id: 12,
-    text: "상대방을 적절히 긴장하게 만드는 것이 흥미롭다.",
+    text: "I find it interesting to appropriately create tension in my partner.",
     category: "sadism",
   },
   {
     id: 13,
-    text: "상대방의 한계를 탐색하는 것에 관심이 있다.",
+    text: "I'm interested in exploring my partner's limits.",
     category: "sadism",
   },
   {
     id: 14,
-    text: "상대방이 나로 인해 강한 감정을 느낄 때 만족스럽다.",
+    text: "I feel satisfied when my partner experiences strong emotions because of me.",
     category: "sadism",
   },
   {
     id: 15,
-    text: "상대방에게 약간의 자극을 주는 것을 즐긴다.",
+    text: "I enjoy giving my partner a bit of stimulation.",
     category: "sadism",
   },
 
-  // Masochism 성향 질문 (5개)
+  // Masochism trait questions (5)
   {
     id: 16,
-    text: "강렬한 감각 경험에 끌린다.",
+    text: "I'm drawn to intense sensory experiences.",
     category: "masochism",
   },
   {
     id: 17,
-    text: "적당한 긴장감이나 압박감에서 흥분을 느낀다.",
+    text: "I feel excitement from moderate tension or pressure.",
     category: "masochism",
   },
   {
     id: 18,
-    text: "극복해야 할 도전이 있을 때 더 몰입하게 된다.",
+    text: "I become more engaged when there's a challenge to overcome.",
     category: "masochism",
   },
   {
     id: 19,
-    text: "강한 자극 후에 오는 해방감을 좋아한다.",
+    text: "I like the sense of release that comes after intense stimulation.",
     category: "masochism",
   },
   {
     id: 20,
-    text: "자신의 한계를 시험하는 경험에 흥미가 있다.",
+    text: "I'm interested in experiences that test my limits.",
     category: "masochism",
   },
 
-  // Switch 성향 질문 (5개)
+  // Switch trait questions (5)
   {
     id: 21,
-    text: "상황에 따라 주도하거나 따르는 역할 모두 즐긴다.",
+    text: "I enjoy both leading and following roles depending on the situation.",
     category: "switch",
   },
   {
     id: 22,
-    text: "역할을 바꿔가며 다양한 경험을 하고 싶다.",
+    text: "I want to have diverse experiences by switching roles.",
     category: "switch",
   },
   {
     id: 23,
-    text: "상대방에 따라 나의 역할이 자연스럽게 바뀐다.",
+    text: "My role naturally changes depending on my partner.",
     category: "switch",
   },
   {
     id: 24,
-    text: "한 가지 역할에만 고정되는 것이 답답하게 느껴진다.",
+    text: "Being fixed in just one role feels constraining to me.",
     category: "switch",
   },
   {
     id: 25,
-    text: "주도권의 주고받음 자체가 흥미롭다.",
+    text: "The exchange of control itself is interesting to me.",
     category: "switch",
   },
 ];
@@ -144,11 +144,11 @@ export const bdsmQuestions: BdsmQuestion[] = [
 export type BdsmAnswerValue = 1 | 2 | 3 | 4 | 5;
 
 export const bdsmAnswerOptions: { value: BdsmAnswerValue; label: string }[] = [
-  { value: 1, label: "전혀 아니다" },
-  { value: 2, label: "아니다" },
-  { value: 3, label: "보통이다" },
-  { value: 4, label: "그렇다" },
-  { value: 5, label: "매우 그렇다" },
+  { value: 1, label: "Strongly Disagree" },
+  { value: 2, label: "Disagree" },
+  { value: 3, label: "Neutral" },
+  { value: 4, label: "Agree" },
+  { value: 5, label: "Strongly Agree" },
 ];
 
 export interface BdsmResult {
@@ -173,165 +173,165 @@ export interface BdsmTraitInfo {
 
 export const bdsmTraitDescriptions: Record<string, BdsmTraitInfo> = {
   dominant: {
-    name: "도미넌트 (Dominant)",
+    name: "Dominant",
     nameEn: "Dominant",
-    description: "관계에서 주도권을 가지고 이끄는 것을 선호합니다. 상대방을 보호하고 돌보며, 결정을 내리고 방향을 제시하는 역할에서 만족감을 느낍니다.",
-    detailedDescription: "도미넌트 성향은 관계에서 리더십과 주도권을 가지는 것을 선호하는 성향입니다. 이 성향을 가진 사람들은 파트너를 이끌고, 보호하며, 돌보는 것에서 깊은 만족감을 느낍니다. 도미넌트의 핵심은 단순한 '통제'가 아니라 '책임감 있는 돌봄'입니다. 건강한 도미넌트 관계에서는 상대방의 안전, 편안함, 경계를 최우선으로 하며, 신뢰와 합의를 바탕으로 합니다. 많은 도미넌트들이 일상생활에서도 리더십 역할을 맡는 경향이 있으며, 계획을 세우고 실행하는 것을 즐깁니다. 이들은 파트너의 성장과 발전에 투자하며, 관계에서 구조와 안정감을 제공합니다.",
-    psychologicalBackground: "심리학적 연구에 따르면, 도미넌트 성향은 건강한 성인들 사이에서 자연스럽게 나타나는 성격 특성의 하나입니다. 이 성향은 자기 효능감, 책임감, 돌봄 욕구와 관련이 있으며, 불안정한 권력 추구와는 구별됩니다. 건강한 도미넌트 성향을 가진 사람들은 일반적으로 높은 정서적 안정감과 공감 능력을 보입니다. BDSM 연구에서 도미넌트 참여자들은 평균 이상의 주관적 안녕감과 관계 만족도를 보고했습니다. 중요한 것은 이 성향이 상호 합의된 관계 내에서 표현될 때 심리적으로 건강하다는 것입니다.",
+    description: "Prefers to take the lead and guide in relationships. Finds satisfaction in protecting and caring for their partner, making decisions, and providing direction.",
+    detailedDescription: "The Dominant trait is a preference for having leadership and initiative in relationships. People with this trait find deep satisfaction in leading, protecting, and caring for their partner. The core of being a Dominant is not simply 'control' but 'responsible care.' In healthy Dominant relationships, the partner's safety, comfort, and boundaries are the top priority, based on trust and consent. Many Dominants tend to take leadership roles in everyday life as well and enjoy making and executing plans. They invest in their partner's growth and development and provide structure and stability in the relationship.",
+    psychologicalBackground: "According to psychological research, the Dominant trait is a natural personality characteristic that appears among healthy adults. This trait is related to self-efficacy, responsibility, and the desire to care for others, and is distinct from unstable pursuit of power. People with healthy Dominant tendencies generally show high emotional stability and empathy. In BDSM research, Dominant participants reported above-average subjective well-being and relationship satisfaction. What's important is that this trait is psychologically healthy when expressed within mutually consensual relationships.",
     characteristics: [
-      "관계에서 주도권과 방향 설정을 선호",
-      "파트너의 안전과 안녕에 대한 강한 책임감",
-      "계획을 세우고 구조를 만드는 것을 즐김",
-      "파트너의 성장과 발전에 투자",
-      "명확한 의사소통과 기대 설정",
-      "보호자 및 멘토 역할에서 만족감"
+      "Prefers taking initiative and setting direction in relationships",
+      "Strong sense of responsibility for partner's safety and well-being",
+      "Enjoys making plans and creating structure",
+      "Invests in partner's growth and development",
+      "Clear communication and expectation setting",
+      "Finds satisfaction in protector and mentor roles"
     ],
     healthyPractices: [
-      "항상 사전 동의와 경계 존중을 실천하세요",
-      "안전어(세이프워드)를 설정하고 존중하세요",
-      "파트너의 피드백을 적극적으로 경청하세요",
-      "사후 돌봄(애프터케어)을 충분히 제공하세요",
-      "자신의 한계도 인식하고 존중하세요",
-      "지속적인 의사소통과 체크인을 유지하세요"
+      "Always practice prior consent and boundary respect",
+      "Establish and respect safewords",
+      "Actively listen to partner's feedback",
+      "Provide sufficient aftercare",
+      "Recognize and respect your own limits",
+      "Maintain ongoing communication and check-ins"
     ],
     communicationTips: [
-      "기대와 경계에 대해 명확하게 대화하세요",
-      "파트너의 감정과 반응을 주의 깊게 관찰하세요",
-      "비판이 아닌 건설적인 피드백을 제공하세요",
-      "활동 후에는 반드시 디브리핑 시간을 가지세요",
-      "파트너가 언제든 멈출 수 있다는 것을 보장하세요"
+      "Have clear conversations about expectations and boundaries",
+      "Carefully observe partner's feelings and reactions",
+      "Provide constructive feedback, not criticism",
+      "Always have debriefing time after activities",
+      "Ensure your partner can stop at any time"
     ],
     color: "red"
   },
   submissive: {
-    name: "서브미시브 (Submissive)",
+    name: "Submissive",
     nameEn: "Submissive",
-    description: "신뢰하는 상대에게 주도권을 맡기는 것에서 편안함을 느낍니다. 상대방을 기쁘게 하고 그들의 기대에 부응하는 것에서 보람을 찾습니다.",
-    detailedDescription: "서브미시브 성향은 신뢰하는 파트너에게 통제권을 넘기는 것에서 편안함과 만족감을 느끼는 성향입니다. 이것은 약함이나 의존성의 표시가 아니라, 신뢰를 기반으로 한 선택입니다. 서브미시브들은 종종 일상생활에서 많은 책임을 지고 있으며, 관계에서 그 짐을 내려놓는 것을 즐깁니다. 이 성향의 핵심은 '신뢰와 취약성을 통한 친밀감'입니다. 건강한 서브미시브 관계에서는 명확한 경계, 상호 존중, 그리고 언제든 철회할 수 있는 동의가 필수입니다. 많은 서브미시브들이 파트너를 기쁘게 하고 그들의 기대에 부응하는 것에서 깊은 보람을 느낍니다.",
-    psychologicalBackground: "심리학 연구에 따르면, 서브미시브 성향을 가진 사람들은 심리적으로 건강하며, 자존감이나 정신 건강 문제와 관련이 없습니다. 오히려 연구들은 합의된 BDSM 관계에 참여하는 사람들이 일반 인구보다 더 높은 주관적 안녕감을 보고한다고 밝혔습니다. 서브미시브 성향은 신뢰, 취약성, 친밀감에 대한 욕구와 관련이 있으며, 안정적인 애착 스타일을 가진 사람들에게서 흔히 나타납니다. 중요한 것은 이것이 자발적인 선택이며, 건강한 관계 내에서 표현될 때 긍정적인 심리적 효과를 가질 수 있다는 것입니다.",
+    description: "Finds comfort in entrusting control to a trusted partner. Finds fulfillment in pleasing their partner and meeting their expectations.",
+    detailedDescription: "The Submissive trait is feeling comfort and satisfaction in giving control to a trusted partner. This is not a sign of weakness or dependency, but a choice based on trust. Submissives often carry many responsibilities in everyday life and enjoy letting go of that burden in their relationships. The core of this trait is 'intimacy through trust and vulnerability.' In healthy Submissive relationships, clear boundaries, mutual respect, and consent that can be withdrawn at any time are essential. Many Submissives find deep fulfillment in pleasing their partner and meeting their expectations.",
+    psychologicalBackground: "Psychological research shows that people with Submissive tendencies are psychologically healthy and not related to self-esteem or mental health issues. In fact, studies reveal that people participating in consensual BDSM relationships report higher subjective well-being than the general population. The Submissive trait is related to desires for trust, vulnerability, and intimacy, and is common in people with secure attachment styles. What's important is that this is a voluntary choice and can have positive psychological effects when expressed within healthy relationships.",
     characteristics: [
-      "신뢰할 수 있는 파트너에게 통제권을 넘기는 것을 선호",
-      "파트너를 기쁘게 하고 기대에 부응하는 것에서 만족감",
-      "지시를 따르고 서비스를 제공하는 것을 즐김",
-      "관계에서 구조와 가이드라인에서 안정감을 느낌",
-      "깊은 신뢰와 취약성을 통한 친밀감 추구",
-      "책임감에서 벗어나는 해방감을 경험"
+      "Prefers giving control to a trustworthy partner",
+      "Finds satisfaction in pleasing partner and meeting expectations",
+      "Enjoys following instructions and providing service",
+      "Feels secure with structure and guidelines in relationships",
+      "Seeks intimacy through deep trust and vulnerability",
+      "Experiences liberation from responsibilities"
     ],
     healthyPractices: [
-      "자신의 경계를 명확히 알고 표현하세요",
-      "안전어(세이프워드)를 항상 가지고 사용하세요",
-      "불편함을 느끼면 언제든 멈출 수 있음을 기억하세요",
-      "파트너를 신뢰할 수 있는지 시간을 두고 확인하세요",
-      "사후 돌봄(애프터케어)을 요청하세요",
-      "정기적으로 자신의 감정과 경험을 점검하세요"
+      "Know your boundaries clearly and express them",
+      "Always have and use a safeword",
+      "Remember you can stop at any time if uncomfortable",
+      "Take time to verify your partner's trustworthiness",
+      "Request aftercare",
+      "Regularly check in on your feelings and experiences"
     ],
     communicationTips: [
-      "원하는 것과 원하지 않는 것을 명확히 말하세요",
-      "불편함이나 우려 사항을 즉시 표현하세요",
-      "활동 전 기대와 한계에 대해 논의하세요",
-      "활동 후 경험과 감정을 공유하세요",
-      "자신의 필요를 부끄러워하지 마세요"
+      "Clearly state what you want and don't want",
+      "Express discomfort or concerns immediately",
+      "Discuss expectations and limits before activities",
+      "Share your experiences and feelings after activities",
+      "Don't be ashamed of your needs"
     ],
     color: "blue"
   },
   sadism: {
-    name: "새디스트 (Sadist)",
+    name: "Sadist",
     nameEn: "Sadist",
-    description: "상대방에게 자극을 주고 그 반응을 관찰하는 것을 즐깁니다. 상대의 한계를 탐색하고 강렬한 감정을 이끌어내는 것에 관심이 있습니다.",
-    detailedDescription: "새디스트 성향은 합의된 상황에서 파트너에게 자극이나 감각을 제공하고 그 반응을 관찰하는 것에서 즐거움을 느끼는 성향입니다. 건강한 새디즘은 파트너의 동의와 즐거움을 전제로 하며, 파트너가 경험하는 강렬한 감각과 감정에 대한 공감과 연결에서 만족감을 얻습니다. 이 성향은 파트너의 한계를 탐색하고, 새로운 경험을 제공하며, 강렬한 감정적 반응을 이끌어내는 것에 관심이 있습니다. 새디스트의 핵심은 파트너의 웰빙에 대한 책임감이며, 상대방이 경험을 즐기고 있다는 것을 확인하는 것이 필수적입니다.",
-    psychologicalBackground: "합의된 BDSM 맥락에서의 새디즘은 임상적 새디즘 장애와 구별됩니다. 연구에 따르면 합의된 BDSM 새디즘을 실천하는 사람들은 정신 건강 지표에서 일반 인구와 동등하거나 더 나은 결과를 보입니다. 이들은 높은 공감 능력, 의사소통 기술, 그리고 파트너의 반응에 대한 민감성을 보이는 경향이 있습니다. 신경과학적 연구는 친밀한 관계에서 파트너에게 자극을 제공하고 그 반응을 관찰하는 것이 뇌의 보상 시스템을 활성화한다는 것을 보여줍니다. 핵심 차이점은 합의, 공감, 그리고 파트너의 안전에 대한 관심입니다.",
+    description: "Enjoys giving stimulation to their partner and observing their reactions. Interested in exploring partner's limits and eliciting intense emotions.",
+    detailedDescription: "The Sadist trait is finding pleasure in providing stimulation or sensations to a partner in a consensual situation and observing their reactions. Healthy sadism presupposes the partner's consent and enjoyment, and derives satisfaction from empathy and connection with the intense sensations and emotions the partner experiences. This trait is interested in exploring the partner's limits, providing new experiences, and eliciting intense emotional responses. The core of being a Sadist is responsibility for the partner's well-being, and confirming that the partner is enjoying the experience is essential.",
+    psychologicalBackground: "Sadism in the context of consensual BDSM is distinct from clinical sadistic disorder. Research shows that people practicing consensual BDSM sadism show equal or better results on mental health indicators compared to the general population. They tend to show high empathy, communication skills, and sensitivity to partner reactions. Neuroscientific research shows that providing stimulation to a partner in intimate relationships and observing their reactions activates the brain's reward system. The key difference is consent, empathy, and concern for the partner's safety.",
     characteristics: [
-      "파트너의 반응과 감정을 관찰하는 것에서 즐거움",
-      "새로운 감각과 경험을 제공하는 것을 즐김",
-      "파트너의 한계를 신중하게 탐색",
-      "강렬한 감정적 연결을 추구",
-      "파트너의 안전에 대한 높은 책임감",
-      "창의적이고 상상력이 풍부한 시나리오 개발"
+      "Finds pleasure in observing partner's reactions and emotions",
+      "Enjoys providing new sensations and experiences",
+      "Carefully explores partner's limits",
+      "Seeks intense emotional connection",
+      "High responsibility for partner's safety",
+      "Develops creative and imaginative scenarios"
     ],
     healthyPractices: [
-      "항상 명확한 사전 동의를 얻으세요",
-      "안전어(세이프워드)를 설정하고 즉시 존중하세요",
-      "파트너의 한계를 점진적으로 탐색하세요",
-      "신체적 안전에 대해 교육받고 숙지하세요",
-      "파트너의 비언어적 신호를 주의 깊게 관찰하세요",
-      "충분한 사후 돌봄(애프터케어)을 제공하세요"
+      "Always obtain clear prior consent",
+      "Establish safewords and respect them immediately",
+      "Explore partner's limits gradually",
+      "Educate yourself about physical safety",
+      "Carefully observe partner's non-verbal signals",
+      "Provide sufficient aftercare"
     ],
     communicationTips: [
-      "활동 전에 구체적인 한계를 논의하세요",
-      "파트너가 편안하게 피드백을 줄 수 있는 환경을 만드세요",
-      "활동 중에 정기적으로 체크인하세요",
-      "활동 후 경험에 대해 대화하세요",
-      "파트너의 감정과 경험을 존중하세요"
+      "Discuss specific limits before activities",
+      "Create an environment where partner can comfortably give feedback",
+      "Check in regularly during activities",
+      "Talk about the experience after activities",
+      "Respect partner's feelings and experiences"
     ],
     color: "orange"
   },
   masochism: {
-    name: "마조히스트 (Masochist)",
+    name: "Masochist",
     nameEn: "Masochist",
-    description: "강렬한 감각 경험과 도전적인 상황에 끌립니다. 자신의 한계를 시험하고 그 과정에서 오는 해방감을 즐깁니다.",
-    detailedDescription: "마조히스트 성향은 강렬한 감각 경험, 도전, 그리고 한계 탐색을 통해 즐거움과 해방감을 느끼는 성향입니다. 이 성향을 가진 사람들은 적절한 긴장, 압박, 또는 감각적 자극 후에 오는 엔도르핀 분비와 해방감을 즐깁니다. 마조히즘의 핵심은 자기 선택과 통제입니다 - 경험을 선택하고, 한계를 설정하며, 원할 때 멈출 수 있는 권한이 항상 마조히스트에게 있습니다. 많은 사람들이 이 경험을 통해 스트레스 해소, 마음챙김, 그리고 자기 발견의 기회를 찾습니다. 강렬한 신체적 경험은 종종 명상적인 상태나 '서브스페이스'로 이어질 수 있습니다.",
-    psychologicalBackground: "심리학적 연구는 합의된 맥락에서의 마조히즘이 정신 건강 문제와 관련이 없다고 밝혔습니다. 오히려 연구들은 BDSM 참여자들이 높은 수준의 주관적 안녕감, 자기 인식, 그리고 관계 만족도를 보고한다고 합니다. 신체적 자극 후 분비되는 엔도르핀과 아드레날린은 자연스러운 '러너스 하이'와 유사한 상태를 만들어 낼 수 있습니다. 또한 이러한 경험은 마음챙김 수련과 유사하게 '현재 순간'에 집중하게 하는 효과가 있습니다. 중요한 것은 이것이 자발적이고 합의된 경험이며, 언제든 중단할 수 있다는 것입니다.",
+    description: "Drawn to intense sensory experiences and challenging situations. Enjoys testing their limits and the sense of release that comes from the process.",
+    detailedDescription: "The Masochist trait is feeling pleasure and release through intense sensory experiences, challenges, and limit exploration. People with this trait enjoy the endorphin release and sense of liberation that comes after appropriate tension, pressure, or sensory stimulation. The core of masochism is self-choice and control - the masochist always has the authority to choose the experience, set limits, and stop when desired. Many people find stress relief, mindfulness, and opportunities for self-discovery through this experience. Intense physical experiences can often lead to meditative states or 'subspace.'",
+    psychologicalBackground: "Psychological research has revealed that masochism in consensual contexts is not related to mental health issues. Rather, studies report that BDSM participants show high levels of subjective well-being, self-awareness, and relationship satisfaction. Endorphins and adrenaline released after physical stimulation can create a state similar to a natural 'runner's high.' Additionally, such experiences have the effect of focusing on the 'present moment,' similar to mindfulness practice. What's important is that this is a voluntary and consensual experience that can be stopped at any time.",
     characteristics: [
-      "강렬한 감각 경험에 대한 호기심",
-      "자신의 한계를 탐색하고 확장하는 것을 즐김",
-      "긴장 후 오는 해방감과 평화로움을 추구",
-      "신체적 경험을 통한 마음챙김과 현재 집중",
-      "자기 발견과 성장의 도구로 경험 활용",
-      "신뢰하는 파트너와의 깊은 연결 추구"
+      "Curiosity about intense sensory experiences",
+      "Enjoys exploring and expanding own limits",
+      "Seeks release and peace after tension",
+      "Mindfulness and present focus through physical experience",
+      "Uses experience as a tool for self-discovery and growth",
+      "Seeks deep connection with trusted partner"
     ],
     healthyPractices: [
-      "자신의 한계를 명확히 알고 표현하세요",
-      "안전어(세이프워드)를 항상 준비하세요",
-      "신뢰할 수 있는 파트너와만 경험하세요",
-      "자신의 몸과 감정을 주의 깊게 관찰하세요",
-      "사후 돌봄(애프터케어)을 충분히 받으세요",
-      "신체적 안전에 대해 교육받으세요"
+      "Know your limits clearly and express them",
+      "Always have a safeword ready",
+      "Only experience with a trusted partner",
+      "Carefully observe your body and emotions",
+      "Get sufficient aftercare",
+      "Educate yourself about physical safety"
     ],
     communicationTips: [
-      "원하는 것과 원하지 않는 것을 명확히 표현하세요",
-      "불편함이나 우려 사항을 즉시 전달하세요",
-      "경험 전후로 파트너와 충분히 대화하세요",
-      "자신의 감정과 신체 반응을 공유하세요",
-      "긍정적인 경험과 개선점 모두 피드백하세요"
+      "Clearly express what you want and don't want",
+      "Communicate discomfort or concerns immediately",
+      "Talk sufficiently with partner before and after experiences",
+      "Share your feelings and physical responses",
+      "Give feedback on both positive experiences and areas for improvement"
     ],
     color: "purple"
   },
   switch: {
-    name: "스위치 (Switch)",
+    name: "Switch",
     nameEn: "Switch",
-    description: "상황과 상대에 따라 주도적인 역할과 따르는 역할을 유연하게 오갑니다. 다양한 역할 경험을 통해 풍부한 관계 역동을 즐깁니다.",
-    detailedDescription: "스위치 성향은 상황, 파트너, 기분에 따라 도미넌트와 서브미시브 역할을 유연하게 오가는 성향입니다. 스위치들은 관계 역동의 양쪽 측면을 모두 경험하고 즐기며, 이를 통해 파트너에 대한 더 깊은 이해와 공감을 발전시킵니다. 이 성향의 장점은 다양한 파트너와 상황에 적응할 수 있는 유연성입니다. 스위치들은 종종 역할 전환 자체에서 흥분과 즐거움을 느끼며, 예측 불가능한 역동이 관계에 활력을 더한다고 느낍니다. 그들은 양쪽 역할을 경험했기 때문에 파트너의 관점을 더 잘 이해하고 공감할 수 있습니다.",
-    psychologicalBackground: "스위치 성향은 심리적 유연성과 적응력을 반영합니다. 연구에 따르면 스위치들은 다양한 상황에서 편안함을 느끼며, 고정된 역할에 얽매이지 않는 자아 개념을 가지고 있습니다. 이들은 관계에서 역할 전환을 자연스럽게 경험하며, 이는 정신적 민첩성과 공감 능력의 표시일 수 있습니다. 스위치 참여자들은 종종 BDSM 커뮤니티 내에서 높은 수준의 의사소통 기술과 관계 만족도를 보고합니다. 양쪽 경험을 모두 가짐으로써 파트너의 관점을 더 잘 이해하고, 더 균형 잡힌 관계 역동을 만들어 낼 수 있습니다.",
+    description: "Flexibly moves between leading and following roles depending on the situation and partner. Enjoys rich relationship dynamics through diverse role experiences.",
+    detailedDescription: "The Switch trait is flexibly moving between Dominant and Submissive roles depending on situation, partner, and mood. Switches experience and enjoy both sides of relationship dynamics, developing deeper understanding and empathy for their partner through this. The advantage of this trait is flexibility that can adapt to various partners and situations. Switches often feel excitement and pleasure from role switching itself, feeling that unpredictable dynamics add vitality to the relationship. Because they've experienced both roles, they can better understand and empathize with their partner's perspective.",
+    psychologicalBackground: "The Switch trait reflects psychological flexibility and adaptability. Research shows that Switches feel comfortable in various situations and have a self-concept not bound to fixed roles. They naturally experience role transitions in relationships, which can be a sign of mental agility and empathy. Switch participants often report high levels of communication skills and relationship satisfaction within the BDSM community. By having both experiences, they can better understand their partner's perspective and create more balanced relationship dynamics.",
     characteristics: [
-      "도미넌트와 서브미시브 역할 모두 즐김",
-      "상황과 파트너에 따른 유연한 역할 전환",
-      "양쪽 관점에 대한 깊은 이해와 공감",
-      "다양한 경험과 역동에 대한 호기심",
-      "역할 전환 자체에서 흥분과 즐거움",
-      "균형 잡힌 관계 역동 추구"
+      "Enjoys both Dominant and Submissive roles",
+      "Flexible role switching depending on situation and partner",
+      "Deep understanding and empathy for both perspectives",
+      "Curiosity about diverse experiences and dynamics",
+      "Excitement and pleasure from role switching itself",
+      "Seeks balanced relationship dynamics"
     ],
     healthyPractices: [
-      "현재 원하는 역할에 대해 명확히 의사소통하세요",
-      "역할 전환 시 파트너와 충분히 논의하세요",
-      "양쪽 역할 모두에서 경계를 명확히 설정하세요",
-      "파트너의 선호와 한계를 존중하세요",
-      "역할 전환 후 충분한 조정 시간을 가지세요",
-      "두 역할 모두에서 안전 수칙을 따르세요"
+      "Clearly communicate about your current desired role",
+      "Discuss sufficiently with partner when switching roles",
+      "Clearly set boundaries in both roles",
+      "Respect partner's preferences and limits",
+      "Allow sufficient adjustment time after role switching",
+      "Follow safety rules in both roles"
     ],
     communicationTips: [
-      "현재 기분과 원하는 역할에 대해 솔직히 말하세요",
-      "파트너와 역할 전환 시그널을 정하세요",
-      "각 역할에서의 기대와 한계를 논의하세요",
-      "역할 전환이 자연스럽지 않을 때 표현하세요",
-      "양쪽 경험에서 배운 것을 공유하세요"
+      "Be honest about your current mood and desired role",
+      "Establish role switching signals with partner",
+      "Discuss expectations and limits in each role",
+      "Express when role switching doesn't feel natural",
+      "Share what you've learned from both experiences"
     ],
     color: "green"
   },
 };
 
-// BDSM 테스트 배경 정보
+// BDSM Test Background Information
 export const testBackground = {
-  about: "이 테스트는 개인의 관계 역동 성향을 탐색하기 위한 자기 성찰 도구입니다. BDSM(Bondage/Discipline, Dominance/Submission, Sadism/Masochism)은 합의된 성인들 사이에서 실천되는 다양한 관계 역동을 포괄하는 용어입니다. 중요한 것은 모든 활동이 성인 간의 완전한 동의를 기반으로 해야 한다는 것입니다.",
-  consent: "건강한 BDSM 관계의 핵심은 SSC(Safe, Sane, Consensual - 안전, 건전, 합의)와 RACK(Risk-Aware Consensual Kink - 위험 인식 합의적 킨크) 원칙입니다. 모든 활동은 사전에 충분히 논의되어야 하고, 안전어(세이프워드)가 설정되어야 하며, 어느 참여자든 언제든지 멈출 수 있어야 합니다. 사후 돌봄(애프터케어)은 모든 활동 후에 필수적입니다.",
-  disclaimer: "이 테스트는 재미와 자기 탐색을 위한 것이며, 심리학적 진단 도구가 아닙니다. 테스트 결과는 참고용이며, 자신의 정체성이나 관계 스타일을 정의하는 것은 개인의 선택입니다. 모든 성적/관계적 활동은 합법적인 성인 간에 완전한 동의 하에 이루어져야 합니다."
+  about: "This test is a self-reflection tool for exploring individual relationship dynamic tendencies. BDSM (Bondage/Discipline, Dominance/Submission, Sadism/Masochism) is a term encompassing various relationship dynamics practiced among consenting adults. The important thing is that all activities must be based on full consent between adults.",
+  consent: "The core of healthy BDSM relationships is the principles of SSC (Safe, Sane, Consensual) and RACK (Risk-Aware Consensual Kink). All activities should be discussed in advance, safewords should be established, and any participant should be able to stop at any time. Aftercare is essential after all activities.",
+  disclaimer: "This test is for fun and self-exploration and is not a psychological diagnostic tool. Test results are for reference only, and defining your identity or relationship style is a personal choice. All sexual/relational activities should be conducted with full consent between legal adults."
 };

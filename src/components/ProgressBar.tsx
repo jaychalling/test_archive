@@ -9,7 +9,7 @@ const ProgressBar = ({ current, total }: ProgressBarProps) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between text-sm">
-        <span className="text-muted-foreground">진행률</span>
+        <span className="text-muted-foreground">Progress</span>
         <span className="font-medium text-foreground">
           {current} / {total}
         </span>

@@ -144,19 +144,19 @@ const EnneagramTest = () => {
     const mainInfo = enneagramTypeInfo[result.mainType];
     const wingText = result.wing ? `w${result.wing}` : "";
 
-    const shareText = `나의 에니어그램 테스트 결과
+    const shareText = `My Enneagram Test Results
 
-주요 유형: ${mainInfo.name} - ${mainInfo.title}${wingText ? ` (날개: ${wingText})` : ""}
+Main Type: ${mainInfo.name} - ${mainInfo.title}${wingText ? ` (Wing: ${wingText})` : ""}
 
-핵심 동기: ${mainInfo.coreMotivation}
-핵심 두려움: ${mainInfo.coreFear}
+Core Motivation: ${mainInfo.coreMotivation}
+Core Fear: ${mainInfo.coreFear}
 
-성장 방향: ${mainInfo.growthDirection}`;
+Growth Direction: ${mainInfo.growthDirection}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "에니어그램 테스트 결과",
+          title: "Enneagram Test Results",
           text: shareText,
           url: window.location.href,
         });
@@ -165,7 +165,7 @@ const EnneagramTest = () => {
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -206,14 +206,14 @@ const EnneagramTest = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Circle className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                당신의 에니어그램 결과
+                Your Enneagram Result
               </h2>
             </div>
 
@@ -229,19 +229,19 @@ const EnneagramTest = () => {
                   </p>
                   {result.wing && (
                     <p className="text-sm text-muted-foreground">
-                      날개: {result.wing}w ({wingInfo?.title.split(" ")[0]})
+                      Wing: {result.wing}w ({wingInfo?.title.split(" ")[0]})
                     </p>
                   )}
                 </div>
               </div>
               <p className="text-sm text-muted-foreground">
-                센터: {centerData.name} - 핵심 감정: {centerData.emotion}
+                Center: {centerData.name} - Core Emotion: {centerData.emotion}
               </p>
             </div>
 
             {/* Enneagram Circle Diagram */}
             <div className="mb-8">
-              <h3 className="text-sm font-medium text-foreground mb-4">에니어그램 다이어그램</h3>
+              <h3 className="text-sm font-medium text-foreground mb-4">Enneagram Diagram</h3>
               <div className="relative w-full max-w-[280px] mx-auto aspect-square">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   {/* Outer circle */}
@@ -354,7 +354,7 @@ const EnneagramTest = () => {
             {/* Score Bars */}
             <div className="space-y-3 mb-8">
               <h3 className="text-sm font-medium text-foreground text-left mb-3">
-                유형별 점수
+                Scores by Type
               </h3>
               {([1, 2, 3, 4, 5, 6, 7, 8, 9] as EnneagramType[]).map((type) => {
                 const score = result.scores[type];
@@ -370,8 +370,8 @@ const EnneagramTest = () => {
                         isMainType ? typeTextColors[type] : "text-foreground"
                       )}>
                         {info.name} {info.title.split(" ")[0]}
-                        {isMainType && " (주 유형)"}
-                        {isWing && " (날개)"}
+                        {isMainType && " (Main Type)"}
+                        {isWing && " (Wing)"}
                       </span>
                       <span className="text-sm text-muted-foreground">
                         {score}%
@@ -394,26 +394,26 @@ const EnneagramTest = () => {
             {/* Main Type Details */}
             <div className="space-y-4 mb-8 text-left">
               <h3 className="text-sm font-medium text-foreground mb-3">
-                {mainInfo.name} 상세 정보
+                {mainInfo.name} Details
               </h3>
 
               {/* Core Motivation, Fear, Desire */}
               <div className="grid gap-3">
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.mainType])}>
                   <h4 className={cn("text-sm font-semibold mb-2", typeTextColors[result.mainType])}>
-                    핵심 동기
+                    Core Motivation
                   </h4>
                   <p className="text-sm text-foreground">{mainInfo.coreMotivation}</p>
                 </div>
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.mainType])}>
                   <h4 className={cn("text-sm font-semibold mb-2", typeTextColors[result.mainType])}>
-                    핵심 두려움
+                    Core Fear
                   </h4>
                   <p className="text-sm text-foreground">{mainInfo.coreFear}</p>
                 </div>
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.mainType])}>
                   <h4 className={cn("text-sm font-semibold mb-2", typeTextColors[result.mainType])}>
-                    핵심 욕구
+                    Core Desire
                   </h4>
                   <p className="text-sm text-foreground">{mainInfo.coreDesire}</p>
                 </div>
@@ -421,7 +421,7 @@ const EnneagramTest = () => {
 
               {/* Characteristics */}
               <div className="p-4 rounded-lg bg-muted/50">
-                <h4 className="text-sm font-semibold mb-3 text-foreground">주요 특성</h4>
+                <h4 className="text-sm font-semibold mb-3 text-foreground">Key Characteristics</h4>
                 <ul className="space-y-1.5">
                   {mainInfo.characteristics.map((char, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -435,7 +435,7 @@ const EnneagramTest = () => {
               {/* Strengths & Challenges */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-green-500/10">
-                  <h4 className="font-semibold text-green-600 mb-3">강점</h4>
+                  <h4 className="font-semibold text-green-600 mb-3">Strengths</h4>
                   <ul className="space-y-1.5">
                     {mainInfo.strengths.map((strength, idx) => (
                       <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -446,7 +446,7 @@ const EnneagramTest = () => {
                   </ul>
                 </div>
                 <div className="p-4 rounded-lg bg-amber-500/10">
-                  <h4 className="font-semibold text-amber-600 mb-3">도전 과제</h4>
+                  <h4 className="font-semibold text-amber-600 mb-3">Challenges</h4>
                   <ul className="space-y-1.5">
                     {mainInfo.challenges.map((challenge, idx) => (
                       <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -461,18 +461,18 @@ const EnneagramTest = () => {
               {/* Growth & Stress Directions */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-blue-500/10">
-                  <h4 className="font-semibold text-blue-600 mb-2">성장 방향</h4>
+                  <h4 className="font-semibold text-blue-600 mb-2">Growth Direction</h4>
                   <p className="text-sm text-foreground">{mainInfo.growthDirection}</p>
                 </div>
                 <div className="p-4 rounded-lg bg-rose-500/10">
-                  <h4 className="font-semibold text-rose-600 mb-2">스트레스 방향</h4>
+                  <h4 className="font-semibold text-rose-600 mb-2">Stress Direction</h4>
                   <p className="text-sm text-foreground">{mainInfo.stressDirection}</p>
                 </div>
               </div>
 
               {/* Detailed Description */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
-                <h4 className="font-semibold text-indigo-600 mb-4 text-lg">{mainInfo.title} 심층 분석</h4>
+                <h4 className="font-semibold text-indigo-600 mb-4 text-lg">{mainInfo.title} In-Depth Analysis</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.detailedDescription}
                 </p>
@@ -480,7 +480,7 @@ const EnneagramTest = () => {
 
               {/* Scientific Background */}
               <div className="p-6 rounded-xl bg-blue-500/10">
-                <h4 className="font-semibold text-blue-600 mb-4 text-lg">심리학적 배경</h4>
+                <h4 className="font-semibold text-blue-600 mb-4 text-lg">Psychological Background</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.scientificBackground}
                 </p>
@@ -488,7 +488,7 @@ const EnneagramTest = () => {
 
               {/* Relationship Pattern */}
               <div className="p-6 rounded-xl bg-rose-500/10">
-                <h4 className="font-semibold text-rose-600 mb-4 text-lg">관계 패턴</h4>
+                <h4 className="font-semibold text-rose-600 mb-4 text-lg">Relationship Pattern</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.relationshipPattern}
                 </p>
@@ -496,7 +496,7 @@ const EnneagramTest = () => {
 
               {/* Work Style */}
               <div className="p-6 rounded-xl bg-teal-500/10">
-                <h4 className="font-semibold text-teal-600 mb-4 text-lg">업무 스타일</h4>
+                <h4 className="font-semibold text-teal-600 mb-4 text-lg">Work Style</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.workStyle}
                 </p>
@@ -504,7 +504,7 @@ const EnneagramTest = () => {
 
               {/* Growth Strategies */}
               <div className="p-6 rounded-xl bg-emerald-500/10">
-                <h4 className="font-semibold text-emerald-600 mb-4 text-lg">성장 전략</h4>
+                <h4 className="font-semibold text-emerald-600 mb-4 text-lg">Growth Strategies</h4>
                 <ul className="space-y-2">
                   {mainInfo.growthStrategies.map((strategy, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -519,7 +519,7 @@ const EnneagramTest = () => {
 
               {/* Famous People */}
               <div className="p-6 rounded-xl bg-purple-500/10">
-                <h4 className="font-semibold text-purple-600 mb-4 text-lg">대표적인 인물</h4>
+                <h4 className="font-semibold text-purple-600 mb-4 text-lg">Famous People</h4>
                 <div className="flex flex-wrap gap-2">
                   {mainInfo.famousPeople.map((person, idx) => (
                     <span
@@ -537,12 +537,12 @@ const EnneagramTest = () => {
             {wingInfo && (
               <div className="mb-8 text-left">
                 <h3 className="text-sm font-medium text-foreground mb-3">
-                  날개: {wingInfo.name} ({wingInfo.title})
+                  Wing: {wingInfo.name} ({wingInfo.title})
                 </h3>
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.wing!])}>
                   <p className="text-sm text-foreground mb-3">
-                    날개는 주요 유형에 인접한 유형 중 더 강한 영향을 미치는 유형입니다.
-                    당신의 {mainInfo.name} 성격에 {wingInfo.name}의 특성이 보완적으로 나타납니다.
+                    The wing is the adjacent type that has a stronger influence on your main type.
+                    Your {mainInfo.name} personality is complemented by the characteristics of {wingInfo.name}.
                   </p>
                   <ul className="space-y-1">
                     {wingInfo.characteristics.slice(0, 2).map((char, idx) => (
@@ -559,14 +559,14 @@ const EnneagramTest = () => {
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -587,7 +587,7 @@ const EnneagramTest = () => {
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h1 className="font-medium text-foreground">에니어그램 테스트</h1>
+        <h1 className="font-medium text-foreground">Enneagram Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}
         </span>
@@ -625,8 +625,8 @@ const EnneagramTest = () => {
           <div className="max-w-md mx-auto">
             {/* Labels */}
             <div className="flex justify-between mb-3 px-2">
-              <span className="text-xs text-muted-foreground">전혀 아니다</span>
-              <span className="text-xs text-muted-foreground">매우 그렇다</span>
+              <span className="text-xs text-muted-foreground">Strongly Disagree</span>
+              <span className="text-xs text-muted-foreground">Strongly Agree</span>
             </div>
 
             {/* Scale Buttons */}
@@ -660,7 +660,7 @@ const EnneagramTest = () => {
             className="gap-2 min-w-[100px]"
           >
             <ChevronLeft className="w-4 h-4" />
-            이전
+            Previous
           </Button>
 
           {showViewResultButton ? (
@@ -670,7 +670,7 @@ const EnneagramTest = () => {
               className="gradient-primary border-0 gap-2 px-6 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
             >
               <CheckCircle2 className="w-5 h-5" />
-              결과 보기
+              View Results
             </Button>
           ) : (
             <Button
@@ -679,7 +679,7 @@ const EnneagramTest = () => {
               disabled={currentQuestion === totalQuestions - 1 || !answers[question.id]}
               className="gap-2 min-w-[100px]"
             >
-              다음
+              Next
               <ChevronRight className="w-4 h-4" />
             </Button>
           )}

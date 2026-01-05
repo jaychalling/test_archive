@@ -158,18 +158,18 @@ const AttachmentStyleTest = () => {
     const result = calculateResults(answers);
     const styleInfo = attachmentStyleDescriptions[result.primaryStyle];
 
-    const shareText = `나의 애착 유형 테스트 결과
+    const shareText = `My Attachment Style Test Result
 
-유형: ${styleInfo.name} (${styleInfo.nameEn})
-불안 수준: ${result.anxietyScore}%
-회피 수준: ${result.avoidanceScore}%
+Type: ${styleInfo.name} (${styleInfo.nameEn})
+Anxiety Level: ${result.anxietyScore}%
+Avoidance Level: ${result.avoidanceScore}%
 
 ${styleInfo.description}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "애착 유형 테스트 결과",
+          title: "Attachment Style Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -178,7 +178,7 @@ ${styleInfo.description}`;
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -199,20 +199,20 @@ ${styleInfo.description}`;
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Users className="w-6 h-6 text-primary" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                당신의 애착 유형
+                Your Attachment Style
               </h2>
             </div>
 
             {/* Primary Style */}
             <div className={cn("p-6 rounded-xl bg-gradient-to-br mb-6", styleBgColors[result.primaryStyle])}>
-              <div className="text-sm text-muted-foreground mb-1">주요 애착 유형</div>
+              <div className="text-sm text-muted-foreground mb-1">Primary Attachment Style</div>
               <div className={cn("text-3xl font-display font-bold mb-2", styleTextColors[result.primaryStyle])}>
                 {styleInfo.name}
               </div>
@@ -227,7 +227,7 @@ ${styleInfo.description}`;
             {/* Score Bars */}
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div className="p-4 rounded-lg bg-muted/30">
-                <div className="text-sm text-muted-foreground mb-2">불안 수준</div>
+                <div className="text-sm text-muted-foreground mb-2">Anxiety Level</div>
                 <div className="text-2xl font-bold text-amber-500 mb-2">{result.anxietyScore}%</div>
                 <div className="h-2 bg-muted rounded-full overflow-hidden">
                   <div
@@ -236,11 +236,11 @@ ${styleInfo.description}`;
                   />
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  {result.anxietyScore < 30 ? "낮음" : result.anxietyScore < 70 ? "보통" : "높음"}
+                  {result.anxietyScore < 30 ? "Low" : result.anxietyScore < 70 ? "Medium" : "High"}
                 </div>
               </div>
               <div className="p-4 rounded-lg bg-muted/30">
-                <div className="text-sm text-muted-foreground mb-2">회피 수준</div>
+                <div className="text-sm text-muted-foreground mb-2">Avoidance Level</div>
                 <div className="text-2xl font-bold text-blue-500 mb-2">{result.avoidanceScore}%</div>
                 <div className="h-2 bg-muted rounded-full overflow-hidden">
                   <div
@@ -249,36 +249,36 @@ ${styleInfo.description}`;
                   />
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
-                  {result.avoidanceScore < 30 ? "낮음" : result.avoidanceScore < 70 ? "보통" : "높음"}
+                  {result.avoidanceScore < 30 ? "Low" : result.avoidanceScore < 70 ? "Medium" : "High"}
                 </div>
               </div>
             </div>
 
             {/* 2x2 Matrix */}
             <div className="mb-8">
-              <h3 className="text-sm font-medium text-foreground mb-4">애착 유형 매트릭스</h3>
+              <h3 className="text-sm font-medium text-foreground mb-4">Attachment Style Matrix</h3>
               <div className="relative w-full aspect-square max-w-[300px] mx-auto">
                 {/* Background quadrants */}
                 <div className="absolute inset-0 grid grid-cols-2 grid-rows-2">
                   <div className="bg-green-500/20 rounded-tl-lg flex items-center justify-center text-xs text-muted-foreground p-2 text-center">
-                    안정형
+                    Secure
                     <br />
-                    <span className="text-[10px]">(낮은 불안, 낮은 회피)</span>
+                    <span className="text-[10px]">(Low Anxiety, Low Avoidance)</span>
                   </div>
                   <div className="bg-blue-500/20 rounded-tr-lg flex items-center justify-center text-xs text-muted-foreground p-2 text-center">
-                    회피형
+                    Avoidant
                     <br />
-                    <span className="text-[10px]">(낮은 불안, 높은 회피)</span>
+                    <span className="text-[10px]">(Low Anxiety, High Avoidance)</span>
                   </div>
                   <div className="bg-amber-500/20 rounded-bl-lg flex items-center justify-center text-xs text-muted-foreground p-2 text-center">
-                    불안형
+                    Anxious
                     <br />
-                    <span className="text-[10px]">(높은 불안, 낮은 회피)</span>
+                    <span className="text-[10px]">(High Anxiety, Low Avoidance)</span>
                   </div>
                   <div className="bg-purple-500/20 rounded-br-lg flex items-center justify-center text-xs text-muted-foreground p-2 text-center">
-                    두려움-회피형
+                    Fearful-Avoidant
                     <br />
-                    <span className="text-[10px]">(높은 불안, 높은 회피)</span>
+                    <span className="text-[10px]">(High Anxiety, High Avoidance)</span>
                   </div>
                 </div>
 
@@ -288,16 +288,16 @@ ${styleInfo.description}`;
 
                 {/* Axis labels */}
                 <div className="absolute left-1/2 -top-6 -translate-x-1/2 text-xs text-muted-foreground whitespace-nowrap">
-                  낮은 회피
+                  Low Avoidance
                 </div>
                 <div className="absolute left-1/2 -bottom-6 -translate-x-1/2 text-xs text-muted-foreground whitespace-nowrap">
-                  높은 회피
+                  High Avoidance
                 </div>
                 <div className="absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full text-xs text-muted-foreground whitespace-nowrap">
-                  낮은 불안
+                  Low Anxiety
                 </div>
                 <div className="absolute -right-2 top-1/2 -translate-y-1/2 translate-x-full text-xs text-muted-foreground whitespace-nowrap">
-                  높은 불안
+                  High Anxiety
                 </div>
 
                 {/* Result dot */}
@@ -317,7 +317,7 @@ ${styleInfo.description}`;
             {/* Characteristics */}
             <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
               <h3 className="font-semibold text-foreground mb-3">
-                {styleInfo.name}의 특징
+                Characteristics of {styleInfo.name}
               </h3>
               <ul className="space-y-2 mb-4">
                 {styleInfo.characteristics.map((char, idx) => (
@@ -328,13 +328,13 @@ ${styleInfo.description}`;
                 ))}
               </ul>
 
-              <h4 className="font-medium text-foreground mb-2 mt-4">관계에서의 모습</h4>
+              <h4 className="font-medium text-foreground mb-2 mt-4">In Relationships</h4>
               <p className="text-sm text-muted-foreground mb-4">{styleInfo.inRelationship}</p>
             </div>
 
             {/* Advice */}
             <div className={cn("text-left p-4 rounded-lg mb-6", `${styleColors[result.primaryStyle].replace('bg-', 'bg-')}/10`)}>
-              <h3 className="font-semibold text-foreground mb-3">관계 조언</h3>
+              <h3 className="font-semibold text-foreground mb-3">Relationship Advice</h3>
               <ul className="space-y-2">
                 {styleInfo.advice.map((advice, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -347,7 +347,7 @@ ${styleInfo.description}`;
 
             {/* Type Overview */}
             <div className="text-left p-4 rounded-lg bg-muted/10 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">4가지 애착 유형</h3>
+              <h3 className="font-semibold text-foreground mb-3">The Four Attachment Styles</h3>
               <div className="space-y-3">
                 {(Object.entries(attachmentStyleDescriptions) as [AttachmentStyle, typeof attachmentStyleDescriptions.secure][]).map(([style, info]) => (
                   <div
@@ -367,10 +367,10 @@ ${styleInfo.description}`;
                       <span className="text-xs text-muted-foreground">({info.nameEn})</span>
                     </div>
                     <p className="text-xs text-muted-foreground ml-4">
-                      {style === "secure" && "낮은 불안 + 낮은 회피"}
-                      {style === "anxious" && "높은 불안 + 낮은 회피"}
-                      {style === "avoidant" && "낮은 불안 + 높은 회피"}
-                      {style === "fearfulAvoidant" && "높은 불안 + 높은 회피"}
+                      {style === "secure" && "Low Anxiety + Low Avoidance"}
+                      {style === "anxious" && "High Anxiety + Low Avoidance"}
+                      {style === "avoidant" && "Low Anxiety + High Avoidance"}
+                      {style === "fearfulAvoidant" && "High Anxiety + High Avoidance"}
                     </p>
                   </div>
                 ))}
@@ -379,7 +379,7 @@ ${styleInfo.description}`;
 
             {/* Detailed Description */}
             <div className="text-left p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 mb-6">
-              <h3 className="font-semibold text-indigo-600 mb-4 text-lg">{styleInfo.name} 심층 분석</h3>
+              <h3 className="font-semibold text-indigo-600 mb-4 text-lg">{styleInfo.name} - In-Depth Analysis</h3>
               <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                 {styleInfo.detailedDescription}
               </p>
@@ -387,7 +387,7 @@ ${styleInfo.description}`;
 
             {/* Scientific Background */}
             <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg">과학적 배경</h3>
+              <h3 className="font-semibold text-blue-600 mb-4 text-lg">Scientific Background</h3>
               <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                 {styleInfo.scientificBackground}
               </p>
@@ -395,7 +395,7 @@ ${styleInfo.description}`;
 
             {/* Communication Tips */}
             <div className="text-left p-6 rounded-xl bg-teal-500/10 mb-6">
-              <h3 className="font-semibold text-teal-600 mb-4 text-lg">소통 팁</h3>
+              <h3 className="font-semibold text-teal-600 mb-4 text-lg">Communication Tips</h3>
               <ul className="space-y-2">
                 {styleInfo.communicationTips.map((tip, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -410,7 +410,7 @@ ${styleInfo.description}`;
 
             {/* Healing Strategies */}
             <div className="text-left p-6 rounded-xl bg-emerald-500/10 mb-6">
-              <h3 className="font-semibold text-emerald-600 mb-4 text-lg">치유 전략</h3>
+              <h3 className="font-semibold text-emerald-600 mb-4 text-lg">Healing Strategies</h3>
               <ul className="space-y-2">
                 {styleInfo.healingStrategies.map((strategy, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -424,7 +424,7 @@ ${styleInfo.description}`;
             {/* Compatible & Challenging Styles */}
             <div className="grid md:grid-cols-2 gap-4 mb-6">
               <div className="text-left p-4 rounded-lg bg-green-500/10">
-                <h4 className="font-semibold text-green-600 mb-3">잘 맞는 유형</h4>
+                <h4 className="font-semibold text-green-600 mb-3">Compatible Styles</h4>
                 <div className="flex flex-wrap gap-2">
                   {styleInfo.compatibleStyles.map((style) => (
                     <span
@@ -437,7 +437,7 @@ ${styleInfo.description}`;
                 </div>
               </div>
               <div className="text-left p-4 rounded-lg bg-orange-500/10">
-                <h4 className="font-semibold text-orange-600 mb-3">도전적인 유형</h4>
+                <h4 className="font-semibold text-orange-600 mb-3">Challenging Styles</h4>
                 <div className="flex flex-wrap gap-2">
                   {styleInfo.challengingStyles.map((style) => (
                     <span
@@ -454,14 +454,14 @@ ${styleInfo.description}`;
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -480,7 +480,7 @@ ${styleInfo.description}`;
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="font-semibold text-foreground">애착 유형 테스트</h1>
+        <h1 className="font-semibold text-foreground">Attachment Style Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}
         </span>
@@ -516,8 +516,8 @@ ${styleInfo.description}`;
       {/* 5점 척도 */}
       <div className="px-6 pb-6">
         <div className="flex justify-between text-xs text-muted-foreground mb-3">
-          <span>전혀 아니다</span>
-          <span>매우 그렇다</span>
+          <span>Strongly Disagree</span>
+          <span>Strongly Agree</span>
         </div>
         <div className="flex justify-center gap-3">
           {[1, 2, 3, 4, 5].map((value) => (
@@ -547,7 +547,7 @@ ${styleInfo.description}`;
             className="flex-1 gap-2"
           >
             <ChevronLeft className="w-4 h-4" />
-            이전
+            Previous
           </Button>
 
           {isLastQuestion && allAnswered ? (
@@ -556,7 +556,7 @@ ${styleInfo.description}`;
               className="flex-1 gap-2 gradient-primary border-0"
             >
               <CheckCircle2 className="w-4 h-4" />
-              결과 보기
+              View Results
             </Button>
           ) : (
             <Button
@@ -565,7 +565,7 @@ ${styleInfo.description}`;
               disabled={currentQuestion === totalQuestions - 1 || answers[currentQuestionData.id] === undefined}
               className="flex-1 gap-2"
             >
-              다음
+              Next
               <ChevronRight className="w-4 h-4" />
             </Button>
           )}
@@ -574,7 +574,7 @@ ${styleInfo.description}`;
         {/* 미응답 질문 안내 */}
         {isLastQuestion && !allAnswered && (
           <p className="text-xs text-muted-foreground text-center mt-3">
-            {answeredCount}/{totalQuestions}개 질문 응답 완료 - 모든 질문에 답변해주세요
+            {answeredCount}/{totalQuestions} questions answered - Please answer all questions
           </p>
         )}
       </div>

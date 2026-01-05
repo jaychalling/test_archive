@@ -48,19 +48,19 @@ const getAlignmentType = (
 
 const alignmentGrid: { type: AlignmentType; label: string }[][] = [
   [
-    { type: "lawfulGood", label: "질서 선" },
-    { type: "neutralGood", label: "중립 선" },
-    { type: "chaoticGood", label: "혼돈 선" },
+    { type: "lawfulGood", label: "Lawful Good" },
+    { type: "neutralGood", label: "Neutral Good" },
+    { type: "chaoticGood", label: "Chaotic Good" },
   ],
   [
-    { type: "lawfulNeutral", label: "질서 중립" },
-    { type: "trueNeutral", label: "완전 중립" },
-    { type: "chaoticNeutral", label: "혼돈 중립" },
+    { type: "lawfulNeutral", label: "Lawful Neutral" },
+    { type: "trueNeutral", label: "True Neutral" },
+    { type: "chaoticNeutral", label: "Chaotic Neutral" },
   ],
   [
-    { type: "lawfulEvil", label: "질서 악" },
-    { type: "neutralEvil", label: "중립 악" },
-    { type: "chaoticEvil", label: "혼돈 악" },
+    { type: "lawfulEvil", label: "Lawful Evil" },
+    { type: "neutralEvil", label: "Neutral Evil" },
+    { type: "chaoticEvil", label: "Chaotic Evil" },
   ],
 ];
 
@@ -179,12 +179,12 @@ const MoralAlignmentTest = () => {
     const result = calculateResult();
     const alignmentType = getAlignmentType(result.goodEvil, result.lawfulChaotic);
     const alignment = alignmentData[alignmentType];
-    const shareText = `나의 D&D 성향: ${alignment.name} (${alignment.nickname})\n선/악: ${result.goodEvil.toFixed(1)}\n질서/혼돈: ${result.lawfulChaotic.toFixed(1)}\n\nMoral Alignment Test`;
+    const shareText = `My D&D Alignment: ${alignment.name} (${alignment.nickname})\nGood/Evil: ${result.goodEvil.toFixed(1)}\nLawful/Chaotic: ${result.lawfulChaotic.toFixed(1)}\n\nMoral Alignment Test`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Moral Alignment Test 결과",
+          title: "Moral Alignment Test Results",
           text: shareText,
           url: window.location.href,
         });
@@ -193,7 +193,7 @@ const MoralAlignmentTest = () => {
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -217,12 +217,12 @@ const MoralAlignmentTest = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
-              당신의 도덕적 성향
+              Your Moral Alignment
             </h2>
             <div
               className={cn(
@@ -245,15 +245,15 @@ const MoralAlignmentTest = () => {
             {/* 3x3 Alignment Grid */}
             <div className="mb-8">
               <div className="text-xs text-muted-foreground mb-2 flex justify-between px-8">
-                <span>Lawful (질서)</span>
-                <span>Chaotic (혼돈)</span>
+                <span>Lawful</span>
+                <span>Chaotic</span>
               </div>
               <div className="relative max-w-[320px] mx-auto">
-                <div className="absolute -left-16 top-0 text-xs text-muted-foreground">
-                  Good (선)
+                <div className="absolute -left-12 top-0 text-xs text-muted-foreground">
+                  Good
                 </div>
-                <div className="absolute -left-16 bottom-0 text-xs text-muted-foreground">
-                  Evil (악)
+                <div className="absolute -left-12 bottom-0 text-xs text-muted-foreground">
+                  Evil
                 </div>
                 <div className="grid grid-cols-3 gap-1">
                   {alignmentGrid.map((row, rowIndex) =>
@@ -284,9 +284,9 @@ const MoralAlignmentTest = () => {
             {/* Scores */}
             <div className="grid grid-cols-2 gap-4 mb-8 text-sm">
               <div className="p-4 rounded-lg bg-muted/50">
-                <div className="text-muted-foreground mb-1">선/악 축</div>
+                <div className="text-muted-foreground mb-1">Good/Evil Axis</div>
                 <div className="font-semibold text-lg">
-                  {result.goodEvil > 0 ? "선 (Good)" : result.goodEvil < 0 ? "악 (Evil)" : "중립"}
+                  {result.goodEvil > 0 ? "Good" : result.goodEvil < 0 ? "Evil" : "Neutral"}
                 </div>
                 <div className="text-xs text-muted-foreground">
                   ({result.goodEvil > 0 ? "+" : ""}{result.goodEvil.toFixed(1)})
@@ -306,9 +306,9 @@ const MoralAlignmentTest = () => {
                 </div>
               </div>
               <div className="p-4 rounded-lg bg-muted/50">
-                <div className="text-muted-foreground mb-1">질서/혼돈 축</div>
+                <div className="text-muted-foreground mb-1">Lawful/Chaotic Axis</div>
                 <div className="font-semibold text-lg">
-                  {result.lawfulChaotic > 0 ? "질서 (Lawful)" : result.lawfulChaotic < 0 ? "혼돈 (Chaotic)" : "중립"}
+                  {result.lawfulChaotic > 0 ? "Lawful" : result.lawfulChaotic < 0 ? "Chaotic" : "Neutral"}
                 </div>
                 <div className="text-xs text-muted-foreground">
                   ({result.lawfulChaotic > 0 ? "+" : ""}{result.lawfulChaotic.toFixed(1)})
@@ -331,7 +331,7 @@ const MoralAlignmentTest = () => {
 
             {/* Traits */}
             <div className="mb-8 text-left">
-              <h3 className="font-semibold text-foreground mb-3">주요 특징</h3>
+              <h3 className="font-semibold text-foreground mb-3">Key Characteristics</h3>
               <div className="flex flex-wrap gap-2">
                 {alignment.traits.map((trait, index) => (
                   <span
@@ -347,7 +347,7 @@ const MoralAlignmentTest = () => {
             {/* Example Characters */}
             <div className="mb-8 text-left">
               <h3 className="font-semibold text-foreground mb-3">
-                대표적인 캐릭터
+                Representative Characters
               </h3>
               <div className="flex flex-wrap gap-2">
                 {alignment.examples.map((example, index) => (
@@ -365,7 +365,7 @@ const MoralAlignmentTest = () => {
             <div className="text-left p-6 rounded-xl bg-primary/5 mb-6">
               <h3 className="font-semibold text-primary mb-4 text-lg flex items-center gap-2">
                 <BookOpen className="w-5 h-5" />
-                상세 분석
+                Detailed Analysis
               </h3>
               <p className="text-foreground leading-relaxed">
                 {alignment.detailedDescription}
@@ -376,7 +376,7 @@ const MoralAlignmentTest = () => {
             <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
               <h3 className="font-semibold text-purple-600 mb-4 text-lg flex items-center gap-2">
                 <Lightbulb className="w-5 h-5" />
-                철학적 배경
+                Philosophical Background
               </h3>
               <p className="text-foreground leading-relaxed">
                 {alignment.philosophicalBackground}
@@ -388,7 +388,7 @@ const MoralAlignmentTest = () => {
               <div className="text-left p-5 rounded-xl bg-green-500/10">
                 <h3 className="font-semibold text-green-600 mb-4 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5" />
-                  강점
+                  Strengths
                 </h3>
                 <ul className="space-y-2">
                   {alignment.strengths.map((strength, idx) => (
@@ -402,7 +402,7 @@ const MoralAlignmentTest = () => {
               <div className="text-left p-5 rounded-xl bg-red-500/10">
                 <h3 className="font-semibold text-red-600 mb-4 flex items-center gap-2">
                   <TrendingDown className="w-5 h-5" />
-                  약점
+                  Weaknesses
                 </h3>
                 <ul className="space-y-2">
                   {alignment.weaknesses.map((weakness, idx) => (
@@ -419,7 +419,7 @@ const MoralAlignmentTest = () => {
             <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
               <h3 className="font-semibold text-blue-600 mb-4 text-lg flex items-center gap-2">
                 <Users className="w-5 h-5" />
-                현실 세계 예시
+                Real World Examples
               </h3>
               <ul className="space-y-2">
                 {alignment.realWorldExamples.map((example, idx) => (
@@ -435,23 +435,23 @@ const MoralAlignmentTest = () => {
             <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
               <h3 className="font-semibold text-foreground mb-4 text-lg flex items-center gap-2">
                 <History className="w-5 h-5" />
-                도덕적 성향 테스트에 대하여
+                About This Test
               </h3>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">역사</h4>
+                  <h4 className="font-medium text-foreground mb-2">History</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.history}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">목적</h4>
+                  <h4 className="font-medium text-foreground mb-2">Purpose</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.purpose}
                   </p>
                 </div>
                 <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <h4 className="font-medium text-amber-600 mb-2">참고사항</h4>
+                  <h4 className="font-medium text-amber-600 mb-2">Note</h4>
                   <p className="text-sm text-foreground leading-relaxed">
                     {testBackground.disclaimer}
                   </p>
@@ -462,14 +462,14 @@ const MoralAlignmentTest = () => {
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -521,8 +521,8 @@ const MoralAlignmentTest = () => {
           <div className="max-w-md mx-auto">
             {/* Labels */}
             <div className="flex justify-between text-sm text-muted-foreground mb-4">
-              <span>전혀 아니다</span>
-              <span>매우 그렇다</span>
+              <span>Strongly Disagree</span>
+              <span>Strongly Agree</span>
             </div>
 
             {/* Buttons */}
@@ -557,7 +557,7 @@ const MoralAlignmentTest = () => {
             className="gap-2"
           >
             <ChevronLeft className="w-4 h-4" />
-            이전
+            Previous
           </Button>
 
           {showCompleteButton && isLastQuestion && answers[currentQuestionData.id] ? (
@@ -566,7 +566,7 @@ const MoralAlignmentTest = () => {
               className="gradient-primary border-0 gap-2 px-6"
             >
               <CheckCircle2 className="w-5 h-5" />
-              결과 보기
+              View Results
             </Button>
           ) : (
             <Button
@@ -575,7 +575,7 @@ const MoralAlignmentTest = () => {
               disabled={isLastQuestion || !answers[currentQuestionData.id]}
               className="gap-2"
             >
-              다음
+              Next
               <ChevronRight className="w-4 h-4" />
             </Button>
           )}

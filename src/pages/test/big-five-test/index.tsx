@@ -122,20 +122,20 @@ const BigFiveTest = () => {
     const result = calculateResults(answers);
     const profile = getPersonalityProfile(result);
 
-    const shareText = `나의 Big Five 성격 테스트 결과
+    const shareText = `My Big Five Personality Test Results
 
 ${profile.summary}
 
-개방성: ${result.openness}% (${scoreLevelLabels[getScoreLevel(result.openness)]})
-성실성: ${result.conscientiousness}% (${scoreLevelLabels[getScoreLevel(result.conscientiousness)]})
-외향성: ${result.extraversion}% (${scoreLevelLabels[getScoreLevel(result.extraversion)]})
-친화성: ${result.agreeableness}% (${scoreLevelLabels[getScoreLevel(result.agreeableness)]})
-신경증: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neuroticism)]})`;
+Openness: ${result.openness}% (${scoreLevelLabels[getScoreLevel(result.openness)]})
+Conscientiousness: ${result.conscientiousness}% (${scoreLevelLabels[getScoreLevel(result.conscientiousness)]})
+Extraversion: ${result.extraversion}% (${scoreLevelLabels[getScoreLevel(result.extraversion)]})
+Agreeableness: ${result.agreeableness}% (${scoreLevelLabels[getScoreLevel(result.agreeableness)]})
+Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neuroticism)]})`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Big Five 성격 테스트 결과",
+          title: "Big Five Personality Test Results",
           text: shareText,
           url: window.location.href,
         });
@@ -144,7 +144,7 @@ ${profile.summary}
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -201,7 +201,7 @@ ${profile.summary}
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="max-w-4xl mx-auto space-y-8">
@@ -210,7 +210,7 @@ ${profile.summary}
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Brain className="w-8 h-8 text-primary" />
                 <h1 className="font-display text-3xl font-bold text-foreground">
-                  당신의 Big Five 성격 프로필
+                  Your Big Five Personality Profile
                 </h1>
               </div>
 
@@ -222,7 +222,7 @@ ${profile.summary}
 
               {/* Radar Chart */}
               <div className="mb-8">
-                <h2 className="text-lg font-semibold text-foreground mb-4">성격 특성 레이더 차트</h2>
+                <h2 className="text-lg font-semibold text-foreground mb-4">Personality Traits Radar Chart</h2>
                 <div className="relative w-full max-w-[300px] mx-auto aspect-square">
                   <svg viewBox="0 0 100 100" className="w-full h-full">
                     {gridPaths.map((path, i) => (
@@ -250,7 +250,7 @@ ${profile.summary}
 
               {/* Score Bars */}
               <div className="space-y-4 mb-8">
-                <h2 className="text-lg font-semibold text-foreground text-left mb-3">특성별 점수</h2>
+                <h2 className="text-lg font-semibold text-foreground text-left mb-3">Trait Scores</h2>
                 {traitOrder.map((trait) => {
                   const score = result[trait];
                   const level = getScoreLevel(score);
@@ -276,7 +276,7 @@ ${profile.summary}
 
             {/* Overall Interpretation - E-E-A-T Content */}
             <div className="test-card">
-              <h2 className="font-display text-xl font-semibold text-foreground mb-4">종합 분석 리포트</h2>
+              <h2 className="font-display text-xl font-semibold text-foreground mb-4">Comprehensive Analysis Report</h2>
               <div className="prose prose-sm max-w-none text-foreground">
                 {profile.overallInterpretation.split('\n\n').map((paragraph, idx) => (
                   <p key={idx} className="mb-4 text-sm leading-relaxed text-muted-foreground">{paragraph}</p>
@@ -286,7 +286,7 @@ ${profile.summary}
 
             {/* Detailed Trait Analysis */}
             <div className="test-card">
-              <h2 className="font-display text-xl font-semibold text-foreground mb-6">특성별 상세 분석</h2>
+              <h2 className="font-display text-xl font-semibold text-foreground mb-6">Detailed Trait Analysis</h2>
               <div className="space-y-8">
                 {traitOrder.map((trait) => {
                   const score = result[trait];
@@ -309,19 +309,19 @@ ${profile.summary}
 
                       {/* Scientific Background */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">과학적 배경</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Scientific Background</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">{info.scientificBackground}</p>
                       </div>
 
                       {/* Personal Description */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">당신의 {info.name}</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Your {info.name}</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
                       </div>
 
                       {/* Traits List */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">주요 특징</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Key Characteristics</h4>
                         <ul className="space-y-1">
                           {traits.map((t, idx) => (
                             <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -334,7 +334,7 @@ ${profile.summary}
 
                       {/* Facets */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">하위 요인 (Facets)</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Facets</h4>
                         <div className="grid sm:grid-cols-2 gap-2">
                           {info.facets.map((facet, idx) => (
                             <div key={idx} className="p-2 bg-background/50 rounded-lg">
@@ -347,7 +347,7 @@ ${profile.summary}
 
                       {/* Career Implications */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">커리어 함의</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Career Implications</h4>
                         <ul className="space-y-1">
                           {(level === "high" || (level === "medium" && score >= 50) ? info.careerImplications.high : info.careerImplications.low).slice(0, 3).map((item, idx) => (
                             <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -360,7 +360,7 @@ ${profile.summary}
 
                       {/* Relationship Implications */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">관계에서의 의미</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Relationship Implications</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           {level === "high" || (level === "medium" && score >= 50) ? info.relationshipImplications.high : info.relationshipImplications.low}
                         </p>
@@ -368,7 +368,7 @@ ${profile.summary}
 
                       {/* Growth Strategies */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">성장 전략</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Growth Strategies</h4>
                         <ul className="space-y-1">
                           {(level === "high" || (level === "medium" && score >= 50) ? info.growthStrategies.high : info.growthStrategies.low).map((strategy, idx) => (
                             <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -381,7 +381,7 @@ ${profile.summary}
 
                       {/* Research Findings */}
                       <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">관련 연구 결과</h4>
+                        <h4 className="text-sm font-semibold text-foreground mb-2">Related Research Findings</h4>
                         <ul className="space-y-1">
                           {info.researchFindings.slice(0, 3).map((finding, idx) => (
                             <li key={idx} className="text-xs text-muted-foreground italic flex items-start gap-2">
@@ -400,7 +400,7 @@ ${profile.summary}
             {/* Strengths & Growth Areas */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="test-card">
-                <h2 className="font-display text-lg font-semibold text-green-600 mb-4">당신의 강점</h2>
+                <h2 className="font-display text-lg font-semibold text-green-600 mb-4">Your Strengths</h2>
                 <ul className="space-y-3">
                   {profile.strengths.map((strength, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -411,7 +411,7 @@ ${profile.summary}
                 </ul>
               </div>
               <div className="test-card">
-                <h2 className="font-display text-lg font-semibold text-amber-600 mb-4">성장 영역</h2>
+                <h2 className="font-display text-lg font-semibold text-amber-600 mb-4">Growth Areas</h2>
                 <ul className="space-y-3">
                   {profile.growthAreas.map((area, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -425,22 +425,22 @@ ${profile.summary}
 
             {/* Disclaimer and References */}
             <div className="test-card bg-muted/30">
-              <h2 className="font-display text-lg font-semibold text-foreground mb-4">참고 사항</h2>
+              <h2 className="font-display text-lg font-semibold text-foreground mb-4">Note</h2>
               <div className="space-y-4 text-sm text-muted-foreground">
                 <p>
-                  <strong>테스트 신뢰도:</strong> 이 테스트는 Costa와 McCrae(1992)의 NEO-PI-R 모델을 기반으로 설계되었으며,
-                  Big Five 성격 모델은 현대 심리학에서 가장 과학적으로 검증된 성격 평가 프레임워크 중 하나입니다.
+                  <strong>Test Reliability:</strong> This test is designed based on Costa and McCrae's (1992) NEO-PI-R model.
+                  The Big Five personality model is one of the most scientifically validated personality assessment frameworks in modern psychology.
                 </p>
                 <p>
-                  <strong>제한 사항:</strong> 이 결과는 자기 보고식 평가에 기반하므로, 응답 시점의 기분이나 상황에 따라 달라질 수 있습니다.
-                  정확한 성격 평가를 위해서는 전문 심리학자와의 상담을 권장합니다.
+                  <strong>Limitations:</strong> These results are based on self-reported assessments and may vary depending on your mood or circumstances at the time of response.
+                  For accurate personality assessment, consultation with a professional psychologist is recommended.
                 </p>
                 <p>
-                  <strong>활용 방법:</strong> 이 결과는 자기 이해와 성장을 위한 참고 자료로 활용하세요.
-                  성격은 고정된 것이 아니며, 의식적인 노력과 경험을 통해 발전할 수 있습니다.
+                  <strong>How to Use:</strong> Use these results as reference material for self-understanding and personal growth.
+                  Personality is not fixed and can develop through conscious effort and experience.
                 </p>
                 <div className="pt-4 border-t border-border/50">
-                  <h3 className="font-semibold text-foreground mb-2">주요 참고 문헌</h3>
+                  <h3 className="font-semibold text-foreground mb-2">Key References</h3>
                   <ul className="space-y-1 text-xs">
                     <li>• Costa, P. T., & McCrae, R. R. (1992). Revised NEO Personality Inventory (NEO-PI-R) and NEO Five-Factor Inventory (NEO-FFI) professional manual.</li>
                     <li>• Roberts, B. W., et al. (2006). Patterns of mean-level change in personality traits across the life course.</li>
@@ -455,11 +455,11 @@ ${profile.summary}
             <div className="flex gap-4 justify-center">
               <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
                 <RotateCcw className="w-5 h-5" />
-                다시하기
+                Retake
               </Button>
               <Button onClick={handleShare} size="lg" className="gap-2 gradient-primary border-0">
                 <Share2 className="w-5 h-5" />
-                결과 공유하기
+                Share Results
               </Button>
             </div>
           </div>
@@ -477,7 +477,7 @@ ${profile.summary}
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">테스트 목록</span>
+          <span className="hidden sm:inline">Back to Tests</span>
         </Link>
         <div className="flex items-center gap-2">
           <Brain className="w-5 h-5 text-primary" />
@@ -514,8 +514,8 @@ ${profile.summary}
                   {/* Scale */}
                   <div className="space-y-4">
                     <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>전혀 아니다</span>
-                      <span>매우 그렇다</span>
+                      <span>Strongly Disagree</span>
+                      <span>Strongly Agree</span>
                     </div>
                     <div className="flex justify-between gap-2">
                       {answerOptions.map((option) => (
@@ -553,7 +553,7 @@ ${profile.summary}
             className="gap-2"
           >
             <ChevronLeft className="w-5 h-5" />
-            이전
+            Previous
           </Button>
 
           {isLastQuestion && allQuestionsAnswered ? (
@@ -563,7 +563,7 @@ ${profile.summary}
               className="gradient-primary border-0 gap-2 px-8"
             >
               <CheckCircle2 className="w-5 h-5" />
-              결과 보기
+              View Results
             </Button>
           ) : (
             <Button
@@ -573,7 +573,7 @@ ${profile.summary}
               disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
               className="gap-2"
             >
-              다음
+              Next
               <ChevronRight className="w-5 h-5" />
             </Button>
           )}

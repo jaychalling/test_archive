@@ -96,7 +96,7 @@ const RicePurityTest = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <ResultCard score={calculateScore()} onReset={handleReset} />
@@ -115,7 +115,7 @@ const RicePurityTest = () => {
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
+          Back to Tests
         </Link>
 
         <div className="max-w-2xl mx-auto">
@@ -125,7 +125,7 @@ const RicePurityTest = () => {
               Rice Purity Test
             </h1>
             <p className="text-muted-foreground">
-              각 질문에 "예" 또는 "아니오"로 답변해주세요.
+              Answer each question with "Yes" or "No".
             </p>
           </div>
 
@@ -165,7 +165,7 @@ const RicePurityTest = () => {
                         : "hover:bg-green-50 hover:border-green-500 hover:text-green-600"
                     }`}
                   >
-                    예
+                    Yes
                   </Button>
                   <Button
                     onClick={() => handleAnswer(false)}
@@ -177,7 +177,7 @@ const RicePurityTest = () => {
                         : "hover:bg-red-50 hover:border-red-500 hover:text-red-600"
                     }`}
                   >
-                    아니오
+                    No
                   </Button>
                 </div>
               </div>
@@ -193,7 +193,7 @@ const RicePurityTest = () => {
               className="gap-2"
             >
               <ChevronLeft className="w-4 h-4" />
-              이전
+              Previous
             </Button>
 
             {isLastQuestion && currentQuestionAnswered ? (
@@ -202,7 +202,7 @@ const RicePurityTest = () => {
                 className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300"
               >
                 <CheckCircle2 className="w-5 h-5" />
-                결과 보기
+                View Results
               </Button>
             ) : (
               <Button
@@ -211,7 +211,7 @@ const RicePurityTest = () => {
                 variant="outline"
                 className="gap-2"
               >
-                다음
+                Next
                 <ChevronRight className="w-4 h-4" />
               </Button>
             )}
@@ -220,7 +220,7 @@ const RicePurityTest = () => {
           {/* Progress Info */}
           <div className="text-center pb-8">
             <p className="text-xs text-muted-foreground">
-              {answeredQuestions.size}개 질문 답변 완료 · {checkedItems.size}개 항목 선택됨
+              {answeredQuestions.size} questions answered · {checkedItems.size} items selected
             </p>
           </div>
         </div>

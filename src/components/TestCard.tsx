@@ -33,11 +33,11 @@ const TestCard = ({ title, description, questionCount, duration, path, icon, ico
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-            {questionCount}문항
+            {questionCount} questions
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-primary/60"></span>
-            약 {duration}
+            ~{duration}
           </span>
         </div>
       </div>

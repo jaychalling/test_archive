@@ -6,220 +6,220 @@ export interface EnneagramQuestion {
   type: EnneagramType;
 }
 
-// 5점 척도 옵션
+// 5-point scale options
 export type AnswerValue = 1 | 2 | 3 | 4 | 5;
 
 export const answerOptions: { value: AnswerValue; label: string }[] = [
-  { value: 1, label: "전혀 아니다" },
-  { value: 2, label: "아니다" },
-  { value: 3, label: "보통이다" },
-  { value: 4, label: "그렇다" },
-  { value: 5, label: "매우 그렇다" },
+  { value: 1, label: "Strongly Disagree" },
+  { value: 2, label: "Disagree" },
+  { value: 3, label: "Neutral" },
+  { value: 4, label: "Agree" },
+  { value: 5, label: "Strongly Agree" },
 ];
 
-// 각 유형당 4개 질문, 총 36개 질문
+// 4 questions per type, 36 questions total
 export const enneagramQuestions: EnneagramQuestion[] = [
-  // === Type 1 (개혁가) - 4문항 ===
+  // === Type 1 (The Reformer) - 4 questions ===
   {
     id: 1,
-    text: "나는 항상 올바른 일을 해야 한다는 강한 의무감을 느낀다.",
+    text: "I feel a strong sense of duty to always do what is right.",
     type: 1,
   },
   {
     id: 2,
-    text: "사소한 실수도 나를 괴롭히며, 완벽하게 하지 않으면 불안하다.",
+    text: "Even small mistakes bother me, and I feel anxious if I don't do things perfectly.",
     type: 1,
   },
   {
     id: 3,
-    text: "다른 사람들이 규칙을 어기거나 부주의하면 화가 난다.",
+    text: "I get upset when others break rules or are careless.",
     type: 1,
   },
   {
     id: 4,
-    text: "나는 내 자신과 타인에게 높은 기준을 적용한다.",
+    text: "I hold high standards for both myself and others.",
     type: 1,
   },
 
-  // === Type 2 (조력가) - 4문항 ===
+  // === Type 2 (The Helper) - 4 questions ===
   {
     id: 5,
-    text: "다른 사람을 도울 때 가장 행복하고 보람을 느낀다.",
+    text: "I feel happiest and most fulfilled when helping others.",
     type: 2,
   },
   {
     id: 6,
-    text: "나는 다른 사람의 감정과 필요를 잘 파악한다.",
+    text: "I am good at sensing other people's feelings and needs.",
     type: 2,
   },
   {
     id: 7,
-    text: "사람들에게 필요한 존재가 되는 것이 중요하다.",
+    text: "Being needed by others is important to me.",
     type: 2,
   },
   {
     id: 8,
-    text: "내가 베푼 것에 대해 감사받지 못하면 서운하다.",
+    text: "I feel hurt when I am not appreciated for what I give.",
     type: 2,
   },
 
-  // === Type 3 (성취가) - 4문항 ===
+  // === Type 3 (The Achiever) - 4 questions ===
   {
     id: 9,
-    text: "성공하고 인정받는 것이 나에게 매우 중요하다.",
+    text: "Success and recognition are very important to me.",
     type: 3,
   },
   {
     id: 10,
-    text: "나는 목표를 달성하기 위해 효율적으로 일한다.",
+    text: "I work efficiently to achieve my goals.",
     type: 3,
   },
   {
     id: 11,
-    text: "다른 사람들에게 어떻게 보이는지 신경을 많이 쓴다.",
+    text: "I care a lot about how I appear to others.",
     type: 3,
   },
   {
     id: 12,
-    text: "실패는 나에게 받아들이기 어려운 일이다.",
+    text: "Failure is difficult for me to accept.",
     type: 3,
   },
 
-  // === Type 4 (예술가) - 4문항 ===
+  // === Type 4 (The Individualist) - 4 questions ===
   {
     id: 13,
-    text: "나는 다른 사람들과 다르다고 느끼며, 이것이 나의 정체성이다.",
+    text: "I feel different from others, and this is part of my identity.",
     type: 4,
   },
   {
     id: 14,
-    text: "깊은 감정과 내면의 세계가 나에게 매우 중요하다.",
+    text: "Deep emotions and my inner world are very important to me.",
     type: 4,
   },
   {
     id: 15,
-    text: "평범하거나 일상적인 것에 만족하지 못한다.",
+    text: "I am not satisfied with things that are ordinary or mundane.",
     type: 4,
   },
   {
     id: 16,
-    text: "나는 우울함이나 그리움 같은 감정을 자주 경험한다.",
+    text: "I often experience feelings like melancholy or longing.",
     type: 4,
   },
 
-  // === Type 5 (탐구가) - 4문항 ===
+  // === Type 5 (The Investigator) - 4 questions ===
   {
     id: 17,
-    text: "지식을 쌓고 이해하는 것이 나에게 가장 중요하다.",
+    text: "Accumulating knowledge and understanding is most important to me.",
     type: 5,
   },
   {
     id: 18,
-    text: "혼자만의 시간과 공간이 꼭 필요하다.",
+    text: "I need time and space alone.",
     type: 5,
   },
   {
     id: 19,
-    text: "감정보다는 논리와 분석을 더 신뢰한다.",
+    text: "I trust logic and analysis more than emotions.",
     type: 5,
   },
   {
     id: 20,
-    text: "나는 관찰자로서 한 발짝 물러서 있는 것을 선호한다.",
+    text: "I prefer to step back and observe as an outsider.",
     type: 5,
   },
 
-  // === Type 6 (충성가) - 4문항 ===
+  // === Type 6 (The Loyalist) - 4 questions ===
   {
     id: 21,
-    text: "최악의 상황을 대비해 미리 준비하는 편이다.",
+    text: "I tend to prepare in advance for the worst-case scenario.",
     type: 6,
   },
   {
     id: 22,
-    text: "신뢰할 수 있는 사람이나 조직에 충성하는 것이 중요하다.",
+    text: "Being loyal to trustworthy people or organizations is important to me.",
     type: 6,
   },
   {
     id: 23,
-    text: "결정을 내리기 전에 여러 가지 가능성과 위험을 고려한다.",
+    text: "I consider various possibilities and risks before making a decision.",
     type: 6,
   },
   {
     id: 24,
-    text: "권위자나 시스템에 대해 의심과 신뢰 사이에서 갈등한다.",
+    text: "I struggle between doubt and trust regarding authority figures or systems.",
     type: 6,
   },
 
-  // === Type 7 (낙천가) - 4문항 ===
+  // === Type 7 (The Enthusiast) - 4 questions ===
   {
     id: 25,
-    text: "새로운 경험과 가능성을 탐색하는 것이 즐겁다.",
+    text: "I enjoy exploring new experiences and possibilities.",
     type: 7,
   },
   {
     id: 26,
-    text: "지루함과 제약을 피하고 싶어한다.",
+    text: "I want to avoid boredom and restrictions.",
     type: 7,
   },
   {
     id: 27,
-    text: "미래의 계획과 아이디어에 대해 생각하면 신난다.",
+    text: "Thinking about future plans and ideas excites me.",
     type: 7,
   },
   {
     id: 28,
-    text: "부정적인 감정보다는 긍정적인 면에 집중하려 한다.",
+    text: "I try to focus on the positive rather than negative emotions.",
     type: 7,
   },
 
-  // === Type 8 (도전가) - 4문항 ===
+  // === Type 8 (The Challenger) - 4 questions ===
   {
     id: 29,
-    text: "나는 강하고 자신감 있게 행동한다.",
+    text: "I act strong and confident.",
     type: 8,
   },
   {
     id: 30,
-    text: "불의나 약자를 괴롭히는 것을 보면 참지 못한다.",
+    text: "I cannot stand by when I see injustice or bullying of the weak.",
     type: 8,
   },
   {
     id: 31,
-    text: "상황을 통제하고 주도권을 갖는 것이 편하다.",
+    text: "I feel comfortable being in control and taking charge of situations.",
     type: 8,
   },
   {
     id: 32,
-    text: "나약함을 보이는 것은 위험하다고 느낀다.",
+    text: "I feel that showing weakness is dangerous.",
     type: 8,
   },
 
-  // === Type 9 (중재자) - 4문항 ===
+  // === Type 9 (The Peacemaker) - 4 questions ===
   {
     id: 33,
-    text: "갈등을 피하고 평화로운 분위기를 유지하고 싶다.",
+    text: "I want to avoid conflict and maintain a peaceful atmosphere.",
     type: 9,
   },
   {
     id: 34,
-    text: "다른 사람의 관점을 쉽게 이해하고 수용한다.",
+    text: "I easily understand and accept other people's perspectives.",
     type: 9,
   },
   {
     id: 35,
-    text: "중요한 결정을 내리는 것이 어렵거나 미루게 된다.",
+    text: "I find it difficult to make important decisions or tend to postpone them.",
     type: 9,
   },
   {
     id: 36,
-    text: "나만의 의견보다 모두가 동의할 수 있는 것을 선호한다.",
+    text: "I prefer what everyone can agree on rather than my own opinion.",
     type: 9,
   },
 ];
 
 export interface EnneagramResult {
-  scores: Record<EnneagramType, number>; // 각 유형별 점수 (0-100)
+  scores: Record<EnneagramType, number>; // Score per type (0-100)
   mainType: EnneagramType;
   wing: EnneagramType | null;
 }
@@ -247,373 +247,373 @@ export interface EnneagramTypeInfo {
 
 export const enneagramTypeInfo: Record<EnneagramType, EnneagramTypeInfo> = {
   1: {
-    name: "1유형",
+    name: "Type 1",
     nameEn: "Type 1",
-    title: "개혁가 (The Reformer)",
-    coreMotivation: "올바르고 선한 것을 추구하며, 더 나은 세상을 만들고자 함",
-    coreFear: "부패하거나 결함이 있는 존재가 되는 것, 비난받는 것",
-    coreDesire: "완전함, 올바름, 균형을 이루는 것",
-    growthDirection: "7유형으로 통합 - 자발성과 즐거움을 받아들임",
-    stressDirection: "4유형으로 분열 - 우울하고 자기비판적이 됨",
+    title: "The Reformer",
+    coreMotivation: "Pursuing what is right and good, wanting to make a better world",
+    coreFear: "Being corrupt or flawed, being criticized",
+    coreDesire: "Achieving perfection, integrity, and balance",
+    growthDirection: "Integration to Type 7 - Embracing spontaneity and joy",
+    stressDirection: "Disintegration to Type 4 - Becoming depressed and self-critical",
     characteristics: [
-      "원칙적이고 목적의식이 강함",
-      "자기 통제력이 뛰어남",
-      "높은 도덕적 기준을 가짐",
-      "개선과 발전을 추구함",
+      "Principled with a strong sense of purpose",
+      "Excellent self-control",
+      "High moral standards",
+      "Strives for improvement and development",
     ],
     strengths: [
-      "정직하고 신뢰할 수 있음",
-      "책임감이 강함",
-      "공정하고 윤리적임",
-      "근면하고 성실함",
+      "Honest and trustworthy",
+      "Strong sense of responsibility",
+      "Fair and ethical",
+      "Diligent and hardworking",
     ],
     challenges: [
-      "지나친 비판적 태도",
-      "완벽주의로 인한 스트레스",
-      "분노를 억압하는 경향",
-      "융통성 부족",
+      "Overly critical attitude",
+      "Stress from perfectionism",
+      "Tendency to suppress anger",
+      "Lack of flexibility",
     ],
     color: "slate",
-    detailedDescription: "1유형 개혁가는 내면의 '비평가'의 목소리에 의해 움직이며, 세상을 더 나은 곳으로 만들고자 하는 강한 열망을 가지고 있습니다. 이들은 올바름과 도덕성에 대한 높은 기준을 가지고 있으며, 자신과 타인 모두에게 이 기준을 적용합니다. 어린 시절부터 '좋은 아이'가 되어야 한다는 메시지를 내면화한 경우가 많으며, 이로 인해 본능적인 욕구와 분노를 억압하는 경향이 있습니다. 에니어그램 연구자 Don Riso와 Russ Hudson에 따르면, 건강한 1유형은 현명하고 분별력 있으며, 높은 윤리 기준과 함께 인내와 수용을 보여줍니다. 역사적으로 많은 사회 개혁가, 교육자, 윤리학자들이 이 유형에 속합니다.",
-    scientificBackground: "에니어그램은 1960년대 Oscar Ichazo에 의해 현대적 형태로 발전되었으며, Claudio Naranjo에 의해 심리학적 체계로 정립되었습니다. 1유형은 '본능 센터'에 속하며, 핵심 감정은 분노입니다. 신경과학적 관점에서, 1유형은 전전두엽 피질의 강한 활성화와 관련이 있으며, 이는 도덕적 판단과 충동 조절에 관여합니다. 연구에 따르면 높은 성실성과 완벽주의 성향을 보이는 사람들은 불안과 강박적 특성을 함께 보이는 경향이 있으며, 이는 1유형의 심리적 패턴과 일치합니다.",
-    relationshipPattern: "1유형은 관계에서 신뢰할 수 있고 헌신적인 파트너입니다. 약속을 지키고 책임을 다하며, 관계를 개선하기 위해 노력합니다. 그러나 파트너에게 지나친 기대를 하거나 비판적이 될 수 있으며, '옳은 방법'에 대한 고집으로 갈등이 생길 수 있습니다. 건강한 1유형은 파트너의 불완전함을 수용하고, 자신의 분노를 건강하게 표현하는 법을 배웁니다.",
-    workStyle: "1유형은 직장에서 정확하고 체계적인 일처리로 인정받습니다. 품질과 윤리적 기준을 중시하며, 세부 사항에 주의를 기울입니다. 리더로서는 명확한 기대와 공정한 대우를 제공하지만, 지나친 완벽주의로 자신과 팀에게 스트레스를 줄 수 있습니다. 품질 관리, 편집, 법률, 교육 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 1 Reformers are driven by an inner 'critic' voice and have a strong desire to make the world a better place. They have high standards for righteousness and morality, applying these standards to both themselves and others. They often internalized the message from childhood that they must be 'good,' which leads to suppressing instinctual desires and anger. According to Enneagram researchers Don Riso and Russ Hudson, healthy Type 1s are wise and discerning, demonstrating patience and acceptance alongside high ethical standards. Historically, many social reformers, educators, and ethicists belong to this type.",
+    scientificBackground: "The Enneagram was developed into its modern form by Oscar Ichazo in the 1960s and was established as a psychological system by Claudio Naranjo. Type 1 belongs to the 'Body Center,' with anger as the core emotion. From a neuroscientific perspective, Type 1 is associated with strong activation of the prefrontal cortex, which is involved in moral judgment and impulse control. Research shows that people with high conscientiousness and perfectionist tendencies tend to exhibit anxiety and obsessive traits, which aligns with Type 1's psychological patterns.",
+    relationshipPattern: "Type 1s are reliable and committed partners in relationships. They keep their promises, fulfill their responsibilities, and work to improve relationships. However, they may have excessive expectations of their partners or become critical, and conflicts may arise from their insistence on 'the right way.' Healthy Type 1s learn to accept their partner's imperfections and express their anger in healthy ways.",
+    workStyle: "Type 1s are recognized for accurate and systematic work. They value quality and ethical standards and pay attention to details. As leaders, they provide clear expectations and fair treatment, but perfectionism can stress themselves and their teams. They excel in quality control, editing, law, and education fields.",
     growthStrategies: [
-      "내면의 비평가 목소리를 인식하고 부드럽게 다루기",
-      "분노를 인정하고 건강한 방식으로 표현하기",
-      "완벽함보다 충분히 좋음의 가치 인식하기",
-      "즐거움과 놀이의 시간 만들기",
-      "자신과 타인에게 더 관대해지기"
+      "Recognize and gently address the inner critic voice",
+      "Acknowledge anger and express it in healthy ways",
+      "Recognize the value of 'good enough' over perfection",
+      "Make time for fun and play",
+      "Become more forgiving toward yourself and others"
     ],
-    famousPeople: ["간디", "넬슨 만델라", "마가렛 대처", "힐러리 클린턴", "앨 고어"],
+    famousPeople: ["Gandhi", "Nelson Mandela", "Margaret Thatcher", "Hillary Clinton", "Al Gore"],
   },
   2: {
-    name: "2유형",
+    name: "Type 2",
     nameEn: "Type 2",
-    title: "조력가 (The Helper)",
-    coreMotivation: "사랑받고 필요한 존재가 되고자 함",
-    coreFear: "사랑받지 못하고 원치 않는 존재가 되는 것",
-    coreDesire: "무조건적인 사랑을 받는 것",
-    growthDirection: "4유형으로 통합 - 자기 인식과 진정성을 발견함",
-    stressDirection: "8유형으로 분열 - 공격적이고 지배적이 됨",
+    title: "The Helper",
+    coreMotivation: "Wanting to be loved and needed",
+    coreFear: "Being unloved and unwanted",
+    coreDesire: "Receiving unconditional love",
+    growthDirection: "Integration to Type 4 - Discovering self-awareness and authenticity",
+    stressDirection: "Disintegration to Type 8 - Becoming aggressive and domineering",
     characteristics: [
-      "따뜻하고 배려심이 깊음",
-      "타인의 필요에 민감함",
-      "관계 중심적임",
-      "칭찬과 감사에 동기부여됨",
+      "Warm and caring",
+      "Sensitive to others' needs",
+      "Relationship-focused",
+      "Motivated by praise and appreciation",
     ],
     strengths: [
-      "공감 능력이 뛰어남",
-      "관대하고 친절함",
-      "사람들을 연결하는 능력",
-      "헌신적이고 지지적임",
+      "Excellent empathy",
+      "Generous and kind",
+      "Ability to connect people",
+      "Devoted and supportive",
     ],
     challenges: [
-      "자신의 필요를 무시함",
-      "타인에게 지나치게 개입함",
-      "조건적인 도움을 제공함",
-      "거절에 대한 두려움",
+      "Ignoring own needs",
+      "Over-involvement in others' lives",
+      "Providing conditional help",
+      "Fear of rejection",
     ],
     color: "rose",
-    detailedDescription: "2유형 조력가는 '사랑하는 사람'이라는 자기 이미지를 통해 정체성을 형성합니다. 이들은 타인의 필요를 민감하게 감지하고 충족시키는 데 탁월하며, 이를 통해 자신의 가치를 확인합니다. 그러나 자신의 필요를 인식하고 표현하는 것은 어려워하며, 이로 인해 무의식적으로 '주고받기' 관계를 형성할 수 있습니다. 에니어그램 전문가들에 따르면, 2유형의 핵심 문제는 자신이 사랑받으려면 먼저 사랑을 줘야 한다는 믿음입니다. 건강한 2유형은 진정한 이타심을 발휘하며, 보상에 대한 기대 없이 순수하게 타인을 돕습니다.",
-    scientificBackground: "2유형은 '감정 센터'에 속하며, 핵심 감정은 수치심입니다. 심리학적으로, 2유형은 애착 이론에서 '불안정-양가적 애착'과 관련이 있을 수 있습니다. 이들은 어린 시절 조건부 사랑을 경험했을 가능성이 높으며, 이로 인해 사랑받기 위해 타인에게 필수불가결한 존재가 되어야 한다는 믿음을 발전시킵니다. 연구에 따르면 돌봄 행동은 옥시토신과 관련이 있으며, 2유형은 이러한 신경화학적 보상 시스템에 민감할 수 있습니다.",
-    relationshipPattern: "2유형은 관계에서 따뜻하고 관대한 파트너입니다. 파트너의 필요를 예측하고 충족시키는 데 탁월하며, 깊은 감정적 연결을 형성합니다. 그러나 자신의 필요를 표현하지 못하고 억압하다가 폭발할 수 있으며, 파트너의 의존성을 무의식적으로 조장할 수 있습니다. 건강한 관계를 위해서는 자신의 필요도 중요하다는 것을 인식해야 합니다.",
-    workStyle: "2유형은 직장에서 사람 중심의 역할에서 빛을 발합니다. 팀의 화합을 돕고, 동료들의 필요를 챙기며, 긍정적인 분위기를 만듭니다. 그러나 '아니오'라고 말하기 어려워 과부하에 시달릴 수 있으며, 인정받지 못하면 불만이 쌓일 수 있습니다. 간호, 교육, 상담, 서비스 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 2 Helpers form their identity through the self-image of being 'the loving person.' They excel at sensing and meeting others' needs, which validates their self-worth. However, they struggle to recognize and express their own needs, which can lead to unconsciously forming 'give and take' relationships. According to Enneagram experts, the core issue for Type 2 is the belief that they must give love first to be loved. Healthy Type 2s demonstrate true altruism, helping others purely without expecting anything in return.",
+    scientificBackground: "Type 2 belongs to the 'Heart Center,' with shame as the core emotion. Psychologically, Type 2 may be associated with 'insecure-ambivalent attachment' from attachment theory. They likely experienced conditional love in childhood, developing the belief that they must become indispensable to others to be loved. Research shows that caregiving behavior is related to oxytocin, and Type 2s may be particularly sensitive to this neurochemical reward system.",
+    relationshipPattern: "Type 2s are warm and generous partners in relationships. They excel at anticipating and meeting their partner's needs, forming deep emotional connections. However, they may suppress their own needs and explode later, and may unconsciously foster their partner's dependency. For healthy relationships, they need to recognize that their own needs are also important.",
+    workStyle: "Type 2s shine in people-centered roles at work. They help with team harmony, attend to colleagues' needs, and create a positive atmosphere. However, they may have difficulty saying 'no' and become overloaded, and resentment may build if they don't feel appreciated. They excel in nursing, education, counseling, and service fields.",
     growthStrategies: [
-      "자신의 필요와 감정을 인식하고 표현하기",
-      "도움에 대한 보상 없이도 자신의 가치를 인정하기",
-      "경계를 설정하고 '아니오'라고 말하는 연습하기",
-      "혼자만의 시간을 갖고 자기 돌봄 실천하기",
-      "숨겨진 동기 없이 순수하게 주는 것 연습하기"
+      "Recognize and express your own needs and feelings",
+      "Acknowledge your worth without needing rewards for helping",
+      "Practice setting boundaries and saying 'no'",
+      "Have alone time and practice self-care",
+      "Practice giving purely without hidden motives"
     ],
-    famousPeople: ["마더 테레사", "엘비스 프레슬리", "도로시 데이", "스티비 원더", "앤 해서웨이"],
+    famousPeople: ["Mother Teresa", "Elvis Presley", "Dorothy Day", "Stevie Wonder", "Anne Hathaway"],
   },
   3: {
-    name: "3유형",
+    name: "Type 3",
     nameEn: "Type 3",
-    title: "성취가 (The Achiever)",
-    coreMotivation: "가치있고 성공적인 사람이 되고자 함",
-    coreFear: "무가치하고 실패한 존재가 되는 것",
-    coreDesire: "가치있고 인정받는 것",
-    growthDirection: "6유형으로 통합 - 충성심과 진정한 연결을 발견함",
-    stressDirection: "9유형으로 분열 - 무기력하고 방향을 잃음",
+    title: "The Achiever",
+    coreMotivation: "Wanting to be valuable and successful",
+    coreFear: "Being worthless and a failure",
+    coreDesire: "Being valuable and recognized",
+    growthDirection: "Integration to Type 6 - Finding loyalty and genuine connection",
+    stressDirection: "Disintegration to Type 9 - Becoming apathetic and directionless",
     characteristics: [
-      "목표 지향적이고 야심적임",
-      "적응력이 뛰어남",
-      "이미지에 신경을 씀",
-      "효율적이고 생산적임",
+      "Goal-oriented and ambitious",
+      "Highly adaptable",
+      "Image-conscious",
+      "Efficient and productive",
     ],
     strengths: [
-      "추진력과 결단력",
-      "뛰어난 커뮤니케이션 능력",
-      "리더십과 동기부여 능력",
-      "긍정적이고 활력 넘침",
+      "Drive and determination",
+      "Excellent communication skills",
+      "Leadership and motivation ability",
+      "Positive and energetic",
     ],
     challenges: [
-      "일중독 경향",
-      "진정한 자아를 잃을 수 있음",
-      "타인의 평가에 지나치게 의존",
-      "감정을 억압함",
+      "Workaholic tendencies",
+      "May lose touch with true self",
+      "Over-reliance on others' evaluation",
+      "Suppresses emotions",
     ],
     color: "amber",
-    detailedDescription: "3유형 성취가는 에니어그램에서 가장 목표 지향적이고 적응력이 뛰어난 유형입니다. 이들은 성공과 인정에 대한 강한 열망을 가지고 있으며, 자신이 속한 환경에서 가장 가치있는 것을 성취하기 위해 노력합니다. 3유형은 '감정 센터'에 속하지만, 역설적으로 자신의 진정한 감정보다는 이미지와 성과에 집중하는 경향이 있습니다. 어린 시절 '무엇을 하느냐'가 '누구인가'보다 중요하다는 메시지를 내면화한 경우가 많습니다. 건강한 3유형은 자신의 진정한 가치와 연결되어 내적 동기로 움직이며, 다른 사람들을 영감있게 이끕니다. 반면 건강하지 않은 3유형은 자기기만에 빠지고 성공의 외적 상징에만 집착하게 됩니다.",
-    scientificBackground: "3유형은 '감정 센터'에 속하며, 핵심 감정은 수치심입니다. 그러나 3유형은 이 수치심을 성취와 성공으로 덮어버리려 합니다. 심리학적으로, 3유형은 '가면 증후군(Impostor Syndrome)'을 경험할 가능성이 높으며, 내면의 진정한 자아와 외부에 보여주는 이미지 사이의 괴리로 고통받을 수 있습니다. 자기결정이론(Self-Determination Theory)의 관점에서, 3유형은 외적 동기(external motivation)에 의존하는 경향이 있어 진정한 만족을 느끼기 어려울 수 있습니다. 신경과학적으로, 성취와 인정에 대한 보상은 도파민 시스템을 활성화시키며, 이는 3유형의 끊임없는 성취 추구를 설명합니다.",
-    relationshipPattern: "3유형은 관계에서 매력적이고 인상적인 파트너로 보입니다. 자신감 있고 에너지 넘치며, 파트너와 함께 성공적인 모습을 보여주고 싶어합니다. 그러나 관계보다 일을 우선시할 수 있으며, 진정한 감정을 숨기고 완벽한 이미지만 보여주려 할 수 있습니다. 건강한 3유형은 파트너에게 자신의 취약함을 드러내고, 성과와 무관하게 사랑받을 수 있다는 것을 배웁니다. 파트너가 자신의 성취가 아닌 진정한 자아를 사랑한다는 것을 믿는 것이 중요합니다.",
-    workStyle: "3유형은 직장에서 뛰어난 성과를 내는 인재로 인정받습니다. 목표 설정과 달성에 탁월하며, 팀을 동기부여하고 이끄는 능력이 있습니다. 효율적이고 생산적이며, 어떤 상황에서도 성공을 위해 필요한 역할을 수행할 수 있습니다. 그러나 일중독에 빠지기 쉽고, 경쟁적인 환경에서 윤리적 경계를 넘을 수 있습니다. 영업, 마케팅, 리더십 역할, 기업가, 연예인 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 3 Achievers are the most goal-oriented and adaptable type in the Enneagram. They have a strong desire for success and recognition, striving to achieve what is most valued in their environment. Type 3 belongs to the 'Heart Center' but, paradoxically, tends to focus on image and achievement rather than their true feelings. They often internalized the message in childhood that 'what you do' is more important than 'who you are.' Healthy Type 3s connect with their true worth and are driven by internal motivation, inspiring others. Unhealthy Type 3s fall into self-deception and obsess over external symbols of success.",
+    scientificBackground: "Type 3 belongs to the 'Heart Center,' with shame as the core emotion. However, Type 3 tries to cover this shame with achievement and success. Psychologically, Type 3 is likely to experience 'Impostor Syndrome' and may suffer from the gap between their true inner self and the image they present to others. From the perspective of Self-Determination Theory, Type 3 tends to rely on external motivation, making it difficult to feel genuine satisfaction. Neuroscientifically, achievement and recognition rewards activate the dopamine system, explaining Type 3's endless pursuit of achievement.",
+    relationshipPattern: "Type 3s appear as attractive and impressive partners in relationships. They are confident and energetic, wanting to present a successful image with their partner. However, they may prioritize work over relationships and try to show only a perfect image while hiding their true feelings. Healthy Type 3s learn to reveal their vulnerability to their partners and believe they can be loved regardless of their achievements. It's important for them to trust that their partner loves their true self, not just their accomplishments.",
+    workStyle: "Type 3s are recognized as high performers at work. They excel at goal setting and achievement, with the ability to motivate and lead teams. They are efficient and productive, able to perform whatever role is needed for success in any situation. However, they are prone to workaholism and may cross ethical boundaries in competitive environments. They excel in sales, marketing, leadership roles, entrepreneurship, and entertainment fields.",
     growthStrategies: [
-      "성과와 무관한 자신의 가치 인식하기",
-      "진정한 감정을 인식하고 표현하는 연습하기",
-      "실패를 배움의 기회로 받아들이기",
-      "일과 삶의 균형 찾기",
-      "외적 인정보다 내적 만족 추구하기"
+      "Recognize your worth independent of achievements",
+      "Practice recognizing and expressing genuine feelings",
+      "Accept failure as a learning opportunity",
+      "Find work-life balance",
+      "Pursue inner satisfaction over external recognition"
     ],
-    famousPeople: ["오프라 윈프리", "톰 크루즈", "테일러 스위프트", "무하마드 알리", "트럼프"],
+    famousPeople: ["Oprah Winfrey", "Tom Cruise", "Taylor Swift", "Muhammad Ali", "Trump"],
   },
   4: {
-    name: "4유형",
+    name: "Type 4",
     nameEn: "Type 4",
-    title: "예술가 (The Individualist)",
-    coreMotivation: "자신의 정체성을 찾고 독특함을 표현하고자 함",
-    coreFear: "정체성이 없거나 평범한 존재가 되는 것",
-    coreDesire: "진정한 자신을 찾고 표현하는 것",
-    growthDirection: "1유형으로 통합 - 규율과 객관성을 얻음",
-    stressDirection: "2유형으로 분열 - 지나치게 의존적이 됨",
+    title: "The Individualist",
+    coreMotivation: "Wanting to find identity and express uniqueness",
+    coreFear: "Having no identity or being ordinary",
+    coreDesire: "Finding and expressing the true self",
+    growthDirection: "Integration to Type 1 - Gaining discipline and objectivity",
+    stressDirection: "Disintegration to Type 2 - Becoming overly dependent",
     characteristics: [
-      "감수성이 풍부하고 표현적임",
-      "독창적이고 창의적임",
-      "깊은 감정을 경험함",
-      "진정성을 추구함",
+      "Emotionally sensitive and expressive",
+      "Original and creative",
+      "Experiences deep emotions",
+      "Pursues authenticity",
     ],
     strengths: [
-      "깊은 공감 능력",
-      "창의성과 예술적 감각",
-      "진정성과 정직함",
-      "감정적 깊이",
+      "Deep empathy",
+      "Creativity and artistic sense",
+      "Authenticity and honesty",
+      "Emotional depth",
     ],
     challenges: [
-      "우울함과 멜랑콜리",
-      "자기 몰입과 자기 연민",
-      "질투와 비교",
-      "감정 기복",
+      "Melancholy and sadness",
+      "Self-absorption and self-pity",
+      "Jealousy and comparison",
+      "Mood swings",
     ],
     color: "purple",
-    detailedDescription: "4유형 예술가는 에니어그램에서 가장 깊은 감정과 독특한 정체성을 추구하는 유형입니다. 이들은 자신이 다른 사람들과 근본적으로 다르다고 느끼며, 이 독특함이 자신의 정체성의 핵심이라고 여깁니다. 4유형은 감정의 전체 스펙트럼을 경험하며, 특히 멜랑콜리와 그리움 같은 달콤씁쓸한 감정에 끌립니다. 어린 시절 자신이 버려지거나 이해받지 못했다는 느낌을 경험한 경우가 많으며, 이로 인해 '무엇인가 결핍되어 있다'는 감각을 내면화합니다. 건강한 4유형은 자신의 감정적 깊이를 창의적이고 의미있는 방식으로 표현하며, 다른 사람들의 고통에 깊이 공감합니다. 불건강한 4유형은 자기연민에 빠지고, 평범함을 거부하며 고립됩니다.",
-    scientificBackground: "4유형은 '감정 센터'에 속하며, 핵심 감정은 수치심입니다. 4유형은 이 수치심을 '자신이 결함이 있다'는 느낌으로 경험합니다. 심리학적으로, 4유형은 기분 장애나 우울증 경향성이 있을 수 있으며, 이는 감정의 강도와 깊이에 대한 선호와 관련이 있습니다. 객체관계이론의 관점에서, 4유형은 초기 상실이나 분리 경험을 내면화했을 수 있습니다. 흥미롭게도 연구에 따르면 창의적인 사람들은 일반인보다 더 강한 감정 경험을 보고하며, 이는 4유형의 예술적 성향을 설명할 수 있습니다. 에니어그램 전문가들은 4유형을 '낭만주의자'라고도 부르며, 과거의 이상화와 현재의 불만족 사이의 긴장을 특징으로 합니다.",
-    relationshipPattern: "4유형은 관계에서 깊고 의미있는 연결을 갈망합니다. 표면적인 관계에는 관심이 없으며, 영혼의 깊은 교류를 원합니다. 파트너에게 매우 낭만적이고 표현적일 수 있지만, '가까이 있으면 밀어내고, 멀어지면 끌어당기는' 패턴을 보일 수 있습니다. 이상적인 사랑을 추구하며, 현실의 관계가 이 이상에 미치지 못하면 실망합니다. 건강한 4유형은 완벽하지 않은 사랑도 아름다울 수 있다는 것을 받아들이고, 현재 순간의 연결을 즐깁니다.",
-    workStyle: "4유형은 직장에서 창의성과 진정성을 발휘할 수 있는 역할에서 빛을 발합니다. 자기 표현이 가능하고, 독특한 관점이 가치있게 여겨지는 환경을 선호합니다. 반복적이거나 평범한 일에는 동기부여가 되지 않으며, 의미와 아름다움을 추구합니다. 예술, 디자인, 글쓰기, 상담, 교육 분야에서 뛰어난 성과를 보입니다. 그러나 감정 기복이 일의 일관성에 영향을 줄 수 있으며, 비판에 민감하게 반응할 수 있습니다.",
+    detailedDescription: "Type 4 Individualists are the type that pursues the deepest emotions and unique identity in the Enneagram. They feel fundamentally different from others and consider this uniqueness the core of their identity. Type 4 experiences the full spectrum of emotions, particularly drawn to bittersweet feelings like melancholy and longing. They often experienced feeling abandoned or misunderstood in childhood, internalizing a sense of 'something lacking.' Healthy Type 4s express their emotional depth in creative and meaningful ways and deeply empathize with others' suffering. Unhealthy Type 4s fall into self-pity, reject ordinariness, and become isolated.",
+    scientificBackground: "Type 4 belongs to the 'Heart Center,' with shame as the core emotion. Type 4 experiences this shame as a feeling that 'something is wrong with me.' Psychologically, Type 4 may have tendencies toward mood disorders or depression, related to their preference for emotional intensity and depth. From object relations theory, Type 4 may have internalized early experiences of loss or separation. Interestingly, research shows that creative people report stronger emotional experiences than the general population, which may explain Type 4's artistic inclinations. Enneagram experts also call Type 4 'The Romantic,' characterized by tension between idealizing the past and dissatisfaction with the present.",
+    relationshipPattern: "Type 4s yearn for deep and meaningful connections in relationships. They have no interest in superficial relationships, wanting profound exchanges of the soul. They can be very romantic and expressive with partners, but may exhibit a pattern of 'pushing away when close, pulling in when distant.' They pursue ideal love and become disappointed when real relationships don't meet this ideal. Healthy Type 4s accept that imperfect love can also be beautiful and enjoy connections in the present moment.",
+    workStyle: "Type 4s shine in roles where they can express creativity and authenticity at work. They prefer environments where self-expression is possible and unique perspectives are valued. They are not motivated by repetitive or ordinary work, pursuing meaning and beauty. They excel in art, design, writing, counseling, and education fields. However, mood swings can affect work consistency, and they may react sensitively to criticism.",
     growthStrategies: [
-      "현재 순간에 집중하고 감사 연습하기",
-      "감정에 휩쓸리지 않고 관찰하는 연습하기",
-      "평범함 속의 아름다움 발견하기",
-      "자기연민을 자기자비로 전환하기",
-      "다른 사람들과의 공통점 찾기"
+      "Focus on the present moment and practice gratitude",
+      "Practice observing emotions without getting swept away",
+      "Discover beauty in the ordinary",
+      "Transform self-pity into self-compassion",
+      "Find commonalities with others"
     ],
-    famousPeople: ["프리다 칼로", "에드가 앨런 포", "밥 딜런", "줄리아 로버츠", "김민희"],
+    famousPeople: ["Frida Kahlo", "Edgar Allan Poe", "Bob Dylan", "Julia Roberts", "Kim Min-hee"],
   },
   5: {
-    name: "5유형",
+    name: "Type 5",
     nameEn: "Type 5",
-    title: "탐구가 (The Investigator)",
-    coreMotivation: "지식을 쌓고 세상을 이해하고자 함",
-    coreFear: "무능하고 쓸모없는 존재가 되는 것",
-    coreDesire: "유능하고 지식이 풍부한 것",
-    growthDirection: "8유형으로 통합 - 자신감과 행동력을 얻음",
-    stressDirection: "7유형으로 분열 - 산만하고 충동적이 됨",
+    title: "The Investigator",
+    coreMotivation: "Wanting to accumulate knowledge and understand the world",
+    coreFear: "Being incompetent and useless",
+    coreDesire: "Being competent and knowledgeable",
+    growthDirection: "Integration to Type 8 - Gaining confidence and ability to act",
+    stressDirection: "Disintegration to Type 7 - Becoming scattered and impulsive",
     characteristics: [
-      "분석적이고 통찰력 있음",
-      "독립적이고 자족적임",
-      "지적 호기심이 강함",
-      "관찰자적 태도",
+      "Analytical and insightful",
+      "Independent and self-sufficient",
+      "Intellectually curious",
+      "Observer-like attitude",
     ],
     strengths: [
-      "뛰어난 분석력",
-      "객관적이고 냉철함",
-      "집중력과 인내심",
-      "지적 깊이",
+      "Excellent analytical ability",
+      "Objective and clear-headed",
+      "Focus and patience",
+      "Intellectual depth",
     ],
     challenges: [
-      "감정적 거리감",
-      "지나친 고립",
-      "행동보다 관찰에 치우침",
-      "에너지 고갈에 대한 두려움",
+      "Emotional distance",
+      "Excessive isolation",
+      "Leaning toward observation over action",
+      "Fear of energy depletion",
     ],
     color: "blue",
-    detailedDescription: "5유형 탐구가는 에니어그램에서 가장 분석적이고 지적인 유형입니다. 이들은 세상을 관찰하고 이해하는 것에서 깊은 만족을 얻으며, 지식을 축적하여 자신을 보호하려 합니다. 5유형은 자신의 내부 자원(에너지, 시간, 감정)이 제한되어 있다고 느끼며, 이를 소중히 여기고 보존하려 합니다. 어린 시절 침습적이거나 압도적인 환경에서 자신만의 공간과 자율성을 확보하기 위해 관찰자적 태도를 발달시킨 경우가 많습니다. 건강한 5유형은 깊은 통찰력과 객관적인 분석력으로 복잡한 문제를 해결하며, 혁신적인 아이디어를 제시합니다. 불건강한 5유형은 현실에서 점점 더 고립되어 자신의 사고 세계에만 갇히게 됩니다.",
-    scientificBackground: "5유형은 '사고 센터'에 속하며, 핵심 감정은 두려움입니다. 5유형은 이 두려움을 지식과 이해로 관리하려 합니다. 심리학적으로, 5유형은 분열성(schizoid) 성격 특성과 관련이 있을 수 있으며, 이는 내면 세계로의 철수와 감정적 거리감으로 특징됩니다. 그러나 이것이 병리적인 것은 아니며, 많은 5유형은 높은 기능의 내향적인 사람들입니다. 신경과학적 관점에서, 5유형은 전두엽 피질의 높은 활성화와 관련이 있을 수 있으며, 이는 분석적 사고와 계획에 관여합니다. 에니어그램 연구자들에 따르면, 5유형의 '탐욕'은 물질이 아닌 지식과 이해에 대한 것입니다.",
-    relationshipPattern: "5유형은 관계에서 깊은 신뢰와 공간이 필요합니다. 표면적인 사교보다 소수의 깊은 관계를 선호하며, 지적인 연결을 중요시합니다. 파트너에게 충실하고 신뢰할 수 있지만, 감정적 친밀감을 표현하는 것은 어려워합니다. 혼자만의 시간이 필수적이며, 이것이 파트너에 대한 관심 부족으로 오해받을 수 있습니다. 건강한 5유형은 감정을 안전하게 공유할 수 있으며, 관계 속에서도 자신만의 공간을 유지하는 균형을 찾습니다.",
-    workStyle: "5유형은 직장에서 전문 지식과 분석 능력으로 인정받습니다. 독립적으로 일하는 것을 선호하며, 방해받지 않는 집중 시간이 필요합니다. 복잡한 문제를 해결하고, 깊이 있는 연구를 수행하며, 객관적인 관점을 제공합니다. 회의나 팀 활동이 많은 환경은 에너지를 소진시킬 수 있습니다. 연구, 과학, 기술, 전략 분석, 글쓰기 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 5 Investigators are the most analytical and intellectual type in the Enneagram. They find deep satisfaction in observing and understanding the world, seeking to protect themselves by accumulating knowledge. Type 5 feels that their internal resources (energy, time, emotions) are limited, cherishing and conserving them. They often developed an observer-like attitude in childhood to secure their own space and autonomy in intrusive or overwhelming environments. Healthy Type 5s solve complex problems with deep insight and objective analysis, offering innovative ideas. Unhealthy Type 5s become increasingly isolated from reality, trapped in their own world of thought.",
+    scientificBackground: "Type 5 belongs to the 'Head Center,' with fear as the core emotion. Type 5 tries to manage this fear through knowledge and understanding. Psychologically, Type 5 may be associated with schizoid personality traits, characterized by withdrawal into inner world and emotional distance. However, this is not pathological, and many Type 5s are highly functional introverted people. From a neuroscience perspective, Type 5 may be associated with high activation of the prefrontal cortex, which is involved in analytical thinking and planning. According to Enneagram researchers, Type 5's 'greed' is not about material things but about knowledge and understanding.",
+    relationshipPattern: "Type 5s need deep trust and space in relationships. They prefer a few deep relationships over superficial socializing and value intellectual connection. They are loyal and reliable to their partners but struggle to express emotional intimacy. Alone time is essential, which can be misinterpreted as lack of interest in the partner. Healthy Type 5s can safely share their feelings and find a balance of maintaining personal space within relationships.",
+    workStyle: "Type 5s are recognized for their specialized knowledge and analytical skills at work. They prefer working independently and need uninterrupted time for concentration. They solve complex problems, conduct in-depth research, and provide objective perspectives. Environments with many meetings or team activities can drain their energy. They excel in research, science, technology, strategic analysis, and writing fields.",
     growthStrategies: [
-      "지식 수집에서 벗어나 행동으로 옮기기",
-      "몸과 감정에 더 많이 연결하기",
-      "다른 사람들과 시간을 보내며 관계 기술 발전시키기",
-      "모든 것을 알아야 한다는 압박에서 벗어나기",
-      "자신의 에너지가 충분하다는 것을 신뢰하기"
+      "Move from gathering knowledge to taking action",
+      "Connect more with body and emotions",
+      "Develop relationship skills by spending time with others",
+      "Free yourself from the pressure of needing to know everything",
+      "Trust that your energy is sufficient"
     ],
-    famousPeople: ["알버트 아인슈타인", "스티븐 호킹", "빌 게이츠", "팀 버튼", "조디 포스터"],
+    famousPeople: ["Albert Einstein", "Stephen Hawking", "Bill Gates", "Tim Burton", "Jodie Foster"],
   },
   6: {
-    name: "6유형",
+    name: "Type 6",
     nameEn: "Type 6",
-    title: "충성가 (The Loyalist)",
-    coreMotivation: "안전하고 지지받는 환경을 만들고자 함",
-    coreFear: "지원이나 안내 없이 남겨지는 것",
-    coreDesire: "안전과 확신을 갖는 것",
-    growthDirection: "9유형으로 통합 - 평화로움과 신뢰를 얻음",
-    stressDirection: "3유형으로 분열 - 경쟁적이고 오만해짐",
+    title: "The Loyalist",
+    coreMotivation: "Wanting to create a safe and supportive environment",
+    coreFear: "Being left without support or guidance",
+    coreDesire: "Having security and certainty",
+    growthDirection: "Integration to Type 9 - Gaining peace and trust",
+    stressDirection: "Disintegration to Type 3 - Becoming competitive and arrogant",
     characteristics: [
-      "책임감이 강하고 신뢰할 수 있음",
-      "위험을 예측하고 대비함",
-      "충성스럽고 헌신적임",
-      "의심과 확인을 반복함",
+      "Responsible and reliable",
+      "Anticipates and prepares for risks",
+      "Loyal and devoted",
+      "Repeatedly questions and verifies",
     ],
     strengths: [
-      "충성심과 헌신",
-      "문제 해결 능력",
-      "위기 대처 능력",
-      "협동적이고 지지적임",
+      "Loyalty and commitment",
+      "Problem-solving ability",
+      "Crisis management ability",
+      "Cooperative and supportive",
     ],
     challenges: [
-      "불안과 걱정",
-      "의심과 불신",
-      "최악의 시나리오 상상",
-      "결정 장애",
+      "Anxiety and worry",
+      "Doubt and distrust",
+      "Imagining worst-case scenarios",
+      "Decision paralysis",
     ],
     color: "teal",
-    detailedDescription: "6유형 충성가는 에니어그램에서 가장 복잡하고 다양한 양상을 보이는 유형입니다. 이들은 안전과 확실성을 추구하며, 신뢰할 수 있는 사람과 시스템에 충성합니다. 6유형은 '두려움'을 핵심 감정으로 가지며, 이에 대처하는 방식에 따라 '공포적(phobic)' 6유형과 '반공포적(counterphobic)' 6유형으로 나뉩니다. 공포적 6유형은 두려움에서 물러나고, 반공포적 6유형은 두려움을 향해 돌진합니다. 어린 시절 불안정하거나 예측 불가능한 환경에서 자란 경우가 많으며, 이로 인해 최악의 시나리오를 예측하고 대비하는 능력을 발달시켰습니다. 건강한 6유형은 용기 있고, 충성스럽며, 다른 사람들을 위해 싸우는 챔피언입니다.",
-    scientificBackground: "6유형은 '사고 센터'에 속하며, 핵심 감정은 두려움입니다. 6유형은 사고를 통해 두려움을 관리하려 하며, 이것이 끊임없는 시나리오 분석과 위험 평가로 나타납니다. 심리학적으로, 6유형은 일반화된 불안 장애(Generalized Anxiety Disorder)와 관련이 있을 수 있습니다. 애착 이론의 관점에서, 6유형은 '불안정-회피적 애착'이나 '불안정-양가적 애착'과 관련될 수 있습니다. 신경과학적으로, 6유형은 편도체의 높은 활성화와 관련이 있을 수 있으며, 이는 위협 탐지와 불안 반응에 관여합니다. 흥미롭게도 6유형은 전체 인구에서 가장 흔한 유형 중 하나로 추정됩니다.",
-    relationshipPattern: "6유형은 관계에서 충성스럽고 헌신적인 파트너입니다. 신뢰를 쌓는 데 시간이 걸리지만, 일단 신뢰하면 매우 헌신적이고 보호적입니다. 그러나 파트너에 대한 의심과 테스트가 관계를 복잡하게 만들 수 있습니다. 권위에 대한 양가적 감정이 친밀한 관계에서도 나타날 수 있습니다. 건강한 6유형은 자신과 파트너를 신뢰하고, 불안에도 불구하고 관계에 헌신합니다. 안정적이고 예측 가능한 파트너가 도움이 됩니다.",
-    workStyle: "6유형은 직장에서 책임감 있고 신뢰할 수 있는 팀 플레이어입니다. 위험을 미리 예측하고 대비하는 능력이 뛰어나며, 팀과 조직에 충성합니다. 명확한 기대와 구조가 있는 환경에서 가장 잘 기능합니다. 그러나 결정을 내리는 것이 어려울 수 있으며, 지나친 걱정이 생산성을 저해할 수 있습니다. 위기 관리, 법률, 의료, 안전 관련 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 6 Loyalists are the most complex and diverse type in the Enneagram. They seek safety and certainty, remaining loyal to trustworthy people and systems. Type 6 has 'fear' as the core emotion, and depending on how they cope with it, they are divided into 'phobic' Type 6 (retreating from fear) and 'counterphobic' Type 6 (charging toward fear). They often grew up in unstable or unpredictable environments, developing the ability to anticipate and prepare for worst-case scenarios. Healthy Type 6s are courageous, loyal, and champions who fight for others.",
+    scientificBackground: "Type 6 belongs to the 'Head Center,' with fear as the core emotion. Type 6 tries to manage fear through thinking, which manifests as constant scenario analysis and risk assessment. Psychologically, Type 6 may be associated with Generalized Anxiety Disorder. From attachment theory, Type 6 may be related to 'insecure-avoidant' or 'insecure-ambivalent' attachment. Neuroscientifically, Type 6 may be associated with high activation of the amygdala, which is involved in threat detection and anxiety response. Interestingly, Type 6 is estimated to be one of the most common types in the general population.",
+    relationshipPattern: "Type 6s are loyal and committed partners in relationships. It takes time to build trust, but once trusted, they are highly devoted and protective. However, doubts and tests of the partner can complicate relationships. Ambivalent feelings about authority can also appear in intimate relationships. Healthy Type 6s trust themselves and their partners, committing to relationships despite anxiety. A stable and predictable partner is helpful.",
+    workStyle: "Type 6s are responsible and reliable team players at work. They excel at anticipating and preparing for risks and are loyal to teams and organizations. They function best in environments with clear expectations and structure. However, making decisions can be difficult, and excessive worry can hinder productivity. They excel in crisis management, law, medicine, and safety-related fields.",
     growthStrategies: [
-      "불안을 인정하되 행동하는 용기 기르기",
-      "자신의 직관과 판단을 신뢰하기",
-      "최악의 시나리오와 최선의 시나리오를 균형있게 보기",
-      "외부의 권위보다 내적 안내 찾기",
-      "현재 순간에 집중하며 마음챙김 연습하기"
+      "Acknowledge anxiety but cultivate courage to act",
+      "Trust your own intuition and judgment",
+      "See both worst-case and best-case scenarios in balance",
+      "Find inner guidance rather than external authority",
+      "Practice mindfulness focusing on the present moment"
     ],
-    famousPeople: ["로버트 F. 케네디", "톰 행크스", "엘렌 드제너러스", "줄리아 로버츠", "브루스 스프링스틴"],
+    famousPeople: ["Robert F. Kennedy", "Tom Hanks", "Ellen DeGeneres", "Julia Roberts", "Bruce Springsteen"],
   },
   7: {
-    name: "7유형",
+    name: "Type 7",
     nameEn: "Type 7",
-    title: "낙천가 (The Enthusiast)",
-    coreMotivation: "행복하고 자유로우며 다양한 경험을 하고자 함",
-    coreFear: "고통받고 제한되며 지루해지는 것",
-    coreDesire: "만족하고 충족되는 것",
-    growthDirection: "5유형으로 통합 - 깊이와 집중력을 얻음",
-    stressDirection: "1유형으로 분열 - 비판적이고 완벽주의적이 됨",
+    title: "The Enthusiast",
+    coreMotivation: "Wanting to be happy, free, and have diverse experiences",
+    coreFear: "Suffering, being restricted, and becoming bored",
+    coreDesire: "Being satisfied and fulfilled",
+    growthDirection: "Integration to Type 5 - Gaining depth and focus",
+    stressDirection: "Disintegration to Type 1 - Becoming critical and perfectionistic",
     characteristics: [
-      "열정적이고 에너지 넘침",
-      "다재다능하고 창의적임",
-      "미래 지향적임",
-      "낙관적이고 유쾌함",
+      "Enthusiastic and energetic",
+      "Versatile and creative",
+      "Future-oriented",
+      "Optimistic and cheerful",
     ],
     strengths: [
-      "긍정적인 에너지",
-      "창의성과 아이디어",
-      "적응력과 유연성",
-      "재미있고 영감을 줌",
+      "Positive energy",
+      "Creativity and ideas",
+      "Adaptability and flexibility",
+      "Fun and inspiring",
     ],
     challenges: [
-      "약속을 지키기 어려움",
-      "깊이 부족",
-      "고통을 회피함",
-      "산만하고 집중력 부족",
+      "Difficulty keeping promises",
+      "Lack of depth",
+      "Avoiding pain",
+      "Scattered and lacking focus",
     ],
     color: "orange",
-    detailedDescription: "7유형 낙천가는 에니어그램에서 가장 열정적이고 모험을 즐기는 유형입니다. 이들은 새로운 경험, 아이디어, 가능성에 끌리며, 인생을 최대한 즐기고 싶어합니다. 7유형의 핵심 전략은 고통과 제한을 피하고 긍정적인 것에 집중하는 것입니다. 어린 시절 양육자의 정서적 부재나 고통스러운 경험을 피하기 위해 마음을 바쁘고 즐겁게 유지하는 전략을 발달시켰을 수 있습니다. 건강한 7유형은 현재 순간에 완전히 몰입하고, 깊이 있는 기쁨을 경험하며, 다른 사람들에게 영감을 줍니다. 불건강한 7유형은 끊임없이 다음 자극을 찾으며 표면적으로 살게 됩니다.",
-    scientificBackground: "7유형은 '사고 센터'에 속하며, 핵심 감정은 두려움입니다. 그러나 7유형은 이 두려움을 미래의 가능성과 계획으로 덮어버립니다. 심리학적으로, 7유형은 주의력 결핍 패턴이나 조증(mania) 경향성과 관련이 있을 수 있습니다. 에니어그램에서 7유형의 '탐식(gluttony)'은 음식이 아니라 경험에 대한 것입니다. 신경과학적 관점에서, 7유형은 도파민 시스템의 높은 활성화와 관련이 있을 수 있으며, 이는 새로운 것에 대한 열망과 보상 추구 행동에 관여합니다. 긍정심리학의 관점에서, 7유형은 긍정적 감정을 추구하지만, 진정한 행복은 쾌락의 축적이 아니라 의미와 몰입에서 온다는 것을 배워야 합니다.",
-    relationshipPattern: "7유형은 관계에서 재미있고 에너지 넘치는 파트너입니다. 함께 새로운 경험을 탐험하고, 낙관적인 분위기를 만들어냅니다. 그러나 관계가 '지루해지거나' 어려워지면 탈출하려 할 수 있습니다. 깊은 감정적 대화나 갈등을 회피하려 하며, 파트너의 필요보다 자신의 자유를 우선시할 수 있습니다. 건강한 7유형은 관계의 깊이와 헌신이 진정한 만족을 준다는 것을 배우며, 어려운 순간도 함께 합니다.",
-    workStyle: "7유형은 직장에서 창의적이고 혁신적인 아이디어를 제시합니다. 다양한 프로젝트를 동시에 추진할 수 있으며, 팀에 에너지와 낙관주의를 불어넣습니다. 그러나 한 가지에 집중하기 어렵고, 세부 사항이나 후속 작업을 놓칠 수 있습니다. 반복적이거나 제한적인 환경에서는 지루함을 느낍니다. 기획, 마케팅, 엔터테인먼트, 여행, 스타트업 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 7 Enthusiasts are the most passionate and adventure-loving type in the Enneagram. They are drawn to new experiences, ideas, and possibilities, wanting to enjoy life to the fullest. Type 7's core strategy is to avoid pain and limitations and focus on the positive. In childhood, they may have developed a strategy of keeping their minds busy and entertained to avoid the caregiver's emotional absence or painful experiences. Healthy Type 7s are fully immersed in the present moment, experience deep joy, and inspire others. Unhealthy Type 7s constantly seek the next stimulus and live superficially.",
+    scientificBackground: "Type 7 belongs to the 'Head Center,' with fear as the core emotion. However, Type 7 covers this fear with future possibilities and plans. Psychologically, Type 7 may be associated with attention deficit patterns or manic tendencies. In the Enneagram, Type 7's 'gluttony' is not about food but about experiences. From a neuroscience perspective, Type 7 may be associated with high activation of the dopamine system, which is involved in desire for novelty and reward-seeking behavior. From positive psychology, Type 7 pursues positive emotions but needs to learn that true happiness comes from meaning and engagement, not accumulation of pleasure.",
+    relationshipPattern: "Type 7s are fun and energetic partners in relationships. They enjoy exploring new experiences together and create an optimistic atmosphere. However, they may try to escape when relationships become 'boring' or difficult. They tend to avoid deep emotional conversations or conflicts and may prioritize their own freedom over their partner's needs. Healthy Type 7s learn that depth and commitment in relationships bring true satisfaction and stay together through difficult times.",
+    workStyle: "Type 7s bring creative and innovative ideas at work. They can pursue multiple projects simultaneously and infuse teams with energy and optimism. However, they have difficulty focusing on one thing and may miss details or follow-up work. They get bored in repetitive or restrictive environments. They excel in planning, marketing, entertainment, travel, and startup fields.",
     growthStrategies: [
-      "한 가지에 집중하고 끝까지 완수하기",
-      "불편한 감정도 경험하고 처리하기",
-      "현재 순간의 충만함 즐기기",
-      "깊이 있는 관계와 헌신 연습하기",
-      "더 많은 것이 항상 더 좋은 것은 아님 인식하기"
+      "Focus on one thing and complete it",
+      "Experience and process uncomfortable emotions",
+      "Enjoy the fullness of the present moment",
+      "Practice depth and commitment in relationships",
+      "Recognize that more isn't always better"
     ],
-    famousPeople: ["로빈 윌리엄스", "짐 캐리", "스티븐 스필버그", "리처드 브랜슨", "카메론 디아즈"],
+    famousPeople: ["Robin Williams", "Jim Carrey", "Steven Spielberg", "Richard Branson", "Cameron Diaz"],
   },
   8: {
-    name: "8유형",
+    name: "Type 8",
     nameEn: "Type 8",
-    title: "도전가 (The Challenger)",
-    coreMotivation: "자신과 타인을 보호하고 통제하고자 함",
-    coreFear: "통제당하거나 상처받는 것",
-    coreDesire: "자신을 보호하고 통제권을 유지하는 것",
-    growthDirection: "2유형으로 통합 - 부드러움과 배려를 얻음",
-    stressDirection: "5유형으로 분열 - 고립되고 비밀스러워짐",
+    title: "The Challenger",
+    coreMotivation: "Wanting to protect and control self and others",
+    coreFear: "Being controlled or hurt",
+    coreDesire: "Protecting self and maintaining control",
+    growthDirection: "Integration to Type 2 - Gaining gentleness and caring",
+    stressDirection: "Disintegration to Type 5 - Becoming isolated and secretive",
     characteristics: [
-      "강인하고 자신감 있음",
-      "결단력이 있음",
-      "직접적이고 솔직함",
-      "보호적이고 정의로움",
+      "Strong and confident",
+      "Decisive",
+      "Direct and frank",
+      "Protective and just",
     ],
     strengths: [
-      "리더십과 결단력",
-      "용기와 자신감",
-      "정의감",
-      "보호하는 힘",
+      "Leadership and decisiveness",
+      "Courage and confidence",
+      "Sense of justice",
+      "Protective power",
     ],
     challenges: [
-      "지나친 강압",
-      "취약함을 보이기 어려움",
-      "분노 조절",
-      "타인을 위협할 수 있음",
+      "Excessive force",
+      "Difficulty showing vulnerability",
+      "Anger management",
+      "Can intimidate others",
     ],
     color: "red",
-    detailedDescription: "8유형 도전가는 에니어그램에서 가장 강력하고 결단력 있는 유형입니다. 이들은 자신과 사랑하는 사람들을 보호하려는 강한 본능을 가지고 있으며, 세상에서 자신의 존재감을 확실히 드러냅니다. 8유형은 통제당하거나 취약해지는 것을 두려워하며, 이를 피하기 위해 강한 외면을 구축합니다. 어린 시절 자신을 보호해야 했거나, '강해야 살아남는다'는 메시지를 받은 경우가 많습니다. 건강한 8유형은 자신의 힘을 약자를 보호하고 정의를 실현하는 데 사용하며, 관대하고 따뜻한 면을 보여줍니다. 불건강한 8유형은 지배적이고 파괴적이 되어 다른 사람들을 위협하고 통제합니다.",
-    scientificBackground: "8유형은 '본능 센터'에 속하며, 핵심 감정은 분노입니다. 그러나 1유형과 9유형이 분노를 억압하거나 잊는 반면, 8유형은 분노를 직접 표현합니다. 심리학적으로, 8유형은 반사회적 또는 나르시시즘적 특성과 혼동될 수 있지만, 건강한 8유형은 깊은 정의감과 보호 본능을 가지고 있습니다. 에니어그램에서 8유형의 '정욕(lust)'은 성적인 것이 아니라 삶에 대한 강렬한 열망입니다. 신경과학적으로, 8유형은 테스토스테론과 아드레날린 시스템의 높은 활성화와 관련이 있을 수 있으며, 이는 지배성과 공격성에 관여합니다.",
-    relationshipPattern: "8유형은 관계에서 보호적이고 헌신적인 파트너입니다. 파트너를 위해 싸우고, 강한 존재감으로 안전을 제공합니다. 그러나 지배적이 되어 파트너의 자율성을 침해할 수 있으며, 취약함을 보이는 것을 어려워합니다. 갈등 상황에서 압도적이 될 수 있고, 분노 표현이 과할 수 있습니다. 건강한 8유형은 파트너에게 부드러움을 보여주고, 취약함이 강점이 될 수 있다는 것을 배웁니다.",
-    workStyle: "8유형은 직장에서 자연스러운 리더로 부상합니다. 결단력 있고, 책임을 기꺼이 지며, 팀을 이끌고 목표를 달성하는 데 뛰어납니다. 권한과 자율성이 있는 역할에서 최고의 성과를 냅니다. 그러나 지나치게 지배적이 되거나, 다른 사람들의 의견을 무시할 수 있습니다. 기업가, 경영자, 정치인, 변호사, 위기 관리 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 8 Challengers are the most powerful and decisive type in the Enneagram. They have a strong instinct to protect themselves and loved ones, making their presence clearly felt in the world. Type 8 fears being controlled or vulnerable, building a strong exterior to avoid this. They often had to protect themselves in childhood or received the message that 'you must be strong to survive.' Healthy Type 8s use their power to protect the weak and realize justice, showing generosity and warmth. Unhealthy Type 8s become domineering and destructive, intimidating and controlling others.",
+    scientificBackground: "Type 8 belongs to the 'Body Center,' with anger as the core emotion. However, while Type 1 and Type 9 suppress or forget anger, Type 8 expresses it directly. Psychologically, Type 8 can be confused with antisocial or narcissistic traits, but healthy Type 8s have a deep sense of justice and protective instincts. In the Enneagram, Type 8's 'lust' is not sexual but an intense desire for life. Neuroscientifically, Type 8 may be associated with high activation of testosterone and adrenaline systems, which are involved in dominance and aggression.",
+    relationshipPattern: "Type 8s are protective and devoted partners in relationships. They fight for their partners and provide safety with their strong presence. However, they may become domineering and infringe on their partner's autonomy, finding it difficult to show vulnerability. They can become overwhelming in conflict situations and may express anger excessively. Healthy Type 8s show tenderness to their partners and learn that vulnerability can be a strength.",
+    workStyle: "Type 8s naturally emerge as leaders at work. They are decisive, willing to take responsibility, and excel at leading teams and achieving goals. They perform best in roles with authority and autonomy. However, they may become overly domineering or disregard others' opinions. They excel as entrepreneurs, executives, politicians, lawyers, and in crisis management fields.",
     growthStrategies: [
-      "취약함을 보여도 안전하다는 것을 배우기",
-      "다른 사람들에게 통제권을 위임하기",
-      "분노 이면의 감정들 인식하기",
-      "부드러움도 강함의 한 형태임을 받아들이기",
-      "파트너와 팀원들의 관점 경청하기"
+      "Learn that showing vulnerability is safe",
+      "Delegate control to others",
+      "Recognize emotions behind anger",
+      "Accept that gentleness is also a form of strength",
+      "Listen to partners' and team members' perspectives"
     ],
-    famousPeople: ["마틴 루터 킹 주니어", "처칠", "프랭크 시나트라", "핑크", "러셀 크로우"],
+    famousPeople: ["Martin Luther King Jr.", "Churchill", "Frank Sinatra", "Pink", "Russell Crowe"],
   },
   9: {
-    name: "9유형",
+    name: "Type 9",
     nameEn: "Type 9",
-    title: "중재자 (The Peacemaker)",
-    coreMotivation: "내적 평화를 유지하고 조화를 이루고자 함",
-    coreFear: "분리되고 갈등에 휘말리는 것",
-    coreDesire: "평화와 조화를 유지하는 것",
-    growthDirection: "3유형으로 통합 - 자기 발전과 추진력을 얻음",
-    stressDirection: "6유형으로 분열 - 불안하고 의존적이 됨",
+    title: "The Peacemaker",
+    coreMotivation: "Wanting to maintain inner peace and harmony",
+    coreFear: "Being separated and caught in conflict",
+    coreDesire: "Maintaining peace and harmony",
+    growthDirection: "Integration to Type 3 - Gaining self-development and drive",
+    stressDirection: "Disintegration to Type 6 - Becoming anxious and dependent",
     characteristics: [
-      "평화롭고 수용적임",
-      "중재 능력이 뛰어남",
-      "인내심이 강함",
-      "다양한 관점을 이해함",
+      "Peaceful and accepting",
+      "Excellent at mediation",
+      "Patient",
+      "Understands various perspectives",
     ],
     strengths: [
-      "중재와 조화 능력",
-      "수용적이고 개방적임",
-      "안정감을 줌",
-      "공감과 이해",
+      "Mediation and harmony skills",
+      "Accepting and open",
+      "Provides stability",
+      "Empathy and understanding",
     ],
     challenges: [
-      "자기 주장 부족",
-      "결정 회피",
-      "수동적 공격성",
-      "자신을 잊어버림",
+      "Lack of assertiveness",
+      "Decision avoidance",
+      "Passive-aggression",
+      "Forgetting oneself",
     ],
     color: "green",
-    detailedDescription: "9유형 중재자는 에니어그램에서 가장 평화롭고 수용적인 유형입니다. 이들은 내면과 외면의 조화를 추구하며, 갈등을 피하고 모든 사람을 이해하려 합니다. 9유형은 다른 사람들의 관점을 쉽게 수용하고 융합할 수 있지만, 이 과정에서 자신의 목소리와 욕구를 잃어버리기 쉽습니다. 어린 시절 '문제를 일으키지 말라'는 메시지를 받거나, 자신의 존재감이 중요하지 않다고 느낀 경우가 많습니다. 건강한 9유형은 평화를 가져오는 능력을 가지면서도 자신의 존재와 의견을 주장합니다. 불건강한 9유형은 무기력해지고, 중요한 것들을 무시하며, 삶에서 '잠든' 상태가 됩니다.",
-    scientificBackground: "9유형은 '본능 센터'에 속하며, 핵심 감정은 분노입니다. 그러나 9유형은 분노를 '나르코틱(narcotizing)'으로 관리합니다. 즉, 분노와 다른 불편한 감정들을 마비시키거나 잊어버립니다. 심리학적으로, 9유형은 해리(dissociation) 경향성이나 자기 무효화와 관련이 있을 수 있습니다. 에니어그램에서 9유형의 '나태(sloth)'는 육체적인 것이 아니라 자신의 욕구와 존재에 대한 무관심입니다. 흥미롭게도 9유형은 에니어그램 심볼의 꼭대기에 위치하며, 모든 다른 유형의 특성을 일부분 가지고 있어 '조정자'로 불립니다. 연구에 따르면 9유형은 사회적 바람직성과 동조 행동이 높은 경향이 있습니다.",
-    relationshipPattern: "9유형은 관계에서 수용적이고 안정적인 파트너입니다. 파트너의 필요에 적응하고, 갈등을 최소화하며, 편안한 분위기를 만듭니다. 그러나 자신의 필요와 의견을 표현하지 않아 파트너가 그들의 진정한 모습을 알기 어려울 수 있습니다. 갈등 회피가 해결되지 않은 문제들을 쌓이게 할 수 있으며, 수동적 공격성으로 표출될 수 있습니다. 건강한 9유형은 자신의 존재도 중요하다는 것을 인식하고, 건강한 갈등을 통해 관계를 성장시킵니다.",
-    workStyle: "9유형은 직장에서 조화로운 팀 환경을 만드는 데 기여합니다. 다양한 관점을 이해하고 중재할 수 있으며, 안정적이고 신뢰할 수 있는 동료입니다. 그러나 우선순위를 정하기 어려워하고, 중요한 결정을 미루거나 회피할 수 있습니다. 압박이나 갈등이 많은 환경에서는 '잠들어버릴' 수 있습니다. 중재, 상담, 인사, 의료, 예술 분야에서 뛰어난 성과를 보입니다.",
+    detailedDescription: "Type 9 Peacemakers are the most peaceful and accepting type in the Enneagram. They pursue harmony internally and externally, avoiding conflict and trying to understand everyone. Type 9 can easily accept and merge with others' perspectives, but in this process, they can easily lose their own voice and desires. They often received the message in childhood to 'not cause problems' or felt that their presence wasn't important. Healthy Type 9s have the ability to bring peace while asserting their own existence and opinions. Unhealthy Type 9s become lethargic, ignore important things, and become 'asleep' in life.",
+    scientificBackground: "Type 9 belongs to the 'Body Center,' with anger as the core emotion. However, Type 9 manages anger through 'narcotizing' - numbing or forgetting anger and other uncomfortable feelings. Psychologically, Type 9 may be associated with dissociation tendencies or self-invalidation. In the Enneagram, Type 9's 'sloth' is not physical but indifference to one's own needs and existence. Interestingly, Type 9 is located at the top of the Enneagram symbol and is called the 'harmonizer' because they have some characteristics of all other types. Research shows that Type 9 tends to have high social desirability and conforming behavior.",
+    relationshipPattern: "Type 9s are accepting and stable partners in relationships. They adapt to their partner's needs, minimize conflict, and create a comfortable atmosphere. However, by not expressing their own needs and opinions, partners may find it difficult to know their true selves. Conflict avoidance can cause unresolved problems to pile up and may manifest as passive-aggression. Healthy Type 9s recognize that their own existence is also important and grow relationships through healthy conflict.",
+    workStyle: "Type 9s contribute to creating a harmonious team environment at work. They can understand and mediate various perspectives and are stable and reliable colleagues. However, they may have difficulty prioritizing and may postpone or avoid important decisions. They may 'fall asleep' in environments with pressure or much conflict. They excel in mediation, counseling, HR, healthcare, and arts fields.",
     growthStrategies: [
-      "자신의 욕구와 의견을 인식하고 표현하기",
-      "갈등을 피하지 않고 건강하게 다루기",
-      "우선순위를 정하고 행동으로 옮기기",
-      "분노를 포함한 모든 감정 경험하기",
-      "자신의 존재와 중요성 인식하기"
+      "Recognize and express your own desires and opinions",
+      "Address conflict healthily rather than avoiding it",
+      "Set priorities and take action",
+      "Experience all emotions including anger",
+      "Recognize your own existence and importance"
     ],
-    famousPeople: ["달라이 라마", "에이브러햄 링컨", "로널드 레이건", "키아누 리브스", "빌 머레이"],
+    famousPeople: ["Dalai Lama", "Abraham Lincoln", "Ronald Reagan", "Keanu Reeves", "Bill Murray"],
   },
 };
 
@@ -653,19 +653,19 @@ export const typeBgColors: Record<EnneagramType, string> = {
   9: "from-green-500/10 to-emerald-500/10",
 };
 
-// 날개(Wing) 계산 - 인접한 유형 중 높은 점수
+// Wing calculation - higher score among adjacent types
 export const getWing = (
   mainType: EnneagramType,
   scores: Record<EnneagramType, number>
 ): EnneagramType | null => {
-  // 인접한 유형 (1-9는 원형으로 연결됨)
+  // Adjacent types (1-9 are connected in a circle)
   const leftWing = mainType === 1 ? 9 : (mainType - 1) as EnneagramType;
   const rightWing = mainType === 9 ? 1 : (mainType + 1) as EnneagramType;
 
   const leftScore = scores[leftWing];
   const rightScore = scores[rightWing];
 
-  // 점수 차이가 너무 작으면 날개가 없는 것으로 판단
+  // If score difference is too small, consider no wing
   if (Math.abs(leftScore - rightScore) < 5) {
     return null;
   }
@@ -673,31 +673,31 @@ export const getWing = (
   return leftScore > rightScore ? leftWing : rightWing;
 };
 
-// 에니어그램 유형 순서 (원형 다이어그램용)
+// Enneagram type order (for circular diagram)
 export const typeOrder: EnneagramType[] = [9, 1, 2, 3, 4, 5, 6, 7, 8];
 
-// 센터별 그룹
+// Center groups
 export const centers = {
-  body: [8, 9, 1] as EnneagramType[], // 본능 센터 (분노)
-  heart: [2, 3, 4] as EnneagramType[], // 감정 센터 (수치심)
-  head: [5, 6, 7] as EnneagramType[], // 사고 센터 (두려움)
+  body: [8, 9, 1] as EnneagramType[], // Body Center (Anger)
+  heart: [2, 3, 4] as EnneagramType[], // Heart Center (Shame)
+  head: [5, 6, 7] as EnneagramType[], // Head Center (Fear)
 };
 
 export const centerInfo = {
   body: {
-    name: "본능 센터",
-    emotion: "분노",
-    description: "본능과 신체 감각을 기반으로 세상과 상호작용합니다.",
+    name: "Body Center",
+    emotion: "Anger",
+    description: "Interacts with the world based on instincts and physical sensations.",
   },
   heart: {
-    name: "감정 센터",
-    emotion: "수치심",
-    description: "감정과 관계를 기반으로 세상과 상호작용합니다.",
+    name: "Heart Center",
+    emotion: "Shame",
+    description: "Interacts with the world based on emotions and relationships.",
   },
   head: {
-    name: "사고 센터",
-    emotion: "두려움",
-    description: "생각과 분석을 기반으로 세상과 상호작용합니다.",
+    name: "Head Center",
+    emotion: "Fear",
+    description: "Interacts with the world based on thoughts and analysis.",
   },
 };
 

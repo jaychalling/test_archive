@@ -110,12 +110,12 @@ const BdsmTest = () => {
     const mainTrait = getMainTrait(result);
     const mainTraitName = bdsmTraitDescriptions[mainTrait].name;
 
-    const shareText = `나의 성향 테스트 결과: ${mainTraitName}\n\nDominant: ${result.dominant}%\nSubmissive: ${result.submissive}%\nSadism: ${result.sadism}%\nMasochism: ${result.masochism}%\nSwitch: ${result.switch}%`;
+    const shareText = `My BDSM Test Result: ${mainTraitName}\n\nDominant: ${result.dominant}%\nSubmissive: ${result.submissive}%\nSadism: ${result.sadism}%\nMasochism: ${result.masochism}%\nSwitch: ${result.switch}%`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "BDSM 성향 테스트 결과",
+          title: "BDSM Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -124,7 +124,7 @@ const BdsmTest = () => {
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert("결과가 클립보드에 복사되었습니다!");
+      alert("Result copied to clipboard!");
     }
   };
 
@@ -168,12 +168,12 @@ const BdsmTest = () => {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            테스트 목록으로
+            Back to Tests
           </Link>
 
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
             <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
-              당신의 성향 분석 결과
+              Your Results
             </h2>
             <div className={cn("text-3xl font-display font-bold mb-1", traitTextColors[mainTrait])}>
               {mainTraitInfo.name}
@@ -187,7 +187,7 @@ const BdsmTest = () => {
 
             {/* Secondary Trait */}
             <div className="p-4 rounded-lg bg-muted/30 mb-6">
-              <div className="text-sm text-muted-foreground mb-1">보조 성향</div>
+              <div className="text-sm text-muted-foreground mb-1">Secondary Trait</div>
               <div className="font-semibold text-foreground">{secondaryTraitInfo.name}</div>
               <p className="text-xs text-muted-foreground mt-1">{secondaryTraitInfo.description}</p>
             </div>
@@ -218,7 +218,7 @@ const BdsmTest = () => {
             <div className={cn("text-left p-6 rounded-xl mb-6", traitBgColors[mainTrait])}>
               <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", traitTextColors[mainTrait])}>
                 <BookOpen className="w-5 h-5" />
-                {mainTraitInfo.name} 상세 분석
+                {mainTraitInfo.name} - Detailed Analysis
               </h3>
               <p className="text-foreground leading-relaxed">
                 {mainTraitInfo.detailedDescription}
@@ -229,7 +229,7 @@ const BdsmTest = () => {
             <div className="text-left p-6 rounded-xl bg-indigo-500/10 mb-6">
               <h3 className="font-semibold text-indigo-600 mb-4 text-lg flex items-center gap-2">
                 <Brain className="w-5 h-5" />
-                심리학적 배경
+                Psychological Background
               </h3>
               <p className="text-foreground leading-relaxed">
                 {mainTraitInfo.psychologicalBackground}
@@ -238,7 +238,7 @@ const BdsmTest = () => {
 
             {/* Characteristics */}
             <div className="text-left p-5 rounded-xl bg-cyan-500/10 mb-6">
-              <h3 className="font-semibold text-cyan-600 mb-4">주요 특성</h3>
+              <h3 className="font-semibold text-cyan-600 mb-4">Key Characteristics</h3>
               <ul className="grid md:grid-cols-2 gap-2">
                 {mainTraitInfo.characteristics.map((char, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -254,7 +254,7 @@ const BdsmTest = () => {
               <div className="text-left p-5 rounded-xl bg-green-500/10">
                 <h3 className="font-semibold text-green-600 mb-4 flex items-center gap-2">
                   <Heart className="w-5 h-5" />
-                  건강한 실천
+                  Healthy Practices
                 </h3>
                 <ul className="space-y-2">
                   {mainTraitInfo.healthyPractices.map((practice, idx) => (
@@ -268,7 +268,7 @@ const BdsmTest = () => {
               <div className="text-left p-5 rounded-xl bg-purple-500/10">
                 <h3 className="font-semibold text-purple-600 mb-4 flex items-center gap-2">
                   <MessageCircle className="w-5 h-5" />
-                  의사소통 팁
+                  Communication Tips
                 </h3>
                 <ul className="space-y-2">
                   {mainTraitInfo.communicationTips.map((tip, idx) => (
@@ -283,16 +283,16 @@ const BdsmTest = () => {
 
             {/* Test Background */}
             <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="font-semibold text-foreground mb-4 text-lg">BDSM 성향 테스트에 대하여</h3>
+              <h3 className="font-semibold text-foreground mb-4 text-lg">About This Test</h3>
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">소개</h4>
+                  <h4 className="font-medium text-foreground mb-2">Introduction</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.about}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">동의와 안전</h4>
+                  <h4 className="font-medium text-foreground mb-2">Consent and Safety</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.consent}
                   </p>
@@ -300,7 +300,7 @@ const BdsmTest = () => {
                 <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
                   <h4 className="font-medium text-amber-600 mb-2 flex items-center gap-2">
                     <AlertCircle className="w-4 h-4" />
-                    참고사항
+                    Note
                   </h4>
                   <p className="text-sm text-foreground leading-relaxed">
                     {testBackground.disclaimer}
@@ -312,14 +312,14 @@ const BdsmTest = () => {
             <div className="flex gap-3 justify-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
                 <RotateCcw className="w-4 h-4" />
-                다시하기
+                Retake
               </Button>
               <Button
                 onClick={handleShare}
                 className="gap-2 gradient-primary border-0"
               >
                 <Share2 className="w-4 h-4" />
-                공유하기
+                Share
               </Button>
             </div>
           </div>
@@ -340,7 +340,7 @@ const BdsmTest = () => {
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h1 className="font-semibold text-foreground">BDSM 성향 테스트</h1>
+        <h1 className="font-semibold text-foreground">BDSM Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}
         </span>
@@ -371,8 +371,8 @@ const BdsmTest = () => {
           <div className="max-w-md mx-auto w-full">
             {/* 양끝 라벨 */}
             <div className="flex justify-between mb-3 px-2">
-              <span className="text-xs text-muted-foreground">전혀 아니다</span>
-              <span className="text-xs text-muted-foreground">매우 그렇다</span>
+              <span className="text-xs text-muted-foreground">Strongly Disagree</span>
+              <span className="text-xs text-muted-foreground">Strongly Agree</span>
             </div>
 
             {/* 1~5 원형 버튼 */}
@@ -405,7 +405,7 @@ const BdsmTest = () => {
           className="gap-1"
         >
           <ChevronLeft className="w-4 h-4" />
-          이전
+          Previous
         </Button>
 
         {isLastQuestion && allQuestionsAnswered ? (
@@ -414,7 +414,7 @@ const BdsmTest = () => {
             className="gradient-primary border-0 gap-2 px-6"
           >
             <CheckCircle2 className="w-4 h-4" />
-            결과 보기
+            View Results
           </Button>
         ) : (
           <Button
@@ -423,7 +423,7 @@ const BdsmTest = () => {
             disabled={isLastQuestion}
             className="gap-1"
           >
-            다음
+            Next
             <ChevronRight className="w-4 h-4" />
           </Button>
         )}

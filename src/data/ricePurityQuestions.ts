@@ -19,22 +19,22 @@ export const scoreRanges: ScoreRangeInfo[] = [
     title: "Pure as Snow",
     titleKo: "순수한 영혼",
     emoji: "😇",
-    description: "당신은 정말 순수하군요!",
-    detailedDescription: "97-100점대의 점수는 Rice Purity Test에서 매우 드문 결과입니다. 이 점수대에 해당하는 사람들은 대부분의 경험을 아직 하지 않았으며, 매우 보수적이거나 젊은 연령대인 경우가 많습니다. 이 점수는 당신이 조심스럽고 신중한 성격을 가지고 있으며, 사회적 압력에 쉽게 흔들리지 않는다는 것을 나타낼 수 있습니다. Rice Purity Test는 1924년 라이스 대학교에서 처음 만들어진 이후, 대학 신입생들 사이에서 아이스브레이킹 도구로 사용되어 왔습니다. 높은 점수는 '순수함'을 의미하지만, 이것이 좋거나 나쁘다는 판단을 내리는 것이 아닙니다.",
-    interpretation: "높은 점수는 당신이 자신만의 페이스로 인생을 살아가고 있다는 것을 보여줍니다. 경험의 양보다 질이 중요하며, 당신이 준비되었을 때 새로운 경험을 해도 늦지 않습니다. 자신의 가치관과 경계를 명확히 하는 것은 건강한 자아 존중감의 표시입니다.",
+    description: "You are truly pure!",
+    detailedDescription: "A score of 97-100 is a very rare result on the Rice Purity Test. People in this score range have not yet had most experiences and are often very conservative or young. This score may indicate that you have a cautious and prudent personality and are not easily swayed by social pressure. The Rice Purity Test was first created at Rice University in 1924 and has since been used as an icebreaker among college freshmen. A high score signifies 'purity,' but this is not meant to judge whether that is good or bad.",
+    interpretation: "A high score shows that you are living life at your own pace. Quality of experiences matters more than quantity, and it's never too late to try new experiences when you're ready. Having clear personal values and boundaries is a sign of healthy self-respect.",
     commonCharacteristics: [
-      "신중하고 계획적인 성격",
-      "강한 자기 통제력",
-      "명확한 개인적 가치관 보유",
-      "사회적 압력에 쉽게 흔들리지 않음",
-      "가까운 관계에서 깊은 연결 추구"
+      "Cautious and planful personality",
+      "Strong self-control",
+      "Clear personal values",
+      "Not easily swayed by social pressure",
+      "Seeks deep connections in close relationships"
     ],
     lifestyleTips: [
-      "자신의 페이스를 유지하세요",
-      "새로운 경험에 열린 마음을 가지되, 강요받지 마세요",
-      "자신의 가치관을 존중하는 사람들과 시간을 보내세요",
-      "경험보다 관계의 질에 집중하세요",
-      "호기심이 생기면 안전하게 탐색해도 괜찮습니다"
+      "Maintain your own pace",
+      "Keep an open mind to new experiences, but don't feel pressured",
+      "Spend time with people who respect your values",
+      "Focus on the quality of relationships rather than experiences",
+      "It's okay to explore safely when curiosity arises"
     ],
     color: "emerald"
   },
@@ -44,22 +44,22 @@ export const scoreRanges: ScoreRangeInfo[] = [
     title: "Very Pure",
     titleKo: "매우 순수함",
     emoji: "😊",
-    description: "매우 깨끗한 영혼의 소유자입니다.",
-    detailedDescription: "94-96점대는 여전히 매우 높은 순수도 점수입니다. 이 범위에 속하는 사람들은 몇 가지 가벼운 경험만을 했을 가능성이 높습니다. 아마도 기본적인 연애 경험(손잡기, 데이트)이나 일부 사회적 활동(파티 참석 정도)을 경험했을 수 있습니다. 이 점수는 당신이 여전히 많은 첫 경험들을 앞에 두고 있으며, 인생의 다양한 측면을 천천히 탐색하고 있다는 것을 나타냅니다. 대학 환경에서 이 점수는 신입생들 사이에서 흔히 볼 수 있습니다.",
-    interpretation: "이 점수는 당신이 자신의 경계를 잘 지키면서도 일부 사회적 경험에는 열려 있다는 것을 보여줍니다. 인생은 마라톤이지 단거리 달리기가 아닙니다. 자신에게 맞는 속도로 새로운 경험을 탐색하는 것이 중요합니다.",
+    description: "You have a very clean soul.",
+    detailedDescription: "A score of 94-96 is still a very high purity score. People in this range have likely only had a few light experiences. You may have had basic romantic experiences (holding hands, dating) or some social activities (attending parties). This score indicates that you still have many first experiences ahead of you and are slowly exploring various aspects of life. In a college setting, this score is commonly seen among freshmen.",
+    interpretation: "This score shows that you keep your boundaries well while being open to some social experiences. Life is a marathon, not a sprint. It's important to explore new experiences at a pace that suits you.",
     commonCharacteristics: [
-      "기본적인 사회적 경험 보유",
-      "자기 경계를 잘 지키는 성격",
-      "신중한 의사결정 스타일",
-      "친밀한 관계 형성에 시간을 들이는 편",
-      "전통적인 가치관 유지"
+      "Basic social experiences",
+      "Good at maintaining personal boundaries",
+      "Cautious decision-making style",
+      "Takes time to form intimate relationships",
+      "Maintains traditional values"
     ],
     lifestyleTips: [
-      "편안한 속도로 새로운 경험을 시도하세요",
-      "신뢰할 수 있는 사람들과 함께 새로운 것을 경험하세요",
-      "자신의 한계를 존중하면서도 성장의 기회를 열어두세요",
-      "사회적 압력에 굴복하지 마세요",
-      "자신의 선택에 자신감을 가지세요"
+      "Try new experiences at a comfortable pace",
+      "Experience new things with people you trust",
+      "Keep open to growth opportunities while respecting your limits",
+      "Don't give in to peer pressure",
+      "Be confident in your choices"
     ],
     color: "green"
   },
@@ -69,22 +69,22 @@ export const scoreRanges: ScoreRangeInfo[] = [
     title: "Average",
     titleKo: "평균적",
     emoji: "🙂",
-    description: "평범한 경험을 가지고 있네요.",
-    detailedDescription: "77-93점대는 Rice Purity Test에서 가장 흔한 점수 범위입니다. 대부분의 사람들이 이 범위에 속하며, 이는 평균적인 삶의 경험을 나타냅니다. 연애, 음주, 파티 참석 등 일반적인 사회적 경험을 했지만, 극단적인 경험은 피해온 경우가 많습니다. 이 점수대의 사람들은 일반적으로 건강한 호기심과 적절한 자기 통제력 사이에서 균형을 잡고 있습니다. 대학 생활이나 젊은 성인기의 전형적인 경험들을 반영하는 점수입니다.",
-    interpretation: "이 점수는 당신이 균형 잡힌 삶을 살고 있다는 것을 보여줍니다. 새로운 경험에 열려 있으면서도 무모하지 않은 선택을 해왔습니다. 이것은 많은 사람들이 공유하는 경험 수준이며, 사회적으로 건강한 발달을 나타냅니다.",
+    description: "You have average experiences.",
+    detailedDescription: "A score of 77-93 is the most common score range on the Rice Purity Test. Most people fall within this range, indicating average life experiences. You've had typical social experiences like dating, drinking, and attending parties, but have avoided extreme experiences. People in this score range generally balance healthy curiosity with appropriate self-control. This score reflects typical college or young adult experiences.",
+    interpretation: "This score shows that you are living a balanced life. You've been open to new experiences while making sensible choices. This is a level of experience shared by many people and indicates healthy social development.",
     commonCharacteristics: [
-      "균형 잡힌 사회 생활",
-      "적절한 위험 감수 능력",
-      "다양한 친구 관계 유지",
-      "일반적인 대학/청년 경험 보유",
-      "호기심과 신중함의 균형"
+      "Balanced social life",
+      "Appropriate risk-taking ability",
+      "Maintains diverse friendships",
+      "Typical college/young adult experiences",
+      "Balance between curiosity and caution"
     ],
     lifestyleTips: [
-      "지금까지의 균형을 유지하세요",
-      "새로운 경험을 할 때는 안전을 최우선으로 하세요",
-      "자신의 가치관에 맞는 선택을 계속하세요",
-      "또래 압력에 무비판적으로 따르지 마세요",
-      "경험의 질에 집중하세요"
+      "Maintain your current balance",
+      "Prioritize safety when trying new experiences",
+      "Continue making choices that align with your values",
+      "Don't blindly follow peer pressure",
+      "Focus on quality of experiences"
     ],
     color: "blue"
   },
@@ -94,22 +94,22 @@ export const scoreRanges: ScoreRangeInfo[] = [
     title: "Experienced",
     titleKo: "경험 많음",
     emoji: "😏",
-    description: "꽤 다양한 경험을 해보셨군요.",
-    detailedDescription: "45-76점대는 평균 이상의 다양한 경험을 가진 사람들의 범위입니다. 이 점수대에 해당하는 사람들은 연애, 성적 경험, 파티 문화, 때로는 약물이나 알코올 관련 경험까지 다양한 삶의 측면을 탐색해 왔습니다. 이 점수는 당신이 호기심이 많고 새로운 경험에 열려 있다는 것을 나타냅니다. 대학 시절이나 20대 초반에 활발한 사회 생활을 한 사람들에게서 흔히 볼 수 있는 점수입니다.",
-    interpretation: "다양한 경험은 삶을 풍요롭게 만들 수 있지만, 모든 경험이 긍정적인 것은 아닙니다. 이 점수는 당신이 다양한 상황을 경험해봤음을 나타내며, 이러한 경험들이 당신을 더 현명하게 만들었을 수 있습니다. 중요한 것은 과거의 경험에서 배우고 성장하는 것입니다.",
+    description: "You've had quite diverse experiences.",
+    detailedDescription: "A score of 45-76 indicates above-average diverse experiences. People in this score range have explored various aspects of life including dating, sexual experiences, party culture, and sometimes drug or alcohol-related experiences. This score indicates that you are curious and open to new experiences. This score is commonly seen in people who had active social lives during college or their early twenties.",
+    interpretation: "Diverse experiences can enrich life, but not all experiences are positive. This score indicates that you've experienced various situations, and these experiences may have made you wiser. What's important is learning and growing from past experiences.",
     commonCharacteristics: [
-      "활발한 사회 생활 경험",
-      "다양한 인간관계 경험",
-      "위험 감수에 상대적으로 열린 태도",
-      "파티 문화에 익숙함",
-      "새로운 경험에 대한 호기심"
+      "Active social life experience",
+      "Diverse relationship experiences",
+      "Relatively open attitude to risk-taking",
+      "Familiar with party culture",
+      "Curiosity about new experiences"
     ],
     lifestyleTips: [
-      "경험에서 얻은 교훈을 되새겨보세요",
-      "앞으로의 선택에서 더 신중해져도 괜찮습니다",
-      "건강한 관계와 습관을 우선시하세요",
-      "자신의 경험을 부끄러워하지 마세요",
-      "미래를 위한 건강한 목표를 세우세요"
+      "Reflect on lessons learned from your experiences",
+      "It's okay to become more cautious in future choices",
+      "Prioritize healthy relationships and habits",
+      "Don't be ashamed of your experiences",
+      "Set healthy goals for the future"
     ],
     color: "amber"
   },
@@ -119,22 +119,22 @@ export const scoreRanges: ScoreRangeInfo[] = [
     title: "Wild One",
     titleKo: "자유로운 영혼",
     emoji: "🔥",
-    description: "자유로운 영혼이시네요!",
-    detailedDescription: "9-44점대는 매우 다양하고 광범위한 경험을 가진 사람들의 범위입니다. 이 점수는 당신이 삶의 많은 측면을 탐색해 왔으며, 일반적인 경험의 범위를 훨씬 넘어섰다는 것을 나타냅니다. 연애, 성적 경험, 파티, 약물 사용 등 다양한 영역에서 광범위한 경험을 했을 가능성이 높습니다. 이러한 점수는 종종 모험심이 강하고, 사회적 규범에 덜 구속받는 성격을 나타냅니다.",
-    interpretation: "높은 경험 수준은 삶을 다양한 관점에서 볼 수 있게 해주지만, 때로는 건강이나 관계에 영향을 미칠 수 있는 경험들도 포함됩니다. 중요한 것은 과거의 경험을 판단하지 않고, 앞으로 자신에게 좋은 선택을 하는 것입니다. 자기 성찰과 자기 돌봄을 실천하세요.",
+    description: "You're a free spirit!",
+    detailedDescription: "A score of 9-44 indicates very diverse and extensive experiences. This score indicates that you have explored many aspects of life and have gone far beyond typical experiences. You likely have extensive experience in areas such as dating, sexual experiences, parties, and drug use. Such scores often indicate an adventurous personality that is less bound by social norms.",
+    interpretation: "A high level of experience can help you see life from various perspectives, but sometimes includes experiences that may affect health or relationships. What's important is not judging past experiences, but making good choices for yourself going forward. Practice self-reflection and self-care.",
     commonCharacteristics: [
-      "모험심이 강함",
-      "사회적 규범에 덜 구속됨",
-      "다양한 사회적 환경에서의 경험",
-      "위험 감수 성향이 높음",
-      "열린 마음과 호기심"
+      "Strong adventurous spirit",
+      "Less bound by social norms",
+      "Experience in various social environments",
+      "High risk-taking tendency",
+      "Open mind and curiosity"
     ],
     lifestyleTips: [
-      "자신의 건강과 안전을 우선시하세요",
-      "의미 있는 관계에 투자하세요",
-      "과거 경험에서 배운 교훈을 소중히 하세요",
-      "필요하다면 전문적인 도움을 구하는 것을 두려워하지 마세요",
-      "자신에게 친절하고 자기 비판을 줄이세요"
+      "Prioritize your physical and mental health",
+      "Invest in meaningful relationships",
+      "Cherish the lessons learned from past experiences",
+      "Don't be afraid to seek professional help if needed",
+      "Be kind to yourself and reduce self-criticism"
     ],
     color: "orange"
   },
@@ -144,22 +144,22 @@ export const scoreRanges: ScoreRangeInfo[] = [
     title: "Legendary",
     titleKo: "전설적",
     emoji: "👑",
-    description: "전설적인 경험의 소유자!",
-    detailedDescription: "0-8점대는 Rice Purity Test에서 매우 드문 결과입니다. 이 점수는 거의 모든 테스트 항목에 '예'라고 답했음을 의미하며, 매우 광범위한 삶의 경험을 나타냅니다. 이 점수대에 해당하는 사람들은 극도로 다양한 경험을 해왔으며, 일반적인 삶의 경계를 많이 넘어섰습니다. 이러한 결과는 매우 드물며, 테스트 응답자의 극히 일부만이 이 범위에 속합니다.",
-    interpretation: "이 점수는 판단의 대상이 아닙니다. 모든 경험은 우리 삶의 일부이며, 중요한 것은 그 경험에서 무엇을 배웠는지입니다. 과거의 경험이 어떠했든, 앞으로의 선택은 항상 당신의 것입니다. 자신을 돌보고, 필요하다면 지원을 구하고, 의미 있는 관계를 구축하는 데 집중하세요.",
+    description: "A legendary experience holder!",
+    detailedDescription: "A score of 0-8 is a very rare result on the Rice Purity Test. This score means you answered 'yes' to almost all test items, indicating very extensive life experiences. People in this score range have had extremely diverse experiences and have crossed many conventional life boundaries. Such results are very rare, and only a small fraction of test respondents fall within this range.",
+    interpretation: "This score is not meant for judgment. All experiences are part of our lives, and what matters is what we learn from them. Whatever your past experiences, your future choices are always yours. Take care of yourself, seek support if needed, and focus on building meaningful relationships.",
     commonCharacteristics: [
-      "매우 광범위한 삶의 경험",
-      "사회적 규범을 넘어선 탐험",
-      "높은 위험 감수 성향",
-      "다양한 사회적 환경 경험",
-      "전통적 경계에 구속받지 않음"
+      "Very extensive life experiences",
+      "Exploration beyond social norms",
+      "High risk-taking tendency",
+      "Experience in various social environments",
+      "Not bound by traditional boundaries"
     ],
     lifestyleTips: [
-      "자신의 신체적, 정신적 건강을 점검하세요",
-      "지지적인 관계를 구축하고 유지하세요",
-      "과거를 판단하지 말고 앞으로 나아가세요",
-      "전문적인 상담이나 지원이 도움이 될 수 있습니다",
-      "자신의 경험을 통해 다른 사람들을 도울 수 있는 방법을 생각해보세요"
+      "Check your physical and mental health",
+      "Build and maintain supportive relationships",
+      "Move forward without judging the past",
+      "Professional counseling or support can help",
+      "Think about how your experiences can help others"
     ],
     color: "red"
   }
@@ -169,11 +169,11 @@ export const getScoreRange = (score: number): ScoreRangeInfo => {
   return scoreRanges.find(range => score >= range.minScore && score <= range.maxScore) || scoreRanges[5];
 };
 
-// Rice Purity Test 역사와 배경
+// Rice Purity Test History and Background
 export const testBackground = {
-  history: "Rice Purity Test는 1924년 미국 텍사스주 휴스턴에 위치한 라이스 대학교(Rice University)에서 처음 만들어졌습니다. 원래는 대학 신입생들이 서로를 알아가고 아이스브레이킹을 하기 위한 도구로 사용되었습니다. 100년이 넘는 역사를 가진 이 테스트는 시대에 따라 질문들이 수정되어 왔지만, 기본적인 형식은 유지되어 왔습니다.",
-  purpose: "이 테스트의 목적은 개인의 경험을 측정하고 비교하는 것이 아니라, 자기 성찰의 도구로 사용하거나 친구들과 재미있는 대화를 나누기 위한 것입니다. 점수가 높거나 낮다고 해서 좋거나 나쁜 것이 아닙니다. 각자의 삶은 고유하며, 이 테스트는 단순히 다양한 경험의 스펙트럼을 보여주는 것입니다.",
-  disclaimer: "Rice Purity Test는 과학적으로 검증된 심리 테스트가 아닙니다. 이것은 재미를 위한 자가 평가 도구이며, 결과를 심각하게 받아들이거나 자신이나 다른 사람을 판단하는 데 사용해서는 안 됩니다. 모든 사람의 삶의 경로는 다르며, 경험의 양이 사람의 가치를 결정하지 않습니다."
+  history: "The Rice Purity Test was first created in 1924 at Rice University in Houston, Texas, USA. It was originally used as an icebreaker for college freshmen to get to know each other. With over 100 years of history, the test questions have been modified over time, but the basic format has been maintained.",
+  purpose: "The purpose of this test is not to measure and compare individual experiences, but to use it as a tool for self-reflection or to have fun conversations with friends. Having a high or low score is neither good nor bad. Each person's life is unique, and this test simply shows the spectrum of various experiences.",
+  disclaimer: "The Rice Purity Test is not a scientifically validated psychological test. It is a self-assessment tool for fun, and the results should not be taken seriously or used to judge yourself or others. Everyone's life path is different, and the amount of experience does not determine a person's worth."
 };
 
 export const ricePurityQuestions = [

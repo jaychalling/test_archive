@@ -22,12 +22,12 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
   const colors = colorClasses[scoreRange.color] || colorClasses.blue;
 
   const handleShare = async () => {
-    const shareText = `나의 Rice Purity Test 점수: ${score}점! ${scoreRange.title} ${scoreRange.emoji}`;
+    const shareText = `My Rice Purity Test Score: ${score} points! ${scoreRange.title} ${scoreRange.emoji}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Rice Purity Test 결과',
+          title: 'Rice Purity Test Results',
           text: shareText,
           url: window.location.href,
         });
@@ -36,7 +36,7 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
       }
     } else {
       await navigator.clipboard.writeText(shareText);
-      alert('결과가 클립보드에 복사되었습니다!');
+      alert('Results copied to clipboard!');
     }
   };
 
@@ -66,7 +66,7 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
       <div className={cn("text-left p-6 rounded-xl mb-6", colors.bg)}>
         <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", colors.text)}>
           <BookOpen className="w-5 h-5" />
-          상세 분석
+          Detailed Analysis
         </h3>
         <p className="text-foreground leading-relaxed">
           {scoreRange.detailedDescription}
@@ -77,7 +77,7 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
       <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
         <h3 className="font-semibold text-purple-600 mb-4 text-lg flex items-center gap-2">
           <Lightbulb className="w-5 h-5" />
-          결과 해석
+          Interpretation
         </h3>
         <p className="text-foreground leading-relaxed">
           {scoreRange.interpretation}
@@ -87,7 +87,7 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
       {/* Characteristics & Tips */}
       <div className="grid md:grid-cols-2 gap-4 mb-6">
         <div className="text-left p-5 rounded-xl bg-blue-500/10">
-          <h3 className="font-semibold text-blue-600 mb-4">일반적인 특성</h3>
+          <h3 className="font-semibold text-blue-600 mb-4">Common Characteristics</h3>
           <ul className="space-y-2">
             {scoreRange.commonCharacteristics.map((char, idx) => (
               <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -98,7 +98,7 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
           </ul>
         </div>
         <div className="text-left p-5 rounded-xl bg-green-500/10">
-          <h3 className="font-semibold text-green-600 mb-4">라이프스타일 팁</h3>
+          <h3 className="font-semibold text-green-600 mb-4">Lifestyle Tips</h3>
           <ul className="space-y-2">
             {scoreRange.lifestyleTips.map((tip, idx) => (
               <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -114,23 +114,23 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
       <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
         <h3 className="font-semibold text-foreground mb-4 text-lg flex items-center gap-2">
           <History className="w-5 h-5" />
-          Rice Purity Test에 대하여
+          About Rice Purity Test
         </h3>
         <div className="space-y-4">
           <div>
-            <h4 className="font-medium text-foreground mb-2">역사</h4>
+            <h4 className="font-medium text-foreground mb-2">History</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {testBackground.history}
             </p>
           </div>
           <div>
-            <h4 className="font-medium text-foreground mb-2">목적</h4>
+            <h4 className="font-medium text-foreground mb-2">Purpose</h4>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {testBackground.purpose}
             </p>
           </div>
           <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-            <h4 className="font-medium text-amber-600 mb-2">참고사항</h4>
+            <h4 className="font-medium text-amber-600 mb-2">Disclaimer</h4>
             <p className="text-sm text-foreground leading-relaxed">
               {testBackground.disclaimer}
             </p>
@@ -145,14 +145,14 @@ const ResultCard = ({ score, onReset }: ResultCardProps) => {
           className="gap-2"
         >
           <RotateCcw className="w-4 h-4" />
-          다시하기
+          Retake
         </Button>
         <Button
           onClick={handleShare}
           className="gap-2 gradient-primary border-0"
         >
           <Share2 className="w-4 h-4" />
-          공유하기
+          Share
         </Button>
       </div>
     </div>
