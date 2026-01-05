@@ -17,6 +17,7 @@ const RicePurityTest = () => {
   const totalQuestions = ricePurityQuestions.length;
 
   const handleAnswer = (isYes: boolean) => {
+    if (isTransitioning) return;
     // Update checked items
     setCheckedItems((prev) => {
       const newSet = new Set(prev);
@@ -35,31 +36,31 @@ const RicePurityTest = () => {
       return newSet;
     });
 
-    // Auto-advance to next question after 0.3s
+    // Auto-advance to next question after 0.1s
     if (currentQuestion < totalQuestions - 1) {
       setTimeout(() => {
         goToNext();
-      }, 300);
+      }, 100);
     }
   };
 
   const goToPrevious = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion(currentQuestion - 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const goToNext = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion(currentQuestion + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 

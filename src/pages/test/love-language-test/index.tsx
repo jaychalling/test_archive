@@ -73,36 +73,37 @@ const LoveLanguageTest = () => {
   }, [isLastQuestion, answers, currentQuestionData.id, allQuestionsAnswered]);
 
   const handleAnswer = (questionId: number, choice: AnswerChoice) => {
+    if (isTransitioning) return;
     setAnswers((prev) => ({
       ...prev,
       [questionId]: choice,
     }));
 
-    // Auto-advance to next question after 0.3 seconds (except for last question)
+    // Auto-advance to next question after 0.1 seconds (except for last question)
     if (!isLastQuestion) {
       setTimeout(() => {
         goToNextQuestion();
-      }, 300);
+      }, 100);
     }
   };
 
   const goToNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const goToPreviousQuestion = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 

@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import ProgressBar from "@/components/ProgressBar";
 import {
   enneagramQuestions,
   answerOptions,
@@ -87,6 +86,7 @@ const EnneagramTest = () => {
   const totalQuestions = enneagramQuestions.length;
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
+    if (isTransitioning) return;
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
@@ -96,33 +96,33 @@ const EnneagramTest = () => {
     if (currentQuestion === totalQuestions - 1) {
       setShowViewResultButton(true);
     } else {
-      // 0.3초 후 자동으로 다음 질문으로 이동
+      // 0.1초 후 자동으로 다음 질문으로 이동
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 300);
+      }, 100);
     }
   };
 
   const handlePrevQuestion = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
         setShowViewResultButton(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
@@ -513,140 +513,116 @@ const EnneagramTest = () => {
     );
   }
 
-  return (
-    <div className="min-h-screen gradient-hero">
-      <Header />
+  const question = enneagramQuestions[currentQuestion];
 
-      <main className="container mx-auto px-4 py-8">
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Top Bar */}
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
+          <ArrowLeft className="w-5 h-5" />
         </Link>
+        <h1 className="font-medium text-foreground">에니어그램 테스트</h1>
+        <span className="text-sm text-muted-foreground min-w-[48px] text-right">
+          {currentQuestion + 1}/{totalQuestions}
+        </span>
+      </div>
 
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 animate-fade-in">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Circle className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              에니어그램 테스트
-            </h1>
-            <p className="text-muted-foreground">
-              각 문항에 대해 자신에게 얼마나 해당되는지 선택하세요.
-              <br />
-              9가지 에니어그램 유형 중 당신의 주요 유형과 날개를 찾습니다.
-            </p>
+      {/* Progress Bar */}
+      <div className="h-1 bg-muted">
+        <div
+          className="h-full bg-primary transition-all duration-300"
+          style={{ width: `${((currentQuestion + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
+
+      {/* Question Area - Centered */}
+      <div className="flex-1 flex flex-col justify-center px-6 py-8">
+        <div
+          className={cn(
+            "transition-all duration-300",
+            isTransitioning ? "opacity-0 transform translate-x-4" : "opacity-100 transform translate-x-0"
+          )}
+        >
+          {/* Question Number */}
+          <div className="text-center mb-4">
+            <span className="text-sm font-medium text-primary">
+              Q{currentQuestion + 1}
+            </span>
           </div>
 
-          {/* Type Overview */}
-          <div className="test-card mb-6">
-            <h3 className="text-sm font-medium text-foreground mb-3">9가지 에니어그램 유형</h3>
-            <div className="grid grid-cols-3 gap-2 text-xs">
-              {([1, 2, 3, 4, 5, 6, 7, 8, 9] as EnneagramType[]).map((type) => (
-                <div key={type} className={cn("p-2 rounded-lg text-center", `${typeColors[type].replace('bg-', 'bg-')}/10`)}>
-                  <div className={cn("font-medium", typeTextColors[type])}>
-                    {type}. {enneagramTypeInfo[type].title.split(" ")[0]}
-                  </div>
-                </div>
+          {/* Question Text */}
+          <h2 className="text-xl md:text-2xl font-medium text-foreground text-center leading-relaxed mb-12">
+            {question.text}
+          </h2>
+
+          {/* 5-Point Scale */}
+          <div className="max-w-md mx-auto">
+            {/* Labels */}
+            <div className="flex justify-between mb-3 px-2">
+              <span className="text-xs text-muted-foreground">전혀 아니다</span>
+              <span className="text-xs text-muted-foreground">매우 그렇다</span>
+            </div>
+
+            {/* Scale Buttons */}
+            <div className="flex gap-3 justify-center">
+              {answerOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => handleAnswer(question.id, option.value)}
+                  className={cn(
+                    "flex-1 aspect-square max-w-16 rounded-full border-2 transition-all duration-200 flex items-center justify-center text-lg font-medium",
+                    answers[question.id] === option.value
+                      ? "border-primary bg-primary text-primary-foreground scale-110 shadow-lg"
+                      : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  {option.value}
+                </button>
               ))}
             </div>
           </div>
-
-          {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
-            <ProgressBar current={answeredCount} total={totalQuestions} />
-            <p className="text-center text-sm text-muted-foreground mt-2">
-              {currentQuestion + 1} / {totalQuestions}
-            </p>
-          </div>
-
-          {/* Single Question View */}
-          <div className="min-h-[300px] flex flex-col justify-center mb-8">
-            {(() => {
-              const question = enneagramQuestions[currentQuestion];
-              return (
-                <div
-                  key={question.id}
-                  className={cn(
-                    "test-card transition-all duration-300",
-                    isTransitioning ? "opacity-0 transform translate-x-4" : "opacity-100 transform translate-x-0"
-                  )}
-                >
-                  <div className="flex gap-3 mb-6">
-                    <span className="text-lg font-semibold text-primary min-w-[40px]">
-                      Q{currentQuestion + 1}.
-                    </span>
-                    <span className="text-lg text-foreground">{question.text}</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-3 justify-center">
-                    {answerOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleAnswer(question.id, option.value)}
-                        className={cn(
-                          "px-5 py-3 text-sm rounded-xl border-2 transition-all duration-200 min-w-[100px]",
-                          answers[question.id] === option.value
-                            ? "border-primary bg-primary text-primary-foreground scale-105 shadow-lg"
-                            : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                        )}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center pb-8">
-            <Button
-              onClick={handlePrevQuestion}
-              variant="outline"
-              disabled={currentQuestion === 0}
-              className="gap-2"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              이전
-            </Button>
-
-            {showViewResultButton ? (
-              <Button
-                onClick={handleSubmit}
-                size="lg"
-                disabled={answeredCount < totalQuestions}
-                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
-              >
-                <CheckCircle2 className="w-5 h-5" />
-                결과 보기
-              </Button>
-            ) : (
-              <Button
-                onClick={handleNextQuestion}
-                variant="outline"
-                disabled={currentQuestion === totalQuestions - 1}
-                className="gap-2"
-              >
-                다음
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            )}
-          </div>
-
-          {/* Answered Count Info */}
-          <div className="text-center pb-12">
-            <p className="text-xs text-muted-foreground">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
-            </p>
-          </div>
         </div>
-      </main>
+      </div>
+
+      {/* Bottom Navigation - Fixed */}
+      <div className="border-t bg-background/95 backdrop-blur-sm px-4 py-4 pb-safe">
+        <div className="flex justify-between items-center max-w-md mx-auto">
+          <Button
+            onClick={handlePrevQuestion}
+            variant="outline"
+            disabled={currentQuestion === 0}
+            className="gap-2 min-w-[100px]"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            이전
+          </Button>
+
+          {showViewResultButton ? (
+            <Button
+              onClick={handleSubmit}
+              disabled={answeredCount < totalQuestions}
+              className="gradient-primary border-0 gap-2 px-6 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
+            >
+              <CheckCircle2 className="w-5 h-5" />
+              결과 보기
+            </Button>
+          ) : (
+            <Button
+              onClick={handleNextQuestion}
+              variant="outline"
+              disabled={currentQuestion === totalQuestions - 1 || !answers[question.id]}
+              className="gap-2 min-w-[100px]"
+            >
+              다음
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

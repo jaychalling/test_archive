@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import ProgressBar from "@/components/ProgressBar";
 import {
   attachmentStyleQuestions,
-  answerOptions,
   AnswerValue,
   AttachmentStyle,
   AttachmentResult,
   attachmentStyleDescriptions,
 } from "@/data/attachmentStyleQuestions";
-import { ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Users } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowLeft, CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Users } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const calculateResults = (answers: Record<number, AnswerValue>): AttachmentResult => {
@@ -86,6 +84,7 @@ const styleBgColors: Record<AttachmentStyle, string> = {
 };
 
 const AttachmentStyleTest = () => {
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -106,6 +105,7 @@ const AttachmentStyleTest = () => {
   }, [isLastQuestion, answers, currentQuestionData.id]);
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
+    if (isTransitioning) return;
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
@@ -117,27 +117,27 @@ const AttachmentStyleTest = () => {
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 300);
+      }, 100);
     }
   };
 
   const handlePrevQuestion = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
@@ -397,152 +397,113 @@ ${styleInfo.description}`;
   }
 
   return (
-    <div className="min-h-screen gradient-hero">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* 상단 바 */}
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
+        <button
+          onClick={() => navigate("/")}
+          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
-        </Link>
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+        <h1 className="font-semibold text-foreground">애착 유형 테스트</h1>
+        <span className="text-sm text-muted-foreground min-w-[48px] text-right">
+          {currentQuestion + 1}/{totalQuestions}
+        </span>
+      </div>
 
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 animate-fade-in">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Users className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              애착 유형 테스트
-            </h1>
-            <p className="text-muted-foreground">
-              각 문항에 대해 자신에게 얼마나 해당되는지 선택하세요.
-              <br />
-              관계에서의 애착 유형을 알아봅니다.
+      {/* 프로그레스 바 */}
+      <div className="h-1 bg-muted">
+        <div
+          className="h-full bg-primary transition-all duration-300"
+          style={{ width: `${((currentQuestion + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
+
+      {/* 질문 영역 */}
+      <div className="flex-1 flex flex-col justify-center px-6 py-8">
+        <div
+          className={cn(
+            "transition-all duration-300",
+            isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+          )}
+        >
+          <div className="text-center">
+            <span className="inline-block text-sm font-medium text-primary mb-4">
+              Q{currentQuestion + 1}
+            </span>
+            <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+              {currentQuestionData.text}
             </p>
           </div>
+        </div>
+      </div>
 
-          {/* Progress */}
-          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
-            <ProgressBar current={answeredCount} total={totalQuestions} />
-            <div className="text-center mt-2">
-              <span className="text-sm font-medium text-foreground">
-                {currentQuestion + 1}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {" "}/ {totalQuestions}
-              </span>
-            </div>
-          </div>
-
-          {/* Single Question View */}
-          <div className="min-h-[300px] flex flex-col justify-center mb-8">
-            <div
+      {/* 5점 척도 */}
+      <div className="px-6 pb-6">
+        <div className="flex justify-between text-xs text-muted-foreground mb-3">
+          <span>전혀 아니다</span>
+          <span>매우 그렇다</span>
+        </div>
+        <div className="flex justify-center gap-3">
+          {[1, 2, 3, 4, 5].map((value) => (
+            <button
+              key={value}
+              onClick={() => handleAnswer(currentQuestionData.id, value as AnswerValue)}
               className={cn(
-                "test-card transition-all duration-300",
-                isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+                "flex-1 aspect-square max-w-16 rounded-full border-2 flex items-center justify-center text-lg font-medium transition-all duration-200",
+                answers[currentQuestionData.id] === value
+                  ? "border-primary bg-primary text-primary-foreground scale-110"
+                  : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:scale-105"
               )}
             >
-              <div className="flex gap-3 mb-6">
-                <span className="text-lg font-semibold text-primary min-w-[36px]">
-                  Q{currentQuestion + 1}.
-                </span>
-                <span className="text-lg text-foreground leading-relaxed">
-                  {currentQuestionData.text}
-                </span>
-              </div>
+              {value}
+            </button>
+          ))}
+        </div>
+      </div>
 
-              <div className="flex flex-wrap gap-2 justify-center">
-                {answerOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => handleAnswer(currentQuestionData.id, option.value)}
-                    className={cn(
-                      "px-4 py-2 text-sm rounded-full border transition-all duration-200",
-                      answers[currentQuestionData.id] === option.value
-                        ? "border-primary bg-primary text-primary-foreground scale-105"
-                        : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:scale-105"
-                    )}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* 하단 네비게이션 */}
+      <div className="border-t bg-background/95 backdrop-blur-sm px-4 py-4 pb-safe">
+        <div className="flex gap-3">
+          <Button
+            onClick={handlePrevQuestion}
+            variant="outline"
+            disabled={currentQuestion === 0}
+            className="flex-1 gap-2"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            이전
+          </Button>
 
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-between gap-4 mb-8">
+          {isLastQuestion && allAnswered ? (
             <Button
-              onClick={handlePrevQuestion}
-              variant="outline"
-              disabled={currentQuestion === 0}
-              className="gap-2"
+              onClick={handleSubmit}
+              className="flex-1 gap-2 gradient-primary border-0"
             >
-              <ChevronLeft className="w-4 h-4" />
-              이전
+              <CheckCircle2 className="w-4 h-4" />
+              결과 보기
             </Button>
-
-            <div className="flex gap-1">
-              {attachmentStyleQuestions.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setIsTransitioning(true);
-                    setTimeout(() => {
-                      setCurrentQuestion(index);
-                      setIsTransitioning(false);
-                    }, 150);
-                  }}
-                  className={cn(
-                    "w-2 h-2 rounded-full transition-all duration-200",
-                    currentQuestion === index
-                      ? "bg-primary w-4"
-                      : answers[attachmentStyleQuestions[index].id] !== undefined
-                      ? "bg-primary/50"
-                      : "bg-muted-foreground/30"
-                  )}
-                />
-              ))}
-            </div>
-
+          ) : (
             <Button
               onClick={handleNextQuestion}
               variant="outline"
-              disabled={currentQuestion === totalQuestions - 1}
-              className="gap-2"
+              disabled={currentQuestion === totalQuestions - 1 || answers[currentQuestionData.id] === undefined}
+              className="flex-1 gap-2"
             >
               다음
               <ChevronRight className="w-4 h-4" />
             </Button>
-          </div>
-
-          {/* Submit Button - 마지막 질문 답변 후 또는 모든 답변 완료 시 표시 */}
-          {(showCompleteButton || allAnswered) && (
-            <div className="text-center pb-12 animate-fade-in">
-              <Button
-                onClick={handleSubmit}
-                size="lg"
-                disabled={!allAnswered}
-                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
-              >
-                <CheckCircle2 className="w-5 h-5" />
-                결과 보기
-              </Button>
-              {!allAnswered && (
-                <p className="text-xs text-muted-foreground mt-3">
-                  {answeredCount}/{totalQuestions}개 질문 응답 완료
-                  <br />
-                  모든 질문에 답변해주세요
-                </p>
-              )}
-            </div>
           )}
         </div>
-      </main>
+
+        {/* 미응답 질문 안내 */}
+        {isLastQuestion && !allAnswered && (
+          <p className="text-xs text-muted-foreground text-center mt-3">
+            {answeredCount}/{totalQuestions}개 질문 응답 완료 - 모든 질문에 답변해주세요
+          </p>
+        )}
+      </div>
     </div>
   );
 };

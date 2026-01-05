@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import ProgressBar from "@/components/ProgressBar";
 import {
   moralAlignmentQuestions,
   answerOptions,
@@ -10,7 +9,7 @@ import {
   alignmentData,
 } from "@/data/moralAlignmentQuestions";
 import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface AlignmentResult {
@@ -77,6 +76,7 @@ const gridColors: Record<AlignmentType, string> = {
 };
 
 const MoralAlignmentTest = () => {
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -86,8 +86,10 @@ const MoralAlignmentTest = () => {
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = moralAlignmentQuestions.length;
   const isLastQuestion = currentQuestion === totalQuestions - 1;
+  const currentQuestionData = moralAlignmentQuestions[currentQuestion];
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
+    if (isTransitioning) return;
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
@@ -97,31 +99,31 @@ const MoralAlignmentTest = () => {
     if (isLastQuestion) {
       setShowCompleteButton(true);
     } else {
-      // 0.3초 후 다음 질문으로 이동
+      // 0.1초 후 다음 질문으로 이동
       setTimeout(() => {
         goToNextQuestion();
-      }, 300);
+      }, 100);
     }
   };
 
   const goToNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const goToPrevQuestion = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
         setShowCompleteButton(false);
-      }, 150);
+      }, 100);
     }
   };
 
@@ -375,121 +377,108 @@ const MoralAlignmentTest = () => {
   }
 
   return (
-    <div className="min-h-screen gradient-hero">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Top Bar */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur-sm">
+        <button
+          onClick={() => navigate("/")}
+          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
-        </Link>
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+        <h1 className="font-display font-semibold text-foreground">
+          Moral Alignment
+        </h1>
+        <span className="text-sm text-muted-foreground tabular-nums">
+          {currentQuestion + 1}/{totalQuestions}
+        </span>
+      </div>
 
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 animate-fade-in">
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Moral Alignment Test
-            </h1>
-            <p className="text-muted-foreground">
-              D&D 성향 테스트로 당신의 도덕적 성향을 알아보세요.
-              <br />
-              선/악, 질서/혼돈 두 축을 기준으로 9가지 성향 중 하나를 찾습니다.
-            </p>
-          </div>
+      {/* Progress Bar */}
+      <div className="h-1 bg-muted">
+        <div
+          className="h-full bg-primary transition-all duration-300"
+          style={{ width: `${((currentQuestion + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
 
-          {/* Progress */}
-          <div className="sticky top-16 z-40 bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
-            <ProgressBar current={answeredCount} total={totalQuestions} />
-            <p className="text-center text-sm text-muted-foreground mt-2">
-              {currentQuestion + 1} / {totalQuestions}
-            </p>
-          </div>
+      {/* Question Area - Centered */}
+      <main className="flex-1 flex flex-col justify-center px-6 py-8">
+        <div
+          className={cn(
+            "transition-all duration-300",
+            isTransitioning ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+          )}
+        >
+          {/* Question Text */}
+          <p className="text-xl md:text-2xl font-medium text-foreground text-center leading-relaxed mb-12">
+            {currentQuestionData.text}
+          </p>
 
-          {/* Single Question View */}
-          <div className="min-h-[300px] flex flex-col justify-center mb-8">
-            {(() => {
-              const question = moralAlignmentQuestions[currentQuestion];
-              return (
-                <div
-                  key={question.id}
+          {/* 5-Point Scale */}
+          <div className="max-w-md mx-auto">
+            {/* Labels */}
+            <div className="flex justify-between text-sm text-muted-foreground mb-4">
+              <span>전혀 아니다</span>
+              <span>매우 그렇다</span>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-2 justify-center">
+              {[1, 2, 3, 4, 5].map((value) => (
+                <button
+                  key={value}
+                  onClick={() => handleAnswer(currentQuestionData.id, value as AnswerValue)}
                   className={cn(
-                    "test-card transition-all duration-300",
-                    isTransitioning ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+                    "flex-1 aspect-square max-w-16 rounded-full border-2 font-semibold text-lg transition-all duration-200",
+                    "flex items-center justify-center",
+                    answers[currentQuestionData.id] === value
+                      ? "border-primary bg-primary text-primary-foreground scale-110"
+                      : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:scale-105"
                   )}
                 >
-                  <div className="flex gap-3 mb-6">
-                    <span className="text-sm font-medium text-muted-foreground min-w-[32px]">
-                      Q{currentQuestion + 1}.
-                    </span>
-                    <span className="text-base text-foreground leading-relaxed">{question.text}</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 ml-10">
-                    {answerOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleAnswer(question.id, option.value)}
-                        className={cn(
-                          "px-4 py-2 text-sm rounded-full border transition-all duration-200",
-                          answers[question.id] === option.value
-                            ? "border-primary bg-primary text-primary-foreground"
-                            : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                        )}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center mb-8">
-            <Button
-              variant="outline"
-              onClick={goToPrevQuestion}
-              disabled={currentQuestion === 0}
-              className="gap-2"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              이전
-            </Button>
-
-            {showCompleteButton && isLastQuestion && answers[moralAlignmentQuestions[currentQuestion].id] ? (
-              <Button
-                onClick={handleSubmit}
-                size="lg"
-                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300"
-              >
-                <CheckCircle2 className="w-5 h-5" />
-                결과 보기
-              </Button>
-            ) : (
-              <Button
-                variant="outline"
-                onClick={goToNextQuestion}
-                disabled={currentQuestion === totalQuestions - 1 || !answers[moralAlignmentQuestions[currentQuestion].id]}
-                className="gap-2"
-              >
-                다음
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            )}
-          </div>
-
-          {/* Progress Info */}
-          <div className="text-center pb-12">
-            <p className="text-xs text-muted-foreground">
-              {answeredCount}/{totalQuestions}개 질문 응답 완료
-            </p>
+                  {value}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </main>
+
+      {/* Bottom Navigation - Fixed */}
+      <div className="border-t border-border bg-background/95 backdrop-blur-sm px-4 py-4">
+        <div className="flex justify-between items-center max-w-md mx-auto">
+          <Button
+            variant="outline"
+            onClick={goToPrevQuestion}
+            disabled={currentQuestion === 0}
+            className="gap-2"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            이전
+          </Button>
+
+          {showCompleteButton && isLastQuestion && answers[currentQuestionData.id] ? (
+            <Button
+              onClick={handleSubmit}
+              className="gradient-primary border-0 gap-2 px-6"
+            >
+              <CheckCircle2 className="w-5 h-5" />
+              결과 보기
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              onClick={goToNextQuestion}
+              disabled={isLastQuestion || !answers[currentQuestionData.id]}
+              className="gap-2"
+            >
+              다음
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

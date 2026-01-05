@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import ProgressBar from "@/components/ProgressBar";
 import {
   bdsmQuestions,
-  bdsmAnswerOptions,
   BdsmAnswerValue,
   BdsmResult,
   bdsmTraitDescriptions,
 } from "@/data/bdsmTestQuestions";
-import { ArrowLeft, CheckCircle2, RotateCcw, Share2, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const calculateResults = (answers: Record<number, BdsmAnswerValue>): BdsmResult => {
@@ -46,6 +44,7 @@ const getSecondaryTrait = (result: BdsmResult): string => {
 };
 
 const BdsmTest = () => {
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, BdsmAnswerValue>>({});
   const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -57,38 +56,39 @@ const BdsmTest = () => {
   const allQuestionsAnswered = answeredCount === totalQuestions;
 
   const handleAnswer = (questionId: number, value: BdsmAnswerValue) => {
+    if (isTransitioning) return;
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
 
-    // 마지막 질문이 아니면 0.3초 후 다음 질문으로 이동
+    // 마지막 질문이 아니면 0.1초 후 다음 질문으로 이동
     if (!isLastQuestion) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 300);
+      }, 100);
     }
   };
 
   const handlePrevQuestion = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
@@ -213,120 +213,106 @@ const BdsmTest = () => {
     );
   }
 
+  const question = bdsmQuestions[currentQuestion];
+
   return (
-    <div className="min-h-screen gradient-hero">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* 상단 바 */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-background/95 backdrop-blur-sm">
+        <button
+          onClick={() => navigate(-1)}
+          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
-        </Link>
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+        <h1 className="font-semibold text-foreground">BDSM 성향 테스트</h1>
+        <span className="text-sm text-muted-foreground min-w-[48px] text-right">
+          {currentQuestion + 1}/{totalQuestions}
+        </span>
+      </div>
 
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 animate-fade-in">
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              BDSM 성향 테스트
-            </h1>
-            <p className="text-muted-foreground mb-4">
-              자신의 관계 역할 성향을 알아보는 성인용 자기 성향 테스트입니다.
-            </p>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 text-xs">
-              <AlertCircle className="w-3 h-3" />
-              19세 이상 성인 전용 콘텐츠입니다
+      {/* 프로그레스 바 */}
+      <div className="h-1 bg-muted">
+        <div
+          className="h-full bg-primary transition-all duration-300"
+          style={{ width: `${((currentQuestion + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
+
+      {/* 질문 영역 - 중앙 배치 */}
+      <div className="flex-1 flex flex-col justify-center px-6 py-8">
+        <div
+          className={cn(
+            "transition-all duration-300",
+            isTransitioning ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"
+          )}
+        >
+          {/* 질문 텍스트 */}
+          <p className="text-xl md:text-2xl font-medium text-foreground text-center leading-relaxed mb-12">
+            {question.text}
+          </p>
+
+          {/* 5점 척도 */}
+          <div className="max-w-md mx-auto w-full">
+            {/* 양끝 라벨 */}
+            <div className="flex justify-between mb-3 px-2">
+              <span className="text-xs text-muted-foreground">전혀 아니다</span>
+              <span className="text-xs text-muted-foreground">매우 그렇다</span>
             </div>
-          </div>
 
-          {/* Progress */}
-          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
-            <ProgressBar current={answeredCount} total={totalQuestions} />
-            <p className="text-center text-sm text-muted-foreground mt-2">
-              {currentQuestion + 1} / {totalQuestions}
-            </p>
-          </div>
-
-          {/* Single Question View */}
-          <div className="min-h-[300px] flex flex-col justify-center mb-8">
-            {(() => {
-              const question = bdsmQuestions[currentQuestion];
-              return (
-                <div
-                  key={question.id}
+            {/* 1~5 원형 버튼 */}
+            <div className="flex justify-center gap-3">
+              {([1, 2, 3, 4, 5] as BdsmAnswerValue[]).map((value) => (
+                <button
+                  key={value}
+                  onClick={() => handleAnswer(question.id, value)}
                   className={cn(
-                    "test-card transition-all duration-300",
-                    isTransitioning ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"
+                    "flex-1 aspect-square max-w-16 rounded-full border-2 flex items-center justify-center text-lg font-medium transition-all duration-200",
+                    answers[question.id] === value
+                      ? "border-primary bg-primary text-primary-foreground scale-110"
+                      : "border-border bg-background hover:border-primary/50 text-muted-foreground hover:text-foreground"
                   )}
                 >
-                  <div className="flex gap-3 mb-6">
-                    <span className="text-sm font-medium text-primary min-w-[36px]">
-                      Q{currentQuestion + 1}.
-                    </span>
-                    <span className="text-base text-foreground leading-relaxed">{question.text}</span>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 ml-10">
-                    {bdsmAnswerOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleAnswer(question.id, option.value)}
-                        className={cn(
-                          "px-4 py-2 text-sm rounded-full border transition-all duration-200",
-                          answers[question.id] === option.value
-                            ? "border-primary bg-primary text-primary-foreground"
-                            : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                        )}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center pb-12">
-            <Button
-              onClick={handlePrevQuestion}
-              variant="outline"
-              disabled={currentQuestion === 0}
-              className="gap-2"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              이전
-            </Button>
-
-            <p className="text-xs text-muted-foreground">
-              {answeredCount}/{totalQuestions}개 응답 완료
-            </p>
-
-            {isLastQuestion && allQuestionsAnswered ? (
-              <Button
-                onClick={handleSubmit}
-                className="gradient-primary border-0 gap-2 px-6 shadow-elevated hover:shadow-card transition-all duration-300"
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                결과 보기
-              </Button>
-            ) : (
-              <Button
-                onClick={handleNextQuestion}
-                variant="outline"
-                disabled={currentQuestion === totalQuestions - 1}
-                className="gap-2"
-              >
-                다음
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            )}
+                  {value}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </main>
+      </div>
+
+      {/* 하단 고정 네비게이션 */}
+      <div className="flex items-center justify-between px-4 py-4 border-t border-border bg-background/95 backdrop-blur-sm">
+        <Button
+          onClick={handlePrevQuestion}
+          variant="ghost"
+          disabled={currentQuestion === 0}
+          className="gap-1"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          이전
+        </Button>
+
+        {isLastQuestion && allQuestionsAnswered ? (
+          <Button
+            onClick={handleSubmit}
+            className="gradient-primary border-0 gap-2 px-6"
+          >
+            <CheckCircle2 className="w-4 h-4" />
+            결과 보기
+          </Button>
+        ) : (
+          <Button
+            onClick={handleNextQuestion}
+            variant="ghost"
+            disabled={isLastQuestion}
+            className="gap-1"
+          >
+            다음
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

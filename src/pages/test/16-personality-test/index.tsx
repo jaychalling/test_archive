@@ -96,18 +96,19 @@ const SixteenPersonalityTest = () => {
   }, [allAnswered, isLastQuestion]);
 
   const handleAnswer = (questionId: number, choice: AnswerChoice) => {
+    if (isTransitioning) return;
     setAnswers((prev) => ({
       ...prev,
       [questionId]: choice,
     }));
 
-    // Auto-advance to next question after 0.3 seconds
+    // Auto-advance to next question after 0.1 seconds
     if (!isLastQuestion) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 300);
+      }, 100);
     } else {
       // Last question answered
       setShowCompleteButton(true);
@@ -115,22 +116,22 @@ const SixteenPersonalityTest = () => {
   };
 
   const handlePrevious = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const handleNext = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 

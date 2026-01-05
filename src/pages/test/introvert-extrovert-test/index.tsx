@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import ProgressBar from "@/components/ProgressBar";
 import {
   introvertExtrovertQuestions,
-  answerOptions,
   AnswerValue,
   IntrovertExtrovertResult,
   PersonalityType,
@@ -17,7 +15,7 @@ import {
   typeTextColors,
   typeBgColors,
 } from "@/data/introvertExtrovertQuestions";
-import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, Share2, Users2, Zap, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, CheckCircle2, RotateCcw, Share2, Users2, Zap, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -85,38 +83,40 @@ const IntrovertExtrovertTest = () => {
   const allQuestionsAnswered = answeredCount === totalQuestions;
 
   const handleAnswer = (questionId: number, value: AnswerValue) => {
+    if (isTransitioning) return;
+
     setAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
 
-    // 마지막 질문이 아니면 0.3초 후 다음 질문으로 이동
+    // 마지막 질문이 아니면 자동으로 다음 질문으로 이동
     if (!isLastQuestion) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 300);
+      }, 100);
     }
   };
 
   const handlePrevQuestion = () => {
-    if (currentQuestion > 0) {
+    if (currentQuestion > 0 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev - 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < totalQuestions - 1) {
+    if (currentQuestion < totalQuestions - 1 && !isTransitioning) {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setIsTransitioning(false);
-      }, 150);
+      }, 100);
     }
   };
 
@@ -399,156 +399,115 @@ ${typeInfo.description}`;
   }
 
   return (
-    <div className="min-h-screen gradient-hero">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* 상단 바 */}
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
-          테스트 목록으로
+          <ArrowLeft className="w-5 h-5" />
         </Link>
+        <h1 className="font-semibold text-foreground">내향/외향성 테스트</h1>
+        <span className="text-sm text-muted-foreground min-w-[48px] text-right">
+          {currentQuestion + 1}/{totalQuestions}
+        </span>
+      </div>
 
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 animate-fade-in">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Users2 className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              내향/외향성 테스트
-            </h1>
-            <p className="text-muted-foreground">
-              각 문항에 대해 자신에게 얼마나 해당되는지 선택하세요.
-              <br />
-              내향-외향 스펙트럼에서 당신의 위치를 알아봅니다.
+      {/* 프로그레스 바 */}
+      <div className="w-full h-1 bg-muted">
+        <div
+          className="h-full bg-primary transition-all duration-100"
+          style={{ width: `${((currentQuestion + 1) / totalQuestions) * 100}%` }}
+        />
+      </div>
+
+      {/* 중앙 질문 영역 */}
+      <main className="flex-1 flex flex-col justify-center px-6 py-8">
+        <div
+          className={cn(
+            "transition-all duration-100",
+            isTransitioning ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
+          )}
+        >
+          {/* 질문 */}
+          <div className="text-center mb-12">
+            <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+              {currentQuestionData.text}
             </p>
           </div>
 
-          {/* Progress */}
-          <div className="bg-background/80 backdrop-blur-md py-4 mb-6 -mx-4 px-4">
-            <ProgressBar current={answeredCount} total={totalQuestions} />
-            {/* 현재 질문 번호 / 전체 질문 수 */}
-            <div className="text-center mt-3">
-              <span className="text-sm font-medium text-foreground">
-                {currentQuestion + 1}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                {" "}/ {totalQuestions}
-              </span>
+          {/* 5점 척도 */}
+          <div className="max-w-md mx-auto">
+            {/* 양끝 라벨 */}
+            <div className="flex justify-between mb-3 px-2">
+              <span className="text-xs text-muted-foreground">전혀 아니다</span>
+              <span className="text-xs text-muted-foreground">매우 그렇다</span>
             </div>
-          </div>
 
-          {/* Single Question Display */}
-          <div className="min-h-[280px] flex items-center justify-center mb-8">
-            <div
-              className={cn(
-                "test-card w-full transition-all duration-300",
-                isTransitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-              )}
-            >
-              <div className="flex gap-3 mb-6">
-                <span className="text-lg font-semibold text-primary min-w-[36px]">
-                  Q{currentQuestion + 1}.
-                </span>
-                <span className="text-lg text-foreground leading-relaxed">
-                  {currentQuestionData.text}
-                </span>
-              </div>
-
-              <div className="flex flex-wrap gap-3 justify-center">
-                {answerOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => handleAnswer(currentQuestionData.id, option.value)}
-                    disabled={isTransitioning}
-                    className={cn(
-                      "px-5 py-2.5 text-sm rounded-full border-2 transition-all duration-200 font-medium",
-                      answers[currentQuestionData.id] === option.value
-                        ? "border-primary bg-primary text-primary-foreground scale-105"
-                        : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                    )}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mb-8">
-            <Button
-              onClick={handlePrevQuestion}
-              variant="outline"
-              disabled={currentQuestion === 0 || isTransitioning}
-              className="gap-2"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              이전
-            </Button>
-
-            <div className="flex gap-1">
-              {introvertExtrovertQuestions.map((_, index) => (
+            {/* 원형 버튼들 */}
+            <div className="flex gap-3 justify-center">
+              {[1, 2, 3, 4, 5].map((value) => (
                 <button
-                  key={index}
-                  onClick={() => {
-                    if (!isTransitioning) {
-                      setIsTransitioning(true);
-                      setTimeout(() => {
-                        setCurrentQuestion(index);
-                        setIsTransitioning(false);
-                      }, 150);
-                    }
-                  }}
+                  key={value}
+                  onClick={() => handleAnswer(currentQuestionData.id, value as AnswerValue)}
+                  disabled={isTransitioning}
                   className={cn(
-                    "w-2 h-2 rounded-full transition-all duration-200",
-                    currentQuestion === index
-                      ? "bg-primary w-4"
-                      : answers[introvertExtrovertQuestions[index].id] !== undefined
-                        ? "bg-primary/50"
-                        : "bg-muted-foreground/30"
+                    "flex-1 aspect-square max-w-16 rounded-full border-2 transition-all duration-100 flex items-center justify-center text-lg font-medium",
+                    answers[currentQuestionData.id] === value
+                      ? "border-primary bg-primary text-primary-foreground scale-110"
+                      : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
-                />
+                >
+                  {value}
+                </button>
               ))}
             </div>
+          </div>
+        </div>
+      </main>
 
+      {/* 하단 고정 네비게이션 */}
+      <div className="border-t bg-background/95 backdrop-blur-sm px-4 py-4">
+        <div className="flex items-center gap-3 max-w-md mx-auto">
+          <Button
+            onClick={handlePrevQuestion}
+            variant="outline"
+            disabled={currentQuestion === 0 || isTransitioning}
+            className="flex-1 gap-2"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            이전
+          </Button>
+
+          {isLastQuestion && allQuestionsAnswered ? (
+            <Button
+              onClick={handleSubmit}
+              className="flex-1 gap-2 gradient-primary border-0"
+            >
+              <CheckCircle2 className="w-4 h-4" />
+              결과 보기
+            </Button>
+          ) : (
             <Button
               onClick={handleNextQuestion}
               variant="outline"
               disabled={currentQuestion === totalQuestions - 1 || isTransitioning}
-              className="gap-2"
+              className="flex-1 gap-2"
             >
               다음
               <ChevronRight className="w-4 h-4" />
             </Button>
-          </div>
-
-          {/* Submit Button - 마지막 질문에서 답변 완료 시 표시 */}
-          {isLastQuestion && answers[currentQuestionData.id] !== undefined && (
-            <div className="text-center pb-12 animate-fade-in">
-              <Button
-                onClick={handleSubmit}
-                size="lg"
-                disabled={!allQuestionsAnswered}
-                className="gradient-primary border-0 gap-2 px-8 shadow-elevated hover:shadow-card transition-all duration-300 disabled:opacity-50"
-              >
-                <CheckCircle2 className="w-5 h-5" />
-                결과 보기
-              </Button>
-              {!allQuestionsAnswered && (
-                <p className="text-xs text-muted-foreground mt-3">
-                  {answeredCount}/{totalQuestions}개 질문 응답 완료
-                  <br />
-                  모든 질문에 답변해주세요.
-                </p>
-              )}
-            </div>
           )}
         </div>
-      </main>
+
+        {/* 미응답 안내 */}
+        {isLastQuestion && !allQuestionsAnswered && (
+          <p className="text-xs text-muted-foreground text-center mt-3">
+            {answeredCount}/{totalQuestions}개 응답 완료 - 모든 질문에 답변해주세요
+          </p>
+        )}
+      </div>
     </div>
   );
 };
