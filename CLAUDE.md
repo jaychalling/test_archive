@@ -6,7 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Test-archive.com** is an entertainment quiz/test portal designed as a traffic-generating UX product. The core business flow is: Completion Rate → Result Page Dwell Time → Internal Circulation (Pages/Session) → Ad Revenue (RPM).
 
-**Claude should communicate in Korean (한국어로 대화)**
+**IMPORTANT - Language Policy:**
+- **Conversation with developer**: Korean (한국어로 대화)
+- **All test content (questions, results, UI text)**: ENGLISH ONLY
+- Never mix languages - keep developer communication and user-facing content strictly separated
 
 ## Commands
 
@@ -139,9 +142,9 @@ Key conventions:
 ```
 Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
 
-## Implemented Tests (Tier 0 - Complete)
-All 10 launch-essential tests are implemented:
+## Implemented Tests (13 Tests - All Tier 0 Complete + 3 New)
 
+### Tier 0 - Launch Essential (10 tests) ✅
 | Test Name | URL Path | Data File |
 |-----------|----------|-----------|
 | Rice Purity Test | `/test/rice-purity` ⚠️ | `ricePurityQuestions.ts` |
@@ -154,6 +157,13 @@ All 10 launch-essential tests are implemented:
 | 16 Personality Test | `/test/16-personality-test` | `personalityTypeQuestions.ts` |
 | Moral Alignment Test | `/test/moral-alignment-test` | `moralAlignmentQuestions.ts` |
 | Introvert/Extrovert Test | `/test/introvert-extrovert-test` | `introvertExtrovertQuestions.ts` |
+
+### Additional Tests (High Search Volume)
+| Test Name | URL Path | Data File | Questions |
+|-----------|----------|-----------|-----------|
+| Emotional Intelligence Test | `/test/emotional-intelligence-test` | `emotionalIntelligenceQuestions.ts` | 25 (5 categories) |
+| Career Aptitude Test | `/test/career-aptitude-test` | `careerAptitudeQuestions.ts` | 30 (Holland RIASEC) |
+| Communication Style Test | `/test/communication-style-test` | `communicationStyleQuestions.ts` | 28 (4 styles) |
 
 ⚠️ Rice Purity Test uses legacy URL without `-test` suffix (distributed links exist)
 
@@ -168,6 +178,65 @@ These should fail deployment:
 - related tests < 3 or > 5
 - Missing canonical or OG tags
 - Trailing slash violations
+
+## Development Workflow & Best Practices
+
+### Pre-Work Checklist (MANDATORY)
+Before starting ANY task, verify:
+1. ✅ **Language**: Is this user-facing content? → Must be ENGLISH
+2. ✅ **Existing patterns**: Check similar files first (e.g., look at existing tests before creating a new one)
+3. ✅ **Requirements**: List all requirements explicitly before coding
+4. ✅ **State management**: Does the component need proper state initialization? (common React pitfall)
+
+### Tool Selection Guidelines
+- **Direct Edit**: Use for simple, repetitive tasks (translations, bulk edits across files)
+- **Subagents**: Use ONLY for complex multi-step tasks requiring decision-making
+- **Never**: Use subagents for simple find-replace or translation tasks (too slow)
+
+### Common Pitfalls & Solutions
+
+#### 1. Start Button Not Working
+**Problem**: Using existing state as landing condition breaks re-initialization
+```tsx
+// ❌ BAD: setCurrentQuestion(0) won't trigger re-render if already 0
+{currentQuestion === 0 && answeredCount === 0 && (
+  <Button onClick={() => setCurrentQuestion(0)}>Start</Button>
+)}
+
+// ✅ GOOD: Use dedicated state variable
+const [testStarted, setTestStarted] = useState(false);
+{!testStarted && (
+  <Button onClick={() => setTestStarted(true)}>Start Test</Button>
+)}
+```
+
+#### 2. Language Confusion
+**Problem**: Creating content in Korean when it should be English
+- **Check**: "Claude should communicate in Korean" means CONVERSATION, not CONTENT
+- **Always**: Read CLAUDE.md's Language Policy section before creating test content
+- **Verify**: All questions, UI text, results = ENGLISH
+
+#### 3. Duplicate Navigation
+**Problem**: Adding "Back to Tests" links when Header already has navigation
+- **Check**: Does Header.tsx already have this navigation?
+- **Rule**: Minimize distracting navigation on test pages (business rule)
+- **Always**: Review existing test pages before adding new navigation elements
+
+#### 4. Not Following Existing Patterns
+**Problem**: Reinventing the wheel instead of copying proven patterns
+- **Always**: Look at 2-3 existing test files before creating a new one
+- **Copy**: Structure, state management, styling patterns
+- **Maintain**: Consistency across all tests (user experience)
+
+### Code Review Self-Checklist
+Before committing:
+- [ ] All content is in ENGLISH (no Korean in user-facing text)
+- [ ] Follows existing file naming conventions (camelCase data, kebab-case pages)
+- [ ] Copied patterns from existing tests (state management, UI structure)
+- [ ] Start button works (uses dedicated state, not re-using existing state)
+- [ ] No duplicate navigation elements
+- [ ] Build passes without errors
+- [ ] E-E-A-T requirements met (if creating test content)
 
 ## Reference Documents
 - [Test-archive operation rule.md](plans/Test-archive%20operation%20rule.md) - Operating philosophy and rules
