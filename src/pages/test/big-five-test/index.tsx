@@ -7,66 +7,14 @@ import {
   bigFiveQuestions,
   answerOptions,
   AnswerValue,
-  BigFiveResult,
-  BigFiveTrait,
-  bigFiveDescriptions,
-  traitColors,
-  traitTextColors,
-  traitBgColors,
-  traitOrder,
-  getScoreLevel,
-  scoreLevelLabels,
-  getPersonalityProfile,
-  bigFiveFAQs,
-  bigFiveCelebrities,
 } from "@/data/bigFiveQuestions";
-import ScoreDistributionChart from "@/components/ScoreDistributionChart";
-import CollapsibleFAQ from "@/components/CollapsibleFAQ";
-import CelebrityComparison from "@/components/CelebrityComparison";
-import RecommendedTests from "@/components/RecommendedTests";
-import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight, CheckCircle2, Brain } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-const calculateResults = (answers: Record<number, AnswerValue>): BigFiveResult => {
-  const traitScores: Record<BigFiveTrait, { sum: number; count: number }> = {
-    openness: { sum: 0, count: 0 },
-    conscientiousness: { sum: 0, count: 0 },
-    extraversion: { sum: 0, count: 0 },
-    agreeableness: { sum: 0, count: 0 },
-    neuroticism: { sum: 0, count: 0 },
-  };
-
-  bigFiveQuestions.forEach((question) => {
-    const answer = answers[question.id];
-    if (answer !== undefined) {
-      // 역코딩 문항 처리
-      const score = question.reversed ? 6 - answer : answer;
-      traitScores[question.trait].sum += score;
-      traitScores[question.trait].count++;
-    }
-  });
-
-  // 0-100 점수로 변환 (각 특성당 10문항, 각 1-5점)
-  const calculatePercentage = (sum: number, count: number): number => {
-    if (count === 0) return 50;
-    const maxPossible = count * 5;
-    const minPossible = count * 1;
-    return Math.round(((sum - minPossible) / (maxPossible - minPossible)) * 100);
-  };
-
-  return {
-    openness: calculatePercentage(traitScores.openness.sum, traitScores.openness.count),
-    conscientiousness: calculatePercentage(traitScores.conscientiousness.sum, traitScores.conscientiousness.count),
-    extraversion: calculatePercentage(traitScores.extraversion.sum, traitScores.extraversion.count),
-    agreeableness: calculatePercentage(traitScores.agreeableness.sum, traitScores.agreeableness.count),
-    neuroticism: calculatePercentage(traitScores.neuroticism.sum, traitScores.neuroticism.count),
-  };
-};
-
 const BigFiveTest = () => {
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
-  const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -114,45 +62,8 @@ const BigFiveTest = () => {
   };
 
   const handleSubmit = () => {
-    setShowResults(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleReset = () => {
-    setAnswers({});
-    setShowResults(false);
-    setCurrentQuestion(0);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleShare = async () => {
-    const result = calculateResults(answers);
-    const profile = getPersonalityProfile(result);
-
-    const shareText = `My Big Five Personality Test Results
-
-${profile.summary}
-
-Openness: ${result.openness}% (${scoreLevelLabels[getScoreLevel(result.openness)]})
-Conscientiousness: ${result.conscientiousness}% (${scoreLevelLabels[getScoreLevel(result.conscientiousness)]})
-Extraversion: ${result.extraversion}% (${scoreLevelLabels[getScoreLevel(result.extraversion)]})
-Agreeableness: ${result.agreeableness}% (${scoreLevelLabels[getScoreLevel(result.agreeableness)]})
-Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neuroticism)]})`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Big Five Personality Test Results",
-          text: shareText,
-          url: window.location.href,
-        });
-      } catch (err) {
-        // User cancelled or share failed
-      }
-    } else {
-      await navigator.clipboard.writeText(shareText);
-      alert("Result copied to clipboard!");
-    }
+    localStorage.setItem('bigFiveAnswers', JSON.stringify(answers));
+    navigate('/test/big-five-test/result/');
   };
 
   const breadcrumbSchema = createBreadcrumbSchema([

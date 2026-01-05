@@ -29,7 +29,7 @@ import {
   Target,
   Sparkles,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import ProgressBar from "@/components/ProgressBar";
 import ScoreDistributionChart from "@/components/ScoreDistributionChart";
@@ -38,8 +38,8 @@ import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 
 const CommunicationStyleTest = () => {
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
-  const [showResults, setShowResults] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [testStarted, setTestStarted] = useState(false);
@@ -89,8 +89,8 @@ const CommunicationStyleTest = () => {
   };
 
   const handleSubmit = () => {
-    setShowResults(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    localStorage.setItem('communicationStyleAnswers', JSON.stringify(answers));
+    navigate('/test/communication-style-test/result/');
   };
 
   const handleReset = () => {
