@@ -16,7 +16,7 @@ const Index = () => {
           </div>
 
           <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Test<span className="text-gradient">Lab</span>
+            Test <span className="text-gradient">Archive</span>
           </h1>
 
           <p className="text-lg text-muted-foreground">
@@ -138,7 +138,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border/50 mt-16">
         <div className="container mx-auto px-4 py-8 text-center text-sm text-muted-foreground">
-          <p>© 2026 TestLab. All tests are for entertainment purposes only.</p>
+          <p>© 2026 Test Archive. All tests are for entertainment purposes only.</p>
         </div>
       </footer>
     </div>

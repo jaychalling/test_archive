@@ -10,7 +10,7 @@ const Header = () => {
             <ClipboardCheck className="w-5 h-5 text-primary-foreground" />
           </div>
           <span className="font-display font-semibold text-lg text-foreground">
-            Test<span className="text-gradient">Lab</span>
+            Test <span className="text-gradient">Archive</span>
           </span>
         </Link>
         
