@@ -243,3 +243,108 @@ Before committing:
 - [Test-archive.com 개발 Rule v1.0.md](plans/Test-archive.com%20개발%20Rule%20v1.0.md) - Detailed development rules
 - [Tier 0 런칭 필수 10개.md](plans/Tier%200%20런칭%20필수%2010개.md) - Launch-essential test list
 - [new-test-workflow.md](src/docs/new-test-workflow.md) - Step-by-step guide for adding new tests
+
+## Statistical Data for Result Pages (Data Integrity Reference)
+
+When creating or updating result pages, use these research-backed statistics for percentile calculations, averages, and distribution displays. Sources include academic research, surveys, and established testing organizations.
+
+### Rice Purity Test
+- **Global Average**: 63.98 (alternative source: 61.46)
+- **Age Distribution**:
+  - Under 25: 85-91
+  - High school students: 90+
+  - College students/young adults: 70-80
+- **Gender (US)**: Male avg 56.1, Female avg 59.9
+- **Score Ranges**: 0-30 (Very Experienced), 31-44 (Experienced), 45-76 (Above Average), 77-93 (Average), 94-100 (Pure)
+
+### Big Five Personality Test (OCEAN)
+- **Average**: 50% is perfectly average on each trait
+- **Distribution**: Most people have 1-2 high traits, 1-2 low traits, rest near 50%
+- **Reliability coefficient**: 0.88
+- **Score interpretation**: Uses percentile (50th = average)
+
+### 16 Personality Types (MBTI-style)
+| Type | % Population | Notes |
+|------|-------------|-------|
+| ISFJ | 13.8% | Most common |
+| ESFJ | 12.0% | |
+| ISTJ | 11.6% | |
+| ISFP | 8.8% | |
+| ENFP | 8.1% | Most common N type |
+| ESFP | 8.5% | |
+| INFP | 4.4% | |
+| INFJ | 1.5% | Rarest |
+| INTJ | 2.1% | |
+| ENTJ | 1.8% | |
+
+### Attachment Style
+| Style | % Population |
+|-------|-------------|
+| Secure | 50-65% |
+| Avoidant (Dismissive) | 15-25% |
+| Anxious (Preoccupied) | 5-20% |
+| Fearful-Avoidant | 5-24% |
+
+### Enneagram
+| Type | Name | % Population |
+|------|------|-------------|
+| 9 | Peacemaker | 16.2% (most common) |
+| 6 | Loyalist | 16.1% |
+| 1 | Reformer | 16.3% |
+| 2 | Helper | 8.5% |
+| 3 | Achiever | ~10% |
+| 4 | Individualist | ~10% |
+| 7 | Enthusiast | 9% |
+| 8 | Challenger | 6.3% |
+| 5 | Investigator | 4.8% (rarest) |
+
+### Love Language
+| Language | % Population |
+|----------|-------------|
+| Quality Time | 38-40% (most common) |
+| Physical Touch | 24% |
+| Words of Affirmation | 19% |
+| Acts of Service | 16% |
+| Receiving Gifts | 10% (least common) |
+
+### Introvert/Extrovert
+| Type | % Population |
+|------|-------------|
+| Ambivert | 68-77% (majority) |
+| Extrovert | 12-16% |
+| Introvert | 5-16% |
+
+### Emotional Intelligence (EQ)
+- **Average Score**: 75/100 (on Emotional Intelligence Appraisal)
+- **Standard Score**: Mean 100, SD 15
+- **Average Range**: 85-115
+- **High EQ**: Only 36% of population
+- **Top performers**: 90% have high EQ
+
+### Holland RIASEC (Career Aptitude)
+- No definitive population distribution available
+- **Gender patterns**: Men score higher on Realistic (R), Women higher on Social (S) and Artistic (A)
+- Use balanced distribution for ScoreDistributionChart
+
+### Political Compass
+- No standardized population data
+- Create bell curve centered slightly left-libertarian (based on online test-taker trends)
+
+### BDSM Test
+- No academic population data
+- Create balanced distribution across categories
+
+### Moral Alignment (D&D style)
+- No population data (fictional framework)
+- Create equal distribution across 9 alignments
+
+### Communication Style
+- No standardized population data
+- Estimate: Assertive 25%, Passive 30%, Aggressive 15%, Passive-Aggressive 30%
+
+### Usage in Code
+When implementing `ScoreDistributionChart` or percentile calculations:
+1. Use test-specific mean/SD where available
+2. For tests without data, use default mean=50%, SD=15%
+3. Always include disclaimer: "Based on estimated population data"
+4. Celebrity comparisons should use plausible scores within normal ranges
