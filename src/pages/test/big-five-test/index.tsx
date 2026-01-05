@@ -17,7 +17,13 @@ import {
   getScoreLevel,
   scoreLevelLabels,
   getPersonalityProfile,
+  bigFiveFAQs,
+  bigFiveCelebrities,
 } from "@/data/bigFiveQuestions";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -211,22 +217,27 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
           <div className="max-w-4xl mx-auto space-y-8">
             {/* Hero Section */}
             <div className="test-card text-center animate-scale-in">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Brain className="w-8 h-8 text-primary" />
-                <h1 className="font-display text-3xl font-bold text-foreground">
-                  Your Big Five Personality Profile
-                </h1>
+              <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                  <Brain className="w-10 h-10 text-primary" />
+                </div>
+              </div>
+              <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+                Your Big Five Personality Profile
+              </h2>
+              <div className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+                OCEAN Model
               </div>
 
               {/* Summary */}
-              <div className="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 mb-6">
-                <p className="text-lg text-foreground font-medium mb-4">{profile.summary}</p>
-                <p className="text-sm text-muted-foreground">{profile.detailedSummary}</p>
+              <div className="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-purple-500/10 mb-8">
+                <p className="text-xl text-foreground font-semibold mb-4 leading-relaxed">{profile.summary}</p>
+                <p className="text-base text-muted-foreground leading-relaxed">{profile.detailedSummary}</p>
               </div>
 
               {/* Radar Chart */}
               <div className="mb-8">
-                <h2 className="text-lg font-semibold text-foreground mb-4">Personality Traits Radar Chart</h2>
+                <h3 className="text-xl font-bold text-foreground mb-4">Personality Traits Radar Chart</h3>
                 <div className="relative w-full max-w-[300px] mx-auto aspect-square">
                   <svg viewBox="0 0 100 100" className="w-full h-full">
                     {gridPaths.map((path, i) => (
@@ -252,9 +263,19 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
                 </div>
               </div>
 
+              {/* Score Distribution Chart */}
+              <div className="mb-8">
+                <ScoreDistributionChart
+                  userScore={Math.round((result.openness + result.conscientiousness + result.extraversion + result.agreeableness + (100 - result.neuroticism)) / 5)}
+                  maxScore={100}
+                  testName="Big Five Personality Test"
+                  colorClass="bg-gradient-to-r from-primary to-purple-500"
+                />
+              </div>
+
               {/* Score Bars */}
               <div className="space-y-4 mb-8">
-                <h2 className="text-lg font-semibold text-foreground text-left mb-3">Trait Scores</h2>
+                <h3 className="text-xl font-bold text-foreground text-left mb-3">Trait Scores</h3>
                 {traitOrder.map((trait) => {
                   const score = result[trait];
                   const level = getScoreLevel(score);
@@ -278,19 +299,29 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
               </div>
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="test-card">
+              <CelebrityComparison
+                userScore={Math.round((result.openness + result.conscientiousness + result.extraversion + result.agreeableness + (100 - result.neuroticism)) / 5)}
+                celebrities={bigFiveCelebrities}
+                maxScore={100}
+                title="Famous Personalities with Similar Profiles"
+              />
+            </div>
+
             {/* Overall Interpretation - E-E-A-T Content */}
             <div className="test-card">
-              <h2 className="font-display text-xl font-semibold text-foreground mb-4">Comprehensive Analysis Report</h2>
+              <h3 className="text-2xl font-bold text-foreground mb-6">Comprehensive Analysis Report</h3>
               <div className="prose prose-sm max-w-none text-foreground">
                 {profile.overallInterpretation.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="mb-4 text-sm leading-relaxed text-muted-foreground">{paragraph}</p>
+                  <p key={idx} className="mb-4 text-base leading-relaxed text-muted-foreground">{paragraph}</p>
                 ))}
               </div>
             </div>
 
             {/* Detailed Trait Analysis */}
             <div className="test-card">
-              <h2 className="font-display text-xl font-semibold text-foreground mb-6">Detailed Trait Analysis</h2>
+              <h3 className="text-2xl font-bold text-foreground mb-6">Detailed Trait Analysis</h3>
               <div className="space-y-8">
                 {traitOrder.map((trait) => {
                   const score = result[trait];
@@ -303,29 +334,29 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
                     <div key={trait} className={cn("p-6 rounded-xl bg-gradient-to-br", traitBgColors[trait])}>
                       <div className="flex items-center gap-3 mb-4">
                         <div className={cn("w-4 h-4 rounded-full", traitColors[trait])} />
-                        <h3 className={cn("text-lg font-semibold", traitTextColors[trait])}>
+                        <h4 className={cn("text-xl font-bold", traitTextColors[trait])}>
                           {info.name} ({info.nameEn})
-                        </h3>
-                        <span className="text-sm text-muted-foreground ml-auto">
+                        </h4>
+                        <span className="text-sm text-muted-foreground ml-auto font-semibold">
                           {score}% - {scoreLevelLabels[level]}
                         </span>
                       </div>
 
                       {/* Scientific Background */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Scientific Background</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Scientific Background</h5>
                         <p className="text-sm text-muted-foreground leading-relaxed">{info.scientificBackground}</p>
                       </div>
 
                       {/* Personal Description */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Your {info.name}</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Your {info.name}</h5>
                         <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
                       </div>
 
                       {/* Traits List */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Key Characteristics</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Key Characteristics</h5>
                         <ul className="space-y-1">
                           {traits.map((t, idx) => (
                             <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -338,7 +369,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
                       {/* Facets */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Facets</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Facets</h5>
                         <div className="grid sm:grid-cols-2 gap-2">
                           {info.facets.map((facet, idx) => (
                             <div key={idx} className="p-2 bg-background/50 rounded-lg">
@@ -351,7 +382,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
                       {/* Career Implications */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Career Implications</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Career Implications</h5>
                         <ul className="space-y-1">
                           {(level === "high" || (level === "medium" && score >= 50) ? info.careerImplications.high : info.careerImplications.low).slice(0, 3).map((item, idx) => (
                             <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -364,7 +395,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
                       {/* Relationship Implications */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Relationship Implications</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Relationship Implications</h5>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                           {level === "high" || (level === "medium" && score >= 50) ? info.relationshipImplications.high : info.relationshipImplications.low}
                         </p>
@@ -372,7 +403,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
                       {/* Growth Strategies */}
                       <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Growth Strategies</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Growth Strategies</h5>
                         <ul className="space-y-1">
                           {(level === "high" || (level === "medium" && score >= 50) ? info.growthStrategies.high : info.growthStrategies.low).map((strategy, idx) => (
                             <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
@@ -385,7 +416,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
                       {/* Research Findings */}
                       <div>
-                        <h4 className="text-sm font-semibold text-foreground mb-2">Related Research Findings</h4>
+                        <h5 className="text-sm font-semibold text-foreground mb-2">Related Research Findings</h5>
                         <ul className="space-y-1">
                           {info.researchFindings.slice(0, 3).map((finding, idx) => (
                             <li key={idx} className="text-xs text-muted-foreground italic flex items-start gap-2">
@@ -404,7 +435,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
             {/* Strengths & Growth Areas */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="test-card">
-                <h2 className="font-display text-lg font-semibold text-green-600 mb-4">Your Strengths</h2>
+                <h3 className="text-xl font-bold text-green-600 dark:text-green-400 mb-4">Your Strengths</h3>
                 <ul className="space-y-3">
                   {profile.strengths.map((strength, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -415,7 +446,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
                 </ul>
               </div>
               <div className="test-card">
-                <h2 className="font-display text-lg font-semibold text-amber-600 mb-4">Growth Areas</h2>
+                <h3 className="text-xl font-bold text-amber-600 dark:text-amber-400 mb-4">Growth Areas</h3>
                 <ul className="space-y-3">
                   {profile.growthAreas.map((area, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -427,25 +458,60 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
               </div>
             </div>
 
+            {/* Recommended Tests */}
+            <div className="test-card">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Enneagram Test",
+                    description: "Discover your core motivations and fears through the nine personality types of the Enneagram system.",
+                    url: "/test/enneagram-test",
+                    icon: "🔷",
+                    reason: "Complements Big Five by revealing your core motivations and defense mechanisms"
+                  },
+                  {
+                    title: "16 Personality Style Test",
+                    description: "Explore your cognitive functions and personality type based on Jungian psychology.",
+                    url: "/test/16-personality-test",
+                    icon: "🎭",
+                    reason: "Provides deeper insight into how your Big Five traits manifest in thinking patterns"
+                  },
+                  {
+                    title: "Emotional Intelligence Test",
+                    description: "Measure your ability to recognize and manage emotions in yourself and others across 5 key areas.",
+                    url: "/test/emotional-intelligence-test",
+                    icon: "🧠",
+                    reason: "Big Five traits like Agreeableness and Neuroticism strongly correlate with EQ"
+                  }
+                ]}
+                subtitle="Based on your personality profile, these tests offer complementary insights into your character"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="test-card">
+              <CollapsibleFAQ faqs={bigFiveFAQs} />
+            </div>
+
             {/* Disclaimer and References */}
             <div className="test-card bg-muted/30">
-              <h2 className="font-display text-lg font-semibold text-foreground mb-4">Note</h2>
+              <h3 className="text-xl font-bold text-foreground mb-6">Note</h3>
               <div className="space-y-4 text-sm text-muted-foreground">
                 <p>
-                  <strong>Test Reliability:</strong> This test is designed based on Costa and McCrae's (1992) NEO-PI-R model.
+                  <strong className="text-foreground">Test Reliability:</strong> This test is designed based on Costa and McCrae's (1992) NEO-PI-R model.
                   The Big Five personality model is one of the most scientifically validated personality assessment frameworks in modern psychology.
                 </p>
                 <p>
-                  <strong>Limitations:</strong> These results are based on self-reported assessments and may vary depending on your mood or circumstances at the time of response.
+                  <strong className="text-foreground">Limitations:</strong> These results are based on self-reported assessments and may vary depending on your mood or circumstances at the time of response.
                   For accurate personality assessment, consultation with a professional psychologist is recommended.
                 </p>
                 <p>
-                  <strong>How to Use:</strong> Use these results as reference material for self-understanding and personal growth.
+                  <strong className="text-foreground">How to Use:</strong> Use these results as reference material for self-understanding and personal growth.
                   Personality is not fixed and can develop through conscious effort and experience.
                 </p>
                 <div className="pt-4 border-t border-border/50">
-                  <h3 className="font-semibold text-foreground mb-2">Key References</h3>
-                  <ul className="space-y-1 text-xs">
+                  <h4 className="font-semibold text-foreground mb-3">Key References</h4>
+                  <ul className="space-y-2 text-xs">
                     <li>• Costa, P. T., & McCrae, R. R. (1992). Revised NEO Personality Inventory (NEO-PI-R) and NEO Five-Factor Inventory (NEO-FFI) professional manual.</li>
                     <li>• Roberts, B. W., et al. (2006). Patterns of mean-level change in personality traits across the life course.</li>
                     <li>• Barrick, M. R., & Mount, M. K. (1991). The Big Five personality dimensions and job performance.</li>

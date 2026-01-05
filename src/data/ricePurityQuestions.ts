@@ -278,3 +278,83 @@ export const ricePurityQuestions = [
   "Spent a night in jail?",
   "Been convicted of a crime?",
 ];
+
+// FAQ Data for Result Page
+export const ricePurityFAQs = [
+  {
+    question: "Is my score good or bad?",
+    answer: "There is no 'good' or 'bad' Rice Purity score. This test is purely for entertainment and self-reflection. A high score (90-100) indicates fewer life experiences, while a low score (0-30) indicates more extensive experiences. Neither is inherently better - everyone's life journey is unique and valuable. What matters is that you're comfortable with your choices and living authentically."
+  },
+  {
+    question: "What's the average Rice Purity score?",
+    answer: "The average Rice Purity score typically falls between 45-70, with most college students scoring around 60. However, averages vary significantly by age, cultural background, and social environment. High school students often score in the 70-85 range, while older adults who've had more life experiences might score lower. Remember, these are just statistical trends - your individual score is about your unique experiences, not a comparison to others."
+  },
+  {
+    question: "Should I be concerned about my low score?",
+    answer: "A low score (below 45) simply means you've had many diverse life experiences. This isn't inherently concerning unless those experiences involved risky behaviors that affected your health, safety, or well-being. What matters is whether you made informed choices, learned from your experiences, and are taking care of yourself. If you're worried about past behaviors, consider talking to a trusted friend, counselor, or healthcare provider."
+  },
+  {
+    question: "Can I retake the test to get a different score?",
+    answer: "You can retake the test anytime, but your score will only change if your life experiences have changed. The Rice Purity Test is based on what you've done, not what you plan to do. If you felt rushed or misunderstood questions during your first attempt, retaking it might give you a more accurate result. However, trying to 'improve' your score by lying defeats the purpose of honest self-reflection."
+  },
+  {
+    question: "How accurate is this test?",
+    answer: "The Rice Purity Test is a self-reported survey for entertainment purposes, not a scientifically validated psychological assessment. Its accuracy depends entirely on your honesty when answering. The test has been used as a social icebreaker at Rice University since 1924, and while it's culturally significant, it shouldn't be treated as a serious measure of character, morality, or life success."
+  },
+  {
+    question: "What do I do with my results?",
+    answer: "Your Rice Purity score is personal information - you can choose to share it with friends for fun conversations or keep it private for self-reflection. Many people use it as a conversation starter or to bond with peers over shared (or different) experiences. However, never feel pressured to share your score or justify it to others. It's a snapshot of your experiences, not a judgment of your worth as a person."
+  }
+];
+
+// Celebrity/Archetype Comparisons for Result Page
+export const ricePurityCelebrities = [
+  {
+    name: "Typical High School Senior",
+    score: 85,
+    description: "Most high school seniors score in the 80-90 range, having had basic social and romantic experiences like dating, holding hands, and attending parties.",
+    avatar: "🎓"
+  },
+  {
+    name: "College Freshman",
+    score: 75,
+    description: "First-year college students typically score around 70-80 as they begin exploring independence, social activities, and new experiences away from home.",
+    avatar: "📚"
+  },
+  {
+    name: "College Sophomore/Junior",
+    score: 60,
+    description: "By second or third year, most college students have accumulated more diverse social and romantic experiences, bringing scores to the 55-65 range.",
+    avatar: "🎉"
+  },
+  {
+    name: "College Senior/Recent Graduate",
+    score: 50,
+    description: "Students completing college or recent graduates often score in the 45-55 range, reflecting a fuller range of adult experiences and social exploration.",
+    avatar: "🎊"
+  },
+  {
+    name: "Young Professional (Early 20s)",
+    score: 45,
+    description: "Young adults in their early to mid-20s who've been socially active typically score around 40-50, balancing professional life with personal experiences.",
+    avatar: "💼"
+  },
+  {
+    name: "Experienced Adult (Late 20s+)",
+    score: 35,
+    description: "Adults in their late 20s and beyond who've led active social lives often score in the 30-40 range, having explored many aspects of adult life.",
+    avatar: "🌟"
+  },
+  {
+    name: "Very Conservative/Religious Person",
+    score: 95,
+    description: "Individuals with strong religious beliefs or very conservative values often maintain scores in the 90-100 range, prioritizing purity and traditional values.",
+    avatar: "⛪"
+  },
+  {
+    name: "Free-Spirited Adventurer",
+    score: 25,
+    description: "People who embrace adventure, novelty, and non-traditional lifestyles often score below 30, having explored many unconventional experiences.",
+    avatar: "🌈"
+  }
+];

@@ -1611,3 +1611,83 @@ export const getTypeGroup = (type: PersonalityType): keyof typeof typeGroups => 
   if (typeGroups.sentinels.types.includes(type)) return "sentinels";
   return "explorers";
 };
+
+// FAQ Data for 16 Personality Test Result Page
+export const personalityTypeFAQs = [
+  {
+    question: "How accurate is this personality type test?",
+    answer: "This test is designed for entertainment and self-reflection purposes. While it's based on established personality type theory, it's not a clinical assessment. Factors like your current mood, context, and self-awareness can affect results. For comprehensive evaluation, consider taking validated assessments like the official MBTI from certified practitioners. The test provides general tendencies - remember that everyone is unique and can't be fully defined by a four-letter code."
+  },
+  {
+    question: "Can my personality type change over time?",
+    answer: "Your core personality type typically remains stable throughout your life, as it reflects your natural preferences and cognitive functions. However, how you express your type can evolve as you mature and develop. You may learn to use your less-preferred functions better with age and experience, making you appear more balanced. Life experiences, stress, or major transitions might also temporarily affect how you respond to questions, but your fundamental type usually stays consistent."
+  },
+  {
+    question: "What if I feel like I'm between two types?",
+    answer: "It's common to feel like you're on the border between types, especially if your preferences in certain dimensions are close to 50/50. This can happen because: 1) You've developed skills in your less-preferred functions, 2) You're answering based on learned behavior rather than natural preference, or 3) The context matters - you might behave differently at work vs. home. Focus on which behaviors come most naturally and feel least effortful rather than which you've learned to do."
+  },
+  {
+    question: "Which careers are best for my type?",
+    answer: "While certain types may gravitate toward specific careers, your type doesn't limit your career options. The career suggestions are based on common patterns where people of your type find satisfaction, but successful people of every type exist in every field. Consider your type as insight into your natural strengths and working style preferences rather than strict career boundaries. Focus on finding roles that align with your values, interests, and allow you to use your strengths."
+  },
+  {
+    question: "Are certain types more compatible in relationships?",
+    answer: "While some type combinations may have natural ease, any two types can have successful relationships with mutual understanding and effort. Complementary types can balance each other, while similar types may naturally understand each other. What matters most is emotional maturity, communication skills, shared values, and willingness to understand differences. Use type compatibility as a tool for understanding potential challenges and strengths in the relationship, not as a rule."
+  },
+  {
+    question: "What do the cognitive functions mean?",
+    answer: "Cognitive functions are the mental processes that explain how your type operates. Each type has a unique stack of eight functions (four conscious, four unconscious) in a specific order. Your dominant function is your strongest and most natural way of processing information. The auxiliary supports it, the tertiary develops later in life, and the inferior is your weakest but can cause issues under stress. Understanding your function stack provides deeper insight than just the four-letter code alone."
+  }
+];
+
+// Celebrity Comparisons for 16 Personality Test Result Page
+export const personalityTypeCelebrities = [
+  {
+    name: "Elon Musk",
+    type: "INTJ" as PersonalityType,
+    description: "Visionary entrepreneur known for strategic thinking and ambitious long-term goals in technology and space.",
+    avatar: "🚀"
+  },
+  {
+    name: "Barack Obama",
+    type: "ENFJ" as PersonalityType,
+    description: "Charismatic leader with exceptional communication skills and focus on inspiring and uniting people.",
+    avatar: "🎖️"
+  },
+  {
+    name: "Taylor Swift",
+    type: "ESFJ" as PersonalityType,
+    description: "Highly organized performer who deeply connects with fans and values relationships and community.",
+    avatar: "🎵"
+  },
+  {
+    name: "Albert Einstein",
+    type: "INTP" as PersonalityType,
+    description: "Brilliant theoretical physicist known for abstract thinking and revolutionary scientific insights.",
+    avatar: "🧠"
+  },
+  {
+    name: "Oprah Winfrey",
+    type: "ENFJ" as PersonalityType,
+    description: "Influential media personality who inspires others and promotes personal growth and empowerment.",
+    avatar: "👑"
+  },
+  {
+    name: "Mark Zuckerberg",
+    type: "INTJ" as PersonalityType,
+    description: "Strategic tech innovator who built systems to connect the world with long-term vision.",
+    avatar: "💻"
+  },
+  {
+    name: "Emma Watson",
+    type: "INFJ" as PersonalityType,
+    description: "Thoughtful advocate combining creativity with deep principles and humanitarian causes.",
+    avatar: "📖"
+  },
+  {
+    name: "Will Smith",
+    type: "ENFP" as PersonalityType,
+    description: "Energetic entertainer known for enthusiasm, creativity, and ability to connect with diverse audiences.",
+    avatar: "🎬"
+  }
+];

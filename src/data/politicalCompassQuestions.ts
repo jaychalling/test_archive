@@ -323,3 +323,91 @@ export const answerOptions: { value: AnswerValue; label: string }[] = [
   { value: 1, label: "Agree" },
   { value: 2, label: "Strongly Agree" },
 ];
+
+// FAQ Data for Result Page
+export const politicalCompassFAQs = [
+  {
+    question: "How accurate is this test?",
+    answer: "This test is designed for entertainment and self-reflection purposes. While it's based on established political compass theory, it's a simplified model. Political views are complex and multidimensional, so this 2D chart can't capture all nuances. For deeper political analysis, consider reading political theory and engaging in diverse perspectives."
+  },
+  {
+    question: "Can my political views change over time?",
+    answer: "Absolutely! Political views often evolve with life experiences, education, changing circumstances, and exposure to new ideas. Many people find their position on the compass shifts as they age, experience different economic conditions, or engage with diverse communities. It's healthy and normal for political views to develop over time."
+  },
+  {
+    question: "What do the quadrants actually mean?",
+    answer: "The compass has two axes: Economic (left favors equality/redistribution, right favors free markets) and Social (authoritarian favors order/tradition, libertarian favors personal freedom). The four quadrants represent combinations: Left-Authoritarian (socialist state control), Right-Authoritarian (traditional conservatism with capitalism), Left-Libertarian (progressive social values with economic equality), and Right-Libertarian (free markets with personal freedom)."
+  },
+  {
+    question: "Why am I not in the center?",
+    answer: "Very few people land exactly in the center because most of us have at least some preferences on economic and social issues. The center represents a perfectly balanced moderate position, which is statistically uncommon. Being off-center doesn't mean you're extreme - most people cluster in moderate positions within their quadrants."
+  },
+  {
+    question: "Does this test show political party alignment?",
+    answer: "Not directly. Political parties vary by country and contain diverse factions. In the US, for example, Democrats generally lean left-libertarian to left-authoritarian, while Republicans lean right-authoritarian to right-libertarian. However, individual politicians and voters within each party can be anywhere on the compass. Use this test to understand your values, not to choose a party."
+  },
+  {
+    question: "What if my results don't match my identity?",
+    answer: "Political identity is complex and often influenced by cultural, familial, and social factors beyond ideology. You might identify as conservative but score libertarian, or consider yourself liberal but score more authoritarian than expected. This disconnect can reveal differences between your core values and your political label. Use this as an opportunity to explore why certain values resonate with you."
+  }
+];
+
+// Celebrity/Political Figure Comparisons for Result Page
+export const politicalCompassCelebrities = [
+  {
+    name: "Bernie Sanders",
+    score: 65, // Approximate position: economic -6, social -4 = normalized to 65
+    description: "U.S. Senator advocating democratic socialism, universal healthcare, and progressive economic policies.",
+    avatar: "🌹",
+    quadrant: "leftLibertarian" as QuadrantType
+  },
+  {
+    name: "Margaret Thatcher",
+    score: 75, // Approximate position: economic +5, social +3 = normalized to 75
+    description: "Former UK Prime Minister known for free-market economics and strong conservative governance.",
+    avatar: "👑",
+    quadrant: "rightAuthoritarian" as QuadrantType
+  },
+  {
+    name: "Noam Chomsky",
+    score: 55, // Approximate position: economic -7, social -6 = normalized to 55
+    description: "Linguist and political activist advocating libertarian socialism and anti-authoritarianism.",
+    avatar: "📚",
+    quadrant: "leftLibertarian" as QuadrantType
+  },
+  {
+    name: "Milton Friedman",
+    score: 85, // Approximate position: economic +7, social -5 = normalized to 85
+    description: "Economist championing free-market capitalism and minimal government intervention.",
+    avatar: "💰",
+    quadrant: "rightLibertarian" as QuadrantType
+  },
+  {
+    name: "Nelson Mandela",
+    score: 50, // Approximate position: economic -4, social -3 = normalized to 50
+    description: "South African leader who fought apartheid while promoting reconciliation and social justice.",
+    avatar: "✊",
+    quadrant: "leftLibertarian" as QuadrantType
+  },
+  {
+    name: "Winston Churchill",
+    score: 70, // Approximate position: economic +2, social +4 = normalized to 70
+    description: "British Prime Minister known for wartime leadership and traditional conservative values.",
+    avatar: "🎩",
+    quadrant: "rightAuthoritarian" as QuadrantType
+  },
+  {
+    name: "AOC (Alexandria Ocasio-Cortez)",
+    score: 60, // Approximate position: economic -6, social -5 = normalized to 60
+    description: "U.S. Representative advocating progressive policies, climate action, and economic justice.",
+    avatar: "💚",
+    quadrant: "leftLibertarian" as QuadrantType
+  },
+  {
+    name: "Ron Paul",
+    score: 90, // Approximate position: economic +8, social -6 = normalized to 90
+    description: "Former U.S. Representative promoting libertarianism, minimal government, and personal freedom.",
+    avatar: "🗽",
+    quadrant: "rightLibertarian" as QuadrantType
+  }
+];

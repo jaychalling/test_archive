@@ -8,8 +8,14 @@ import {
   AttachmentStyle,
   AttachmentResult,
   attachmentStyleDescriptions,
+  attachmentStyleFAQs,
+  attachmentStyleCelebrities,
 } from "@/data/attachmentStyleQuestions";
-import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Users } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Users, Heart } from "lucide-react";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -207,29 +213,33 @@ ${styleInfo.description}`;
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Users className="w-6 h-6 text-primary" />
-              <h2 className="font-display text-2xl font-semibold text-foreground">
-                Your Attachment Style
-              </h2>
-            </div>
-
-            {/* Primary Style */}
-            <div className={cn("p-6 rounded-xl bg-gradient-to-br mb-6", styleBgColors[result.primaryStyle])}>
-              <div className="text-sm text-muted-foreground mb-1">Primary Attachment Style</div>
-              <div className={cn("text-3xl font-display font-bold mb-2", styleTextColors[result.primaryStyle])}>
-                {styleInfo.name}
+            {/* Result Hero Section */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                <Heart className="w-10 h-10 text-primary" />
               </div>
-              <div className="text-sm text-muted-foreground mb-3">
-                {styleInfo.nameEn}
-              </div>
-              <p className="text-sm text-foreground">
-                {styleInfo.description}
-              </p>
             </div>
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+              Your Attachment Style Results
+            </h2>
+            <div className={cn(
+              "text-6xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent",
+              result.primaryStyle === "secure" && "from-emerald-400 to-teal-500",
+              result.primaryStyle === "anxious" && "from-amber-400 to-orange-500",
+              result.primaryStyle === "avoidant" && "from-blue-400 to-cyan-500",
+              result.primaryStyle === "fearfulAvoidant" && "from-purple-400 to-pink-500"
+            )}>
+              {styleInfo.name}
+            </div>
+            <div className="text-xl text-muted-foreground mb-6">
+              {styleInfo.nameEn}
+            </div>
+            <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">
+              {styleInfo.description}
+            </p>
 
             {/* Score Bars */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="p-4 rounded-lg bg-muted/30">
                 <div className="text-sm text-muted-foreground mb-2">Anxiety Level</div>
                 <div className="text-2xl font-bold text-amber-500 mb-2">{result.anxietyScore}%</div>
@@ -256,6 +266,21 @@ ${styleInfo.description}`;
                   {result.avoidanceScore < 30 ? "Low" : result.avoidanceScore < 70 ? "Medium" : "High"}
                 </div>
               </div>
+            </div>
+
+            {/* Score Distribution Chart - showing anxiety score as representative metric */}
+            <div className="mb-12">
+              <ScoreDistributionChart
+                userScore={result.anxietyScore}
+                maxScore={100}
+                testName="Attachment Style Test"
+                colorClass={
+                  result.primaryStyle === "secure" ? "bg-emerald-500" :
+                  result.primaryStyle === "anxious" ? "bg-amber-500" :
+                  result.primaryStyle === "avoidant" ? "bg-blue-500" :
+                  "bg-purple-500"
+                }
+              />
             </div>
 
             {/* 2x2 Matrix */}
@@ -319,58 +344,73 @@ ${styleInfo.description}`;
             </div>
 
             {/* Characteristics */}
-            <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">
+            <div className="text-left p-6 rounded-xl bg-primary/5 border border-primary/10 mb-8">
+              <h3 className="text-2xl font-bold mb-5 text-foreground">
                 Characteristics of {styleInfo.name}
               </h3>
-              <ul className="space-y-2 mb-4">
+              <ul className="space-y-3 mb-6">
                 {styleInfo.characteristics.map((char, idx) => (
-                  <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                    <span className={styleTextColors[result.primaryStyle]}>•</span>
-                    {char}
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className={cn("w-5 h-5 flex-shrink-0 mt-0.5", styleTextColors[result.primaryStyle])} />
+                    <span className="text-base text-foreground leading-relaxed font-normal">{char}</span>
                   </li>
                 ))}
               </ul>
 
-              <h4 className="font-medium text-foreground mb-2 mt-4">In Relationships</h4>
-              <p className="text-sm text-muted-foreground mb-4">{styleInfo.inRelationship}</p>
+              <h4 className="text-xl font-bold text-foreground mb-3 mt-6">In Relationships</h4>
+              <p className="text-base text-foreground leading-relaxed font-normal">{styleInfo.inRelationship}</p>
+            </div>
+
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={0}
+                celebrities={attachmentStyleCelebrities.filter(c => c.attachmentStyle === result.primaryStyle).map(c => ({
+                  name: c.name,
+                  score: 85,
+                  description: c.description,
+                  avatar: c.avatar
+                }))}
+                maxScore={100}
+                title="Characters With Similar Attachment Style"
+              />
             </div>
 
             {/* Advice */}
-            <div className={cn("text-left p-4 rounded-lg mb-6", `${styleColors[result.primaryStyle].replace('bg-', 'bg-')}/10`)}>
-              <h3 className="font-semibold text-foreground mb-3">Relationship Advice</h3>
-              <ul className="space-y-2">
+            <div className={cn("text-left p-6 rounded-xl mb-8", `${styleColors[result.primaryStyle].replace('bg-', 'bg-')}/10`)}>
+              <h3 className="text-2xl font-bold text-foreground mb-5">Relationship Advice</h3>
+              <ul className="space-y-3">
                 {styleInfo.advice.map((advice, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                    <CheckCircle2 className={cn("w-4 h-4 mt-0.5 flex-shrink-0", styleTextColors[result.primaryStyle])} />
-                    {advice}
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className={cn("w-5 h-5 mt-0.5 flex-shrink-0", styleTextColors[result.primaryStyle])} />
+                    <span className="text-base text-foreground leading-relaxed font-normal">{advice}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Type Overview */}
-            <div className="text-left p-4 rounded-lg bg-muted/10 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">The Four Attachment Styles</h3>
+            <div className="text-left p-6 rounded-xl bg-muted/20 border border-border mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-5">The Four Attachment Styles</h3>
               <div className="space-y-3">
                 {(Object.entries(attachmentStyleDescriptions) as [AttachmentStyle, typeof attachmentStyleDescriptions.secure][]).map(([style, info]) => (
                   <div
                     key={style}
                     className={cn(
-                      "p-3 rounded-lg border-l-4 transition-all",
+                      "p-4 rounded-lg border-l-4 transition-all",
                       result.primaryStyle === style
                         ? `${styleColors[style].replace('bg-', 'border-')} bg-muted/30`
                         : "border-transparent bg-muted/10"
                     )}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className={cn("w-2 h-2 rounded-full", styleColors[style])} />
-                      <span className={cn("font-medium text-sm", result.primaryStyle === style && styleTextColors[style])}>
+                      <div className={cn("w-3 h-3 rounded-full", styleColors[style])} />
+                      <span className={cn("font-bold text-base", result.primaryStyle === style && styleTextColors[style])}>
                         {info.name}
                       </span>
-                      <span className="text-xs text-muted-foreground">({info.nameEn})</span>
+                      <span className="text-sm text-muted-foreground">({info.nameEn})</span>
                     </div>
-                    <p className="text-xs text-muted-foreground ml-4">
+                    <p className="text-sm text-muted-foreground ml-5">
                       {style === "secure" && "Low Anxiety + Low Avoidance"}
                       {style === "anxious" && "High Anxiety + Low Avoidance"}
                       {style === "avoidant" && "Low Anxiety + High Avoidance"}
@@ -382,71 +422,71 @@ ${styleInfo.description}`;
             </div>
 
             {/* Detailed Description */}
-            <div className="text-left p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 mb-6">
-              <h3 className="font-semibold text-indigo-600 mb-4 text-lg">{styleInfo.name} - In-Depth Analysis</h3>
-              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+            <div className="text-left p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 mb-8">
+              <h3 className="text-2xl font-bold text-indigo-700 dark:text-indigo-400 mb-5">{styleInfo.name} - In-Depth Analysis</h3>
+              <p className="text-base text-foreground leading-relaxed whitespace-pre-line font-normal">
                 {styleInfo.detailedDescription}
               </p>
             </div>
 
             {/* Scientific Background */}
-            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg">Scientific Background</h3>
-              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-8">
+              <h3 className="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-5">Scientific Background</h3>
+              <p className="text-base text-foreground leading-relaxed whitespace-pre-line font-normal">
                 {styleInfo.scientificBackground}
               </p>
             </div>
 
             {/* Communication Tips */}
-            <div className="text-left p-6 rounded-xl bg-teal-500/10 mb-6">
-              <h3 className="font-semibold text-teal-600 mb-4 text-lg">Communication Tips</h3>
-              <ul className="space-y-2">
+            <div className="text-left p-6 rounded-xl bg-teal-500/10 border border-teal-500/20 mb-8">
+              <h3 className="text-2xl font-bold text-teal-700 dark:text-teal-400 mb-5">Communication Tips</h3>
+              <ul className="space-y-3">
                 {styleInfo.communicationTips.map((tip, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-teal-600">{idx + 1}</span>
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-full bg-teal-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm font-bold text-teal-700 dark:text-teal-400">{idx + 1}</span>
                     </span>
-                    {tip}
+                    <span className="text-base text-foreground leading-relaxed font-normal">{tip}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Healing Strategies */}
-            <div className="text-left p-6 rounded-xl bg-emerald-500/10 mb-6">
-              <h3 className="font-semibold text-emerald-600 mb-4 text-lg">Healing Strategies</h3>
-              <ul className="space-y-2">
+            <div className="text-left p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/20 mb-8">
+              <h3 className="text-2xl font-bold text-emerald-700 dark:text-emerald-400 mb-5">Healing Strategies</h3>
+              <ul className="space-y-3">
                 {styleInfo.healingStrategies.map((strategy, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                    {strategy}
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-base text-foreground leading-relaxed font-normal">{strategy}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Compatible & Challenging Styles */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="text-left p-4 rounded-lg bg-green-500/10">
-                <h4 className="font-semibold text-green-600 mb-3">Compatible Styles</h4>
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <div className="text-left p-6 rounded-xl bg-green-500/10 border border-green-500/20">
+                <h4 className="text-xl font-bold text-green-700 dark:text-green-400 mb-4">Compatible Styles</h4>
                 <div className="flex flex-wrap gap-2">
                   {styleInfo.compatibleStyles.map((style) => (
                     <span
                       key={style}
-                      className="px-3 py-1.5 bg-green-500/20 text-green-700 rounded-full text-sm font-medium"
+                      className="px-3 py-1.5 bg-green-500/20 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold"
                     >
                       {attachmentStyleDescriptions[style].name}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="text-left p-4 rounded-lg bg-orange-500/10">
-                <h4 className="font-semibold text-orange-600 mb-3">Challenging Styles</h4>
+              <div className="text-left p-6 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                <h4 className="text-xl font-bold text-orange-700 dark:text-orange-400 mb-4">Challenging Styles</h4>
                 <div className="flex flex-wrap gap-2">
                   {styleInfo.challengingStyles.map((style) => (
                     <span
                       key={style}
-                      className="px-3 py-1.5 bg-orange-500/20 text-orange-700 rounded-full text-sm font-medium"
+                      className="px-3 py-1.5 bg-orange-500/20 text-orange-700 dark:text-orange-300 rounded-full text-sm font-semibold"
                     >
                       {attachmentStyleDescriptions[style].name}
                     </span>
@@ -455,17 +495,54 @@ ${styleInfo.description}`;
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Love Language Test",
+                    description: "Discover how you prefer to give and receive love in relationships, complementing your attachment style.",
+                    url: "/test/love-language-test",
+                    icon: "💕",
+                    reason: "Understanding your love language enhances attachment-aware communication"
+                  },
+                  {
+                    title: "Emotional Intelligence Test",
+                    description: "Measure your ability to recognize and manage emotions in yourself and others.",
+                    url: "/test/emotional-intelligence-test",
+                    icon: "🧠",
+                    reason: "High EQ helps develop more secure attachment patterns"
+                  },
+                  {
+                    title: "Communication Style Test",
+                    description: "Understand your communication patterns and how they impact your relationships.",
+                    url: "/test/communication-style-test",
+                    icon: "💬",
+                    reason: "Effective communication is key to healing insecure attachment"
+                  }
+                ]}
+                subtitle="Based on your attachment style, these tests provide deeper relationship insights"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={attachmentStyleFAQs} />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
               <Button
                 onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
+                size="lg"
+                className="gap-2 min-w-[160px]"
               >
-                <Share2 className="w-4 h-4" />
-                Share
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>

@@ -9,10 +9,16 @@ import {
   AlignmentType,
   alignmentData,
   testBackground,
+  moralAlignmentFAQs,
+  moralAlignmentCelebrities,
 } from "@/data/moralAlignmentQuestions";
-import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, BookOpen, Lightbulb, TrendingUp, TrendingDown, Users, History } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, BookOpen, Lightbulb, TrendingUp, TrendingDown, Users, History, AlertCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 
 interface AlignmentResult {
   goodEvil: number; // -10 ~ +10 (Evil ~ Good)
@@ -225,24 +231,24 @@ const MoralAlignmentTest = () => {
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-4">
               Your Moral Alignment
             </h2>
             <div
               className={cn(
-                "text-3xl font-display font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent",
+                "text-6xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r bg-clip-text text-transparent",
                 alignment.color
               )}
             >
               {alignment.name}
             </div>
-            <div className="text-xl text-muted-foreground mb-2">
+            <div className="text-2xl font-semibold text-muted-foreground mb-2">
               "{alignment.nickname}"
             </div>
-            <div className="text-sm text-primary mb-4">
+            <div className="text-lg text-primary mb-6">
               {alignment.nameKo}
             </div>
-            <p className="text-muted-foreground mb-8 text-sm max-w-md mx-auto">
+            <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">
               {alignment.description}
             </p>
 
@@ -283,6 +289,16 @@ const MoralAlignmentTest = () => {
                   )}
                 </div>
               </div>
+            </div>
+
+            {/* Score Distribution Chart */}
+            <div className="mb-12">
+              <ScoreDistributionChart
+                userScore={Math.round(((result.goodEvil + 10) / 20) * 100)}
+                maxScore={100}
+                testName="Moral Alignment Test"
+                colorClass={alignment.color.replace("from-", "bg-").replace(" to-", "")}
+              />
             </div>
 
             {/* Scores */}
@@ -335,12 +351,12 @@ const MoralAlignmentTest = () => {
 
             {/* Traits */}
             <div className="mb-8 text-left">
-              <h3 className="font-semibold text-foreground mb-3">Key Characteristics</h3>
+              <h3 className="text-xl font-bold mb-5 text-foreground">Key Characteristics</h3>
               <div className="flex flex-wrap gap-2">
                 {alignment.traits.map((trait, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                    className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary font-medium"
                   >
                     {trait}
                   </span>
@@ -348,16 +364,43 @@ const MoralAlignmentTest = () => {
               </div>
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={Math.round(((result.goodEvil + 10) / 20) * 100)}
+                celebrities={moralAlignmentCelebrities.map(celeb => {
+                  // Map alignment names to approximate scores
+                  const alignmentScores: Record<string, number> = {
+                    "Lawful Good": 95,
+                    "Neutral Good": 85,
+                    "Chaotic Good": 80,
+                    "Lawful Neutral": 90,
+                    "True Neutral": 50,
+                    "Chaotic Neutral": 55,
+                    "Lawful Evil": 20,
+                    "Neutral Evil": 15,
+                    "Chaotic Evil": 5
+                  };
+                  return {
+                    ...celeb,
+                    score: alignmentScores[celeb.alignment] || 50
+                  };
+                })}
+                maxScore={100}
+                title="Your Alignment is Similar To..."
+              />
+            </div>
+
             {/* Example Characters */}
             <div className="mb-8 text-left">
-              <h3 className="font-semibold text-foreground mb-3">
+              <h3 className="text-xl font-bold mb-5 text-foreground">
                 Representative Characters
               </h3>
               <div className="flex flex-wrap gap-2">
                 {alignment.examples.map((example, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground"
+                    className="px-3 py-1 text-sm rounded-full bg-muted text-muted-foreground font-medium"
                   >
                     {example}
                   </span>
@@ -366,53 +409,53 @@ const MoralAlignmentTest = () => {
             </div>
 
             {/* Detailed Description */}
-            <div className="text-left p-6 rounded-xl bg-primary/5 mb-6">
-              <h3 className="font-semibold text-primary mb-4 text-lg flex items-center gap-2">
-                <BookOpen className="w-5 h-5" />
-                Detailed Analysis
+            <div className="text-left p-8 rounded-xl bg-primary/5 border border-primary/10 mb-8">
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <BookOpen className="w-6 h-6 text-primary" />
+                <span className="text-foreground">What This Means</span>
               </h3>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-base text-foreground leading-relaxed font-normal">
                 {alignment.detailedDescription}
               </p>
             </div>
 
             {/* Philosophical Background */}
-            <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
-              <h3 className="font-semibold text-purple-600 mb-4 text-lg flex items-center gap-2">
-                <Lightbulb className="w-5 h-5" />
-                Philosophical Background
+            <div className="text-left p-8 rounded-xl bg-purple-500/10 border border-purple-500/20 mb-8">
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <Lightbulb className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <span className="text-foreground">Philosophical Background</span>
               </h3>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-base text-foreground leading-relaxed font-normal">
                 {alignment.philosophicalBackground}
               </p>
             </div>
 
             {/* Strengths & Weaknesses */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="text-left p-5 rounded-xl bg-green-500/10">
-                <h3 className="font-semibold text-green-600 mb-4 flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5" />
-                  Strengths
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="text-left p-6 rounded-xl bg-green-500/10 border border-green-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-green-700 dark:text-green-400">
+                  <TrendingUp className="w-6 h-6" />
+                  <span>Your Strengths</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {alignment.strengths.map((strength, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                      {strength}
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="text-left p-5 rounded-xl bg-red-500/10">
-                <h3 className="font-semibold text-red-600 mb-4 flex items-center gap-2">
-                  <TrendingDown className="w-5 h-5" />
-                  Weaknesses
+              <div className="text-left p-6 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-orange-700 dark:text-orange-400">
+                  <TrendingDown className="w-6 h-6" />
+                  <span>Areas to Develop</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {alignment.weaknesses.map((weakness, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-red-500 font-bold">•</span>
-                      {weakness}
+                    <li key={idx} className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{weakness}</span>
                     </li>
                   ))}
                 </ul>
@@ -420,42 +463,82 @@ const MoralAlignmentTest = () => {
             </div>
 
             {/* Real World Examples */}
-            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg flex items-center gap-2">
-                <Users className="w-5 h-5" />
-                Real World Examples
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-8">
+              <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-blue-700 dark:text-blue-400">
+                <Users className="w-6 h-6" />
+                <span>People With This Alignment</span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-4">
                 {alignment.realWorldExamples.map((example, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                    <span className="text-blue-500 font-bold">•</span>
-                    {example}
+                  <li key={idx} className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5">
+                      <Users className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <span className="text-sm text-foreground leading-relaxed">{example}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Political Compass Test",
+                    description: "Discover your political ideology on economic and social axes - a modern complement to moral alignment.",
+                    url: "/test/political-compass-test",
+                    icon: "🧭",
+                    reason: "Political beliefs often align with moral frameworks"
+                  },
+                  {
+                    title: "Enneagram Test",
+                    description: "Identify your personality type among 9 core motivations and fears that drive behavior.",
+                    url: "/test/enneagram-test",
+                    icon: "⭐",
+                    reason: "Your Enneagram type often correlates with your moral alignment"
+                  },
+                  {
+                    title: "Big Five Personality Test",
+                    description: "Measure your personality across five major dimensions: openness, conscientiousness, extraversion, agreeableness, and neuroticism.",
+                    url: "/test/big-five-test",
+                    icon: "🎭",
+                    reason: "Conscientiousness and agreeableness relate to lawful/chaotic and good/evil axes"
+                  }
+                ]}
+                subtitle="Based on your moral alignment, these tests provide complementary insights"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={moralAlignmentFAQs} />
+            </div>
+
             {/* Test Background */}
-            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="font-semibold text-foreground mb-4 text-lg flex items-center gap-2">
-                <History className="w-5 h-5" />
-                About This Test
+            <div className="text-left p-6 rounded-xl bg-muted/30 border border-border mb-8">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                <History className="w-6 h-6 text-primary" />
+                <span className="text-foreground">About This Test</span>
               </h3>
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">History</h4>
+                  <h4 className="font-bold text-base mb-2 text-foreground">History</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.history}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">Purpose</h4>
+                  <h4 className="font-bold text-base mb-2 text-foreground">Purpose</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.purpose}
                   </p>
                 </div>
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <h4 className="font-medium text-amber-600 mb-2">Note</h4>
+                <div className="bg-amber-500/10 border border-amber-500/20 p-5 rounded-lg">
+                  <h4 className="font-bold text-base mb-2 flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span>Important Note</span>
+                  </h4>
                   <p className="text-sm text-foreground leading-relaxed">
                     {testBackground.disclaimer}
                   </p>
@@ -463,17 +546,15 @@ const MoralAlignmentTest = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
-              <Button
-                onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
+              <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>

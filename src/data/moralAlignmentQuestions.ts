@@ -199,6 +199,94 @@ export const testBackground = {
   disclaimer: "This test is for fun and self-reflection and is not a psychological or ethical diagnostic tool. The D&D alignment system is a simplified model for fantasy role-playing, and actual human morality and ethics are much more complex and can change depending on the situation. Please do not take the results as absolute, but use them as a starting point for exploring your own values.",
 };
 
+// FAQ Data for Result Page
+export const moralAlignmentFAQs = [
+  {
+    question: "Can my alignment change over time?",
+    answer: "Absolutely! Your moral alignment isn't fixed - it can shift based on life experiences, personal growth, and changing values. Many people find their alignment evolves as they mature, face new challenges, or reconsider their beliefs. It's perfectly normal to retake this test in a few months and get a different result if your perspectives have changed."
+  },
+  {
+    question: "Is one alignment better than another?",
+    answer: "No alignment is inherently 'better' in the D&D system - they're simply different approaches to morality and order. Each alignment has its own strengths and weaknesses. In real life, most successful societies value 'Good' alignments over 'Evil' ones, but the Law vs Chaos axis is more about personal preference. What matters most is how you use your tendencies to contribute positively to the world around you."
+  },
+  {
+    question: "What's the difference between True Neutral and not caring?",
+    answer: "True Neutral can mean several things: actively seeking balance (like a druid maintaining nature's equilibrium), being pragmatic and situation-dependent, or simply not viewing the world through a good/evil lens. 'Not caring' would be more apathetic, while True Neutral people often care deeply - they just don't see morality as black and white. Some True Neutrals are actually very thoughtful and principled, just in a different way."
+  },
+  {
+    question: "Why did I get a different result than expected?",
+    answer: "There's often a gap between how we see ourselves and how we actually behave. We might aspire to be one alignment while our actual choices reflect another. Also, this test measures tendencies across many situations - you might be Lawful in some contexts and Chaotic in others. Consider the result as feedback about your overall patterns rather than an absolute definition of who you are."
+  },
+  {
+    question: "How does this relate to real-world ethics?",
+    answer: "The D&D alignment system is a simplified model created for a fantasy game, not a comprehensive ethical framework. Real-world morality is far more complex and nuanced. However, it can be a useful starting point for self-reflection about your values regarding authority, rules, personal freedom, altruism, and self-interest. Use it as a conversation starter, not as a definitive moral guide."
+  },
+  {
+    question: "Can I be on the border between two alignments?",
+    answer: "Yes! The alignment system uses numerical axes, so scoring close to 0 on either axis means you're near the border. For example, if your Good/Evil score is +2, you're only slightly Good-leaning and might exhibit both Good and Neutral behaviors. Real people are complex and rarely fit perfectly into one box - the system is just a framework for understanding general tendencies."
+  }
+];
+
+// Celebrity/Character Comparisons for Result Page
+export const moralAlignmentCelebrities = [
+  {
+    name: "Superman",
+    alignment: "Lawful Good",
+    score: 95,
+    description: "The ultimate boy scout - follows rules, protects the innocent, and embodies truth and justice.",
+    avatar: "🦸"
+  },
+  {
+    name: "Spider-Man",
+    alignment: "Neutral Good",
+    score: 85,
+    description: "Does whatever a spider can to help people, bending rules when necessary to save lives.",
+    avatar: "🕷️"
+  },
+  {
+    name: "Robin Hood",
+    alignment: "Chaotic Good",
+    score: 80,
+    description: "Steals from the rich to give to the poor - breaks laws to fight injustice and help the oppressed.",
+    avatar: "🏹"
+  },
+  {
+    name: "Judge Dredd",
+    alignment: "Lawful Neutral",
+    score: 90,
+    description: "I am the law! Enforces rules with absolute consistency, regardless of circumstance or sympathy.",
+    avatar: "⚖️"
+  },
+  {
+    name: "The Punisher",
+    alignment: "Chaotic Neutral",
+    score: 50,
+    description: "Operates outside the law, motivated by personal vengeance rather than clear moral principles.",
+    avatar: "💀"
+  },
+  {
+    name: "Deadpool",
+    alignment: "Chaotic Neutral",
+    score: 55,
+    description: "Unpredictable mercenary who does whatever he wants - sometimes heroic, sometimes selfish, always chaotic.",
+    avatar: "🎭"
+  },
+  {
+    name: "Darth Vader",
+    alignment: "Lawful Evil",
+    score: 20,
+    description: "Serves the Empire's rigid hierarchy and order, using power systematically to dominate others.",
+    avatar: "⚔️"
+  },
+  {
+    name: "The Joker",
+    alignment: "Chaotic Evil",
+    score: 5,
+    description: "Agent of chaos who rejects all rules and morality, finding joy in destruction and mayhem.",
+    avatar: "🃏"
+  }
+];
+
 export const alignmentData: Record<AlignmentType, AlignmentInfo> = {
   lawfulGood: {
     name: "Lawful Good",

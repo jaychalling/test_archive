@@ -15,10 +15,16 @@ import {
   typeColors,
   typeTextColors,
   typeBgColors,
+  introvertExtrovertFAQs,
+  introvertExtrovertCelebrities,
 } from "@/data/introvertExtrovertQuestions";
 import { CheckCircle2, RotateCcw, Share2, Users2, Zap, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 
 const calculateResults = (answers: Record<number, AnswerValue>): IntrovertExtrovertResult => {
   const dimensionScores: Record<PersonalityDimension, { sum: number; count: number }> = {
@@ -192,41 +198,55 @@ ${typeInfo.description}`;
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Users2 className="w-6 h-6 text-primary" />
-              <h2 className="font-display text-2xl font-semibold text-foreground">
+            {/* Hero Section - Improved Typography */}
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <Users2 className="w-8 h-8 text-primary" />
+              <h2 className="text-2xl font-semibold text-muted-foreground">
                 Your Personality Type
               </h2>
             </div>
 
             {/* Primary Type */}
-            <div className={cn("p-6 rounded-xl bg-gradient-to-br mb-6", typeBgColors[result.personalityType])}>
-              <div className="text-sm text-muted-foreground mb-1">Your Type</div>
-              <div className={cn("text-3xl font-display font-bold mb-2", typeTextColors[result.personalityType])}>
+            <div className={cn("p-8 rounded-xl bg-gradient-to-br mb-6", typeBgColors[result.personalityType])}>
+              <div className="text-sm text-muted-foreground mb-2">Your Type</div>
+              <div className={cn("text-5xl md:text-6xl font-extrabold mb-3", typeTextColors[result.personalityType])}>
                 {typeInfo.name}
               </div>
-              <div className="text-sm text-muted-foreground mb-3">
+              <div className="text-base text-muted-foreground mb-4">
                 {typeInfo.nameEn}
               </div>
-              <p className="text-sm text-foreground">
+              <p className="text-lg leading-relaxed text-foreground max-w-3xl mx-auto font-medium">
                 {typeInfo.description}
               </p>
             </div>
 
             {/* Extroversion Score */}
-            <div className="p-4 rounded-lg bg-muted/30 mb-6">
-              <div className="text-sm text-muted-foreground mb-2">Extroversion Score</div>
-              <div className={cn("text-4xl font-bold mb-2", typeTextColors[result.personalityType])}>
-                {result.extroversionScore}%
+            <div className="p-6 rounded-lg bg-muted/30 mb-8">
+              <div className="text-sm text-muted-foreground mb-3">Extroversion Score</div>
+              <div className="inline-flex items-baseline gap-2 mb-3">
+                <span className={cn("text-5xl font-bold", typeTextColors[result.personalityType])}>
+                  {result.extroversionScore}
+                </span>
+                <span className="text-2xl font-semibold text-muted-foreground">%</span>
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-sm text-muted-foreground">
                 0% = Full Introvert / 100% = Full Extrovert
               </div>
             </div>
 
+            {/* Score Distribution Chart */}
+            <div className="mb-8">
+              <ScoreDistributionChart
+                userScore={result.extroversionScore}
+                maxScore={100}
+                testName="Introvert-Extrovert Test"
+                colorClass={typeColors[result.personalityType].replace("bg-", "bg-")}
+              />
+            </div>
+
             {/* Spectrum Bar */}
             <div className="mb-8">
-              <h3 className="text-sm font-medium text-foreground mb-4">Introvert-Extrovert Spectrum</h3>
+              <h3 className="text-xl font-bold text-foreground mb-4">Introvert-Extrovert Spectrum</h3>
               <div className="relative">
                 {/* Spectrum background */}
                 <div className="h-8 rounded-full overflow-hidden bg-gradient-to-r from-indigo-500 via-purple-500 to-orange-500">
@@ -257,7 +277,7 @@ ${typeInfo.description}`;
 
             {/* Dimension Scores */}
             <div className="space-y-3 mb-8">
-              <h3 className="text-sm font-medium text-foreground text-left mb-3">
+              <h3 className="text-xl font-bold text-foreground text-left mb-5">
                 Dimension Scores
               </h3>
               {dimensionOrder.map((dimension) => {
@@ -289,8 +309,8 @@ ${typeInfo.description}`;
             </div>
 
             {/* Characteristics */}
-            <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">
+            <div className="text-left p-6 rounded-lg bg-muted/20 mb-8">
+              <h3 className="text-xl font-bold text-foreground mb-5">
                 Characteristics of {typeInfo.name}
               </h3>
               <ul className="space-y-2">
@@ -304,10 +324,10 @@ ${typeInfo.description}`;
             </div>
 
             {/* Energy Tips */}
-            <div className={cn("text-left p-4 rounded-lg mb-6", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
-              <div className="flex items-center gap-2 mb-3">
-                <Zap className={cn("w-5 h-5", typeTextColors[result.personalityType])} />
-                <h3 className="font-semibold text-foreground">Energy Management Tips</h3>
+            <div className={cn("text-left p-6 rounded-lg mb-8", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
+              <div className="flex items-center gap-3 mb-5">
+                <Zap className={cn("w-6 h-6", typeTextColors[result.personalityType])} />
+                <h3 className="text-xl font-bold text-foreground">Energy Management Tips</h3>
               </div>
               <ul className="space-y-2">
                 {typeInfo.energyTips.map((tip, idx) => (
@@ -321,8 +341,8 @@ ${typeInfo.description}`;
 
             {/* Strengths & Watch Points */}
             <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                <h3 className="font-semibold text-green-600 mb-3">Strengths</h3>
+              <div className="p-6 rounded-lg bg-green-500/10 text-left">
+                <h3 className="text-xl font-bold text-green-600 dark:text-green-400 mb-5">Strengths</h3>
                 <ul className="space-y-2">
                   {typeInfo.strengths.map((strength, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -332,8 +352,8 @@ ${typeInfo.description}`;
                   ))}
                 </ul>
               </div>
-              <div className="p-4 rounded-lg bg-amber-500/10 text-left">
-                <h3 className="font-semibold text-amber-600 mb-3">Watch Points</h3>
+              <div className="p-6 rounded-lg bg-amber-500/10 text-left">
+                <h3 className="text-xl font-bold text-amber-600 dark:text-amber-400 mb-5">Watch Points</h3>
                 <ul className="space-y-2">
                   {typeInfo.watchPoints.map((point, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -346,27 +366,36 @@ ${typeInfo.description}`;
             </div>
 
             {/* Detailed Description */}
-            <div className={cn("text-left p-6 rounded-xl mb-6", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
-              <h3 className={cn("font-semibold mb-4 text-lg", typeTextColors[result.personalityType])}>
+            <div className={cn("text-left p-8 rounded-xl mb-8", `${typeColors[result.personalityType].replace('bg-', 'bg-')}/10`)}>
+              <h3 className={cn("text-2xl font-bold mb-5", typeTextColors[result.personalityType])}>
                 {typeInfo.name} Detailed Analysis
               </h3>
-              <p className="text-foreground leading-relaxed whitespace-pre-line">
+              <p className="text-base text-foreground leading-relaxed whitespace-pre-line">
                 {typeInfo.detailedDescription}
               </p>
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={result.extroversionScore}
+                celebrities={introvertExtrovertCelebrities}
+                maxScore={100}
+              />
+            </div>
+
             {/* Scientific Background */}
-            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg">Scientific Background</h3>
-              <p className="text-foreground leading-relaxed whitespace-pre-line">
+            <div className="text-left p-8 rounded-xl bg-blue-500/10 mb-8">
+              <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-5">Scientific Background</h3>
+              <p className="text-base text-foreground leading-relaxed whitespace-pre-line">
                 {typeInfo.scientificBackground}
               </p>
             </div>
 
             {/* Career Suggestions & Social Tips */}
             <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className="p-5 rounded-xl bg-purple-500/10 text-left">
-                <h3 className="font-semibold text-purple-600 mb-4">Recommended Careers/Fields</h3>
+              <div className="p-6 rounded-xl bg-purple-500/10 text-left">
+                <h3 className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-5">Recommended Careers/Fields</h3>
                 <ul className="space-y-2">
                   {typeInfo.careerSuggestions.map((career, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -376,8 +405,8 @@ ${typeInfo.description}`;
                   ))}
                 </ul>
               </div>
-              <div className="p-5 rounded-xl bg-cyan-500/10 text-left">
-                <h3 className="font-semibold text-cyan-600 mb-4">Social Interaction Tips</h3>
+              <div className="p-6 rounded-xl bg-cyan-500/10 text-left">
+                <h3 className="text-xl font-bold text-cyan-600 dark:text-cyan-400 mb-5">Social Interaction Tips</h3>
                 <ul className="space-y-2">
                   {typeInfo.socialTips.map((tip, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -389,9 +418,44 @@ ${typeInfo.description}`;
               </div>
             </div>
 
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Big Five Personality Test",
+                    description: "Explore your personality across five major dimensions including openness, conscientiousness, extraversion, agreeableness, and neuroticism.",
+                    url: "/test/big-five-test",
+                    icon: "🎭",
+                    reason: "Provides deeper insights into your extraversion and other personality traits"
+                  },
+                  {
+                    title: "Enneagram Test",
+                    description: "Discover your core personality type among 9 distinct patterns and understand your motivations and fears.",
+                    url: "/test/enneagram-test",
+                    icon: "⭕",
+                    reason: "Complements introvert-extrovert understanding with core motivations"
+                  },
+                  {
+                    title: "Communication Style Test",
+                    description: "Understand how you express yourself and interact with others in different situations.",
+                    url: "/test/communication-style-test",
+                    icon: "💬",
+                    reason: "Learn how your introversion-extroversion affects your communication patterns"
+                  }
+                ]}
+                subtitle="Based on your introvert-extrovert profile, these tests provide complementary insights"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={introvertExtrovertFAQs} />
+            </div>
+
             {/* Type Overview */}
-            <div className="text-left p-4 rounded-lg bg-muted/10 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">5 Personality Types</h3>
+            <div className="text-left p-6 rounded-lg bg-muted/10 mb-8">
+              <h3 className="text-xl font-bold text-foreground mb-5">5 Personality Types</h3>
               <div className="space-y-2">
                 {allTypes.map((type) => {
                   const info = personalityTypeDescriptions[type];
@@ -427,17 +491,18 @@ ${typeInfo.description}`;
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
               <Button
                 onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
+                size="lg"
+                className="gap-2 min-w-[160px] gradient-primary border-0"
               >
-                <Share2 className="w-4 h-4" />
-                Share
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>

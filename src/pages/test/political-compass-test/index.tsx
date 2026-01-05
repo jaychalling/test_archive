@@ -10,10 +10,16 @@ import {
   getQuadrant,
   quadrantDescriptions,
   testBackground,
+  politicalCompassFAQs,
+  politicalCompassCelebrities,
 } from "@/data/politicalCompassQuestions";
-import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Compass, BookOpen, History, Users, AlertCircle } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, RotateCcw, Share2, Compass, BookOpen, History, Users, AlertCircle, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 
 interface CompassResult {
   economic: number; // -10 ~ +10 (Left ~ Right)
@@ -25,6 +31,11 @@ const colorClasses: Record<string, { bg: string; text: string }> = {
   blue: { bg: "bg-blue-500/10", text: "text-blue-600" },
   green: { bg: "bg-green-500/10", text: "text-green-600" },
   purple: { bg: "bg-purple-500/10", text: "text-purple-600" },
+};
+
+const getQuadrantLabel = (economic: number, social: number): string => {
+  const quadrant = getQuadrant(economic, social);
+  return quadrantDescriptions[quadrant].name;
 };
 
 const PoliticalCompassTest = () => {
@@ -162,16 +173,22 @@ const PoliticalCompassTest = () => {
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
+            {/* Result Hero Section */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                <Compass className="w-10 h-10 text-primary" />
+              </div>
+            </div>
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
               Your Political Orientation
             </h2>
-            <div className={cn("text-3xl font-display font-bold mb-2", colors.text)}>
+            <div className={cn("text-6xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent", colors.text.replace("text-", "from-") + " to-" + colors.text.replace("text-", "").replace("-600", "-500"))}>
               {quadrantInfo.name}
             </div>
-            <p className="text-sm text-muted-foreground mb-2">
+            <p className="text-lg text-muted-foreground mb-2">
               {quadrantInfo.nameEn}
             </p>
-            <p className="text-muted-foreground mb-8 text-sm">{quadrantInfo.description}</p>
+            <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">{quadrantInfo.description}</p>
 
             {/* Compass Chart */}
             <div className="relative w-full aspect-square max-w-[300px] mx-auto mb-8">
@@ -219,71 +236,137 @@ const PoliticalCompassTest = () => {
               />
             </div>
 
-            {/* Scores */}
-            <div className="grid grid-cols-2 gap-4 mb-8 text-sm">
-              <div className="p-3 rounded-lg bg-muted/50">
-                <div className="text-muted-foreground mb-1">Economic (Left/Right)</div>
-                <div className="font-semibold">
-                  {result.economic > 0 ? "Right" : "Left"} (
-                  {result.economic.toFixed(1)})
-                </div>
+            {/* Scores with Visual Bars */}
+            <div className="p-6 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 mb-12">
+              <div className="flex items-center gap-2 mb-6">
+                <TrendingUp className="w-5 h-5 text-primary" />
+                <h3 className="text-xl font-bold text-foreground">Your Position on the Compass</h3>
               </div>
-              <div className="p-3 rounded-lg bg-muted/50">
-                <div className="text-muted-foreground mb-1">
-                  Social (Auth./Lib.)
+
+              <div className="space-y-6">
+                {/* Economic Axis */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-foreground">Economic Axis</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
+                        You
+                      </span>
+                    </div>
+                    <span className="text-lg font-bold text-primary">
+                      {result.economic > 0 ? "Right" : "Left"} ({result.economic.toFixed(1)})
+                    </span>
+                  </div>
+                  <div className="relative w-full bg-muted rounded-full h-3 overflow-hidden">
+                    <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 z-10" />
+                    <div
+                      className={cn("absolute h-full rounded-full transition-all duration-1000 ease-out",
+                        result.economic > 0 ? "bg-blue-500/60" : "bg-red-500/60"
+                      )}
+                      style={{
+                        left: result.economic > 0 ? '50%' : `${((result.economic + 10) / 20) * 100}%`,
+                        width: `${(Math.abs(result.economic) / 10) * 50}%`
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                    <span>Left (-10)</span>
+                    <span>Center (0)</span>
+                    <span>Right (+10)</span>
+                  </div>
                 </div>
-                <div className="font-semibold">
-                  {result.social > 0 ? "Authoritarian" : "Libertarian"} (
-                  {result.social.toFixed(1)})
+
+                {/* Social Axis */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-foreground">Social Axis</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
+                        You
+                      </span>
+                    </div>
+                    <span className="text-lg font-bold text-primary">
+                      {result.social > 0 ? "Authoritarian" : "Libertarian"} ({result.social.toFixed(1)})
+                    </span>
+                  </div>
+                  <div className="relative w-full bg-muted rounded-full h-3 overflow-hidden">
+                    <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 z-10" />
+                    <div
+                      className={cn("absolute h-full rounded-full transition-all duration-1000 ease-out",
+                        result.social > 0 ? "bg-purple-500/60" : "bg-green-500/60"
+                      )}
+                      style={{
+                        left: result.social > 0 ? '50%' : `${((result.social + 10) / 20) * 100}%`,
+                        width: `${(Math.abs(result.social) / 10) * 50}%`
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                    <span>Libertarian (-10)</span>
+                    <span>Center (0)</span>
+                    <span>Authoritarian (+10)</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Detailed Description */}
-            <div className={cn("text-left p-6 rounded-xl mb-6", colors.bg)}>
-              <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", colors.text)}>
-                <BookOpen className="w-5 h-5" />
-                {quadrantInfo.name} - Detailed Analysis
+            <div className={cn("text-left p-8 rounded-xl mb-8", colors.bg)}>
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <BookOpen className="w-6 h-6 text-primary" />
+                <span className="text-foreground">What This Means</span>
               </h3>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-base text-foreground leading-relaxed font-normal">
                 {quadrantInfo.detailedDescription}
               </p>
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={50 + (result.economic * 2.5) + (result.social * 2.5)} // Normalize to 0-100 scale
+                celebrities={politicalCompassCelebrities.filter(c => c.quadrant === quadrantType)}
+                maxScore={100}
+                title="Political Figures in Your Quadrant"
+              />
+            </div>
+
             {/* Historical Background */}
-            <div className="text-left p-6 rounded-xl bg-amber-500/10 mb-6">
-              <h3 className="font-semibold text-amber-600 mb-4 text-lg flex items-center gap-2">
-                <History className="w-5 h-5" />
-                Historical Background
+            <div className="text-left p-8 rounded-xl bg-purple-500/10 border border-purple-500/20 mb-8">
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <History className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <span className="text-foreground">Historical Background</span>
               </h3>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-base text-foreground leading-relaxed font-normal">
                 {quadrantInfo.historicalBackground}
               </p>
             </div>
 
             {/* Key Policies & Famous Examples */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="text-left p-5 rounded-xl bg-cyan-500/10">
-                <h3 className="font-semibold text-cyan-600 mb-4">Key Policies/Values</h3>
-                <ul className="space-y-2">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="text-left p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+                <h3 className="text-xl font-bold mb-5 text-cyan-700 dark:text-cyan-400">Key Policies/Values</h3>
+                <ul className="space-y-3">
                   {quadrantInfo.keyPolicies.map((policy, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-cyan-500 font-bold">•</span>
-                      {policy}
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{policy}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="text-left p-5 rounded-xl bg-indigo-500/10">
-                <h3 className="font-semibold text-indigo-600 mb-4 flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  Notable Figures
+              <div className="text-left p-6 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-indigo-700 dark:text-indigo-400">
+                  <Users className="w-6 h-6" />
+                  <span>Notable Figures</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {quadrantInfo.famousExamples.map((example, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-indigo-500 font-bold">•</span>
-                      {example}
+                    <li key={idx} className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center mt-0.5">
+                        <Users className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                      </div>
+                      <span className="text-sm text-foreground leading-relaxed">{example}</span>
                     </li>
                   ))}
                 </ul>
@@ -291,61 +374,103 @@ const PoliticalCompassTest = () => {
             </div>
 
             {/* Strengths & Weaknesses */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="text-left p-5 rounded-xl bg-green-500/10">
-                <h3 className="font-semibold text-green-600 mb-4">Strengths</h3>
-                <ul className="space-y-2">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="text-left p-6 rounded-xl bg-green-500/10 border border-green-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-green-700 dark:text-green-400">
+                  <TrendingUp className="w-6 h-6" />
+                  <span>Strengths</span>
+                </h3>
+                <ul className="space-y-3">
                   {quadrantInfo.strengthsAndWeaknesses.strengths.map((strength, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                      {strength}
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="text-left p-5 rounded-xl bg-orange-500/10">
-                <h3 className="font-semibold text-orange-600 mb-4 flex items-center gap-2">
-                  <AlertCircle className="w-5 h-5" />
-                  Weaknesses/Criticisms
+              <div className="text-left p-6 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-orange-700 dark:text-orange-400">
+                  <AlertCircle className="w-6 h-6" />
+                  <span>Weaknesses/Criticisms</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {quadrantInfo.strengthsAndWeaknesses.weaknesses.map((weakness, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-orange-500 font-bold">•</span>
-                      {weakness}
+                    <li key={idx} className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{weakness}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
 
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Moral Alignment Test",
+                    description: "Discover your ethical alignment based on the classic D&D system. See if you're lawful, chaotic, good, or evil.",
+                    url: "/test/moral-alignment-test",
+                    icon: "⚖️",
+                    reason: "Political values often correlate with moral frameworks and ethical principles"
+                  },
+                  {
+                    title: "Enneagram Test",
+                    description: "Explore your personality type through the nine Enneagram types and understand your core motivations.",
+                    url: "/test/enneagram-test",
+                    icon: "🔮",
+                    reason: "Your Enneagram type can influence your political worldview and values"
+                  },
+                  {
+                    title: "Big Five Personality Test",
+                    description: "Assess your personality across five major dimensions: openness, conscientiousness, extraversion, agreeableness, and neuroticism.",
+                    url: "/test/big-five-test",
+                    icon: "🎭",
+                    reason: "Research shows personality traits strongly predict political orientation"
+                  }
+                ]}
+                subtitle="Based on your political orientation, these tests provide deeper insights into your worldview"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={politicalCompassFAQs} />
+            </div>
+
             {/* Test Background */}
-            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="font-semibold text-foreground mb-4 text-lg">About the Political Spectrum</h3>
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {testBackground.history}
-                </p>
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <h4 className="font-medium text-amber-600 mb-2">Note</h4>
-                  <p className="text-sm text-foreground leading-relaxed">
-                    {testBackground.disclaimer}
-                  </p>
+            <div className="text-left p-6 rounded-xl bg-muted/30 border border-border mb-8">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                <History className="w-6 h-6 text-primary" />
+                <span className="text-foreground">About This Test</span>
+              </h3>
+              <div className="space-y-5">
+                <div>
+                  <h4 className="font-semibold text-base mb-2 text-foreground">History</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{testBackground.history}</p>
+                </div>
+
+                <div className="bg-amber-500/10 border border-amber-500/20 p-5 rounded-lg">
+                  <h4 className="font-semibold text-base mb-2 flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span>Important Note</span>
+                  </h4>
+                  <p className="text-sm text-foreground leading-relaxed">{testBackground.disclaimer}</p>
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
-              <Button
-                onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
+              <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>

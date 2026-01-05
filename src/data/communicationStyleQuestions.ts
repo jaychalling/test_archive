@@ -244,3 +244,91 @@ export const calculateCommunicationStyle = (answers: Record<number, AnswerValue>
 
   return { style: dominantStyle, scores };
 };
+
+// FAQ Data for Result Page
+export const communicationStyleFAQs = [
+  {
+    question: "Can I change my communication style?",
+    answer: "Absolutely! Communication style is a learned behavior, not a fixed personality trait. While you may have developed certain patterns over time, you can learn new communication skills through awareness, practice, and sometimes professional guidance. Assertiveness training, communication workshops, and therapy can all help you develop healthier communication patterns. Start by recognizing your current patterns and consciously practicing new approaches in low-stakes situations."
+  },
+  {
+    question: "Why do I use different communication styles with different people?",
+    answer: "It's completely normal to adapt your communication style depending on context, relationship dynamics, and power structures. You might be assertive with friends but passive with authority figures, or vice versa. This flexibility shows social awareness, but if you notice extreme differences or always suppressing your needs in certain relationships, it may indicate areas where boundary-setting or communication skills development would be beneficial."
+  },
+  {
+    question: "Is assertive communication the same as being aggressive?",
+    answer: "No, they're fundamentally different. Assertive communication expresses your needs while respecting others' rights and feelings. It's direct but kind, firm but flexible. Aggressive communication violates others' rights, disregards their feelings, and often involves hostility or domination. Think of it this way: assertive says 'I need this,' while aggressive says 'You must give me this or else.'"
+  },
+  {
+    question: "How can I deal with someone who has an aggressive communication style?",
+    answer: "Stay calm and don't mirror their aggression. Use assertive techniques: maintain steady eye contact, speak in a calm firm voice, and use 'I' statements. Set clear boundaries ('I'm willing to discuss this when we can speak respectfully'). Don't take their behavior personally - it often reflects their own issues. If the behavior is abusive or creates an unsafe environment, remove yourself from the situation and seek support."
+  },
+  {
+    question: "What if my workplace or culture doesn't value assertive communication?",
+    answer: "Cultural context matters significantly in communication. Some cultures value indirect communication, hierarchy, and harmony over directness. In these contexts, adapt your assertiveness to be culturally appropriate - you can still advocate for your needs while using culturally respectful methods. This might mean using more indirect language, involving intermediaries, or choosing timing carefully. The goal is finding ways to honor both your needs and cultural norms."
+  },
+  {
+    question: "How do I help my child develop assertive communication skills?",
+    answer: "Model assertive behavior yourself, as children learn most from observation. Encourage them to express feelings using 'I' statements. Teach them it's okay to say no and respect when they set boundaries with you. Role-play challenging social situations. Validate their emotions while guiding them toward respectful expression. Praise them when they communicate assertively, and avoid criticizing or punishing them for expressing their needs appropriately."
+  }
+];
+
+// Celebrity Comparisons for Result Page
+export const communicationStyleCelebrities = [
+  {
+    name: "Oprah Winfrey",
+    score: 85,
+    description: "Known for assertive yet empathetic communication, expressing views clearly while creating safe space for others.",
+    style: "assertive" as CommunicationStyle,
+    avatar: "👑"
+  },
+  {
+    name: "Brené Brown",
+    score: 88,
+    description: "Demonstrates vulnerable and assertive communication, openly discussing difficult topics with courage and respect.",
+    style: "assertive" as CommunicationStyle,
+    avatar: "📚"
+  },
+  {
+    name: "Mr. Rogers (Fred Rogers)",
+    score: 90,
+    description: "Master of gentle assertive communication, expressing important messages with kindness and unwavering respect.",
+    style: "assertive" as CommunicationStyle,
+    avatar: "🎭"
+  },
+  {
+    name: "Keanu Reeves",
+    score: 55,
+    description: "Often described as humble and soft-spoken, known for listening more than speaking and avoiding confrontation.",
+    style: "passive" as CommunicationStyle,
+    avatar: "🎬"
+  },
+  {
+    name: "Steve Jobs",
+    score: 40,
+    description: "Famous for intense, demanding communication style that often prioritized results over interpersonal harmony.",
+    style: "aggressive" as CommunicationStyle,
+    avatar: "🍎"
+  },
+  {
+    name: "Gordon Ramsay",
+    score: 35,
+    description: "Widely known for direct, aggressive communication in professional settings, though reportedly different in private.",
+    style: "aggressive" as CommunicationStyle,
+    avatar: "👨‍🍳"
+  },
+  {
+    name: "Barack Obama",
+    score: 82,
+    description: "Exemplifies measured, assertive communication with ability to address conflict while maintaining composure.",
+    style: "assertive" as CommunicationStyle,
+    avatar: "🎖️"
+  },
+  {
+    name: "Malala Yousafzai",
+    score: 87,
+    description: "Demonstrates powerful assertive communication, speaking truth to power while maintaining grace and respect.",
+    style: "assertive" as CommunicationStyle,
+    avatar: "🕊️"
+  }
+];

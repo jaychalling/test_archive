@@ -9,6 +9,8 @@ import {
   EQLevel,
   eqResultDescriptions,
   testBackground,
+  eqFAQs,
+  eqCelebrities,
 } from "@/data/emotionalIntelligenceQuestions";
 import {
   CheckCircle2,
@@ -29,6 +31,10 @@ import {
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import ProgressBar from "@/components/ProgressBar";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 
 const calculateEQLevel = (answers: Record<number, AnswerValue>): { level: EQLevel; score: number } => {
   let totalScore = 0;
@@ -173,64 +179,99 @@ Take the test at Test-Archive.com`;
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            {/* Result Title */}
-            <div className="flex justify-center mb-4">
-              <Brain className="w-16 h-16 text-primary" />
+            {/* Result Hero Section */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                <Brain className="w-10 h-10 text-primary" />
+              </div>
             </div>
-            <h2 className="text-3xl font-bold mb-4">Your Emotional Intelligence Results</h2>
-            <div className={cn("text-5xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent", result.color)}>
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+              Your Emotional Intelligence Results
+            </h2>
+            <div className={cn(
+              "text-6xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent",
+              result.color
+            )}>
               {result.nameKo}
             </div>
-            <div className="text-4xl font-bold mb-4 text-primary">{score} / 100</div>
-            <p className="text-lg text-muted-foreground mb-8">{result.description}</p>
+            <div className="inline-flex items-baseline gap-2 mb-6">
+              <span className="text-5xl font-bold text-primary">{score}</span>
+              <span className="text-2xl font-semibold text-muted-foreground">/ 100</span>
+            </div>
+            <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">
+              {result.description}
+            </p>
+
+            {/* Score Distribution Chart */}
+            <div className="mb-12">
+              <ScoreDistributionChart
+                userScore={score}
+                maxScore={100}
+                testName="Emotional Intelligence Test"
+                colorClass={result.color.replace("from-", "bg-").replace(" to-", "")}
+              />
+            </div>
 
             {/* Detailed Analysis */}
-            <div className="text-left p-6 rounded-xl bg-primary/5 mb-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-primary" />
-                Detailed Analysis
+            <div className="text-left p-8 rounded-xl bg-primary/5 border border-primary/10 mb-8">
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <BookOpen className="w-6 h-6 text-primary" />
+                <span className="text-foreground">What This Means</span>
               </h3>
-              <p className="text-muted-foreground leading-relaxed">{result.detailedDescription}</p>
+              <p className="text-base text-foreground leading-relaxed font-normal">
+                {result.detailedDescription}
+              </p>
+            </div>
+
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={score}
+                celebrities={eqCelebrities}
+                maxScore={100}
+              />
             </div>
 
             {/* Scientific Background */}
-            <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                Scientific Background
+            <div className="text-left p-8 rounded-xl bg-purple-500/10 border border-purple-500/20 mb-8">
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <Lightbulb className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <span className="text-foreground">Scientific Background</span>
               </h3>
-              <p className="text-muted-foreground leading-relaxed">{result.scientificBackground}</p>
+              <p className="text-base text-foreground leading-relaxed font-normal">
+                {result.scientificBackground}
+              </p>
             </div>
 
             {/* Strengths and Weaknesses */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
               {/* Strengths */}
-              <div className="p-5 rounded-xl bg-green-500/10 text-left">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-green-700 dark:text-green-400">
-                  <TrendingUp className="w-5 h-5" />
-                  Strengths
+              <div className="p-6 rounded-xl bg-green-500/10 border border-green-500/20 text-left">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-green-700 dark:text-green-400">
+                  <TrendingUp className="w-6 h-6" />
+                  <span>Your Strengths</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {result.strengths.map((strength, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 mt-1 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{strength}</span>
+                    <li key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Weaknesses (Areas for Improvement) */}
-              <div className="p-5 rounded-xl bg-orange-500/10 text-left">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-orange-700 dark:text-orange-400">
-                  <TrendingDown className="w-5 h-5" />
-                  Areas for Improvement
+              <div className="p-6 rounded-xl bg-orange-500/10 border border-orange-500/20 text-left">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-orange-700 dark:text-orange-400">
+                  <TrendingDown className="w-6 h-6" />
+                  <span>Areas to Develop</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {result.weaknesses.map((weakness, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <AlertCircle className="w-4 h-4 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{weakness}</span>
+                    <li key={index} className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{weakness}</span>
                     </li>
                   ))}
                 </ul>
@@ -238,85 +279,96 @@ Take the test at Test-Archive.com`;
             </div>
 
             {/* Real-World Examples */}
-            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-blue-700 dark:text-blue-400">
-                <Users className="w-5 h-5" />
-                Real-World Examples
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-8">
+              <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-blue-700 dark:text-blue-400">
+                <Users className="w-6 h-6" />
+                <span>People With This Profile</span>
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {result.realWorldExamples.map((example, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <Heart className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-muted-foreground">{example}</span>
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5">
+                      <Heart className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <span className="text-sm text-foreground leading-relaxed">{example}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Communication Style Test",
+                    description: "Understand how you express emotions and communicate with others in different situations.",
+                    url: "/test/communication-style-test",
+                    icon: "💬",
+                    reason: "Perfect complement to understand your emotional expression patterns"
+                  },
+                  {
+                    title: "Attachment Style Test",
+                    description: "Discover your attachment patterns in relationships and how they affect your emotional bonds.",
+                    url: "/test/attachment-style-test",
+                    icon: "❤️",
+                    reason: "Emotional intelligence strongly influences attachment behaviors"
+                  },
+                  {
+                    title: "Big Five Personality Test",
+                    description: "Explore your personality across five major dimensions including emotional stability.",
+                    url: "/test/big-five-test",
+                    icon: "🎭",
+                    reason: "EQ correlates with several Big Five personality traits"
+                  }
+                ]}
+                subtitle="Based on your emotional intelligence profile, these tests provide deeper insights"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={eqFAQs} />
+            </div>
+
             {/* Test Background Information */}
-            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <History className="w-5 h-5 text-primary" />
-                About the Emotional Intelligence Test
+            <div className="text-left p-6 rounded-xl bg-muted/30 border border-border mb-8">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                <History className="w-6 h-6 text-primary" />
+                <span className="text-foreground">About This Test</span>
               </h3>
 
-              <div className="mb-4">
-                <h4 className="font-semibold text-lg mb-2">History</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{testBackground.history}</p>
-              </div>
+              <div className="space-y-5">
+                <div>
+                  <h4 className="font-bold text-base mb-2 text-foreground">History</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{testBackground.history}</p>
+                </div>
 
-              <div className="mb-4">
-                <h4 className="font-semibold text-lg mb-2">Purpose</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{testBackground.purpose}</p>
-              </div>
+                <div>
+                  <h4 className="font-bold text-base mb-2 text-foreground">Purpose</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{testBackground.purpose}</p>
+                </div>
 
-              <div className="bg-amber-500/10 p-4 rounded-lg">
-                <h4 className="font-semibold text-lg mb-2 flex items-center gap-2 text-amber-700 dark:text-amber-400">
-                  <AlertCircle className="w-5 h-5" />
-                  Note
-                </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{testBackground.disclaimer}</p>
+                <div className="bg-amber-500/10 border border-amber-500/20 p-5 rounded-lg">
+                  <h4 className="font-bold text-base mb-2 flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span>Important Note</span>
+                  </h4>
+                  <p className="text-sm text-foreground leading-relaxed">{testBackground.disclaimer}</p>
+                </div>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
-              <Button onClick={handleShare} className="gap-2">
-                <Share2 className="w-4 h-4" />
-                Share Results
+              <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
-            </div>
-
-            {/* Other Test Recommendations */}
-            <div className="mt-12 pt-8 border-t border-border">
-              <h3 className="text-xl font-semibold mb-6">Try Other Tests</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Link
-                  to="/test/big-five-test"
-                  className="p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-left"
-                >
-                  <h4 className="font-semibold mb-2">Big Five Personality Test</h4>
-                  <p className="text-sm text-muted-foreground">Analyze 5 personality traits</p>
-                </Link>
-                <Link
-                  to="/test/attachment-style-test"
-                  className="p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-left"
-                >
-                  <h4 className="font-semibold mb-2">Attachment Style Test</h4>
-                  <p className="text-sm text-muted-foreground">Discover your attachment style in relationships</p>
-                </Link>
-                <Link
-                  to="/test/introvert-extrovert-test"
-                  className="p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-left"
-                >
-                  <h4 className="font-semibold mb-2">Introvert/Extrovert Test</h4>
-                  <p className="text-sm text-muted-foreground">Discover your energy recharge style</p>
-                </Link>
-              </div>
             </div>
           </div>
         </main>

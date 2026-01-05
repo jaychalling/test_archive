@@ -8,10 +8,16 @@ import {
   BdsmResult,
   bdsmTraitDescriptions,
   testBackground,
+  bdsmFAQs,
+  bdsmCelebrities,
 } from "@/data/bdsmTestQuestions";
 import { CheckCircle2, RotateCcw, Share2, ChevronLeft, ChevronRight, BookOpen, Brain, Heart, MessageCircle, AlertCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 
 const calculateResults = (answers: Record<number, BdsmAnswerValue>): BdsmResult => {
   const categories = ["dominant", "submissive", "sadism", "masochism", "switch"] as const;
@@ -176,16 +182,22 @@ const BdsmTest = () => {
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <h2 className="font-display text-2xl font-semibold text-foreground mb-2">
-              Your Results
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+              Your BDSM Profile Results
             </h2>
-            <div className={cn("text-3xl font-display font-bold mb-1", traitTextColors[mainTrait])}>
+            <div className={cn("text-6xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent",
+              mainTrait === "dominant" ? "from-red-400 to-red-600" :
+              mainTrait === "submissive" ? "from-blue-400 to-blue-600" :
+              mainTrait === "sadism" ? "from-orange-400 to-orange-600" :
+              mainTrait === "masochism" ? "from-purple-400 to-purple-600" :
+              "from-green-400 to-green-600"
+            )}>
               {mainTraitInfo.name}
             </div>
-            <p className="text-sm text-muted-foreground mb-2">
+            <p className="text-lg text-muted-foreground mb-2">
               {mainTraitInfo.nameEn}
             </p>
-            <p className="text-muted-foreground mb-6 text-sm">
+            <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">
               {mainTraitInfo.description}
             </p>
 
@@ -218,93 +230,154 @@ const BdsmTest = () => {
                 ))}
             </div>
 
+            {/* Score Distribution Chart */}
+            <div className="mb-8">
+              <ScoreDistributionChart
+                userScore={result[mainTrait]}
+                maxScore={100}
+                testName="BDSM Test"
+                colorClass={traitColors[mainTrait]}
+              />
+            </div>
+
             {/* Detailed Description */}
-            <div className={cn("text-left p-6 rounded-xl mb-6", traitBgColors[mainTrait])}>
-              <h3 className={cn("font-semibold mb-4 text-lg flex items-center gap-2", traitTextColors[mainTrait])}>
-                <BookOpen className="w-5 h-5" />
-                {mainTraitInfo.name} - Detailed Analysis
+            <div className={cn("text-left p-8 rounded-xl mb-8", traitBgColors[mainTrait])}>
+              <h3 className={cn("text-2xl font-bold mb-5 flex items-center gap-3", traitTextColors[mainTrait])}>
+                <BookOpen className="w-6 h-6" />
+                <span>What This Means</span>
               </h3>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-base text-foreground leading-relaxed font-normal">
                 {mainTraitInfo.detailedDescription}
               </p>
             </div>
 
             {/* Psychological Background */}
-            <div className="text-left p-6 rounded-xl bg-indigo-500/10 mb-6">
-              <h3 className="font-semibold text-indigo-600 mb-4 text-lg flex items-center gap-2">
-                <Brain className="w-5 h-5" />
-                Psychological Background
+            <div className="text-left p-8 rounded-xl bg-purple-500/10 border border-purple-500/20 mb-8">
+              <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                <Brain className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                <span className="text-foreground">Psychological Background</span>
               </h3>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-base text-foreground leading-relaxed font-normal">
                 {mainTraitInfo.psychologicalBackground}
               </p>
             </div>
 
             {/* Characteristics */}
-            <div className="text-left p-5 rounded-xl bg-cyan-500/10 mb-6">
-              <h3 className="font-semibold text-cyan-600 mb-4">Key Characteristics</h3>
-              <ul className="grid md:grid-cols-2 gap-2">
+            <div className="text-left p-6 rounded-xl bg-cyan-500/10 border border-cyan-500/20 mb-8">
+              <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-cyan-700 dark:text-cyan-400">
+                <CheckCircle2 className="w-6 h-6" />
+                <span>Key Characteristics</span>
+              </h3>
+              <ul className="grid md:grid-cols-2 gap-3">
                 {mainTraitInfo.characteristics.map((char, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                    <span className="text-cyan-500 font-bold">•</span>
-                    {char}
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-cyan-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-foreground leading-relaxed">{char}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Healthy Practices & Communication Tips */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="text-left p-5 rounded-xl bg-green-500/10">
-                <h3 className="font-semibold text-green-600 mb-4 flex items-center gap-2">
-                  <Heart className="w-5 h-5" />
-                  Healthy Practices
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="text-left p-6 rounded-xl bg-green-500/10 border border-green-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-green-700 dark:text-green-400">
+                  <Heart className="w-6 h-6" />
+                  <span>Healthy Practices</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {mainTraitInfo.healthyPractices.map((practice, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                      {practice}
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{practice}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="text-left p-5 rounded-xl bg-purple-500/10">
-                <h3 className="font-semibold text-purple-600 mb-4 flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5" />
-                  Communication Tips
+              <div className="text-left p-6 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+                <h3 className="text-xl font-bold mb-5 flex items-center gap-3 text-indigo-700 dark:text-indigo-400">
+                  <MessageCircle className="w-6 h-6" />
+                  <span>Communication Tips</span>
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {mainTraitInfo.communicationTips.map((tip, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-purple-500 font-bold">•</span>
-                      {tip}
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground leading-relaxed">{tip}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={result[mainTrait]}
+                celebrities={bdsmCelebrities}
+                maxScore={100}
+                title="Your Profile is Similar To..."
+              />
+            </div>
+
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Attachment Style Test",
+                    description: "Discover your attachment patterns in relationships and how they affect your emotional bonds.",
+                    url: "/test/attachment-style-test",
+                    icon: "❤️",
+                    reason: "BDSM preferences often correlate with attachment styles in relationships"
+                  },
+                  {
+                    title: "Communication Style Test",
+                    description: "Understand how you express yourself and communicate with others in different situations.",
+                    url: "/test/communication-style-test",
+                    icon: "💬",
+                    reason: "Effective communication is essential for healthy BDSM dynamics"
+                  },
+                  {
+                    title: "Moral Alignment Test",
+                    description: "Explore your ethical and moral framework based on the D&D alignment system.",
+                    url: "/test/moral-alignment-test",
+                    icon: "⚖️",
+                    reason: "Understanding your moral compass helps navigate consent and boundaries"
+                  }
+                ]}
+                subtitle="Based on your BDSM profile, these tests provide deeper insights into your relationship dynamics"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={bdsmFAQs} title="Frequently Asked Questions" />
+            </div>
+
             {/* Test Background */}
-            <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="font-semibold text-foreground mb-4 text-lg">About This Test</h3>
-              <div className="space-y-4">
+            <div className="text-left p-6 rounded-xl bg-muted/30 border border-border mb-8">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                <BookOpen className="w-6 h-6 text-primary" />
+                <span className="text-foreground">About This Test</span>
+              </h3>
+              <div className="space-y-5">
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">Introduction</h4>
+                  <h4 className="font-bold text-base mb-2 text-foreground">Introduction</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.about}
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground mb-2">Consent and Safety</h4>
+                  <h4 className="font-bold text-base mb-2 text-foreground">Consent and Safety</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {testBackground.consent}
                   </p>
                 </div>
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <h4 className="font-medium text-amber-600 mb-2 flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4" />
-                    Note
+                <div className="bg-amber-500/10 border border-amber-500/20 p-5 rounded-lg">
+                  <h4 className="font-bold text-base mb-2 flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                    <AlertCircle className="w-5 h-5" />
+                    <span>Important Note</span>
                   </h4>
                   <p className="text-sm text-foreground leading-relaxed">
                     {testBackground.disclaimer}
@@ -313,17 +386,15 @@ const BdsmTest = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
-              <Button
-                onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
+              <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>

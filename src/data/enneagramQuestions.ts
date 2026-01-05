@@ -706,3 +706,89 @@ export const getCenter = (type: EnneagramType): "body" | "heart" | "head" => {
   if (centers.heart.includes(type)) return "heart";
   return "head";
 };
+
+// FAQ Data for Result Page
+export const enneagramFAQs = [
+  {
+    question: "Can my Enneagram type change over time?",
+    answer: "No, your core Enneagram type typically remains stable throughout your life. However, you can develop healthier expressions of your type, integrate characteristics from your growth direction, and strengthen or shift your wing. What changes is not your type itself, but your level of health and development within that type."
+  },
+  {
+    question: "What are wings and how do they affect my personality?",
+    answer: "Wings are the two types adjacent to your core type on the Enneagram circle. Most people lean toward one wing, which adds flavor and nuance to their main type. For example, a Type 4 with a 3 wing (4w3) will be more ambitious and image-conscious than a Type 4 with a 5 wing (4w5), who tends to be more withdrawn and intellectual."
+  },
+  {
+    question: "What do stress and growth arrows mean?",
+    answer: "The Enneagram arrows show how each type behaves under stress (disintegration) and when growing (integration). Under stress, you may take on the negative qualities of your stress point. When healthy and growing, you integrate the positive qualities of your growth point. For example, Type 1 moves to 7 in growth (becoming more spontaneous) and to 4 in stress (becoming moody)."
+  },
+  {
+    question: "How accurate is this test?",
+    answer: "This test is designed for entertainment and self-reflection purposes. While based on Enneagram theory, it's a simplified assessment. For a more accurate typing, consider reading detailed type descriptions, taking multiple tests, consulting with an Enneagram coach, or doing deeper self-reflection. Many people find their type through a combination of testing and studying the system."
+  },
+  {
+    question: "I scored high on multiple types. Is that normal?",
+    answer: "Yes, it's completely normal to score high on several types, especially if they're connected by arrows or wings. The Enneagram is a spectrum, and we all have access to all nine types to some degree. However, one type typically resonates as your 'home base' - the one that describes your core motivations and fears most accurately."
+  },
+  {
+    question: "Can I use this for relationships or hiring decisions?",
+    answer: "The Enneagram is best used for personal growth and self-understanding, not for making decisions about others. While it can provide insights into relationship dynamics and communication styles, it shouldn't be used to judge, stereotype, or make hiring decisions. Every type has strengths and challenges, and individuals vary widely within their type."
+  }
+];
+
+// Celebrity Comparisons for Result Page
+export const enneagramCelebrities = [
+  {
+    name: "Mahatma Gandhi",
+    score: 1,
+    description: "Type 1 - The Reformer. Known for principled nonviolent resistance and pursuit of justice and moral integrity.",
+    avatar: "⚖️"
+  },
+  {
+    name: "Mother Teresa",
+    score: 2,
+    description: "Type 2 - The Helper. Devoted her life to serving others and caring for the poor and sick.",
+    avatar: "❤️"
+  },
+  {
+    name: "Oprah Winfrey",
+    score: 3,
+    description: "Type 3 - The Achiever. Highly successful media mogul known for achievement, charisma, and personal brand.",
+    avatar: "👑"
+  },
+  {
+    name: "Frida Kahlo",
+    score: 4,
+    description: "Type 4 - The Individualist. Expressed deep emotions and unique identity through intensely personal art.",
+    avatar: "🎨"
+  },
+  {
+    name: "Albert Einstein",
+    score: 5,
+    description: "Type 5 - The Investigator. Brilliant theoretical physicist who revolutionized science through deep analytical thinking.",
+    avatar: "🧠"
+  },
+  {
+    name: "Tom Hanks",
+    score: 6,
+    description: "Type 6 - The Loyalist. Known for loyalty, reliability, and playing trustworthy 'everyman' characters.",
+    avatar: "🎭"
+  },
+  {
+    name: "Robin Williams",
+    score: 7,
+    description: "Type 7 - The Enthusiast. Energetic comedian who brought joy and explored countless creative possibilities.",
+    avatar: "🎪"
+  },
+  {
+    name: "Martin Luther King Jr.",
+    score: 8,
+    description: "Type 8 - The Challenger. Powerful leader who fought for justice and protected the vulnerable with strength.",
+    avatar: "✊"
+  },
+  {
+    name: "Keanu Reeves",
+    score: 9,
+    description: "Type 9 - The Peacemaker. Known for being peaceful, humble, and avoiding conflict while maintaining harmony.",
+    avatar: "🕊️"
+  }
+];

@@ -8,8 +8,14 @@ import {
   LoveLanguage,
   LoveLanguageResult,
   loveLanguageDescriptions,
+  loveLanguageFAQs,
+  loveLanguageCelebrities,
 } from "@/data/loveLanguageQuestions";
-import { CheckCircle2, RotateCcw, Share2, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckCircle2, RotateCcw, Share2, Heart, ChevronLeft, ChevronRight, BookOpen, Lightbulb } from "lucide-react";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -170,23 +176,26 @@ const LoveLanguageTest = () => {
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Heart className="w-6 h-6 text-pink-500" />
-              <h2 className="font-display text-2xl font-semibold text-foreground">
-                Your Affection Style
-              </h2>
+            {/* Result Hero Section */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-500/20 to-purple-500/10 flex items-center justify-center">
+                <Heart className="w-10 h-10 text-pink-500" />
+              </div>
             </div>
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+              Your Love Language Results
+            </h2>
 
             {/* Primary Language */}
             <div className="p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 mb-6">
-              <div className="text-sm text-muted-foreground mb-1">Primary Love Language</div>
-              <div className="text-3xl font-display font-bold text-gradient mb-2">
+              <div className="text-sm text-muted-foreground mb-2">Primary Love Language</div>
+              <div className="text-5xl md:text-6xl font-extrabold mb-2 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
                 {primaryInfo.name}
               </div>
-              <div className="text-sm text-muted-foreground mb-3">
+              <div className="text-lg text-muted-foreground mb-4 font-medium">
                 {primaryInfo.nameEn}
               </div>
-              <p className="text-sm text-foreground">
+              <p className="text-base text-foreground leading-relaxed font-normal max-w-2xl mx-auto">
                 {primaryInfo.description}
               </p>
             </div>
@@ -207,13 +216,13 @@ const LoveLanguageTest = () => {
 
             {/* Score Bars */}
             <div className="space-y-4 mb-8">
-              <h3 className="text-sm font-medium text-foreground text-left mb-3">
+              <h3 className="text-base font-bold text-foreground text-left mb-3">
                 Scores by Language
               </h3>
               {ranked.map(({ language, score }) => (
                 <div key={language} className="text-left">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium text-foreground">
+                    <span className="text-sm font-semibold text-foreground">
                       {loveLanguageDescriptions[language].name}
                     </span>
                     <span className="text-sm text-muted-foreground">{score} pts</span>
@@ -228,49 +237,73 @@ const LoveLanguageTest = () => {
               ))}
             </div>
 
+            {/* Score Distribution Chart */}
+            <div className="mb-8">
+              <ScoreDistributionChart
+                userScore={primaryLanguage.score}
+                maxScore={maxScore}
+                testName="Love Language Test"
+                colorClass="bg-pink-500"
+              />
+            </div>
+
             {/* Primary Language Details */}
-            <div className="text-left p-4 rounded-lg bg-muted/20 mb-6">
-              <h3 className="font-semibold text-foreground mb-3">
-                Characteristics of {primaryInfo.name}
+            <div className="text-left p-6 rounded-xl bg-muted/30 border border-border mb-8">
+              <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
+                <BookOpen className="w-6 h-6 text-primary" />
+                <span>Characteristics of {primaryInfo.name}</span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-3 mb-6">
                 {primaryInfo.characteristics.map((char, idx) => (
-                  <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
-                    <span className="text-pink-500 mt-1">•</span>
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3 font-normal leading-relaxed">
+                    <CheckCircle2 className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
                     {char}
                   </li>
                 ))}
               </ul>
-              <div className="mt-4 p-3 rounded-lg bg-pink-500/10">
-                <div className="text-xs font-medium text-pink-600 mb-1">Tip</div>
-                <p className="text-sm text-foreground">{primaryInfo.tips}</p>
+              <div className="mt-4 p-4 rounded-lg bg-pink-500/10 border border-pink-500/20">
+                <div className="text-sm font-semibold text-pink-600 dark:text-pink-400 mb-2">Tip</div>
+                <p className="text-sm text-foreground font-normal leading-relaxed">{primaryInfo.tips}</p>
               </div>
             </div>
 
             {/* Detailed Description */}
-            <div className="text-left p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 mb-6">
-              <h3 className="font-semibold text-pink-600 mb-4 text-lg">{primaryInfo.name} - In-Depth Analysis</h3>
-              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+            <div className="text-left p-6 rounded-xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 border border-pink-500/20 mb-8">
+              <h3 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-5 flex items-center gap-3">
+                <Lightbulb className="w-6 h-6" />
+                <span>{primaryInfo.name} - In-Depth Analysis</span>
+              </h3>
+              <p className="text-base text-foreground leading-relaxed whitespace-pre-line font-normal">
                 {primaryInfo.detailedDescription}
               </p>
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={primaryLanguage.score}
+                celebrities={loveLanguageCelebrities}
+                maxScore={maxScore}
+                title="Love Language Profiles Similar to Yours"
+              />
+            </div>
+
             {/* Scientific Background */}
-            <div className="text-left p-6 rounded-xl bg-blue-500/10 mb-6">
-              <h3 className="font-semibold text-blue-600 mb-4 text-lg">Scientific Background</h3>
-              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
+            <div className="text-left p-6 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-8">
+              <h3 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4">Scientific Background</h3>
+              <p className="text-base text-foreground leading-relaxed whitespace-pre-line font-normal">
                 {primaryInfo.scientificBackground}
               </p>
             </div>
 
             {/* Expression Methods */}
-            <div className="text-left p-6 rounded-xl bg-green-500/10 mb-6">
-              <h3 className="font-semibold text-green-600 mb-4 text-lg">How to Express {primaryInfo.name}</h3>
-              <ul className="space-y-2">
+            <div className="text-left p-6 rounded-xl bg-green-500/10 border border-green-500/20 mb-8">
+              <h3 className="text-xl font-bold text-green-600 dark:text-green-400 mb-5">How to Express {primaryInfo.name}</h3>
+              <ul className="space-y-3">
                 {primaryInfo.expressionMethods.map((method, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3 font-normal leading-relaxed">
                     <span className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-green-600">{idx + 1}</span>
+                      <span className="text-xs font-bold text-green-600 dark:text-green-400">{idx + 1}</span>
                     </span>
                     {method}
                   </li>
@@ -279,11 +312,11 @@ const LoveLanguageTest = () => {
             </div>
 
             {/* Recognition Signs */}
-            <div className="text-left p-6 rounded-xl bg-amber-500/10 mb-6">
-              <h3 className="font-semibold text-amber-600 mb-4 text-lg">How to Recognize It</h3>
-              <ul className="space-y-2">
+            <div className="text-left p-6 rounded-xl bg-amber-500/10 border border-amber-500/20 mb-8">
+              <h3 className="text-xl font-bold text-amber-600 dark:text-amber-400 mb-5">How to Recognize It</h3>
+              <ul className="space-y-3">
                 {primaryInfo.recognitionSigns.map((sign, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-2">
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3 font-normal leading-relaxed">
                     <CheckCircle2 className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
                     {sign}
                   </li>
@@ -292,11 +325,11 @@ const LoveLanguageTest = () => {
             </div>
 
             {/* Partnership Tips */}
-            <div className="text-left p-6 rounded-xl bg-purple-500/10 mb-6">
-              <h3 className="font-semibold text-purple-600 mb-4 text-lg">Tips for Partners</h3>
-              <ul className="space-y-2">
+            <div className="text-left p-6 rounded-xl bg-purple-500/10 border border-purple-500/20 mb-8">
+              <h3 className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-5">Tips for Partners</h3>
+              <ul className="space-y-3">
                 {primaryInfo.partnershipTips.map((tip, idx) => (
-                  <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                  <li key={idx} className="text-sm text-foreground flex items-start gap-3 font-normal leading-relaxed">
                     <Heart className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" />
                     {tip}
                   </li>
@@ -304,17 +337,50 @@ const LoveLanguageTest = () => {
               </ul>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Attachment Style Test",
+                    description: "Discover your attachment patterns in relationships and how they affect your emotional bonds.",
+                    url: "/test/attachment-style-test",
+                    icon: "❤️",
+                    reason: "Love languages and attachment styles work together to shape relationship dynamics"
+                  },
+                  {
+                    title: "Emotional Intelligence Test",
+                    description: "Assess your ability to recognize and manage emotions in yourself and others.",
+                    url: "/test/emotional-intelligence-test",
+                    icon: "🧠",
+                    reason: "High EQ helps you communicate your love language needs effectively"
+                  },
+                  {
+                    title: "Communication Style Test",
+                    description: "Understand how you express yourself and interact with others in different situations.",
+                    url: "/test/communication-style-test",
+                    icon: "💬",
+                    reason: "Better communication helps partners understand each other's love languages"
+                  }
+                ]}
+                subtitle="Understanding how you give and receive love works best with these complementary insights"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={loveLanguageFAQs} />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
-              <Button
-                onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
+              <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>

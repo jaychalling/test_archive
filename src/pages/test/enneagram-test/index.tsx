@@ -16,10 +16,16 @@ import {
   getWing,
   getCenter,
   centerInfo,
+  enneagramFAQs,
+  enneagramCelebrities,
 } from "@/data/enneagramQuestions";
 import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Circle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 
 const calculateResults = (answers: Record<number, AnswerValue>): EnneagramResult => {
   const typeScores: Record<EnneagramType, { sum: number; count: number }> = {
@@ -214,32 +220,32 @@ Growth Direction: ${mainInfo.growthDirection}`;
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="flex items-center justify-center gap-2 mb-6">
               <Circle className="w-6 h-6 text-primary" />
-              <h2 className="font-display text-2xl font-semibold text-foreground">
-                Your Enneagram Result
+              <h2 className="text-2xl font-semibold text-muted-foreground">
+                Your Enneagram Results
               </h2>
             </div>
 
-            {/* Main Type */}
-            <div className={cn("p-6 rounded-xl bg-gradient-to-br mb-6", typeBgColors[result.mainType])}>
-              <div className="flex items-center justify-center gap-3 mb-3">
-                <div className={cn("w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl", typeColors[result.mainType])}>
+            {/* Main Type Hero */}
+            <div className="mb-8">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className={cn("w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-3xl shadow-lg", typeColors[result.mainType])}>
                   {result.mainType}
                 </div>
                 <div className="text-left">
-                  <p className={cn("text-xl font-bold", typeTextColors[result.mainType])}>
+                  <p className={cn("text-5xl md:text-6xl font-extrabold", typeTextColors[result.mainType])}>
                     {mainInfo.title}
                   </p>
                   {result.wing && (
-                    <p className="text-sm text-muted-foreground">
-                      Wing: {result.wing}w ({wingInfo?.title.split(" ")[0]})
+                    <p className="text-lg text-muted-foreground font-medium mt-1">
+                      Wing: {result.wing} ({wingInfo?.title.split(" ")[0]})
                     </p>
                   )}
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Center: {centerData.name} - Core Emotion: {centerData.emotion}
+              <p className="text-lg text-muted-foreground font-medium">
+                {centerData.name} - Core Emotion: {centerData.emotion}
               </p>
             </div>
 
@@ -355,9 +361,19 @@ Growth Direction: ${mainInfo.growthDirection}`;
               </div>
             </div>
 
+            {/* Score Distribution Chart */}
+            <div className="mb-8">
+              <ScoreDistributionChart
+                userScore={result.scores[result.mainType]}
+                maxScore={100}
+                testName="Enneagram Test"
+                colorClass={typeColors[result.mainType].replace("bg-", "bg-")}
+              />
+            </div>
+
             {/* Score Bars */}
             <div className="space-y-3 mb-8">
-              <h3 className="text-sm font-medium text-foreground text-left mb-3">
+              <h3 className="text-xl font-bold text-foreground text-left mb-4">
                 Scores by Type
               </h3>
               {([1, 2, 3, 4, 5, 6, 7, 8, 9] as EnneagramType[]).map((type) => {
@@ -395,37 +411,47 @@ Growth Direction: ${mainInfo.growthDirection}`;
               })}
             </div>
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={result.mainType}
+                celebrities={enneagramCelebrities}
+                maxScore={9}
+                title="Famous People With Your Type"
+              />
+            </div>
+
             {/* Main Type Details */}
             <div className="space-y-4 mb-8 text-left">
-              <h3 className="text-sm font-medium text-foreground mb-3">
+              <h3 className="text-2xl font-bold text-foreground mb-4">
                 {mainInfo.name} Details
               </h3>
 
               {/* Core Motivation, Fear, Desire */}
               <div className="grid gap-3">
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.mainType])}>
-                  <h4 className={cn("text-sm font-semibold mb-2", typeTextColors[result.mainType])}>
+                  <h4 className={cn("text-base font-semibold mb-2", typeTextColors[result.mainType])}>
                     Core Motivation
                   </h4>
-                  <p className="text-sm text-foreground">{mainInfo.coreMotivation}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{mainInfo.coreMotivation}</p>
                 </div>
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.mainType])}>
-                  <h4 className={cn("text-sm font-semibold mb-2", typeTextColors[result.mainType])}>
+                  <h4 className={cn("text-base font-semibold mb-2", typeTextColors[result.mainType])}>
                     Core Fear
                   </h4>
-                  <p className="text-sm text-foreground">{mainInfo.coreFear}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{mainInfo.coreFear}</p>
                 </div>
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.mainType])}>
-                  <h4 className={cn("text-sm font-semibold mb-2", typeTextColors[result.mainType])}>
+                  <h4 className={cn("text-base font-semibold mb-2", typeTextColors[result.mainType])}>
                     Core Desire
                   </h4>
-                  <p className="text-sm text-foreground">{mainInfo.coreDesire}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{mainInfo.coreDesire}</p>
                 </div>
               </div>
 
               {/* Characteristics */}
               <div className="p-4 rounded-lg bg-muted/50">
-                <h4 className="text-sm font-semibold mb-3 text-foreground">Key Characteristics</h4>
+                <h4 className="text-base font-semibold mb-3 text-foreground">Key Characteristics</h4>
                 <ul className="space-y-1.5">
                   {mainInfo.characteristics.map((char, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -439,7 +465,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
               {/* Strengths & Challenges */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-green-500/10">
-                  <h4 className="font-semibold text-green-600 mb-3">Strengths</h4>
+                  <h4 className="text-lg font-bold text-green-600 dark:text-green-400 mb-3">Strengths</h4>
                   <ul className="space-y-1.5">
                     {mainInfo.strengths.map((strength, idx) => (
                       <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -450,7 +476,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
                   </ul>
                 </div>
                 <div className="p-4 rounded-lg bg-amber-500/10">
-                  <h4 className="font-semibold text-amber-600 mb-3">Challenges</h4>
+                  <h4 className="text-lg font-bold text-amber-600 dark:text-amber-400 mb-3">Challenges</h4>
                   <ul className="space-y-1.5">
                     {mainInfo.challenges.map((challenge, idx) => (
                       <li key={idx} className="text-sm text-foreground flex items-start gap-2">
@@ -465,18 +491,18 @@ Growth Direction: ${mainInfo.growthDirection}`;
               {/* Growth & Stress Directions */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-blue-500/10">
-                  <h4 className="font-semibold text-blue-600 mb-2">Growth Direction</h4>
-                  <p className="text-sm text-foreground">{mainInfo.growthDirection}</p>
+                  <h4 className="text-base font-semibold text-blue-600 dark:text-blue-400 mb-2">Growth Direction</h4>
+                  <p className="text-sm text-foreground leading-relaxed">{mainInfo.growthDirection}</p>
                 </div>
                 <div className="p-4 rounded-lg bg-rose-500/10">
-                  <h4 className="font-semibold text-rose-600 mb-2">Stress Direction</h4>
-                  <p className="text-sm text-foreground">{mainInfo.stressDirection}</p>
+                  <h4 className="text-base font-semibold text-rose-600 dark:text-rose-400 mb-2">Stress Direction</h4>
+                  <p className="text-sm text-foreground leading-relaxed">{mainInfo.stressDirection}</p>
                 </div>
               </div>
 
               {/* Detailed Description */}
               <div className="p-6 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
-                <h4 className="font-semibold text-indigo-600 mb-4 text-lg">{mainInfo.title} In-Depth Analysis</h4>
+                <h4 className="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">{mainInfo.title} In-Depth Analysis</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.detailedDescription}
                 </p>
@@ -484,7 +510,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
               {/* Scientific Background */}
               <div className="p-6 rounded-xl bg-blue-500/10">
-                <h4 className="font-semibold text-blue-600 mb-4 text-lg">Psychological Background</h4>
+                <h4 className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4">Psychological Background</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.scientificBackground}
                 </p>
@@ -492,7 +518,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
               {/* Relationship Pattern */}
               <div className="p-6 rounded-xl bg-rose-500/10">
-                <h4 className="font-semibold text-rose-600 mb-4 text-lg">Relationship Pattern</h4>
+                <h4 className="text-xl font-bold text-rose-600 dark:text-rose-400 mb-4">Relationship Pattern</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.relationshipPattern}
                 </p>
@@ -500,7 +526,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
               {/* Work Style */}
               <div className="p-6 rounded-xl bg-teal-500/10">
-                <h4 className="font-semibold text-teal-600 mb-4 text-lg">Work Style</h4>
+                <h4 className="text-xl font-bold text-teal-600 dark:text-teal-400 mb-4">Work Style</h4>
                 <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                   {mainInfo.workStyle}
                 </p>
@@ -508,7 +534,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
               {/* Growth Strategies */}
               <div className="p-6 rounded-xl bg-emerald-500/10">
-                <h4 className="font-semibold text-emerald-600 mb-4 text-lg">Growth Strategies</h4>
+                <h4 className="text-xl font-bold text-emerald-600 dark:text-emerald-400 mb-4">Growth Strategies</h4>
                 <ul className="space-y-2">
                   {mainInfo.growthStrategies.map((strategy, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-3">
@@ -523,12 +549,12 @@ Growth Direction: ${mainInfo.growthDirection}`;
 
               {/* Famous People */}
               <div className="p-6 rounded-xl bg-purple-500/10">
-                <h4 className="font-semibold text-purple-600 mb-4 text-lg">Famous People</h4>
+                <h4 className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-4">Famous People</h4>
                 <div className="flex flex-wrap gap-2">
                   {mainInfo.famousPeople.map((person, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1.5 bg-purple-500/20 text-purple-700 rounded-full text-sm font-medium"
+                      className="px-3 py-1.5 bg-purple-500/20 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium"
                     >
                       {person}
                     </span>
@@ -537,10 +563,45 @@ Growth Direction: ${mainInfo.growthDirection}`;
               </div>
             </div>
 
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Big Five Personality Test",
+                    description: "Explore your personality across five major dimensions (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism).",
+                    url: "/test/big-five-test",
+                    icon: "🎭",
+                    reason: "Complements Enneagram by measuring personality traits scientifically"
+                  },
+                  {
+                    title: "16 Personality Style Test",
+                    description: "Discover your personality type based on cognitive functions and preferences in how you perceive and judge the world.",
+                    url: "/test/16-personality-test",
+                    icon: "🧩",
+                    reason: "Another comprehensive personality framework for deeper self-understanding"
+                  },
+                  {
+                    title: "Moral Alignment Test",
+                    description: "Find your moral alignment on the spectrum of Good vs. Evil and Lawful vs. Chaotic based on D&D.",
+                    url: "/test/moral-alignment-test",
+                    icon: "⚖️",
+                    reason: "Explores your values and ethical decision-making patterns"
+                  }
+                ]}
+                subtitle="Deepen your self-understanding with these complementary personality assessments"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={enneagramFAQs} />
+            </div>
+
             {/* Wing Info */}
             {wingInfo && (
               <div className="mb-8 text-left">
-                <h3 className="text-sm font-medium text-foreground mb-3">
+                <h3 className="text-xl font-bold text-foreground mb-4">
                   Wing: {wingInfo.name} ({wingInfo.title})
                 </h3>
                 <div className={cn("p-4 rounded-lg bg-gradient-to-br", typeBgColors[result.wing!])}>

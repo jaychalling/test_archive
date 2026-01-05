@@ -360,3 +360,84 @@ export const attachmentStyleDescriptions: Record<AttachmentStyle, AttachmentStyl
     challengingStyles: ["anxious", "avoidant", "fearfulAvoidant"],
   },
 };
+
+// FAQ Data for Result Page
+export const attachmentStyleFAQs = [
+  {
+    question: "Can attachment styles change over time?",
+    answer: "Yes! Attachment styles are not fixed. While they tend to be relatively stable, research shows that attachment patterns can shift through significant relationships, therapy, or personal development work. This is called 'earned security.' With awareness and effort, people with insecure attachment can develop more secure patterns over time."
+  },
+  {
+    question: "What happens when two incompatible attachment styles date?",
+    answer: "Certain attachment style pairings (like anxious-avoidant) can create challenging dynamics, but they're not doomed. The 'anxious-avoidant trap' occurs when the anxious partner's pursuit triggers the avoidant partner's withdrawal, creating a cycle. However, with awareness, communication, and willingness to work on patterns, any pairing can succeed. Understanding each other's attachment needs is key."
+  },
+  {
+    question: "How do I develop a more secure attachment style?",
+    answer: "Developing secure attachment involves several steps: (1) Awareness - understand your current patterns, (2) Therapy - working with a therapist trained in attachment theory can be transformative, (3) Safe relationships - experiencing consistent, responsive relationships helps rewire attachment patterns, (4) Self-compassion - treating yourself with kindness rather than judgment, (5) Mindfulness - observing your attachment triggers without reacting impulsively."
+  },
+  {
+    question: "Is this test scientifically accurate?",
+    answer: "This test is based on established attachment theory research but is designed for entertainment and self-reflection purposes only. For a clinical assessment, validated instruments like the Adult Attachment Interview (AAI) or Experiences in Close Relationships (ECR) questionnaire administered by a professional are recommended. This test provides general insights into your attachment tendencies."
+  },
+  {
+    question: "Where does attachment style come from?",
+    answer: "Attachment styles are primarily formed in early childhood through interactions with primary caregivers. Consistent, responsive caregiving typically leads to secure attachment. Inconsistent caregiving may create anxious attachment. Dismissive or emotionally unavailable caregiving often leads to avoidant patterns. Frightening or chaotic caregiving can result in fearful-avoidant attachment. However, adult experiences can also influence attachment patterns."
+  },
+  {
+    question: "Can I have different attachment styles with different people?",
+    answer: "Yes, attachment styles can vary somewhat across different relationships and contexts. You might be more secure with friends than romantic partners, or more anxious with one partner than another. However, most people have a primary attachment style that tends to show up across important relationships. Context and the other person's behavior also influence which attachment patterns get activated."
+  }
+];
+
+// Celebrity/Character Comparisons for Result Page
+// Using fictional characters and archetypes for clearer attachment style examples
+export const attachmentStyleCelebrities = [
+  {
+    name: "Leslie Knope (Parks & Rec)",
+    attachmentStyle: "secure" as AttachmentStyle,
+    description: "Confident in relationships, expresses needs clearly, maintains healthy friendships while in romantic relationships.",
+    avatar: "🌟"
+  },
+  {
+    name: "Rachel Green (Friends, later seasons)",
+    attachmentStyle: "secure" as AttachmentStyle,
+    description: "Evolved from anxious patterns to secure attachment, comfortable with intimacy and independence.",
+    avatar: "☕"
+  },
+  {
+    name: "Romeo & Juliet",
+    attachmentStyle: "anxious" as AttachmentStyle,
+    description: "Intense fear of separation, desperate need for constant reassurance, relationship becomes all-consuming.",
+    avatar: "💔"
+  },
+  {
+    name: "Bella Swan (Twilight)",
+    attachmentStyle: "anxious" as AttachmentStyle,
+    description: "Extreme fear of abandonment, willing to sacrifice everything for relationship, struggles with self-worth.",
+    avatar: "🌙"
+  },
+  {
+    name: "James Bond",
+    attachmentStyle: "avoidant" as AttachmentStyle,
+    description: "Emotionally distant, commitment-phobic, prioritizes independence over intimacy, difficulty trusting.",
+    avatar: "🕶️"
+  },
+  {
+    name: "Elsa (Frozen, before transformation)",
+    attachmentStyle: "avoidant" as AttachmentStyle,
+    description: "Pushes loved ones away to protect them, difficulty expressing emotions, isolates when stressed.",
+    avatar: "❄️"
+  },
+  {
+    name: "Harley Quinn & Joker",
+    attachmentStyle: "fearfulAvoidant" as AttachmentStyle,
+    description: "Chaotic push-pull dynamic, craves love but fears intimacy, extreme emotional volatility in relationships.",
+    avatar: "🃏"
+  },
+  {
+    name: "Fleabag (Fleabag series)",
+    attachmentStyle: "fearfulAvoidant" as AttachmentStyle,
+    description: "Desires connection but self-sabotages, uses humor to avoid vulnerability, complicated relationship patterns.",
+    avatar: "🦊"
+  }
+];

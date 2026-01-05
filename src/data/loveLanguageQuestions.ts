@@ -569,3 +569,92 @@ export const loveLanguageDescriptions: Record<LoveLanguage, LoveLanguageInfo> = 
     ],
   },
 };
+
+// FAQ Data for Result Page
+export const loveLanguageFAQs = [
+  {
+    question: "Can I have more than one love language?",
+    answer: "Absolutely! Most people have a primary and secondary love language. It's common to appreciate multiple ways of giving and receiving love. Your test results show all five languages ranked by preference. Understanding your top 2-3 can help you communicate your needs better in relationships."
+  },
+  {
+    question: "What if my partner has a different love language?",
+    answer: "Different love languages are very common in relationships and can actually be a strength! The key is learning to 'speak' your partner's love language even if it's not your primary one. For example, if you value Quality Time but your partner values Acts of Service, try helping them with tasks as a way to show love. Ask your partner to take the test too and discuss the results together."
+  },
+  {
+    question: "Can love languages change over time?",
+    answer: "Yes, love languages can shift based on life circumstances, relationship experiences, and personal growth. A major life event, new relationship, or increased self-awareness can all influence which expressions of love feel most meaningful to you. It's helpful to retake this test every 1-2 years or after significant life changes."
+  },
+  {
+    question: "How do I tell my partner about my love language?",
+    answer: "Share your test results and have an open conversation! You might say: 'I took this love language test and found it really insightful. My primary language is [your result], which means I feel most loved when [specific examples]. What makes you feel most loved?' Make it a two-way dialogue and be specific about what actions would be meaningful to you."
+  },
+  {
+    question: "Are love languages scientifically proven?",
+    answer: "The concept of love languages, developed by Dr. Gary Chapman, is based on his clinical experience as a marriage counselor rather than formal scientific research. While not extensively peer-reviewed, many relationship therapists find it a useful framework. The value lies in how it helps couples communicate about emotional needs. Think of it as a helpful communication tool rather than a strict scientific theory."
+  },
+  {
+    question: "What if I scored evenly across multiple languages?",
+    answer: "Scoring evenly means you're versatile in how you give and receive love! This can be an advantage - you can appreciate many different expressions of affection. However, it might also mean you need variety in how love is shown to you. Try to identify which language feels most meaningful during times of stress or conflict, as this often reveals your true primary language."
+  }
+];
+
+// Celebrity Comparisons for Result Page
+// Using archetypes and examples representing each love language
+export const loveLanguageCelebrities = [
+  {
+    name: "Words of Affirmation Type",
+    score: 10, // High Words of Affirmation score
+    description: "Like poets and writers who express deep emotion through words. Values verbal encouragement and praise highly.",
+    avatar: "✍️",
+    language: "wordsOfAffirmation"
+  },
+  {
+    name: "Acts of Service Type",
+    score: 10, // High Acts of Service score
+    description: "Like caregivers who show love through helpful actions. Believes 'actions speak louder than words.'",
+    avatar: "🤝",
+    language: "actsOfService"
+  },
+  {
+    name: "Receiving Gifts Type",
+    score: 10, // High Receiving Gifts score
+    description: "Treasures meaningful symbols of love. Remembers every thoughtful present as a token of affection.",
+    avatar: "🎁",
+    language: "receivingGifts"
+  },
+  {
+    name: "Quality Time Type",
+    score: 10, // High Quality Time score
+    description: "Values undivided attention and shared experiences. Presence means more than presents.",
+    avatar: "⏰",
+    language: "qualityTime"
+  },
+  {
+    name: "Physical Touch Type",
+    score: 10, // High Physical Touch score
+    description: "Finds comfort and connection through physical affection. Hugs and touch communicate love deeply.",
+    avatar: "🤗",
+    language: "physicalTouch"
+  },
+  {
+    name: "Balanced Multi-Language Type",
+    score: 6, // Balanced across all languages
+    description: "Appreciates all forms of love expression. Versatile in both giving and receiving affection.",
+    avatar: "💫",
+    language: "wordsOfAffirmation" // Default
+  },
+  {
+    name: "Words & Time Hybrid",
+    score: 9, // High in Words and Quality Time
+    description: "Loves deep conversations and meaningful communication. Values both what is said and time together.",
+    avatar: "💬",
+    language: "wordsOfAffirmation"
+  },
+  {
+    name: "Service & Touch Hybrid",
+    score: 9, // High in Acts and Touch
+    description: "Shows love through caring actions and physical affection. Practical and emotionally warm.",
+    avatar: "❤️",
+    language: "actsOfService"
+  }
+];

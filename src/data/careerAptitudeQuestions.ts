@@ -269,3 +269,83 @@ export const calculateTopTypes = (answers: Record<number, AnswerValue>): { code:
     .map(([code, score]) => ({ code: code as HollandCode, score }))
     .sort((a, b) => b.score - a.score);
 };
+
+// FAQ Data for Result Page
+export const careerAptitudeFAQs = [
+  {
+    question: "Can I have more than one career aptitude type?",
+    answer: "Absolutely! Most people are a combination of multiple Holland types. Your results show your top 3 types in order of preference, forming your Holland Code (like RIA or SEC). This combination provides a more nuanced understanding of your career interests than a single type alone. The interaction between your types can reveal unique career paths that satisfy multiple aspects of your personality."
+  },
+  {
+    question: "What if I want to change careers - will my results still apply?",
+    answer: "Yes! Your Holland Code reflects your fundamental interests and preferences, which tend to remain relatively stable over time. If you're considering a career change, use your results to identify fields that better align with your natural inclinations. Many successful career transitions happen when people move toward work that matches their Holland type more closely. However, life experiences can shift your interests, so retaking the test periodically can be helpful."
+  },
+  {
+    question: "How accurate is this test compared to professional career assessments?",
+    answer: "This test is based on Holland's RIASEC theory, one of the most researched and validated career models in psychology. While it provides valuable insights for self-exploration and career planning, it's designed for educational and entertainment purposes. For comprehensive career counseling, especially for major life decisions, consider taking validated assessments like the Self-Directed Search (SDS) or Strong Interest Inventory with a certified career counselor."
+  },
+  {
+    question: "Should I only pursue careers that match my top type?",
+    answer: "Not necessarily. While your Holland Code suggests careers where you're likely to find satisfaction, many factors influence career success and happiness - including skills, values, work environment, and life circumstances. Use your results as one important piece of information, but also consider your abilities, education, market opportunities, and personal goals. Some of the most fulfilling careers combine elements from multiple types."
+  },
+  {
+    question: "Can I combine my Holland Code with other personality tests?",
+    answer: "Definitely! Combining this test with others provides a more complete picture. Try the Big Five Personality Test to understand your work style, the Emotional Intelligence Test to assess interpersonal skills, or the 16 Personality Types Test for deeper self-understanding. Career aptitude (what you're interested in) combined with personality traits (how you work) and emotional intelligence (how you relate to others) offers comprehensive career guidance."
+  },
+  {
+    question: "What if my current job doesn't match my Holland Code?",
+    answer: "This is actually quite common! Many people work in jobs that don't perfectly align with their interests. If you find yourself in this situation, you have several options: look for aspects of your current role that do match your type, seek projects or responsibilities that better align with your interests, develop a hobby that satisfies your Holland type, or consider a gradual transition to a more suitable field. Even small changes can significantly improve job satisfaction."
+  }
+];
+
+// Celebrity/Professional Comparisons for Result Page
+export const careerAptitudeCelebrities = [
+  {
+    name: "Elon Musk",
+    score: 23, // High Investigative + Enterprising
+    description: "Entrepreneur and engineer known for innovative problem-solving in technology and space exploration. Strong I-E combination.",
+    avatar: "🚀"
+  },
+  {
+    name: "Marie Kondo",
+    score: 21, // High Conventional + Social
+    description: "Organizing consultant who systematically helps people declutter and find joy. Notable C-S profile.",
+    avatar: "✨"
+  },
+  {
+    name: "Gordon Ramsay",
+    score: 19, // Realistic + Enterprising
+    description: "Chef and restaurateur combining hands-on culinary skills with business leadership. Strong R-E traits.",
+    avatar: "👨‍🍳"
+  },
+  {
+    name: "Taylor Swift",
+    score: 22, // Artistic + Enterprising
+    description: "Singer-songwriter and businesswoman blending creative artistry with strategic career management. A-E combination.",
+    avatar: "🎵"
+  },
+  {
+    name: "Dr. Anthony Fauci",
+    score: 24, // Investigative + Social
+    description: "Physician-scientist dedicated to research and public health education. Classic I-S profile.",
+    avatar: "🔬"
+  },
+  {
+    name: "Serena Williams",
+    score: 18, // Realistic + Enterprising
+    description: "Professional athlete and entrepreneur combining physical excellence with business ventures. R-E strengths.",
+    avatar: "🎾"
+  },
+  {
+    name: "Mr. Rogers",
+    score: 20, // Social + Artistic
+    description: "Educator and TV personality who taught children with creativity and empathy. S-A combination.",
+    avatar: "📺"
+  },
+  {
+    name: "Warren Buffett",
+    score: 22, // Conventional + Investigative
+    description: "Investor known for analytical thinking and systematic approach to financial analysis. C-I traits.",
+    avatar: "💼"
+  }
+];

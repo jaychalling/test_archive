@@ -335,3 +335,83 @@ export const testBackground = {
   consent: "The core of healthy BDSM relationships is the principles of SSC (Safe, Sane, Consensual) and RACK (Risk-Aware Consensual Kink). All activities should be discussed in advance, safewords should be established, and any participant should be able to stop at any time. Aftercare is essential after all activities.",
   disclaimer: "This test is for fun and self-exploration and is not a psychological diagnostic tool. Test results are for reference only, and defining your identity or relationship style is a personal choice. All sexual/relational activities should be conducted with full consent between legal adults."
 };
+
+// FAQ Data for Result Page
+export const bdsmFAQs = [
+  {
+    question: "Is it normal to have these preferences?",
+    answer: "Absolutely! BDSM preferences are a normal part of human sexuality and exist on a spectrum. Research shows that up to 50% of adults have fantasized about BDSM activities, and many people engage in consensual BDSM practices. Having these preferences doesn't mean there's anything wrong with you - it's simply part of your unique sexual and relational identity. What matters most is that all activities are consensual, safe, and enjoyed by everyone involved."
+  },
+  {
+    question: "How do I safely explore these preferences?",
+    answer: "Safety in BDSM comes from education, communication, and consent. Start by educating yourself about safe practices through reputable resources. Always communicate clearly with your partner about boundaries, desires, and limits before any activity. Establish a safeword that stops everything immediately. Start slowly and build trust gradually. Join educational communities or workshops to learn proper techniques. Never engage in BDSM activities while under the influence of substances, and always prioritize consent and mutual enjoyment."
+  },
+  {
+    question: "What if my partner has different preferences?",
+    answer: "Different preferences are common and manageable with good communication. First, have an honest, non-judgmental conversation about your test results and what they mean to you. Explore areas of overlap and compatibility. Many couples find compromise by taking turns or finding activities that satisfy both partners. Consider that preferences can be flexible - a Switch partner might enjoy both roles, or partners might discover new interests together. If fundamental incompatibility exists, couples counseling or sex therapy can help navigate these differences."
+  },
+  {
+    question: "Do I need to label myself based on these results?",
+    answer: "Not at all! These results are meant to help you understand your preferences, not box you into a fixed identity. Many people's preferences are fluid and can change over time, with different partners, or in different contexts. You might identify strongly with one role, enjoy multiple roles, or prefer not to use labels at all. What matters is honest self-awareness and open communication with partners about what feels right for you in the moment."
+  },
+  {
+    question: "How accurate is this test?",
+    answer: "This test is designed for self-exploration and entertainment rather than clinical assessment. It provides a general indication of your preferences based on your responses, but human sexuality is complex and multifaceted. Your actual preferences may be more nuanced than any test can capture. Use these results as a starting point for self-reflection and communication with partners, but trust your own experiences and feelings above any test score."
+  },
+  {
+    question: "What are the most important safety principles?",
+    answer: "The BDSM community emphasizes several key safety principles: SSC (Safe, Sane, and Consensual) and RACK (Risk-Aware Consensual Kink). Always establish clear consent before any activity and respect that consent can be withdrawn at any time. Use safewords that immediately stop all activity. Educate yourself about physical and emotional risks of specific activities. Practice aftercare - emotional and physical care following intense experiences. Never engage in activities that could cause serious harm, and always prioritize your partner's well-being and comfort."
+  }
+];
+
+// Celebrity/Archetype Comparisons for Result Page
+export const bdsmCelebrities = [
+  {
+    name: "Balanced Explorer",
+    score: 50,
+    description: "Equal interest across all dimensions. Curious about all aspects of BDSM dynamics and enjoys variety.",
+    avatar: "⚖️"
+  },
+  {
+    name: "Pure Dominant",
+    score: 85,
+    description: "Strong leadership tendencies with high Dominant traits (85% D, 15% S). Natural guide and protector.",
+    avatar: "👑"
+  },
+  {
+    name: "Pure Submissive",
+    score: 15,
+    description: "Strong preference for following role (15% D, 85% S). Finds deep fulfillment in service and trust.",
+    avatar: "🌸"
+  },
+  {
+    name: "Gentle Switch",
+    score: 45,
+    description: "Flexible role preferences with moderate intensity (45% D, 55% S). Adapts naturally to partner's needs.",
+    avatar: "🔄"
+  },
+  {
+    name: "Sadistic Dominant",
+    score: 75,
+    description: "Leadership combined with intense sensation focus (75% D, 25% S, High Sadism). Creative and intense.",
+    avatar: "🔥"
+  },
+  {
+    name: "Masochistic Submissive",
+    score: 25,
+    description: "Service-oriented with sensation seeking (25% D, 75% S, High Masochism). Deep and trusting.",
+    avatar: "💫"
+  },
+  {
+    name: "Playful Switch",
+    score: 60,
+    description: "High Switch tendencies with balanced D/S (60% Switch). Enjoys role variety and exploration.",
+    avatar: "🎭"
+  },
+  {
+    name: "Nurturing Dominant",
+    score: 70,
+    description: "Leadership with care focus (70% D, 30% S, Low Sadism). Protective and supportive partner.",
+    avatar: "💝"
+  }
+];

@@ -508,3 +508,83 @@ export const typeBgColors: Record<PersonalityType, string> = {
   extrovert: "from-amber-500/10 to-yellow-500/10",
   strongExtrovert: "from-orange-500/10 to-red-500/10",
 };
+
+// FAQ Data for Result Page
+export const introvertExtrovertFAQs = [
+  {
+    question: "Can I be both introverted and extroverted?",
+    answer: "Absolutely! Most people fall somewhere in the middle of the spectrum, known as ambiverts. You might be more introverted in some situations (like preferring alone time after work) and more extroverted in others (like being energized at a party with close friends). Introversion-extroversion is a spectrum, not a binary choice."
+  },
+  {
+    question: "Can my introvert/extrovert type change over time?",
+    answer: "While your core personality tends to remain relatively stable, how you express it can change based on life circumstances, age, and environment. Many people become slightly more introverted as they age, and major life changes can shift how you recharge. However, if you're fundamentally introverted, you're unlikely to become a strong extrovert (and vice versa)."
+  },
+  {
+    question: "Is being introverted the same as being shy or having social anxiety?",
+    answer: "No, these are different concepts. Introversion is about where you get your energy - introverts recharge alone while extroverts recharge with people. Shyness is fear of social judgment, and social anxiety is a clinical condition involving intense fear in social situations. You can be an outgoing introvert or a shy extrovert. Many introverts enjoy social interaction but need alone time afterward to recharge."
+  },
+  {
+    question: "Is one type better than the other?",
+    answer: "Neither introversion nor extroversion is inherently better - they're simply different ways of engaging with the world. While Western culture often seems to favor extroversion, introverts bring valuable strengths like deep thinking, careful listening, and meaningful relationship-building. Both types are essential in society, and understanding your type helps you work with your natural tendencies rather than against them."
+  },
+  {
+    question: "What if I got 'ambivert' - does that mean I'm not decisive?",
+    answer: "Not at all! Being an ambivert means you have the flexibility to draw energy from both social interaction and solitude depending on the situation. This is actually the most common result - research suggests 60-70% of people are ambiverts. It's a strength that allows you to adapt to various situations, not a sign of indecision."
+  },
+  {
+    question: "How can I use this information in my daily life?",
+    answer: "Understanding your introvert/extrovert type helps you manage your energy better. Introverts can schedule downtime after social events, while extroverts can plan regular social activities to stay energized. It also helps in relationships - knowing your partner's or colleague's type can improve communication and reduce conflicts. Use this knowledge to create environments where you thrive rather than forcing yourself into situations that drain you."
+  }
+];
+
+// Celebrity Comparisons for Result Page
+export const introvertExtrovertCelebrities = [
+  {
+    name: "Bill Gates",
+    score: 20,
+    description: "Co-founder of Microsoft, known for his deep focus, preference for solitude, and thoughtful approach to problem-solving.",
+    avatar: "💻"
+  },
+  {
+    name: "Emma Watson",
+    score: 25,
+    description: "Actress and activist who has spoken openly about being introverted despite her public career.",
+    avatar: "📚"
+  },
+  {
+    name: "Albert Einstein",
+    score: 15,
+    description: "Theoretical physicist who valued solitude for deep thinking and once said he was a 'horse for single harness.'",
+    avatar: "🔬"
+  },
+  {
+    name: "J.K. Rowling",
+    score: 30,
+    description: "Author of Harry Potter series, known for needing quiet time alone to write and recharge.",
+    avatar: "✍️"
+  },
+  {
+    name: "Oprah Winfrey",
+    score: 85,
+    description: "Media mogul known for her exceptional ability to connect with people and draw energy from social interaction.",
+    avatar: "👑"
+  },
+  {
+    name: "Jim Carrey",
+    score: 90,
+    description: "Comedian and actor famous for his high energy, expressive personality, and love of entertaining crowds.",
+    avatar: "🎭"
+  },
+  {
+    name: "Ellen DeGeneres",
+    score: 88,
+    description: "TV host who thrives on audience interaction and spreads positive energy through constant social engagement.",
+    avatar: "🎤"
+  },
+  {
+    name: "Richard Branson",
+    score: 92,
+    description: "Entrepreneur known for his adventurous spirit, love of networking, and ability to energize teams.",
+    avatar: "🚀"
+  }
+];

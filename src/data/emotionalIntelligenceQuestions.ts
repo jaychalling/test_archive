@@ -206,3 +206,83 @@ export const eqResultDescriptions: Record<EQLevel, EQResultInfo> = {
     color: "from-gray-400 to-slate-500",
   },
 };
+
+// FAQ Data for Result Page
+export const eqFAQs = [
+  {
+    question: "Is this score good or bad?",
+    answer: "There's no absolute 'good' or 'bad' EQ score. Emotional intelligence exists on a spectrum, and everyone has room for growth. A score above 70 is generally considered high, 50-70 is average, and below 50 indicates areas where focused development could be beneficial. What matters most is understanding your current level and working to improve it."
+  },
+  {
+    question: "Can I improve my emotional intelligence?",
+    answer: "Absolutely! Unlike IQ, which is relatively stable, emotional intelligence can be developed throughout your life. Research shows that with practice, self-reflection, mindfulness, and sometimes professional guidance, people can significantly improve their EQ. Key areas to work on include self-awareness, active listening, empathy practice, and emotional regulation techniques like meditation or journaling."
+  },
+  {
+    question: "How accurate is this test?",
+    answer: "This test is designed for entertainment and self-reflection purposes. While it's based on established EQ theory and research, it's not a clinical assessment. For a comprehensive evaluation, consider taking validated assessments like the MSCEIT (Mayer-Salovey-Caruso Emotional Intelligence Test) or consulting with a psychologist. This test provides a general indication of your emotional intelligence tendencies."
+  },
+  {
+    question: "Should I retake the test?",
+    answer: "If you felt rushed or distracted during the test, retaking it when you're more focused might give you more accurate results. However, avoid retaking it immediately just to get a 'better' score - that defeats the purpose of honest self-assessment. Consider retaking it after 3-6 months of working on your emotional intelligence to track your progress."
+  },
+  {
+    question: "What if I scored lower than expected?",
+    answer: "A lower score isn't a judgment of your worth as a person. It simply highlights areas where you can grow. Many highly successful people started with lower emotional intelligence and developed it over time. Use this as motivation to learn more about emotions, practice empathy, and develop better emotional regulation skills. Consider it an opportunity for personal development."
+  },
+  {
+    question: "How does EQ affect my daily life?",
+    answer: "Emotional intelligence impacts virtually every aspect of life - from personal relationships and workplace success to mental health and stress management. High EQ helps you navigate conflicts, build stronger relationships, make better decisions under pressure, lead teams effectively, and maintain emotional well-being. It's one of the strongest predictors of life satisfaction and career success."
+  }
+];
+
+// Celebrity Comparisons for Result Page
+export const eqCelebrities = [
+  {
+    name: "Oprah Winfrey",
+    score: 92,
+    description: "Known for exceptional empathy, emotional awareness, and ability to connect with people from all backgrounds.",
+    avatar: "👑"
+  },
+  {
+    name: "Barack Obama",
+    score: 88,
+    description: "Demonstrates high emotional regulation, empathy, and social skills in leadership and communication.",
+    avatar: "🎖️"
+  },
+  {
+    name: "Brené Brown",
+    score: 90,
+    description: "Researcher and author specializing in vulnerability, empathy, and emotional courage.",
+    avatar: "📚"
+  },
+  {
+    name: "Daniel Goleman",
+    score: 95,
+    description: "Author of 'Emotional Intelligence' and pioneer in EQ research and popularization.",
+    avatar: "🧠"
+  },
+  {
+    name: "Malala Yousafzai",
+    score: 87,
+    description: "Shows remarkable emotional resilience, empathy for others, and self-motivation despite adversity.",
+    avatar: "🕊️"
+  },
+  {
+    name: "Fred Rogers",
+    score: 93,
+    description: "Mr. Rogers exemplified empathy, emotional awareness, and ability to connect with children and adults.",
+    avatar: "🎭"
+  },
+  {
+    name: "Nelson Mandela",
+    score: 91,
+    description: "Demonstrated exceptional emotional regulation, forgiveness, and social awareness throughout his life.",
+    avatar: "✊"
+  },
+  {
+    name: "Michelle Obama",
+    score: 89,
+    description: "Known for authentic communication, emotional intelligence in public life, and empowering leadership.",
+    avatar: "💪"
+  }
+];

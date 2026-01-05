@@ -956,3 +956,83 @@ function generateOverallInterpretation(result: BigFiveResult, highest: BigFiveTr
 
   return interpretations.join('\n\n');
 }
+
+// FAQ Data for Result Page
+export const bigFiveFAQs = [
+  {
+    question: "What do my Big Five scores mean?",
+    answer: "Your Big Five scores represent where you fall on five fundamental personality dimensions. Each trait is measured on a scale from 0-100, where higher scores indicate stronger expression of that trait. These aren't 'good' or 'bad' scores - they simply describe your natural tendencies. For example, high Extraversion means you're outgoing, while low Extraversion (introversion) means you recharge through solitude. Both have unique strengths."
+  },
+  {
+    question: "Can my personality traits change over time?",
+    answer: "Yes! While personality traits show some stability, research shows they can and do change throughout life. Studies by Roberts et al. (2006) found that most people become more conscientious and agreeable as they age. Personality can also shift through intentional effort, life experiences, therapy, or major life changes. The brain's neuroplasticity means you're not locked into your current traits - you can develop new patterns through consistent practice."
+  },
+  {
+    question: "How accurate is this test?",
+    answer: "This test is based on the scientifically validated Big Five model (NEO-PI-R), which is the most research-backed personality framework in psychology. However, this is a simplified version for entertainment and self-reflection. For clinical or professional assessment, you'd want to take the full NEO-PI-R (240 questions) administered by a psychologist. Your results can also vary based on your mood, recent experiences, or how honestly you answered."
+  },
+  {
+    question: "Why is Neuroticism included? Isn't that negative?",
+    answer: "Neuroticism measures emotional sensitivity and reactivity to stress - not mental illness. While high neuroticism correlates with anxiety and mood issues, it also brings strengths: heightened awareness of problems, deep emotional experiences, and creativity. Many artists, writers, and empathetic professionals score high. Low neuroticism (emotional stability) is beneficial for stress management but can mean missing emotional nuances. Neither extreme is 'better' - it's about understanding your tendencies."
+  },
+  {
+    question: "How do I use these results in my daily life?",
+    answer: "Use your results to understand your natural tendencies and make informed choices. For example, if you're low in Extraversion, schedule alone time after social events to recharge. If you're low in Conscientiousness, build external systems (apps, reminders, accountability partners) to stay organized. Understanding your traits helps you choose careers that fit, communicate better in relationships, and develop areas where you want to grow."
+  },
+  {
+    question: "Do my scores compare to others or absolute standards?",
+    answer: "Your percentile rankings show how you compare to the general population. A score of 70 means you scored higher than approximately 70% of people on that trait. However, there's no 'ideal' personality profile - different traits are advantageous in different contexts. High Conscientiousness helps in structured careers, while low Conscientiousness (spontaneity) helps in creative, fast-changing environments. Focus on self-understanding rather than comparison."
+  }
+];
+
+// Celebrity Comparisons for Result Page
+export const bigFiveCelebrities = [
+  {
+    name: "Steve Jobs",
+    score: 72,
+    description: "High Openness (innovative thinking), Low Agreeableness (demanding, competitive), High Conscientiousness (perfectionist).",
+    avatar: "🍎"
+  },
+  {
+    name: "Barack Obama",
+    score: 68,
+    description: "High Extraversion (charismatic speaker), High Agreeableness (diplomatic), Low Neuroticism (calm under pressure).",
+    avatar: "🎖️"
+  },
+  {
+    name: "Elon Musk",
+    score: 75,
+    description: "Very High Openness (visionary), Low Agreeableness (confrontational), High Conscientiousness (workaholic).",
+    avatar: "🚀"
+  },
+  {
+    name: "Oprah Winfrey",
+    score: 71,
+    description: "High Extraversion (warm, engaging), High Agreeableness (empathetic), High Openness (curious, growth-minded).",
+    avatar: "👑"
+  },
+  {
+    name: "Bill Gates",
+    score: 66,
+    description: "High Conscientiousness (systematic), High Openness (innovative), Low Extraversion (introverted, analytical).",
+    avatar: "💻"
+  },
+  {
+    name: "Ruth Bader Ginsburg",
+    score: 69,
+    description: "High Conscientiousness (meticulous), Low Neuroticism (resilient), High Openness (progressive thinking).",
+    avatar: "⚖️"
+  },
+  {
+    name: "Albert Einstein",
+    score: 73,
+    description: "Very High Openness (creative genius), Low Extraversion (solitary thinker), Low Conscientiousness (disorganized).",
+    avatar: "🧪"
+  },
+  {
+    name: "Michelle Obama",
+    score: 70,
+    description: "High Conscientiousness (disciplined), High Agreeableness (supportive), High Extraversion (inspirational speaker).",
+    avatar: "💪"
+  }
+];

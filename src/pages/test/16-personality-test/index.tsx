@@ -17,8 +17,14 @@ import {
   typeBgColors,
   typeGroups,
   getTypeGroup,
+  personalityTypeFAQs,
+  personalityTypeCelebrities,
 } from "@/data/personalityTypeQuestions";
-import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Layers } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, RotateCcw, Share2, Layers, BookOpen, Lightbulb } from "lucide-react";
+import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
+import CelebrityComparison from "@/components/CelebrityComparison";
+import RecommendedTests from "@/components/RecommendedTests";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -206,22 +212,25 @@ ${typeInfo.description}`;
         <Header />
         <main className="container mx-auto px-4 py-12">
           <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Layers className="w-6 h-6 text-primary" />
-              <h2 className="font-display text-2xl font-semibold text-foreground">
-                Your Personality Type Result
-              </h2>
+            {/* Result Hero Section */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                <Layers className="w-10 h-10 text-primary" />
+              </div>
             </div>
+            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+              Your Personality Type Result
+            </h2>
 
             {/* Main Type Display */}
             <div className={cn("p-8 rounded-xl bg-gradient-to-br mb-6", typeBgColors[result.typeCode])}>
-              <div className="text-6xl font-bold mb-3">
+              <div className="text-6xl md:text-7xl font-extrabold mb-3">
                 <span className={typeTextColors[result.typeCode]}>{result.typeCode}</span>
               </div>
-              <h3 className={cn("text-xl font-semibold mb-2", typeTextColors[result.typeCode])}>
+              <h3 className={cn("text-2xl font-bold mb-2", typeTextColors[result.typeCode])}>
                 {typeInfo.name}
               </h3>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-base text-muted-foreground mb-4 font-medium">
                 {typeInfo.nickname}
               </p>
               <div className={cn("inline-block px-3 py-1 rounded-full text-xs font-medium", `bg-${groupInfo.color}-500/20`, `text-${groupInfo.color}-600`)}>
@@ -230,55 +239,114 @@ ${typeInfo.description}`;
             </div>
 
             {/* Description */}
-            <div className="p-4 rounded-lg bg-muted/50 mb-6 text-left">
-              <p className="text-foreground">{typeInfo.description}</p>
+            <div className="p-6 rounded-lg bg-muted/50 mb-8 text-left">
+              <p className="text-xl leading-relaxed text-foreground font-medium">{typeInfo.description}</p>
+            </div>
+
+            {/* Type Distribution Chart - adapted for personality types */}
+            <div className="mb-12">
+              <div className="p-6 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
+                <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                  <Layers className="w-6 h-6 text-primary" />
+                  <span className="text-foreground">Your Type in Context</span>
+                </h3>
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base font-semibold text-foreground">Your Type: {result.typeCode}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
+                          You
+                        </span>
+                      </div>
+                    </div>
+                    <div className={cn("p-4 rounded-lg", typeBgColors[result.typeCode])}>
+                      <p className="text-sm text-foreground leading-relaxed">
+                        <span className="font-semibold">{groupInfo.name}</span> - {typeInfo.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Your personality type represents approximately{" "}
+                      <span className="font-semibold text-foreground">
+                        {result.typeCode === "INFJ" ? "1-3%" : result.typeCode === "INTJ" || result.typeCode === "ENTJ" || result.typeCode === "ENFJ" ? "2-5%" : result.typeCode === "INTP" || result.typeCode === "ENTP" || result.typeCode === "INFP" || result.typeCode === "ENFP" ? "3-5%" : result.typeCode === "ISTP" || result.typeCode === "ESTP" || result.typeCode === "ESFP" ? "4-6%" : result.typeCode === "ISFP" ? "5-9%" : result.typeCode === "ESTJ" ? "8-12%" : result.typeCode === "ESFJ" || result.typeCode === "ISFJ" ? "9-13%" : "11-14%"}
+                      </span>{" "}
+                      of the general population, making it {result.typeCode === "INFJ" ? "the rarest" : result.typeCode === "ISTJ" || result.typeCode === "ISFJ" || result.typeCode === "ESFJ" ? "one of the most common" : result.typeCode === "INTJ" || result.typeCode === "ENTJ" || result.typeCode === "ENFJ" || result.typeCode === "INTP" || result.typeCode === "ENTP" ? "relatively rare" : "moderately common"} personality type.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Detailed Description */}
             {typeInfo.detailedDescription && (
-              <div className="p-5 rounded-lg bg-muted/50 mb-6 text-left">
-                <h4 className="font-semibold text-foreground mb-3 text-lg">{result.typeCode} Type In-Depth Analysis</h4>
-                <p className="text-foreground leading-relaxed">{typeInfo.detailedDescription}</p>
+              <div className="p-6 rounded-lg bg-muted/50 mb-8 text-left">
+                <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                  <BookOpen className="w-6 h-6 text-primary" />
+                  <span className="text-foreground">{result.typeCode} Type In-Depth Analysis</span>
+                </h3>
+                <p className="text-base text-foreground leading-relaxed font-normal">{typeInfo.detailedDescription}</p>
               </div>
             )}
 
             {/* Scientific Background */}
             {typeInfo.scientificBackground && (
-              <div className="p-5 rounded-lg bg-blue-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-blue-600 mb-3 text-lg">Scientific Background</h4>
-                <p className="text-foreground leading-relaxed">{typeInfo.scientificBackground}</p>
+              <div className="p-6 rounded-lg bg-purple-500/10 border border-purple-500/20 mb-8 text-left">
+                <h3 className="text-2xl font-bold mb-5 flex items-center gap-3">
+                  <Lightbulb className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  <span className="text-foreground">Scientific Background</span>
+                </h3>
+                <p className="text-base text-foreground leading-relaxed font-normal">{typeInfo.scientificBackground}</p>
               </div>
             )}
 
+            {/* Celebrity Comparison */}
+            <div className="mb-8">
+              <CelebrityComparison
+                userScore={0}
+                celebrities={personalityTypeCelebrities.filter(c => c.type === result.typeCode).concat(
+                  personalityTypeCelebrities.filter(c => c.type !== result.typeCode).slice(0, 3)
+                ).map(c => ({
+                  name: c.name,
+                  score: c.type === result.typeCode ? 100 : 85,
+                  description: c.description,
+                  avatar: c.avatar
+                }))}
+                maxScore={100}
+                title={`Famous ${result.typeCode} Personalities`}
+              />
+            </div>
+
             {/* Cognitive Functions */}
             {typeInfo.cognitiveFunctions && (
-              <div className="p-5 rounded-lg bg-purple-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-purple-600 mb-3 text-lg">Cognitive Function Stack</h4>
+              <div className="p-6 rounded-lg bg-indigo-500/10 border border-indigo-500/20 mb-8 text-left">
+                <h3 className="text-2xl font-bold mb-5 text-indigo-700 dark:text-indigo-400">Cognitive Function Stack</h3>
                 <div className="grid md:grid-cols-2 gap-3 mb-4">
-                  <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">Dominant Function</span>
-                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.dominant}</p>
+                  <div className="p-4 rounded-lg bg-background/50 border border-border">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Dominant Function</span>
+                    <p className="font-semibold text-base text-foreground mt-1">{typeInfo.cognitiveFunctions.dominant}</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">Auxiliary Function</span>
-                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.auxiliary}</p>
+                  <div className="p-4 rounded-lg bg-background/50 border border-border">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Auxiliary Function</span>
+                    <p className="font-semibold text-base text-foreground mt-1">{typeInfo.cognitiveFunctions.auxiliary}</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">Tertiary Function</span>
-                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.tertiary}</p>
+                  <div className="p-4 rounded-lg bg-background/50 border border-border">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Tertiary Function</span>
+                    <p className="font-semibold text-base text-foreground mt-1">{typeInfo.cognitiveFunctions.tertiary}</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-background/50">
-                    <span className="text-xs text-muted-foreground">Inferior Function</span>
-                    <p className="font-medium text-foreground">{typeInfo.cognitiveFunctions.inferior}</p>
+                  <div className="p-4 rounded-lg bg-background/50 border border-border">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Inferior Function</span>
+                    <p className="font-semibold text-base text-foreground mt-1">{typeInfo.cognitiveFunctions.inferior}</p>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{typeInfo.cognitiveFunctions.description}</p>
+                <p className="text-sm text-foreground leading-relaxed">{typeInfo.cognitiveFunctions.description}</p>
               </div>
             )}
 
             {/* Dimension Bars */}
             <div className="space-y-4 mb-8">
-              <h3 className="text-sm font-medium text-foreground text-left mb-4">
+              <h3 className="text-xl font-bold text-foreground text-left mb-5">
                 Dimension Preference Ratios
               </h3>
 
@@ -400,38 +468,38 @@ ${typeInfo.description}`;
             </div>
 
             {/* Characteristics */}
-            <div className="p-4 rounded-lg bg-muted/50 mb-6 text-left">
-              <h4 className="text-sm font-semibold mb-3 text-foreground">Key Characteristics</h4>
-              <ul className="space-y-1.5">
+            <div className="p-6 rounded-lg bg-muted/50 mb-8 text-left">
+              <h3 className="text-xl font-bold mb-4 text-foreground">Key Characteristics</h3>
+              <ul className="space-y-2.5">
                 {typeInfo.characteristics.map((char, idx) => (
                   <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                    <span className={typeTextColors[result.typeCode]}>-</span>
-                    {char}
+                    <span className={cn("font-bold", typeTextColors[result.typeCode])}>•</span>
+                    <span className="leading-relaxed">{char}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Strengths & Weaknesses */}
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                <h4 className="font-semibold text-green-600 mb-3">Strengths</h4>
-                <ul className="space-y-1.5">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="p-6 rounded-lg bg-green-500/10 border border-green-500/20 text-left">
+                <h3 className="text-xl font-bold mb-5 text-green-700 dark:text-green-400">Strengths</h3>
+                <ul className="space-y-3">
                   {typeInfo.strengths.map((strength, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                      {strength}
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 mt-0.5 text-green-600 dark:text-green-400 flex-shrink-0" />
+                      <span className="leading-relaxed">{strength}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="p-4 rounded-lg bg-amber-500/10 text-left">
-                <h4 className="font-semibold text-amber-600 mb-3">Weaknesses</h4>
-                <ul className="space-y-1.5">
+              <div className="p-6 rounded-lg bg-orange-500/10 border border-orange-500/20 text-left">
+                <h3 className="text-xl font-bold mb-5 text-orange-700 dark:text-orange-400">Areas to Develop</h3>
+                <ul className="space-y-3">
                   {typeInfo.weaknesses.map((weakness, idx) => (
-                    <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-amber-500">-</span>
-                      {weakness}
+                    <li key={idx} className="text-sm text-foreground flex items-start gap-3">
+                      <span className="text-orange-600 dark:text-orange-400 font-bold">•</span>
+                      <span className="leading-relaxed">{weakness}</span>
                     </li>
                   ))}
                 </ul>
@@ -439,14 +507,14 @@ ${typeInfo.description}`;
             </div>
 
             {/* Careers */}
-            <div className={cn("p-4 rounded-lg bg-gradient-to-br mb-6 text-left", typeBgColors[result.typeCode])}>
-              <h4 className={cn("font-semibold mb-3", typeTextColors[result.typeCode])}>Suitable Careers</h4>
+            <div className={cn("p-6 rounded-lg bg-gradient-to-br border mb-8 text-left", typeBgColors[result.typeCode], "border-primary/20")}>
+              <h3 className={cn("text-xl font-bold mb-4", typeTextColors[result.typeCode])}>Suitable Careers</h3>
               <div className="flex flex-wrap gap-2 mb-4">
                 {typeInfo.careers.map((career, idx) => (
                   <span
                     key={idx}
                     className={cn(
-                      "px-3 py-1 rounded-full text-sm",
+                      "px-3 py-1.5 rounded-full text-sm font-medium",
                       typeColors[result.typeCode],
                       "text-white"
                     )}
@@ -462,16 +530,16 @@ ${typeInfo.description}`;
 
             {/* Relationship & Communication Style */}
             {(typeInfo.relationshipStyle || typeInfo.communicationStyle) && (
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
                 {typeInfo.relationshipStyle && (
-                  <div className="p-4 rounded-lg bg-rose-500/10 text-left">
-                    <h4 className="font-semibold text-rose-600 mb-3">Relationship Style</h4>
+                  <div className="p-6 rounded-lg bg-rose-500/10 border border-rose-500/20 text-left">
+                    <h3 className="text-xl font-bold text-rose-700 dark:text-rose-400 mb-4">Relationship Style</h3>
                     <p className="text-sm text-foreground leading-relaxed">{typeInfo.relationshipStyle}</p>
                   </div>
                 )}
                 {typeInfo.communicationStyle && (
-                  <div className="p-4 rounded-lg bg-cyan-500/10 text-left">
-                    <h4 className="font-semibold text-cyan-600 mb-3">Communication Style</h4>
+                  <div className="p-6 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-left">
+                    <h3 className="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-4">Communication Style</h3>
                     <p className="text-sm text-foreground leading-relaxed">{typeInfo.communicationStyle}</p>
                   </div>
                 )}
@@ -480,13 +548,13 @@ ${typeInfo.description}`;
 
             {/* Growth Strategies */}
             {typeInfo.growthStrategies && typeInfo.growthStrategies.length > 0 && (
-              <div className="p-5 rounded-lg bg-emerald-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-emerald-600 mb-3">Growth Advice</h4>
-                <ul className="space-y-2">
+              <div className="p-6 rounded-lg bg-emerald-500/10 border border-emerald-500/20 mb-8 text-left">
+                <h3 className="text-xl font-bold text-emerald-700 dark:text-emerald-400 mb-4">Growth Advice</h3>
+                <ul className="space-y-3">
                   {typeInfo.growthStrategies.map((strategy, idx) => (
                     <li key={idx} className="text-sm text-foreground flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">{idx + 1}.</span>
-                      {strategy}
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold flex-shrink-0">{idx + 1}.</span>
+                      <span className="leading-relaxed">{strategy}</span>
                     </li>
                   ))}
                 </ul>
@@ -495,21 +563,56 @@ ${typeInfo.description}`;
 
             {/* Stress Response */}
             {typeInfo.stressResponse && (
-              <div className="p-5 rounded-lg bg-orange-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-orange-600 mb-3">Stress Response</h4>
+              <div className="p-6 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-8 text-left">
+                <h3 className="text-xl font-bold text-amber-700 dark:text-amber-400 mb-4">Stress Response</h3>
                 <p className="text-sm text-foreground leading-relaxed">{typeInfo.stressResponse}</p>
               </div>
             )}
 
+            {/* Recommended Tests */}
+            <div className="mb-8">
+              <RecommendedTests
+                tests={[
+                  {
+                    title: "Big Five Personality Test",
+                    description: "Explore your personality across five major dimensions: Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.",
+                    url: "/test/big-five-test",
+                    icon: "🎭",
+                    reason: "Provides a complementary scientific perspective on your personality traits"
+                  },
+                  {
+                    title: "Enneagram Test",
+                    description: "Discover your core motivations and fears through the nine Enneagram personality types.",
+                    url: "/test/enneagram-test",
+                    icon: "⭐",
+                    reason: "Offers deeper insight into your core motivations and growth path"
+                  },
+                  {
+                    title: "Career Aptitude Test",
+                    description: "Find careers that match your skills, interests, and personality strengths.",
+                    url: "/test/career-aptitude-test",
+                    icon: "💼",
+                    reason: "Helps you apply your personality type insights to career planning"
+                  }
+                ]}
+                subtitle="Based on your personality type, these tests provide deeper insights"
+              />
+            </div>
+
+            {/* FAQ Section */}
+            <div className="mb-8">
+              <CollapsibleFAQ faqs={personalityTypeFAQs} />
+            </div>
+
             {/* Compatible & Challenging Types */}
             {(typeInfo.compatibleTypes || typeInfo.challengingTypes) && (
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
                 {typeInfo.compatibleTypes && typeInfo.compatibleTypes.length > 0 && (
-                  <div className="p-4 rounded-lg bg-green-500/10 text-left">
-                    <h4 className="font-semibold text-green-600 mb-3">Compatible Types</h4>
+                  <div className="p-6 rounded-lg bg-green-500/10 border border-green-500/20 text-left">
+                    <h3 className="text-xl font-bold text-green-700 dark:text-green-400 mb-4">Compatible Types</h3>
                     <div className="flex flex-wrap gap-2">
                       {typeInfo.compatibleTypes.map((type, idx) => (
-                        <span key={idx} className="px-3 py-1 rounded-full text-sm bg-green-500 text-white font-medium">
+                        <span key={idx} className="px-3 py-1.5 rounded-full text-sm bg-green-500 text-white font-medium">
                           {type}
                         </span>
                       ))}
@@ -517,11 +620,11 @@ ${typeInfo.description}`;
                   </div>
                 )}
                 {typeInfo.challengingTypes && typeInfo.challengingTypes.length > 0 && (
-                  <div className="p-4 rounded-lg bg-red-500/10 text-left">
-                    <h4 className="font-semibold text-red-600 mb-3">Challenging Combinations</h4>
+                  <div className="p-6 rounded-lg bg-red-500/10 border border-red-500/20 text-left">
+                    <h3 className="text-xl font-bold text-red-700 dark:text-red-400 mb-4">Challenging Combinations</h3>
                     <div className="flex flex-wrap gap-2">
                       {typeInfo.challengingTypes.map((type, idx) => (
-                        <span key={idx} className="px-3 py-1 rounded-full text-sm bg-red-500/80 text-white font-medium">
+                        <span key={idx} className="px-3 py-1.5 rounded-full text-sm bg-red-500/80 text-white font-medium">
                           {type}
                         </span>
                       ))}
@@ -531,23 +634,9 @@ ${typeInfo.description}`;
               </div>
             )}
 
-            {/* Famous People */}
-            {typeInfo.famousPeople && typeInfo.famousPeople.length > 0 && (
-              <div className="p-4 rounded-lg bg-indigo-500/10 mb-6 text-left">
-                <h4 className="font-semibold text-indigo-600 mb-3">Famous People of the Same Type</h4>
-                <div className="flex flex-wrap gap-2">
-                  {typeInfo.famousPeople.map((person, idx) => (
-                    <span key={idx} className="px-3 py-1 rounded-full text-sm bg-indigo-500/20 text-indigo-700 border border-indigo-500/30">
-                      {person}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Dimension Details */}
             <div className="space-y-4 mb-8 text-left">
-              <h3 className="text-sm font-medium text-foreground mb-3">
+              <h3 className="text-xl font-bold text-foreground mb-5">
                 Detailed Dimension Descriptions
               </h3>
               {(["EI", "SN", "TF", "JP"] as Dimension[]).map((dim) => {
@@ -556,28 +645,30 @@ ${typeInfo.description}`;
                 const dominant = score.dominant === "A" ? info.poleA : info.poleB;
 
                 return (
-                  <div key={dim} className="p-4 rounded-lg bg-muted/50">
+                  <div key={dim} className="p-5 rounded-lg bg-muted/50 border border-border">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="font-semibold text-primary">{dominant.code}</span>
-                      <span className="text-sm font-medium text-foreground">{dominant.name}</span>
+                      <span className="font-bold text-lg text-primary">{dominant.code}</span>
+                      <span className="text-base font-semibold text-foreground">{dominant.name}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">{dominant.description}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{dominant.description}</p>
                   </div>
                 );
               })}
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={handleReset} variant="outline" className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                Retake
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
+                <RotateCcw className="w-5 h-5" />
+                <span className="font-semibold">Retake Test</span>
               </Button>
               <Button
                 onClick={handleShare}
-                className="gap-2 gradient-primary border-0"
+                size="lg"
+                className="gap-2 min-w-[160px]"
               >
-                <Share2 className="w-4 h-4" />
-                Share
+                <Share2 className="w-5 h-5" />
+                <span className="font-semibold">Share Results</span>
               </Button>
             </div>
           </div>
