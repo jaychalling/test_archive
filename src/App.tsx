@@ -45,31 +45,31 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/test/rice-purity" element={<RicePurityTest />} />
-            <Route path="/test/rice-purity/result" element={<RicePurityResult />} />
+            <Route path="/test/rice-purity/result/" element={<RicePurityResult />} />
             <Route path="/test/political-compass-test" element={<PoliticalCompassTest />} />
-            <Route path="/test/political-compass-test/result" element={<PoliticalCompassResult />} />
+            <Route path="/test/political-compass-test/result/" element={<PoliticalCompassResult />} />
             <Route path="/test/bdsm-test" element={<BdsmTest />} />
-            <Route path="/test/bdsm-test/result" element={<BdsmResult />} />
+            <Route path="/test/bdsm-test/result/" element={<BdsmResult />} />
             <Route path="/test/love-language-test" element={<LoveLanguageTest />} />
-            <Route path="/test/love-language-test/result" element={<LoveLanguageResult />} />
+            <Route path="/test/love-language-test/result/" element={<LoveLanguageResult />} />
             <Route path="/test/attachment-style-test" element={<AttachmentStyleTest />} />
-            <Route path="/test/attachment-style-test/result" element={<AttachmentStyleResult />} />
+            <Route path="/test/attachment-style-test/result/" element={<AttachmentStyleResult />} />
             <Route path="/test/big-five-test" element={<BigFiveTest />} />
-            <Route path="/test/big-five-test/result" element={<BigFiveResult />} />
+            <Route path="/test/big-five-test/result/" element={<BigFiveResult />} />
             <Route path="/test/enneagram-test" element={<EnneagramTest />} />
-            <Route path="/test/enneagram-test/result" element={<EnneagramResult />} />
+            <Route path="/test/enneagram-test/result/" element={<EnneagramResult />} />
             <Route path="/test/16-personality-test" element={<SixteenPersonalityTest />} />
-            <Route path="/test/16-personality-test/result" element={<SixteenPersonalityResult />} />
+            <Route path="/test/16-personality-test/result/" element={<SixteenPersonalityResult />} />
             <Route path="/test/moral-alignment-test" element={<MoralAlignmentTest />} />
-            <Route path="/test/moral-alignment-test/result" element={<MoralAlignmentResult />} />
+            <Route path="/test/moral-alignment-test/result/" element={<MoralAlignmentResult />} />
             <Route path="/test/introvert-extrovert-test" element={<IntrovertExtrovertTest />} />
-            <Route path="/test/introvert-extrovert-test/result" element={<IntrovertExtrovertResult />} />
+            <Route path="/test/introvert-extrovert-test/result/" element={<IntrovertExtrovertResult />} />
             <Route path="/test/emotional-intelligence-test" element={<EmotionalIntelligenceTest />} />
-            <Route path="/test/emotional-intelligence-test/result" element={<EmotionalIntelligenceResult />} />
+            <Route path="/test/emotional-intelligence-test/result/" element={<EmotionalIntelligenceResult />} />
             <Route path="/test/career-aptitude-test" element={<CareerAptitudeTest />} />
-            <Route path="/test/career-aptitude-test/result" element={<CareerAptitudeResult />} />
+            <Route path="/test/career-aptitude-test/result/" element={<CareerAptitudeResult />} />
             <Route path="/test/communication-style-test" element={<CommunicationStyleTest />} />
-            <Route path="/test/communication-style-test/result" element={<CommunicationStyleResult />} />
+            <Route path="/test/communication-style-test/result/" element={<CommunicationStyleResult />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
