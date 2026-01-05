@@ -126,12 +126,12 @@ const LoveLanguageTest = () => {
     const primaryLanguage = loveLanguageDescriptions[ranked[0].language];
     const secondaryLanguage = loveLanguageDescriptions[ranked[1].language];
 
-    const shareText = `My Love Language Test Result\n\n1st: ${primaryLanguage.name} (${ranked[0].score} points)\n2nd: ${secondaryLanguage.name} (${ranked[1].score} points)\n\nWords of Affirmation: ${result.wordsOfAffirmation}\nActs of Service: ${result.actsOfService}\nReceiving Gifts: ${result.receivingGifts}\nQuality Time: ${result.qualityTime}\nPhysical Touch: ${result.physicalTouch}`;
+    const shareText = `My Affection Style Test Result\n\n1st: ${primaryLanguage.name} (${ranked[0].score} points)\n2nd: ${secondaryLanguage.name} (${ranked[1].score} points)\n\nWords of Affirmation: ${result.wordsOfAffirmation}\nActs of Service: ${result.actsOfService}\nReceiving Gifts: ${result.receivingGifts}\nQuality Time: ${result.qualityTime}\nPhysical Touch: ${result.physicalTouch}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Love Language Test Result",
+          title: "Affection Style Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -169,7 +169,7 @@ const LoveLanguageTest = () => {
             <div className="flex items-center justify-center gap-2 mb-4">
               <Heart className="w-6 h-6 text-pink-500" />
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                Your Love Language
+                Your Affection Style
               </h2>
             </div>
 
@@ -339,7 +339,7 @@ const LoveLanguageTest = () => {
               <Heart className="w-8 h-8 text-pink-500" />
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Love Language Test
+              Affection Style Test
             </h1>
             <p className="text-muted-foreground">
               Choose the option you prefer for each question.<br />

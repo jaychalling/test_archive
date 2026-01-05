@@ -117,12 +117,12 @@ const PoliticalCompassTest = () => {
   const handleShare = async () => {
     const result = calculateResult();
     const quadrant = getQuadrantLabel(result.economic, result.social);
-    const shareText = `My Political Compass: ${quadrant}\nEconomic: ${result.economic > 0 ? "Right" : "Left"} (${result.economic.toFixed(1)})\nSocial: ${result.social > 0 ? "Authoritarian" : "Libertarian"} (${result.social.toFixed(1)})`;
+    const shareText = `My Political Spectrum: ${quadrant}\nEconomic: ${result.economic > 0 ? "Right" : "Left"} (${result.economic.toFixed(1)})\nSocial: ${result.social > 0 ? "Authoritarian" : "Libertarian"} (${result.social.toFixed(1)})`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Political Compass Test Result",
+          title: "Political Spectrum Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -317,7 +317,7 @@ const PoliticalCompassTest = () => {
 
             {/* Test Background */}
             <div className="text-left p-6 rounded-xl bg-muted/30 mb-8">
-              <h3 className="font-semibold text-foreground mb-4 text-lg">About the Political Compass</h3>
+              <h3 className="font-semibold text-foreground mb-4 text-lg">About the Political Spectrum</h3>
               <div className="space-y-4">
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {testBackground.history}
@@ -365,7 +365,7 @@ const PoliticalCompassTest = () => {
         </Link>
         <div className="flex items-center gap-2">
           <Compass className="w-5 h-5 text-primary" />
-          <span className="text-sm font-medium text-foreground">Political Compass</span>
+          <span className="text-sm font-medium text-foreground">Political Spectrum</span>
         </div>
         <span className="text-sm text-muted-foreground">
           {currentQuestion + 1}/{totalQuestions}

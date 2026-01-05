@@ -179,7 +179,7 @@ const MoralAlignmentTest = () => {
     const result = calculateResult();
     const alignmentType = getAlignmentType(result.goodEvil, result.lawfulChaotic);
     const alignment = alignmentData[alignmentType];
-    const shareText = `My D&D Alignment: ${alignment.name} (${alignment.nickname})\nGood/Evil: ${result.goodEvil.toFixed(1)}\nLawful/Chaotic: ${result.lawfulChaotic.toFixed(1)}\n\nMoral Alignment Test`;
+    const shareText = `My Moral Alignment: ${alignment.name} (${alignment.nickname})\nGood/Evil: ${result.goodEvil.toFixed(1)}\nLawful/Chaotic: ${result.lawfulChaotic.toFixed(1)}\n\nMoral Alignment Test`;
 
     if (navigator.share) {
       try {

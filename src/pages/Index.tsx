@@ -42,8 +42,8 @@ const Index = () => {
               iconBgColor="bg-pink-500"
             />
             <TestCard
-              title="Political Compass Test"
-              description="Map your political views on a 2D compass with economic left/right and social authoritarian/libertarian axes."
+              title="Political Spectrum Test"
+              description="Map your political views on a 2D spectrum with economic left/right and social authoritarian/libertarian axes."
               questionCount={22}
               duration="2-5 min"
               path="/test/political-compass-test"
@@ -60,8 +60,8 @@ const Index = () => {
               iconBgColor="bg-rose-700"
             />
             <TestCard
-              title="Love Language Test"
-              description="Discover your primary love language among the 5 types. Understand how you give and receive love."
+              title="Affection Style Test"
+              description="Discover how you prefer to express and receive love through 5 different styles."
               questionCount={30}
               duration="2-5 min"
               path="/test/love-language-test"
@@ -105,8 +105,8 @@ const Index = () => {
               iconBgColor="bg-emerald-500"
             />
             <TestCard
-              title="D&D Alignment Test"
-              description="Find your moral alignment among 9 types (Lawful Good to Chaotic Evil) based on good/evil and lawful/chaotic axes."
+              title="Moral Alignment Test"
+              description="Find your moral alignment among 9 types based on order vs chaos and good vs evil axes."
               questionCount={24}
               duration="2-5 min"
               path="/test/moral-alignment-test"
