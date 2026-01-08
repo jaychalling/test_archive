@@ -176,7 +176,7 @@ const RicePurityTest = () => {
               }`}
             >
               <div className="py-8 px-4 text-center">
-                <p className="text-xl md:text-2xl font-medium text-foreground mb-8">
+                <p className="text-2xl md:text-3xl font-medium text-foreground leading-loose mb-8">
                   {ricePurityQuestions[currentQuestion]}
                 </p>
 

@@ -214,7 +214,7 @@ const PoliticalCompassTest = () => {
               const question = politicalCompassQuestions[currentQuestion];
               return (
                 <div className="text-center">
-                  <p className="text-xl sm:text-2xl text-foreground leading-relaxed mb-12 font-medium">
+                  <p className="text-2xl sm:text-3xl text-foreground leading-loose mb-12 font-medium">
                     {question.text}
                   </p>
 
@@ -224,17 +224,17 @@ const PoliticalCompassTest = () => {
                       <span>Strongly Disagree</span>
                       <span>Strongly Agree</span>
                     </div>
-                    <div className="flex justify-between gap-2">
+                    <div className="flex justify-center gap-3">
                       {answerOptions.map((option, index) => (
                         <button
                           key={option.value}
                           onClick={() => handleAnswer(question.id, option.value)}
                           disabled={isTransitioning}
                           className={cn(
-                            "flex-1 aspect-square max-w-16 rounded-full border-2 transition-all duration-200 font-semibold text-xl",
+                            "flex-1 aspect-square max-w-16 rounded-full border-2 transition-all duration-200 font-medium text-lg",
                             answers[question.id] === option.value
-                              ? "border-primary bg-primary text-primary-foreground shadow-lg scale-110"
-                              : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                              ? "border-primary bg-primary text-primary-foreground scale-110"
+                              : "border-border bg-background hover:border-primary/50 text-muted-foreground hover:text-foreground"
                           )}
                         >
                           {index + 1}

@@ -177,7 +177,7 @@ const LoveLanguageTest = () => {
               <button
                 onClick={() => handleAnswer(currentQuestionData.id, "A")}
                 className={cn(
-                  "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
+                  "w-full p-5 text-left text-base rounded-lg border-2 transition-all duration-200 leading-relaxed",
                   answers[currentQuestionData.id] === "A"
                     ? "border-pink-500 bg-pink-500/10 text-foreground"
                     : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"
@@ -189,7 +189,7 @@ const LoveLanguageTest = () => {
               <button
                 onClick={() => handleAnswer(currentQuestionData.id, "B")}
                 className={cn(
-                  "w-full p-4 text-left text-sm rounded-lg border-2 transition-all duration-200",
+                  "w-full p-5 text-left text-base rounded-lg border-2 transition-all duration-200 leading-relaxed",
                   answers[currentQuestionData.id] === "B"
                     ? "border-pink-500 bg-pink-500/10 text-foreground"
                     : "border-border hover:border-pink-500/50 text-muted-foreground hover:text-foreground"

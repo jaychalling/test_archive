@@ -174,7 +174,7 @@ const AnxietyCalmTest = () => {
             <span className="inline-block text-sm font-medium text-indigo-600 dark:text-indigo-400 mb-4">
               Q{currentQuestion + 1}
             </span>
-            <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+            <p className="text-2xl md:text-3xl font-medium text-foreground leading-loose">
               {currentQuestionData.text}
             </p>
           </div>
@@ -183,26 +183,27 @@ const AnxietyCalmTest = () => {
 
       {/* 5-point Frequency Scale */}
       <div className="px-6 pb-6">
-        <div className="flex justify-between text-xs text-muted-foreground mb-3">
-          <span>{answerOptions[0].label}</span>
-          <span>{answerOptions[4].label}</span>
-        </div>
-        <div className="grid grid-cols-5 gap-2">
-          {answerOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => handleAnswer(currentQuestionData.id, option.value)}
-              className={cn(
-                "flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-all duration-200",
-                answers[currentQuestionData.id] === option.value
-                  ? "border-indigo-500 bg-gradient-to-br from-indigo-500 to-purple-500 text-white scale-105"
-                  : "border-border hover:border-indigo-500/50 text-muted-foreground hover:text-foreground hover:scale-105"
-              )}
-            >
-              <span className="text-lg font-bold mb-1">{option.value}</span>
-              <span className="text-[10px] text-center leading-tight">{option.label}</span>
-            </button>
-          ))}
+        <div className="max-w-md mx-auto w-full">
+          <div className="flex justify-between mb-3 px-2">
+            <span className="text-xs text-muted-foreground">Strongly Disagree</span>
+            <span className="text-xs text-muted-foreground">Strongly Agree</span>
+          </div>
+          <div className="flex justify-center gap-3">
+            {answerOptions.map((option) => (
+              <button
+                key={option.value}
+                onClick={() => handleAnswer(currentQuestionData.id, option.value)}
+                className={cn(
+                  "flex-1 aspect-square max-w-16 rounded-full border-2 flex items-center justify-center text-lg font-medium transition-all duration-200",
+                  answers[currentQuestionData.id] === option.value
+                    ? "border-indigo-500 bg-indigo-500 text-white scale-110"
+                    : "border-border bg-background hover:border-indigo-500/50 text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {option.value}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -166,7 +166,7 @@ const EnneagramTest = () => {
           </div>
 
           {/* Question Text */}
-          <h2 className="text-xl md:text-2xl font-medium text-foreground text-center leading-relaxed mb-12">
+          <h2 className="text-2xl md:text-3xl font-medium text-foreground text-center leading-loose mb-12">
             {question.text}
           </h2>
 

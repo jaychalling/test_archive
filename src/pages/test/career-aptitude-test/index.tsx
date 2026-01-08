@@ -140,7 +140,7 @@ const CareerAptitudeTest = () => {
                 <span className="text-sm text-muted-foreground">
                   Question {currentQuestion + 1} / {totalQuestions}
                 </span>
-                <h2 className="text-xl md:text-2xl font-bold mt-2">{currentQuestionData.text}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mt-2 leading-relaxed">{currentQuestionData.text}</h2>
                 <p className="text-sm text-muted-foreground mt-2">How interested are you in this activity?</p>
               </div>
 

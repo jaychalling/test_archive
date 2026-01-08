@@ -156,7 +156,7 @@ const IntrovertExtrovertTest = () => {
         >
           {/* Question */}
           <div className="text-center mb-12">
-            <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+            <p className="text-2xl md:text-3xl font-medium text-foreground leading-loose">
               {currentQuestionData.text}
             </p>
           </div>

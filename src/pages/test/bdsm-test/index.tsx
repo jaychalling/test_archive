@@ -155,7 +155,7 @@ const BdsmTest = () => {
           )}
         >
           {/* 질문 텍스트 */}
-          <p className="text-xl md:text-2xl font-medium text-foreground text-center leading-relaxed mb-12">
+          <p className="text-2xl md:text-3xl font-medium text-foreground text-center leading-loose mb-12">
             {question.text}
           </p>
 

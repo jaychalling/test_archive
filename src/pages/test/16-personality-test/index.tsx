@@ -282,7 +282,7 @@ const SixteenPersonalityTest = () => {
                   onClick={() => handleAnswer(currentQ.id, "A")}
                   disabled={isTransitioning}
                   className={cn(
-                    "w-full p-4 text-left text-base rounded-xl border-2 transition-all duration-200",
+                    "w-full p-5 text-left text-lg rounded-xl border-2 transition-all duration-200 leading-relaxed",
                     answers[currentQ.id] === "A"
                       ? "border-primary bg-primary/10 text-foreground shadow-md"
                       : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"
@@ -295,7 +295,7 @@ const SixteenPersonalityTest = () => {
                   onClick={() => handleAnswer(currentQ.id, "B")}
                   disabled={isTransitioning}
                   className={cn(
-                    "w-full p-4 text-left text-base rounded-xl border-2 transition-all duration-200",
+                    "w-full p-5 text-left text-lg rounded-xl border-2 transition-all duration-200 leading-relaxed",
                     answers[currentQ.id] === "B"
                       ? "border-primary bg-primary/10 text-foreground shadow-md"
                       : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:bg-muted/50"

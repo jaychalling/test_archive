@@ -165,7 +165,7 @@ const AttachmentStyleTest = () => {
             <span className="inline-block text-sm font-medium text-primary mb-4">
               Q{currentQuestion + 1}
             </span>
-            <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+            <p className="text-2xl md:text-3xl font-medium text-foreground leading-loose">
               {currentQuestionData.text}
             </p>
           </div>

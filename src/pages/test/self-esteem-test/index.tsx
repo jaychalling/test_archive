@@ -167,7 +167,7 @@ const SelfEsteemTest = () => {
             <span className="inline-block text-sm font-medium text-primary mb-4">
               Q{currentQuestion + 1}
             </span>
-            <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+            <p className="text-2xl md:text-3xl font-medium text-foreground leading-loose">
               {currentQuestionData.text}
             </p>
           </div>
@@ -176,26 +176,27 @@ const SelfEsteemTest = () => {
 
       {/* 4-Point Likert Scale */}
       <div className="px-6 pb-6">
-        <div className="flex justify-between text-xs text-muted-foreground mb-3">
-          <span>Strongly Disagree</span>
-          <span>Strongly Agree</span>
-        </div>
-        <div className="grid grid-cols-4 gap-3">
-          {answerOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => handleAnswer(currentQuestionData.id, option.value)}
-              className={cn(
-                "flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all duration-200",
-                answers[currentQuestionData.id] === option.value
-                  ? "border-primary bg-primary text-primary-foreground scale-105 shadow-lg"
-                  : "border-border hover:border-primary/50 text-muted-foreground hover:text-foreground hover:scale-102"
-              )}
-            >
-              <span className="text-2xl font-bold mb-1">{option.value}</span>
-              <span className="text-xs text-center leading-tight">{option.label}</span>
-            </button>
-          ))}
+        <div className="max-w-sm mx-auto w-full">
+          <div className="flex justify-between mb-3 px-2">
+            <span className="text-xs text-muted-foreground">Strongly Disagree</span>
+            <span className="text-xs text-muted-foreground">Strongly Agree</span>
+          </div>
+          <div className="flex justify-center gap-4">
+            {answerOptions.map((option) => (
+              <button
+                key={option.value}
+                onClick={() => handleAnswer(currentQuestionData.id, option.value)}
+                className={cn(
+                  "flex-1 aspect-square max-w-16 rounded-full border-2 flex items-center justify-center text-lg font-medium transition-all duration-200",
+                  answers[currentQuestionData.id] === option.value
+                    ? "border-emerald-500 bg-emerald-500 text-white scale-110"
+                    : "border-border bg-background hover:border-emerald-500/50 text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {option.value}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
