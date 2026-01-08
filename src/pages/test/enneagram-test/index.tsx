@@ -7,7 +7,8 @@ import {
   answerOptions,
   AnswerValue,
 } from "@/data/enneagramQuestions";
-import { ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Circle } from "lucide-react";
+import Header from "@/components/Header";
 import { cn } from "@/lib/utils";
 
 const EnneagramTest = () => {
@@ -16,6 +17,7 @@ const EnneagramTest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showViewResultButton, setShowViewResultButton] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = enneagramQuestions.length;
@@ -81,6 +83,56 @@ const EnneagramTest = () => {
         path="/test/enneagram-test/"
         jsonLd={breadcrumbSchema}
       />
+
+      {!testStarted ? (
+        <>
+          <Header />
+          <main className="flex-1 flex items-center justify-center px-4 py-8">
+            <div className="max-w-lg mx-auto test-card text-center animate-scale-in">
+              <div className="flex justify-center mb-4">
+                <Circle className="w-16 h-16 text-primary" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">Enneagram Test</h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                Discover your Enneagram type among 9 personality types.
+                <br />
+                Learn about your core motivations, fears, and desires.
+              </p>
+
+              <div className="bg-muted/50 p-6 rounded-lg mb-8 text-left">
+                <h2 className="font-semibold text-lg mb-3">Test Instructions</h2>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>You will answer {totalQuestions} questions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>Rate each statement from strongly disagree to strongly agree</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>Takes approximately 5-7 minutes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>Results reveal your dominant type and wing patterns</span>
+                  </li>
+                </ul>
+              </div>
+
+              <Button
+                size="lg"
+                onClick={() => setTestStarted(true)}
+                className="text-lg px-8"
+              >
+                Start Test
+              </Button>
+            </div>
+          </main>
+        </>
+      ) : (
+        <>
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <div></div>
@@ -182,6 +234,8 @@ const EnneagramTest = () => {
           )}
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import {
   introvertExtrovertQuestions,
   AnswerValue,
 } from "@/data/introvertExtrovertQuestions";
-import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ const IntrovertExtrovertTest = () => {
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
 
   const answeredCount = Object.keys(answers).length;
   const totalQuestions = introvertExtrovertQuestions.length;
@@ -78,6 +79,56 @@ const IntrovertExtrovertTest = () => {
         path="/test/introvert-extrovert-test/"
         jsonLd={breadcrumbSchema}
       />
+
+      {!testStarted ? (
+        <>
+          <Header />
+          <main className="flex-1 flex items-center justify-center px-4 py-8">
+            <div className="max-w-lg mx-auto test-card text-center animate-scale-in">
+              <div className="flex justify-center mb-4">
+                <Users className="w-16 h-16 text-primary" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">Introvert/Extrovert Test</h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                Discover where you fall on the introvert-extrovert spectrum.
+                <br />
+                Are you an introvert, extrovert, or ambivert?
+              </p>
+
+              <div className="bg-muted/50 p-6 rounded-lg mb-8 text-left">
+                <h2 className="font-semibold text-lg mb-3">Test Instructions</h2>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>You will answer {totalQuestions} questions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>Rate each statement from strongly disagree to strongly agree</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>Takes approximately 3-5 minutes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                    <span>Results show your position on the introversion-extraversion scale</span>
+                  </li>
+                </ul>
+              </div>
+
+              <Button
+                size="lg"
+                onClick={() => setTestStarted(true)}
+                className="text-lg px-8"
+              >
+                Start Test
+              </Button>
+            </div>
+          </main>
+        </>
+      ) : (
+        <>
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
         <div></div>
@@ -181,6 +232,8 @@ const IntrovertExtrovertTest = () => {
           </p>
         )}
       </div>
+        </>
+      )}
     </div>
   );
 };

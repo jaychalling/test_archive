@@ -20,6 +20,7 @@ const RicePurityTest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
 
   const totalQuestions = ricePurityQuestions.length;
 
@@ -101,6 +102,49 @@ const RicePurityTest = () => {
       <Header />
 
       <main className="container mx-auto px-4 py-8">
+        {!testStarted ? (
+          <div className="max-w-2xl mx-auto test-card text-center animate-scale-in">
+            <div className="flex justify-center mb-4">
+              <CheckCircle2 className="w-16 h-16 text-primary" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Rice Purity Test</h1>
+            <p className="text-lg text-muted-foreground mb-8">
+              The classic innocence test with 100 questions.
+              <br />
+              Check off the experiences you've had and discover your purity score.
+            </p>
+
+            <div className="bg-muted/50 p-6 rounded-lg mb-8 text-left">
+              <h2 className="font-semibold text-lg mb-3">Test Instructions</h2>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                  <span>You will answer {totalQuestions} questions</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                  <span>Answer "Yes" if you've done it, "No" if you haven't</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                  <span>Takes approximately 5-7 minutes</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-1 flex-shrink-0 text-primary" />
+                  <span>Your score = 100 minus the number of "Yes" answers</span>
+                </li>
+              </ul>
+            </div>
+
+            <Button
+              size="lg"
+              onClick={() => setTestStarted(true)}
+              className="text-lg px-8"
+            >
+              Start Test
+            </Button>
+          </div>
+        ) : (
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8 animate-fade-in">
@@ -207,6 +251,7 @@ const RicePurityTest = () => {
             </p>
           </div>
         </div>
+        )}
       </main>
     </div>
   );

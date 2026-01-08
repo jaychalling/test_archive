@@ -94,7 +94,7 @@ const CareerAptitudeTest = () => {
             <div className="flex justify-center mb-4">
               <Briefcase className="w-20 h-20 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold mb-4">Career Aptitude Test</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Career Aptitude Test</h1>
             <p className="text-lg text-muted-foreground mb-8">
               Identify your career interests and aptitudes based on Holland's RIASEC theory.
               <br />
@@ -140,7 +140,7 @@ const CareerAptitudeTest = () => {
                 <span className="text-sm text-muted-foreground">
                   Question {currentQuestion + 1} / {totalQuestions}
                 </span>
-                <h2 className="text-2xl font-bold mt-2">{currentQuestionData.text}</h2>
+                <h2 className="text-xl md:text-2xl font-bold mt-2">{currentQuestionData.text}</h2>
                 <p className="text-sm text-muted-foreground mt-2">How interested are you in this activity?</p>
               </div>
 

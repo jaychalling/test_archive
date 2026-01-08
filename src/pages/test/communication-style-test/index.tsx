@@ -95,7 +95,7 @@ const CommunicationStyleTest = () => {
             <div className="flex justify-center mb-4">
               <MessageSquare className="w-20 h-20 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold mb-4">Communication Style Test</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Communication Style Test</h1>
             <p className="text-lg text-muted-foreground mb-8">
               A test to identify your communication approach.
               <br />
@@ -141,7 +141,7 @@ const CommunicationStyleTest = () => {
                 <span className="text-sm text-muted-foreground">
                   Question {currentQuestion + 1} / {totalQuestions}
                 </span>
-                <h2 className="text-2xl font-bold mt-2">{currentQuestionData.text}</h2>
+                <h2 className="text-xl md:text-2xl font-bold mt-2">{currentQuestionData.text}</h2>
               </div>
 
               <div className="space-y-3">
