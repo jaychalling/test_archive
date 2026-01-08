@@ -31,6 +31,9 @@ import CareerAptitudeTest from "./pages/test/career-aptitude-test";
 import CareerAptitudeResult from "./pages/test/career-aptitude-test/result";
 import CommunicationStyleTest from "./pages/test/communication-style-test";
 import CommunicationStyleResult from "./pages/test/communication-style-test/result";
+import LoveCompatibilityTest from "./pages/test/love-compatibility-test";
+import SelfEsteemTest from "./pages/test/self-esteem-test";
+import AnxietyCalmTest from "./pages/test/anxiety-calm-test";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -70,6 +73,9 @@ const App = () => (
             <Route path="/test/career-aptitude-test/result/" element={<CareerAptitudeResult />} />
             <Route path="/test/communication-style-test" element={<CommunicationStyleTest />} />
             <Route path="/test/communication-style-test/result/" element={<CommunicationStyleResult />} />
+            <Route path="/test/love-compatibility-test" element={<LoveCompatibilityTest />} />
+            <Route path="/test/self-esteem-test" element={<SelfEsteemTest />} />
+            <Route path="/test/anxiety-calm-test" element={<AnxietyCalmTest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

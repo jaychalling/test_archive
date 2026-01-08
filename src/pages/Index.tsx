@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import TestCard from "@/components/TestCard";
 import { SEOHead, createWebSiteSchema } from "@/components/SEOHead";
-import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2, Lightbulb, Briefcase, MessageSquare } from "lucide-react";
+import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2, Lightbulb, Briefcase, MessageSquare, HeartCrack, Award, Wind } from "lucide-react";
 
 const Index = () => {
   return (
@@ -156,15 +156,33 @@ const Index = () => {
               icon={<MessageSquare className="w-6 h-6" />}
               iconBgColor="bg-violet-500"
             />
-          </div>
-        </section>
-
-        {/* Coming Soon */}
-        <section className="max-w-4xl mx-auto mt-16">
-          <div className="text-center py-12 border-2 border-dashed border-border rounded-2xl">
-            <p className="text-muted-foreground">
-              More tests coming soon ✨
-            </p>
+            <TestCard
+              title="Love Compatibility Test"
+              description="Assess your relationship readiness across 5 key areas: communication, values, emotional connection, lifestyle, and conflict resolution."
+              questionCount={30}
+              duration="5 min"
+              path="/test/love-compatibility-test"
+              icon={<HeartCrack className="w-6 h-6" />}
+              iconBgColor="bg-pink-600"
+            />
+            <TestCard
+              title="Self-Esteem Test"
+              description="Measure your self-confidence and self-perception. Based on the Rosenberg Self-Esteem Scale."
+              questionCount={25}
+              duration="3-5 min"
+              path="/test/self-esteem-test"
+              icon={<Award className="w-6 h-6" />}
+              iconBgColor="bg-teal-600"
+            />
+            <TestCard
+              title="Anxiety vs Calm Test"
+              description="Discover your stress response style. Are you naturally calm or do you tend to worry? For entertainment only."
+              questionCount={30}
+              duration="5 min"
+              path="/test/anxiety-calm-test"
+              icon={<Wind className="w-6 h-6" />}
+              iconBgColor="bg-indigo-600"
+            />
           </div>
         </section>
       </main>

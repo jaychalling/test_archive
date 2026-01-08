@@ -142,7 +142,7 @@ Key conventions:
 ```
 Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
 
-## Implemented Tests (13 Tests - All Tier 0 Complete + 3 New)
+## Implemented Tests (16 Tests - All Tier 0 Complete + 6 High-Traffic Tests)
 
 ### Tier 0 - Launch Essential (10 tests) ✅
 | Test Name | URL Path | Data File |
@@ -158,14 +158,18 @@ Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
 | Moral Alignment Test | `/test/moral-alignment-test` | `moralAlignmentQuestions.ts` |
 | Introvert/Extrovert Test | `/test/introvert-extrovert-test` | `introvertExtrovertQuestions.ts` |
 
-### Additional Tests (High Search Volume)
-| Test Name | URL Path | Data File | Questions |
-|-----------|----------|-----------|-----------|
-| Emotional Intelligence Test | `/test/emotional-intelligence-test` | `emotionalIntelligenceQuestions.ts` | 25 (5 categories) |
-| Career Aptitude Test | `/test/career-aptitude-test` | `careerAptitudeQuestions.ts` | 30 (Holland RIASEC) |
-| Communication Style Test | `/test/communication-style-test` | `communicationStyleQuestions.ts` | 28 (4 styles) |
+### Additional Tests (High Search Volume - Data-Driven Selection)
+| Test Name | URL Path | Data File | Questions | Monthly Searches |
+|-----------|----------|-----------|-----------|------------------|
+| **Love Compatibility Test** | `/test/love-compatibility-test` | `loveCompatibilityQuestions.ts` | 30 (5 categories) | **527,720** ⭐ |
+| **Anxiety vs Calm Test** | `/test/anxiety-calm-test` | `anxietyCalmQuestions.ts` | 30 (tendency scale) | **169,390** ⚠️ |
+| **Self-Esteem Test** | `/test/self-esteem-test` | `selfEsteemQuestions.ts` | 25 (Rosenberg Scale) | **13,910** |
+| Emotional Intelligence Test | `/test/emotional-intelligence-test` | `emotionalIntelligenceQuestions.ts` | 25 (5 categories) | - |
+| Career Aptitude Test | `/test/career-aptitude-test` | `careerAptitudeQuestions.ts` | 30 (Holland RIASEC) | - |
+| Communication Style Test | `/test/communication-style-test` | `communicationStyleQuestions.ts` | 28 (4 styles) | 5,240 |
 
 ⚠️ Rice Purity Test uses legacy URL without `-test` suffix (distributed links exist)
+⚠️ Anxiety vs Calm Test: Uses ONLY softening language, NOT medical diagnosis. Entertainment only.
 
 See `plans/Tier 0 런칭 필수 10개.md` for Tier 1 and Tier 2 test lists.
 
