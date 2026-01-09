@@ -88,7 +88,65 @@ Result pages must follow this exact section order:
 ### Content Guidelines
 - Use softening language: "typically", "often", "tend to" (avoid definitive statements)
 - Prohibited: medical diagnosis, legal advice, political advocacy, named person criticism
-- Include disclaimer: "For entertainment purposes only."
+- Include disclaimer: "For entertainment purposes only." (in page body only, NOT in meta tags)
+
+## SEO Meta Tags (CTR-Optimized)
+
+test-archive's SERP strategy focuses on **identity / emotion / anxiety / curiosity** — NOT speed or utility.
+Meta tags must trigger emotional engagement, not provide factual descriptions.
+
+### Title Formula
+```
+[Provocative identity question] + (hidden truth / twist / result preview)
+```
+
+**Examples:**
+- ✅ "How Innocent Are You Really? Rice Purity Test (100 Questions)"
+- ✅ "What Personality Type Are You Really? 16 Types Test"
+- ✅ "Your Self-Esteem Might Be Lower Than You Think"
+- ❌ "Original Rice Purity Test - 100 Questions" (too descriptive)
+- ❌ "Discover Your Personality Type" (generic)
+
+### Description Formula
+```
+[Surprise/tension first sentence] + [What people find most surprising] + (time/question count)
+```
+
+**Examples:**
+- ✅ "Most people score lower than they expect. Answer 100 questions and see what your purity score actually reveals."
+- ✅ "Many people mistype themselves. Find your true personality across four key dimensions."
+- ❌ "Take the Rice Purity Test with 100 questions. For entertainment purposes only." (boring + disclaimer)
+
+### 4 Mandatory Rules
+
+| Rule | ❌ Forbidden | ✅ Required |
+|------|-------------|-------------|
+| 1. No generic verbs | "Discover", "Measure", "Take", "Find out" | "Are you really...", "What your... reveals", "You might be..." |
+| 2. Must include You/Your | "The Big Five Test measures..." | "What Your Personality Is Really Like" |
+| 3. First description sentence = tension | "This test has 50 questions." | "Most people are surprised by their results." |
+| 4. No disclaimer in meta | "For entertainment purposes only" | Move disclaimer to page body |
+
+### Result Page Meta Tags
+Result pages should also follow CTR principles:
+- Title: "Your [Result Type] — [Reveal/Insight Hook]"
+- Description: "Your results are in. See [specific insight]..."
+
+**Examples:**
+- ✅ Title: "Your Rice Purity Score — See What It Actually Means"
+- ✅ Description: "Your Rice Purity score is in. See how you compare to others and what your number really says about you."
+
+### Adding New Test SEO Config
+When adding a new test, add config to `src/data/testSeoConfig.ts`:
+```typescript
+'new-test': {
+  slug: 'new-test',
+  title: '[Provocative Question]? [Test Name]',  // Must include You/Your
+  resultTitle: 'Your [Result] — [Insight Hook]',
+  description: '[Tension/surprise sentence]. [What test reveals].',  // NO disclaimer
+  resultDescription: 'Your [result type] is in. [Specific insight about their results].',
+  path: '/test/new-test/',
+}
+```
 
 ## URL Structure
 ```
@@ -111,15 +169,25 @@ Result pages must follow this exact section order:
 
 Quick steps:
 1. Create question data in `src/data/{testName}Questions.ts` (camelCase)
-2. Create page component in `src/pages/test/{test-name}-test/index.tsx` (kebab-case)
-3. Add route in `src/App.tsx`
-4. Add TestCard to Index.tsx grid
-5. Add SEO config to `src/data/testSeoConfig.ts`
+2. Create question page in `src/pages/test/{test-name}-test/index.tsx` (kebab-case)
+3. Create result page in `src/pages/test/{test-name}-test/result.tsx`
+4. Add **both routes** in `src/App.tsx`:
+   ```tsx
+   import TestName from "./pages/test/{test-name}-test";
+   import TestNameResult from "./pages/test/{test-name}-test/result";
+
+   // In Routes:
+   <Route path="/test/{test-name}-test" element={<TestName />} />
+   <Route path="/test/{test-name}-test/result/" element={<TestNameResult />} />
+   ```
+5. Add TestCard to Index.tsx grid
+6. Add SEO config to `src/data/testSeoConfig.ts`
 
 Key conventions:
 - Data files use camelCase: `bigFiveQuestions.ts`, `loveLanguageQuestions.ts`
 - Page directories use kebab-case with `-test` suffix: `big-five-test/`, `love-language-test/`
 - URL paths match page directories: `/test/big-five-test`, `/test/love-language-test`
+- **Always create both index.tsx (questions) and result.tsx (results)** - never combine them
 
 ### Test JSON Schema (for future data-driven tests)
 ```json
@@ -141,6 +209,87 @@ Key conventions:
 }
 ```
 Requirements: minimum 4 resultBands, each with 5+ traits and 3+ FAQs.
+
+## Test/Result Page Separation Pattern
+
+Starting from recent refactoring, tests follow a strict separation pattern for better code organization and maintainability.
+
+### Question Page (index.tsx)
+- **Location**: `src/pages/test/{test-name}-test/index.tsx`
+- **Responsibilities**:
+  - Render questions and progress bar
+  - Handle user answers (useState)
+  - Save answers to localStorage on completion
+  - Navigate to result page using React Router
+- **Must NOT contain**: Result rendering, scoring logic, share functions
+
+### Result Page (result.tsx)
+- **Location**: `src/pages/test/{test-name}-test/result.tsx`
+- **Responsibilities**:
+  - Read answers from localStorage
+  - Calculate scores/results
+  - Render all result sections (following Result Page Rules order)
+  - Handle sharing functionality
+  - Display ads (after Related Tests section only)
+- **Must NOT contain**: Question rendering logic
+
+### Implementation Checklist
+When splitting or creating new tests:
+1. ✅ Import `useNavigate` from react-router-dom in index.tsx
+2. ✅ Save answers to localStorage before navigation:
+   ```tsx
+   const handleSubmit = () => {
+     localStorage.setItem('{testName}Answers', JSON.stringify(answers));
+     navigate('/test/{test-slug}/result/');
+   };
+   ```
+3. ✅ Create dedicated result.tsx file
+4. ✅ Add both routes in App.tsx:
+   ```tsx
+   <Route path="/test/{slug}" element={<TestPage />} />
+   <Route path="/test/{slug}/result/" element={<ResultPage />} />
+   ```
+5. ✅ Use consistent localStorage key: `{testName}Answers` (camelCase)
+6. ✅ Remove `showResults` state and result rendering from index.tsx
+7. ✅ Remove `handleReset` and `handleShare` functions from index.tsx
+
+### localStorage Key Convention
+| Test | localStorage Key |
+|------|-----------------|
+| Emotional Intelligence | `eqTestAnswers` |
+| Rice Purity | `ricePurityAnswers` |
+| Big Five | `bigFiveAnswers` |
+| 16 Personality | `personalityTypeAnswers` |
+| Attachment Style | `attachmentStyleAnswers` |
+| Love Language | `loveLanguageAnswers` |
+| Enneagram | `enneagramAnswers` |
+| BDSM | `bdsmAnswers` |
+| Political Compass | `politicalCompassAnswers` |
+| Moral Alignment | `moralAlignmentAnswers` |
+| Introvert/Extrovert | `introvertExtrovertAnswers` |
+| Love Compatibility | `loveCompatibilityAnswers` |
+| Self-Esteem | `selfEsteemAnswers` |
+| Anxiety/Calm | `anxietyCalmAnswers` |
+| Career Aptitude | `careerAptitudeAnswers` |
+| Communication Style | `communicationStyleAnswers` |
+
+**Pattern**: `{testName}Answers` (camelCase), except special cases like `eqTestAnswers`
+
+### Reading from localStorage in Result Page
+```tsx
+// In result.tsx
+const [answers, setAnswers] = useState<Record<number, number>>({});
+
+useEffect(() => {
+  const savedAnswers = localStorage.getItem('{testName}Answers');
+  if (savedAnswers) {
+    setAnswers(JSON.parse(savedAnswers));
+  } else {
+    // Redirect to test page if no answers found
+    navigate('/test/{test-slug}/');
+  }
+}, [navigate]);
+```
 
 ## Implemented Tests (16 Tests - All Tier 0 Complete + 6 High-Traffic Tests)
 
@@ -232,6 +381,39 @@ const [testStarted, setTestStarted] = useState(false);
 - **Copy**: Structure, state management, styling patterns
 - **Maintain**: Consistency across all tests (user experience)
 
+#### 5. Combining Test and Result in One File
+**Problem**: Putting questions and results in the same component file
+```tsx
+// ❌ BAD: Single file with both test and result
+const TestPage = () => {
+  const [showResults, setShowResults] = useState(false);
+
+  if (showResults) {
+    return <div>Results...</div>;  // Don't do this!
+  }
+  return <div>Questions...</div>;
+}
+
+// ✅ GOOD: Separate files
+// index.tsx - Questions only
+const TestPage = () => {
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    localStorage.setItem('testAnswers', JSON.stringify(answers));
+    navigate('/test/test-name/result/');
+  };
+  return <div>Questions...</div>;
+}
+
+// result.tsx - Results only
+const ResultPage = () => {
+  // Read from localStorage and calculate results
+  return <div>Results...</div>;
+}
+```
+- **Why**: Better code organization, SEO (separate URLs), cleaner responsibility separation
+- **Always**: Create both index.tsx and result.tsx when adding new tests
+
 ### Code Review Self-Checklist
 Before committing:
 - [ ] All content is in ENGLISH (no Korean in user-facing text)
@@ -241,6 +423,12 @@ Before committing:
 - [ ] No duplicate navigation elements
 - [ ] Build passes without errors
 - [ ] E-E-A-T requirements met (if creating test content)
+- [ ] Temporary work files (*.txt, *_SUMMARY.md) removed before commit
+
+### Temporary Files Policy
+- **Allowed during development**: Work-in-progress files like `modify_tests.txt`, `SPLIT_TESTS_SUMMARY.md`
+- **Must remove before commit**: All temporary files should be deleted or added to .gitignore
+- **Exception**: Planning documents in `plans/` directory are permanent reference materials
 
 ## Reference Documents
 - [Test-archive operation rule.md](plans/Test-archive%20operation%20rule.md) - Operating philosophy and rules
