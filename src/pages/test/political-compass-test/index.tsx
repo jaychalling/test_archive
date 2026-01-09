@@ -186,10 +186,10 @@ const PoliticalCompassTest = () => {
         <>
       {/* Top Bar */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-sm">
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
           <Compass className="w-5 h-5 text-primary" />
           <span className="text-sm font-medium text-foreground">Political Spectrum</span>
-        </div>
+        </Link>
         <span className="text-sm text-muted-foreground">
           {currentQuestion + 1}/{totalQuestions}
         </span>

@@ -9,7 +9,7 @@ import {
   AnswerValue,
 } from "@/data/bigFiveQuestions";
 import { ChevronLeft, ChevronRight, CheckCircle2, Brain } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const BigFiveTest = () => {
@@ -132,10 +132,10 @@ const BigFiveTest = () => {
         <>
       {/* Top Bar */}
       <div className="px-4 py-3 flex items-center justify-between border-b border-border/50 bg-background/80 backdrop-blur-sm">
-        <div className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
           <Brain className="w-5 h-5 text-primary" />
           <span className="text-sm font-medium text-foreground">Big Five</span>
-        </div>
+        </Link>
         <span className="text-sm text-muted-foreground">
           {currentQuestion + 1}/{totalQuestions}
         </span>

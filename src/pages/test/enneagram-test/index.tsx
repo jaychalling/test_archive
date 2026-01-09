@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
 import {
@@ -7,7 +7,7 @@ import {
   answerOptions,
   AnswerValue,
 } from "@/data/enneagramQuestions";
-import { ChevronLeft, ChevronRight, CheckCircle2, Circle } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Circle, Home } from "lucide-react";
 import Header from "@/components/Header";
 import { cn } from "@/lib/utils";
 
@@ -135,7 +135,9 @@ const EnneagramTest = () => {
         <>
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
-        <div></div>
+        <Link to="/" className="p-2 -m-2 hover:opacity-70 transition-opacity">
+          <Home className="w-5 h-5 text-muted-foreground" />
+        </Link>
         <h1 className="font-medium text-foreground">Enneagram Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}

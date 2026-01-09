@@ -6,8 +6,8 @@ import {
   introvertExtrovertQuestions,
   AnswerValue,
 } from "@/data/introvertExtrovertQuestions";
-import { CheckCircle2, ChevronLeft, ChevronRight, Users } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { CheckCircle2, ChevronLeft, ChevronRight, Users, Home } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const IntrovertExtrovertTest = () => {
@@ -131,7 +131,9 @@ const IntrovertExtrovertTest = () => {
         <>
       {/* Top Bar */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-background/95 backdrop-blur-sm">
-        <div></div>
+        <Link to="/" className="p-2 -m-2 hover:opacity-70 transition-opacity">
+          <Home className="w-5 h-5 text-muted-foreground" />
+        </Link>
         <h1 className="font-semibold text-foreground">Introvert/Extrovert Test</h1>
         <span className="text-sm text-muted-foreground min-w-[48px] text-right">
           {currentQuestion + 1}/{totalQuestions}
