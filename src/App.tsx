@@ -34,9 +34,9 @@ import CommunicationStyleResult from "./pages/test/communication-style-test/resu
 import LoveCompatibilityTest from "./pages/test/love-compatibility-test";
 import LoveCompatibilityResult from "./pages/test/love-compatibility-test/result";
 import SelfEsteemTest from "./pages/test/self-esteem-test";
-import SelfEsteemResult from "./pages/test/self-esteem-test/result";
+import SelfEsteemTestResult from "./pages/test/self-esteem-test/result";
 import AnxietyCalmTest from "./pages/test/anxiety-calm-test";
-import AnxietyCalmResult from "./pages/test/anxiety-calm-test/result";
+import AnxietyCalmTestResult from "./pages/test/anxiety-calm-test/result";
 import MentalAgeTest from "./pages/test/mental-age-test";
 import MentalAgeResult from "./pages/test/mental-age-test/result";
 import DarkTriadTest from "./pages/test/dark-triad-test";
@@ -85,9 +85,9 @@ const App = () => (
             <Route path="/test/love-compatibility-test" element={<LoveCompatibilityTest />} />
             <Route path="/test/love-compatibility-test/result/" element={<LoveCompatibilityResult />} />
             <Route path="/test/self-esteem-test" element={<SelfEsteemTest />} />
-            <Route path="/test/self-esteem-test/result/" element={<SelfEsteemResult />} />
+            <Route path="/test/self-esteem-test/result/" element={<SelfEsteemTestResult />} />
             <Route path="/test/anxiety-calm-test" element={<AnxietyCalmTest />} />
-            <Route path="/test/anxiety-calm-test/result/" element={<AnxietyCalmResult />} />
+            <Route path="/test/anxiety-calm-test/result/" element={<AnxietyCalmTestResult />} />
             <Route path="/test/mental-age-test" element={<MentalAgeTest />} />
             <Route path="/test/mental-age-test/result/" element={<MentalAgeResult />} />
             <Route path="/test/dark-triad-test" element={<DarkTriadTest />} />
