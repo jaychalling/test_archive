@@ -32,8 +32,17 @@ import CareerAptitudeResult from "./pages/test/career-aptitude-test/result";
 import CommunicationStyleTest from "./pages/test/communication-style-test";
 import CommunicationStyleResult from "./pages/test/communication-style-test/result";
 import LoveCompatibilityTest from "./pages/test/love-compatibility-test";
+import LoveCompatibilityResult from "./pages/test/love-compatibility-test/result";
 import SelfEsteemTest from "./pages/test/self-esteem-test";
+import SelfEsteemResult from "./pages/test/self-esteem-test/result";
 import AnxietyCalmTest from "./pages/test/anxiety-calm-test";
+import AnxietyCalmResult from "./pages/test/anxiety-calm-test/result";
+import MentalAgeTest from "./pages/test/mental-age-test";
+import MentalAgeResult from "./pages/test/mental-age-test/result";
+import DarkTriadTest from "./pages/test/dark-triad-test";
+import DarkTriadResult from "./pages/test/dark-triad-test/result";
+import ToxicTraitTest from "./pages/test/toxic-trait-test";
+import ToxicTraitResult from "./pages/test/toxic-trait-test/result";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -74,8 +83,17 @@ const App = () => (
             <Route path="/test/communication-style-test" element={<CommunicationStyleTest />} />
             <Route path="/test/communication-style-test/result/" element={<CommunicationStyleResult />} />
             <Route path="/test/love-compatibility-test" element={<LoveCompatibilityTest />} />
+            <Route path="/test/love-compatibility-test/result/" element={<LoveCompatibilityResult />} />
             <Route path="/test/self-esteem-test" element={<SelfEsteemTest />} />
+            <Route path="/test/self-esteem-test/result/" element={<SelfEsteemResult />} />
             <Route path="/test/anxiety-calm-test" element={<AnxietyCalmTest />} />
+            <Route path="/test/anxiety-calm-test/result/" element={<AnxietyCalmResult />} />
+            <Route path="/test/mental-age-test" element={<MentalAgeTest />} />
+            <Route path="/test/mental-age-test/result/" element={<MentalAgeResult />} />
+            <Route path="/test/dark-triad-test" element={<DarkTriadTest />} />
+            <Route path="/test/dark-triad-test/result/" element={<DarkTriadResult />} />
+            <Route path="/test/toxic-trait-test" element={<ToxicTraitTest />} />
+            <Route path="/test/toxic-trait-test/result/" element={<ToxicTraitResult />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

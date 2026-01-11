@@ -141,6 +141,30 @@ export const testSeoConfigs: Record<string, TestSeoConfig> = {
     resultDescription: 'Your position on the calm-to-anxious spectrum is in. See your stress response patterns and what drives them.',
     path: '/test/anxiety-calm-test/',
   },
+  'mental-age': {
+    slug: 'mental-age-test',
+    title: "What's Your Mental Age? It Might Not Be What You Think",
+    resultTitle: 'Your Mental Age — Older or Younger Than You Expected?',
+    description: 'Your mind ages differently than your body. Most people are surprised by their psychological age.',
+    resultDescription: 'Your mental age is in. See what it reveals about your maturity, wisdom, and approach to life.',
+    path: '/test/mental-age-test/',
+  },
+  'dark-triad': {
+    slug: 'dark-triad-test',
+    title: 'How Dark Is Your Personality? Take the Dark Triad Test',
+    resultTitle: 'Your Dark Triad Score — The Traits You May Not See',
+    description: 'Everyone has narcissism, manipulation, and emotional detachment to some degree. See where you actually fall.',
+    resultDescription: 'Your Dark Triad scores reveal personality shadows you might not have seen. See your breakdown.',
+    path: '/test/dark-triad-test/',
+  },
+  'toxic-trait': {
+    slug: 'toxic-trait-test',
+    title: "What's Your Toxic Trait? (Everyone Has One)",
+    resultTitle: 'Your Toxic Trait — What You May Not See in Yourself',
+    description: 'Jealousy, passive aggression, control issues — we all have patterns. This test reveals your primary toxic trait.',
+    resultDescription: 'Your toxic trait profile shows patterns you may not have recognized. Self-awareness is the first step.',
+    path: '/test/toxic-trait-test/',
+  },
 };
 
 export const getTestSeoConfig = (testSlug: string): TestSeoConfig | undefined => {

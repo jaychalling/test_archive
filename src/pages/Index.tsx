@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import TestCard from "@/components/TestCard";
 import { SEOHead, createWebSiteSchema } from "@/components/SEOHead";
-import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2, Lightbulb, Briefcase, MessageSquare, HeartCrack, Award, Wind } from "lucide-react";
+import { Sparkles, Compass, Heart, HeartHandshake, Users, Brain, Circle, Layers, Scale, Users2, Lightbulb, Briefcase, MessageSquare, HeartCrack, Award, Wind, Baby, Skull, AlertCircle } from "lucide-react";
 
 const Index = () => {
   return (
@@ -182,6 +182,33 @@ const Index = () => {
               path="/test/anxiety-calm-test"
               icon={<Wind className="w-6 h-6" />}
               iconBgColor="bg-indigo-600"
+            />
+            <TestCard
+              title="Mental Age Test"
+              description="Is your mind older or younger than your years? Discover your psychological age based on maturity, playfulness, and wisdom."
+              questionCount={30}
+              duration="5-7 min"
+              path="/test/mental-age-test"
+              icon={<Baby className="w-6 h-6" />}
+              iconBgColor="bg-sky-500"
+            />
+            <TestCard
+              title="Dark Triad Test"
+              description="Explore your darker personality traits: Narcissism, Machiavellianism, and Psychopathy. Everyone has some - how much do you?"
+              questionCount={27}
+              duration="5 min"
+              path="/test/dark-triad-test"
+              icon={<Skull className="w-6 h-6" />}
+              iconBgColor="bg-slate-700"
+            />
+            <TestCard
+              title="Toxic Trait Test"
+              description="Everyone has toxic traits they don't see. Discover your patterns in jealousy, passive aggression, control, and more."
+              questionCount={30}
+              duration="5 min"
+              path="/test/toxic-trait-test"
+              icon={<AlertCircle className="w-6 h-6" />}
+              iconBgColor="bg-rose-600"
             />
           </div>
         </section>
