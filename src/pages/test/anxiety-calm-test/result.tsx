@@ -83,8 +83,6 @@ const tendencyGradients: Record<AnxietyTendency, string> = {
   "Very Anxious": "from-rose-400 to-red-500",
 };
 
-const AnxietyCalmTest = () => {
-
 const AnxietyCalmTestResult = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
@@ -105,7 +103,7 @@ const AnxietyCalmTestResult = () => {
 
   const handleShare = async () => {
     const result = calculateResults(answers);
-    const description = tendencyDescriptions[result.level];
+    const description = tendencyDescriptions[result.tendency];
 
     const shareText = `My Anxiety vs Calm Test Result
 
@@ -428,8 +426,6 @@ Take the test at Test Archive!`;
         </main>
       </div>
     );
-  }
-
 };
 
 export default AnxietyCalmTestResult;
