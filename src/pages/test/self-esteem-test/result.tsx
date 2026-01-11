@@ -83,8 +83,6 @@ const levelGradients: Record<SelfEsteemLevel, string> = {
   "Very Low": "from-red-400 to-rose-500",
 };
 
-const SelfEsteemTest = () => {
-
 const SelfEsteemTestResult = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<number, AnswerValue>>({});
@@ -390,8 +388,6 @@ Take the test at Test Archive!`;
         </main>
       </div>
     );
-  }
-
 };
 
 export default SelfEsteemTestResult;
