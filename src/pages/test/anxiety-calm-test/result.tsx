@@ -141,7 +141,7 @@ Take the test at Test Archive!`;
   }
 
   const result = calculateResults(answers);
-  const description = tendencyDescriptions[result.level];
+  const description = tendencyDescriptions[result.tendency];
 
     return (
       <div className="min-h-screen gradient-hero">
