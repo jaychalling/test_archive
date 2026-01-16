@@ -83,7 +83,7 @@ const LoveLanguageTest = () => {
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
-        title="Love Language Test - 5 Affection Styles"
+        title="Love Language Test - 5 Love Languages"
         description="Discover your primary love language with this 30-question test. Learn how you prefer to give and receive love. For entertainment purposes only."
         path="/test/love-language-test/"
         jsonLd={breadcrumbSchema}
@@ -141,7 +141,7 @@ const LoveLanguageTest = () => {
               <Heart className="w-8 h-8 text-pink-500" />
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Affection Style Test
+              Love Language Test
             </h1>
             <p className="text-muted-foreground">
               Choose the option you prefer for each question.<br />

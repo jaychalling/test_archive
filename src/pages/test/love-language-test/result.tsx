@@ -82,12 +82,12 @@ const LoveLanguageResultPage = () => {
     const primaryLanguage = loveLanguageDescriptions[ranked[0].language];
     const secondaryLanguage = loveLanguageDescriptions[ranked[1].language];
 
-    const shareText = `My Affection Style Test Result\n\n1st: ${primaryLanguage.name} (${ranked[0].score} points)\n2nd: ${secondaryLanguage.name} (${ranked[1].score} points)\n\nWords of Affirmation: ${result.wordsOfAffirmation}\nActs of Service: ${result.actsOfService}\nReceiving Gifts: ${result.receivingGifts}\nQuality Time: ${result.qualityTime}\nPhysical Touch: ${result.physicalTouch}`;
+    const shareText = `My Love Language Test Result\n\n1st: ${primaryLanguage.name} (${ranked[0].score} points)\n2nd: ${secondaryLanguage.name} (${ranked[1].score} points)\n\nWords of Affirmation: ${result.wordsOfAffirmation}\nActs of Service: ${result.actsOfService}\nReceiving Gifts: ${result.receivingGifts}\nQuality Time: ${result.qualityTime}\nPhysical Touch: ${result.physicalTouch}`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Affection Style Test Result",
+          title: "Love Language Test Result",
           text: shareText,
           url: window.location.href,
         });
@@ -125,7 +125,7 @@ const LoveLanguageResultPage = () => {
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
-        title="Your Love Language - Affection Style Results"
+        title="Your Love Language Test Results"
         description="See your love language results and learn how you express affection. Improve your relationships with this insight."
         path="/test/love-language-test/result/"
         jsonLd={breadcrumbSchema}

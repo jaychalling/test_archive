@@ -67,7 +67,7 @@ const Index = () => {
               iconBgColor="bg-rose-700"
             />
             <TestCard
-              title="Affection Style Test"
+              title="Love Language Test"
               description="Discover how you prefer to express and receive love through 5 different styles."
               questionCount={30}
               duration="2-5 min"
