@@ -14,12 +14,24 @@ const Header = () => {
           </span>
         </Link>
         
-        <nav className="flex items-center gap-6">
-          <Link 
-            to="/" 
+        <nav className="flex items-center gap-4 md:gap-6">
+          <Link
+            to="/"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Test List
+            Tests
+          </Link>
+          <Link
+            to="/about/"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact/"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hidden md:inline"
+          >
+            Contact
           </Link>
         </nav>
       </div>
