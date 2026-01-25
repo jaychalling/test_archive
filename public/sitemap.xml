@@ -26,194 +26,194 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/rice-purity</loc>
+    <loc>https://test-archive.com/test/rice-purity/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/political-compass-test</loc>
+    <loc>https://test-archive.com/test/political-compass-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/bdsm-test</loc>
+    <loc>https://test-archive.com/test/bdsm-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-language-test</loc>
+    <loc>https://test-archive.com/test/love-language-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/attachment-style-test</loc>
+    <loc>https://test-archive.com/test/attachment-style-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/big-five-test</loc>
+    <loc>https://test-archive.com/test/big-five-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/enneagram-test</loc>
+    <loc>https://test-archive.com/test/enneagram-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/16-personality-test</loc>
+    <loc>https://test-archive.com/test/16-personality-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/moral-alignment-test</loc>
+    <loc>https://test-archive.com/test/moral-alignment-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/introvert-extrovert-test</loc>
+    <loc>https://test-archive.com/test/introvert-extrovert-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/emotional-intelligence-test</loc>
+    <loc>https://test-archive.com/test/emotional-intelligence-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/career-aptitude-test</loc>
+    <loc>https://test-archive.com/test/career-aptitude-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/communication-style-test</loc>
+    <loc>https://test-archive.com/test/communication-style-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-compatibility-test</loc>
+    <loc>https://test-archive.com/test/love-compatibility-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/self-esteem-test</loc>
+    <loc>https://test-archive.com/test/self-esteem-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/anxiety-calm-test</loc>
+    <loc>https://test-archive.com/test/anxiety-calm-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/mental-age-test</loc>
+    <loc>https://test-archive.com/test/mental-age-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/dark-triad-test</loc>
+    <loc>https://test-archive.com/test/dark-triad-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/toxic-trait-test</loc>
+    <loc>https://test-archive.com/test/toxic-trait-test/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Result Pages -->
   <url>
-    <loc>https://test-archive.com/test/rice-purity/result</loc>
+    <loc>https://test-archive.com/test/rice-purity/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/political-compass-test/result</loc>
+    <loc>https://test-archive.com/test/political-compass-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/bdsm-test/result</loc>
+    <loc>https://test-archive.com/test/bdsm-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-language-test/result</loc>
+    <loc>https://test-archive.com/test/love-language-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/attachment-style-test/result</loc>
+    <loc>https://test-archive.com/test/attachment-style-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/big-five-test/result</loc>
+    <loc>https://test-archive.com/test/big-five-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/enneagram-test/result</loc>
+    <loc>https://test-archive.com/test/enneagram-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/16-personality-test/result</loc>
+    <loc>https://test-archive.com/test/16-personality-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/moral-alignment-test/result</loc>
+    <loc>https://test-archive.com/test/moral-alignment-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/introvert-extrovert-test/result</loc>
+    <loc>https://test-archive.com/test/introvert-extrovert-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/emotional-intelligence-test/result</loc>
+    <loc>https://test-archive.com/test/emotional-intelligence-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/career-aptitude-test/result</loc>
+    <loc>https://test-archive.com/test/career-aptitude-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/communication-style-test/result</loc>
+    <loc>https://test-archive.com/test/communication-style-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-compatibility-test/result</loc>
+    <loc>https://test-archive.com/test/love-compatibility-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/self-esteem-test/result</loc>
+    <loc>https://test-archive.com/test/self-esteem-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/anxiety-calm-test/result</loc>
+    <loc>https://test-archive.com/test/anxiety-calm-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/mental-age-test/result</loc>
+    <loc>https://test-archive.com/test/mental-age-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/dark-triad-test/result</loc>
+    <loc>https://test-archive.com/test/dark-triad-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/toxic-trait-test/result</loc>
+    <loc>https://test-archive.com/test/toxic-trait-test/result/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
