@@ -20,6 +20,12 @@ npm run build        # Production build
 npm run build:dev    # Development build
 npm run lint         # Run ESLint
 npm run preview      # Preview production build
+
+# E2E Testing (Playwright)
+npx playwright test                              # Run all E2E tests
+npx playwright test e2e/big-five-test.spec.ts   # Run single test file
+npx playwright test --ui                         # Run with UI mode
+npx playwright test --reporter=list              # Run with list reporter
 ```
 
 ## Architecture
@@ -36,10 +42,13 @@ npm run preview      # Preview production build
 src/
 ├── pages/
 │   ├── Index.tsx                      # Hub page
+│   ├── About.tsx, Contact.tsx         # Static pages
+│   ├── Privacy.tsx, Terms.tsx         # Legal pages
 │   ├── NotFound.tsx
 │   └── test/
 │       └── [test-name]-test/
-│           └── index.tsx              # Each test's page + result
+│           ├── index.tsx              # Questions page
+│           └── result.tsx             # Results page
 ├── components/
 │   ├── ui/                            # shadcn/ui (do not modify)
 │   ├── Header.tsx, TestCard.tsx
@@ -55,6 +64,8 @@ src/
 │   └── new-test-workflow.md           # Step-by-step test creation guide
 ├── hooks/
 └── lib/utils.ts                       # cn() helper
+e2e/
+└── [test-name]-test.spec.ts           # Playwright E2E tests
 ```
 
 ### Key Patterns
@@ -321,6 +332,42 @@ useEffect(() => {
 ⚠️ Anxiety vs Calm Test: Uses ONLY softening language, NOT medical diagnosis. Entertainment only.
 
 See `plans/Tier 0 런칭 필수 10개.md` for Tier 1 and Tier 2 test lists.
+
+## E2E Testing (Playwright)
+
+### Test Structure
+Each E2E test file covers 3 scenarios:
+1. **Full workflow**: Start → Answer all questions → View Results → Verify result page elements
+2. **localStorage persistence**: Verify answers are saved correctly
+3. **Navigation**: Previous/Next button functionality
+
+### Test Patterns
+```typescript
+// Use extended timeout for tests with many questions
+test.setTimeout(120000);
+
+// Use force:true to bypass transition animations
+await option.click({ force: true });
+
+// Use .first() to avoid strict mode violations
+await expect(page.getByRole('heading', { name: /Openness/ }).first()).toBeVisible();
+
+// Wait for transitions between questions
+await page.waitForTimeout(200);
+```
+
+### Implemented E2E Tests
+| Test | File | Questions | Format |
+|------|------|-----------|--------|
+| Self-Esteem | `self-esteem-test.spec.ts` | 25 | Likert 1-5 |
+| Anxiety-Calm | `anxiety-calm-test.spec.ts` | 30 | Likert 1-5 |
+| Introvert-Extrovert | `introvert-extrovert-test.spec.ts` | 20 | Likert 1-5 |
+| Love Language | `love-language-test.spec.ts` | 30 | A/B choice |
+| Big Five | `big-five-test.spec.ts` | 50 | Likert 1-5 |
+| 16 Personality | `16-personality-test.spec.ts` | 60 | A/B choice |
+| Enneagram | `enneagram-test.spec.ts` | 36 | Likert 1-5 |
+| Attachment Style | `attachment-style-test.spec.ts` | 30 | Likert 1-5 |
+| Love Compatibility | `love-compatibility-test.spec.ts` | 30 | Likert 1-5 |
 
 ## Quality Gates (CI Checks)
 These should fail deployment:
