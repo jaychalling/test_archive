@@ -344,7 +344,8 @@ Each E2E test file covers 3 scenarios:
 ### Test Patterns
 ```typescript
 // Use extended timeout for tests with many questions
-test.setTimeout(120000);
+test.setTimeout(120000);  // 120s for 30-60 questions
+test.setTimeout(180000);  // 180s for 100 questions (Rice Purity)
 
 // Use force:true to bypass transition animations
 await option.click({ force: true });
@@ -354,6 +355,16 @@ await expect(page.getByRole('heading', { name: /Openness/ }).first()).toBeVisibl
 
 // Wait for transitions between questions
 await page.waitForTimeout(200);
+
+// Different progress formats - check actual UI before writing test
+await expect(page.locator('text=1/50')).toBeVisible();           // "X/Y" format
+await expect(page.locator('text=Question 1 /')).toBeVisible();   // "Question X / Y" format
+await expect(page.locator('text=/1\\/100/i')).toBeVisible();     // Regex for "X/100"
+
+// Different answer button formats
+page.locator('button').filter({ hasText: /^3$/ });      // Likert number
+page.locator('button').filter({ hasText: 'Neutral' });  // Text option
+page.getByRole('button', { name: 'No' });               // Yes/No
 ```
 
 ### Implemented E2E Tests
@@ -368,6 +379,9 @@ await page.waitForTimeout(200);
 | Enneagram | `enneagram-test.spec.ts` | 36 | Likert 1-5 |
 | Attachment Style | `attachment-style-test.spec.ts` | 30 | Likert 1-5 |
 | Love Compatibility | `love-compatibility-test.spec.ts` | 30 | Likert 1-5 |
+| Emotional Intelligence | `emotional-intelligence-test.spec.ts` | 25 | Text options |
+| Rice Purity | `rice-purity-test.spec.ts` | 100 | Yes/No |
+| Political Compass | `political-compass-test.spec.ts` | 22 | Likert 1-5 |
 
 ## Quality Gates (CI Checks)
 These should fail deployment:
