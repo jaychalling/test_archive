@@ -49,8 +49,8 @@ const Index = () => {
               iconBgColor="bg-pink-500"
             />
             <TestCard
-              title="Political Spectrum Test"
-              description="Map your political views on a 2D spectrum with economic left/right and social authoritarian/libertarian axes."
+              title="Political Compass Test"
+              description="Map your political views on a 2D compass with economic left/right and social authoritarian/libertarian axes."
               questionCount={22}
               duration="2-5 min"
               path="/test/political-compass-test"
