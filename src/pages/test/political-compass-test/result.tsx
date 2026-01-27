@@ -84,12 +84,12 @@ const PoliticalCompassResultPage = () => {
     const result = calculateResult();
     const quadrant = getQuadrant(result.economic, result.social);
     const quadrantInfo = quadrantDescriptions[quadrant];
-    const shareText = `My Political Spectrum: ${quadrantInfo.name}\nEconomic: ${result.economic > 0 ? "Right" : "Left"} (${result.economic.toFixed(1)})\nSocial: ${result.social > 0 ? "Authoritarian" : "Libertarian"} (${result.social.toFixed(1)})`;
+    const shareText = `My Political Compass: ${quadrantInfo.name}\nEconomic: ${result.economic > 0 ? "Right" : "Left"} (${result.economic.toFixed(1)})\nSocial: ${result.social > 0 ? "Authoritarian" : "Libertarian"} (${result.social.toFixed(1)})`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Political Spectrum Test Result",
+          title: "Political Compass Test Result",
           text: shareText,
           url: window.location.href,
         });
