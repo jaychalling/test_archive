@@ -74,8 +74,8 @@ const BdsmTest = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="BDSM Test - Discover Your Preferences"
-        description="Take the BDSM Test to explore your relationship dynamics preferences. A self-assessment test for adults. For entertainment purposes only."
+        title="BDSM Test - Free Quiz to Discover Your Type"
+        description="Take the free BDSM Test online! Find out if you're dominant, submissive, switch or more. Quick 25-question quiz with instant results. Adults only."
         path="/test/bdsm-test/"
         jsonLd={breadcrumbSchema}
       />

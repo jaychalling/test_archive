@@ -129,8 +129,8 @@ const PoliticalCompassTest = () => {
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
-        title="Political Compass Test - Where Do You Stand?"
-        description="Take the Political Compass Test and map your political views on a 2D spectrum with economic and social axes. For entertainment purposes only."
+        title="Free Political Compass Test - Where Do You Stand on the Spectrum?"
+        description="Map your political views on a 2D compass! Are you left or right? Authoritarian or libertarian? Take this quick quiz and see where you land."
         path="/test/political-compass-test/"
         jsonLd={breadcrumbSchema}
       />

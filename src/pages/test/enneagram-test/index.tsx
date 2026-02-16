@@ -78,8 +78,8 @@ const EnneagramTest = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Enneagram Test - Find Your Type (1-9)"
-        description="Discover your Enneagram type among 9 personality types. Learn about your core motivations, fears, and desires. For entertainment purposes only."
+        title="Free Enneagram Test - Find Your Type (1-9) With Wings"
+        description="Which of 9 Enneagram types are you? Take this free test to discover your type, wing, and growth path. Understand your core fears, desires & motivations."
         path="/test/enneagram-test/"
         jsonLd={breadcrumbSchema}
       />

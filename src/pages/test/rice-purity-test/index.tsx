@@ -94,8 +94,8 @@ const RicePurityTest = () => {
   return (
     <div className="min-h-screen gradient-hero theme-purity">
       <SEOHead
-        title="Original Rice Purity Test - 100 Questions"
-        description="Take the Original Rice Purity Test with 100 questions. Check your purity score and see what it means. The classic innocence test for entertainment."
+        title="Rice Purity Test - Official 100 Questions | Check Your Score"
+        description="Take the official Rice Purity Test with all 100 original questions! See your innocence score instantly. The classic college purity test - free & anonymous."
         path="/test/rice-purity/"
         jsonLd={breadcrumbSchema}
       />

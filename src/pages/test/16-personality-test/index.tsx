@@ -157,8 +157,8 @@ const SixteenPersonalityTest = () => {
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
-        title="16 Personalities Test - Find Your Type"
-        description="Discover your personality type among 16 types. Analyze 4 dimensions: energy, information, decisions, and lifestyle. For entertainment purposes only."
+        title="Free 16 Personalities Test (MBTI) - What's Your Type?"
+        description="Take the free 16 personalities test online! Discover if you're INTJ, ENFP, INFP or one of 16 types. Quick 5-minute MBTI-style quiz with instant results."
         path="/test/16-personality-test/"
         jsonLd={breadcrumbSchema}
       />

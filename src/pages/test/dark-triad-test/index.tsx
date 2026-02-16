@@ -74,8 +74,8 @@ const DarkTriadTest = () => {
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
-        title="Dark Triad Test - Narcissism, Machiavellianism, Psychopathy (27 Questions)"
-        description="How dark is your personality? Measure your levels of Narcissism, Machiavellianism, and Psychopathy in this research-based personality test."
+        title="Free Dark Triad Test - How Dark Is Your Personality?"
+        description="Discover your dark side! Take the free Dark Triad test to measure Narcissism, Machiavellianism & Psychopathy. Everyone has some darkness - how much do you have?"
         path="/test/dark-triad-test/"
         jsonLd={breadcrumbSchema}
       />

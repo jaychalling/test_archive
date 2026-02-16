@@ -10,7 +10,23 @@
       "Bash(cat:*)",
       "Bash(xargs cat:*)",
       "Bash(npm run lint:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(git checkout:*)",
+      "Bash(npm run build:dev:*)",
+      "Bash(curl:*)",
+      "Bash(mkdir:*)",
+      "Bash(chmod:*)",
+      "Bash(tree:*)",
+      "Bash(pip install:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(python keyword_research.py:*)",
+      "Bash(git restore:*)",
+      "Bash(grep:*)",
+      "Bash(npx netlify deploy --prod)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:developers.google.com)"
     ]
   }
 }

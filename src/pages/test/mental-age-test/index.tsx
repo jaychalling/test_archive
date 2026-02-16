@@ -72,8 +72,8 @@ const MentalAgeTest = () => {
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
-        title="What's Your Mental Age? Take the Quiz (30 Questions)"
-        description="Your mental age might surprise you. Answer 30 questions about how you think, react, and approach life to discover your true psychological age."
+        title="Mental Age Test - How Old Is Your Mind Really?"
+        description="Is your mind older or younger than your years? Take this fun mental age quiz to find out! Based on maturity, wisdom & playfulness. Instant results!"
         path="/test/mental-age-test/"
         jsonLd={breadcrumbSchema}
       />
