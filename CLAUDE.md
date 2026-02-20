@@ -302,7 +302,7 @@ useEffect(() => {
 }, [navigate]);
 ```
 
-## Implemented Tests (16 Tests - All Tier 0 Complete + 6 High-Traffic Tests)
+## Implemented Tests (19 Tests - All Tier 0 Complete + 9 Additional Tests)
 
 ### Tier 0 - Launch Essential (10 tests) ✅
 | Test Name | URL Path | Data File |
@@ -327,6 +327,9 @@ useEffect(() => {
 | Emotional Intelligence Test | `/test/emotional-intelligence-test` | `emotionalIntelligenceQuestions.ts` | 25 (5 categories) | - |
 | Career Aptitude Test | `/test/career-aptitude-test` | `careerAptitudeQuestions.ts` | 30 (Holland RIASEC) | - |
 | Communication Style Test | `/test/communication-style-test` | `communicationStyleQuestions.ts` | 28 (4 styles) | 5,240 |
+| Mental Age Test | `/test/mental-age-test` | `mentalAgeQuestions.ts` | 30 | - |
+| Dark Triad Test | `/test/dark-triad-test` | `darkTriadQuestions.ts` | 27 | - |
+| Toxic Trait Test | `/test/toxic-trait-test` | `toxicTraitQuestions.ts` | 30 | - |
 
 ⚠️ Rice Purity Test uses legacy URL without `-test` suffix (distributed links exist)
 ⚠️ Anxiety vs Calm Test: Uses ONLY softening language, NOT medical diagnosis. Entertainment only.
@@ -484,12 +487,71 @@ Before committing:
 - [ ] No duplicate navigation elements
 - [ ] Build passes without errors
 - [ ] E-E-A-T requirements met (if creating test content)
+- [ ] SEO: canonical URLs use `www.test-archive.com` (not bare domain)
+- [ ] SEO: Result pages include both BreadcrumbList + FAQPage JSON-LD schemas
+- [ ] SEO: New test added to `sitemap.xml` with `<lastmod>`
 - [ ] Temporary work files (*.txt, *_SUMMARY.md) removed before commit
 
 ### Temporary Files Policy
 - **Allowed during development**: Work-in-progress files like `modify_tests.txt`, `SPLIT_TESTS_SUMMARY.md`
 - **Must remove before commit**: All temporary files should be deleted or added to .gitignore
 - **Exception**: Planning documents in `plans/` directory are permanent reference materials
+
+## SEO Technical Infrastructure
+
+### Domain & Canonical
+- **Canonical domain**: `https://www.test-archive.com` (with www)
+- **SEOHead BASE_URL**: `https://www.test-archive.com` in `src/components/SEOHead.tsx`
+- **CRITICAL**: All canonical URLs, sitemap, robots.txt, OG tags MUST use `www.test-archive.com`
+- Non-www (`test-archive.com`) should 301 redirect to www (configured at hosting/CDN level)
+
+### Structured Data (JSON-LD)
+All pages use `SEOHead` component with JSON-LD support:
+- **Index page**: `WebSite` schema
+- **Test pages** (index.tsx): `BreadcrumbList` schema
+- **Result pages** (result.tsx): `BreadcrumbList` + `FAQPage` schemas (combined via array)
+- SEOHead supports both single object and `object[]` for `jsonLd` prop
+
+```tsx
+// Single schema
+<SEOHead jsonLd={breadcrumbSchema} />
+
+// Multiple schemas (result pages)
+<SEOHead jsonLd={[breadcrumbSchema, faqSchema]} />
+```
+
+### Helper Functions in SEOHead
+- `createBreadcrumbSchema(items)` — Breadcrumb navigation
+- `createFAQSchema(faqs)` — FAQ rich results (requires `{ question, answer }[]`)
+- `createWebSiteSchema()` — Site-level schema
+- `createMultipleSchemas(...schemas)` — Combine schemas
+
+### Sitemap & Robots
+- **Sitemap**: `public/sitemap.xml` — 43 URLs (19 test + 19 result + 5 static pages)
+- **Robots.txt**: `public/robots.txt` — References `https://www.test-archive.com/sitemap.xml`
+- Sitemap includes `<lastmod>` dates — update when content changes
+
+### GSC (Google Search Console)
+- **Property**: `https://www.test-archive.com/`
+- **Service account**: `test-66@gen-lang-client-0698230269.iam.gserviceaccount.com`
+- **Key file**: `E:\2026\Projects\GSC\gen-lang-client-0698230269-f4b11b3bb976.json`
+- **API scopes**: `webmasters.readonly` (read), `webmasters` (submit sitemap)
+- **Package**: `googleapis` (devDependency)
+
+### Deployment
+- **Platform**: Vercel (Git 연동 자동 배포)
+- **Trigger**: `git push origin main` → 자동 빌드 및 배포
+- **After deploy**: GSC에서 sitemap 재제출 권장 (변경 사항이 클 때)
+
+## SEO Changelog
+
+### 2026-02-21: GSC 기반 SEO 대규모 개선
+- **www 도메인 일치**: SEOHead BASE_URL, sitemap.xml, robots.txt 모두 `www.test-archive.com`으로 통일 (이전: `test-archive.com` no-www)
+- **Index 페이지 CTR 최적화**: title/description에서 "For entertainment only" 제거, 감정적 훅 추가
+- **FAQ Schema 추가**: 16개 결과 페이지 전체에 `FAQPage` JSON-LD 추가 (Google 리치 결과 대상)
+- **SEOHead 다중 스키마**: `jsonLd` prop이 `object[]` 배열도 지원
+- **Sitemap lastmod**: 모든 URL에 `<lastmod>` 날짜 추가
+- **Rice Purity 결과 페이지**: CTR 최적화 타이틀 + canonical URL 수정
 
 ## Reference Documents
 - [Test-archive operation rule.md](plans/Test-archive%20operation%20rule.md) - Operating philosophy and rules
