@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   calculateMentalAge,
   getResultBand,
@@ -94,6 +94,7 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
     { name: 'Mental Age Test', path: '/test/mental-age-test/' },
     { name: 'Results', path: '/test/mental-age-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(mentalAgeFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -101,7 +102,7 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
         title={`Your Mental Age: ${mentalAge} Years Old - Results`}
         description={`Your mental age is ${mentalAge}! See what this reveals about your maturity, wisdom, and approach to life.`}
         path="/test/mental-age-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

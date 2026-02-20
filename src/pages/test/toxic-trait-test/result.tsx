@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   AnswerValue,
   calculateResults,
@@ -92,6 +92,7 @@ Take the test: ${window.location.origin}/test/toxic-trait-test/`;
     { name: 'Toxic Trait Test', path: '/test/toxic-trait-test/' },
     { name: 'Results', path: '/test/toxic-trait-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(toxicTraitFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -99,7 +100,7 @@ Take the test: ${window.location.origin}/test/toxic-trait-test/`;
         title={`Your Toxic Trait: ${primaryInfo.name} - Results`}
         description={`Your primary toxic trait is ${primaryInfo.name}. Discover what this means and how to grow from it.`}
         path="/test/toxic-trait-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

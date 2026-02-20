@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   AnswerValue,
   CommunicationStyle,
@@ -92,6 +92,7 @@ Take the test at Test-Archive.com`;
     { name: "Communication Style Test", item: "/test/communication-style-test" },
     { name: "Result", item: "/test/communication-style-test/result" },
   ]);
+  const faqSchema = createFAQSchema(communicationStyleFAQs);
 
   // Sort by score
   const sortedStyles = (Object.entries(result.scores) as [CommunicationStyle, number][])
@@ -103,7 +104,7 @@ Take the test at Test-Archive.com`;
         title={`${dominantStyle.nameKo} - Communication Style Test Result | Test-Archive.com`}
         description={`Your primary communication style is ${dominantStyle.nameKo}. ${dominantStyle.description}`}
         canonicalUrl="/test/communication-style-test"
-        schema={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

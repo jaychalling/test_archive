@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   moralAlignmentQuestions,
   AnswerValue,
@@ -163,6 +163,7 @@ const MoralAlignmentResultPage = () => {
     { name: 'Moral Alignment Test', path: '/test/moral-alignment-test/' },
     { name: 'Results', path: '/test/moral-alignment-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(moralAlignmentFAQs);
 
   if (loading) {
     return (
@@ -188,7 +189,7 @@ const MoralAlignmentResultPage = () => {
         title="Your Moral Alignment - Test Results"
         description="Discover your D&D-style moral alignment and what it says about your values and ethics."
         path="/test/moral-alignment-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

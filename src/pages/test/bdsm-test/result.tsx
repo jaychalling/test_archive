@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   BdsmAnswerValue,
   BdsmResult,
@@ -98,6 +98,7 @@ const BdsmTestResult = () => {
     { name: 'Home', path: '/' },
     { name: 'BDSM Test', path: '/test/bdsm-test/' },
   ]);
+  const faqSchema = createFAQSchema(bdsmFAQs);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -139,7 +140,7 @@ const BdsmTestResult = () => {
         title="Your BDSM Profile - BDSM Test Results"
         description="See your BDSM test results and what they mean. Understand your preferences in relationship dynamics."
         path="/test/bdsm-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   introvertExtrovertQuestions,
   AnswerValue,
@@ -128,6 +128,7 @@ ${typeInfo.description}`;
     { name: 'Home', path: '/' },
     { name: 'Introvert/Extrovert Test', path: '/test/introvert-extrovert-test/' },
   ]);
+  const faqSchema = createFAQSchema(introvertExtrovertFAQs);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -154,7 +155,7 @@ ${typeInfo.description}`;
         title="Your Introvert/Extrovert Profile"
         description="See where you fall on the introvert-extrovert spectrum. Understand your energy recharge style and social preferences."
         path="/test/introvert-extrovert-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

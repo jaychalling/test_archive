@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   eqQuestions,
   AnswerValue,
@@ -124,6 +124,7 @@ Take the test at Test-Archive.com`;
     { name: "Emotional Intelligence Test", item: "/test/emotional-intelligence-test" },
     { name: "Results", item: "/test/emotional-intelligence-test/result" },
   ]);
+  const faqSchema = createFAQSchema(eqFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -131,7 +132,7 @@ Take the test at Test-Archive.com`;
         title={`${result.nameKo} - Emotional Intelligence Test Results | Test-Archive.com`}
         description={`Your emotional intelligence level is ${result.nameKo}. ${result.description}`}
         canonicalUrl="/test/emotional-intelligence-test"
-        schema={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

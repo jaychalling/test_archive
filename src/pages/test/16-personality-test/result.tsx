@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   personalityQuestions,
   AnswerChoice,
@@ -150,6 +150,7 @@ ${typeInfo.description}`;
     { name: 'Home', path: '/' },
     { name: '16 Personality Test', path: '/test/16-personality-test/' },
   ]);
+  const faqSchema = createFAQSchema(personalityTypeFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -157,7 +158,7 @@ ${typeInfo.description}`;
         title="Your 16 Personality Type - Test Results"
         description="See your 16 personality type result. Understand your cognitive functions and preferences."
         path="/test/16-personality-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

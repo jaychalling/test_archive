@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   bigFiveQuestions,
   AnswerValue,
@@ -162,6 +162,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
     { name: 'Home', path: '/' },
     { name: 'Big Five Test', path: '/test/big-five-test/' },
   ]);
+  const faqSchema = createFAQSchema(bigFiveFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -169,7 +170,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
         title="Your Big Five Personality Profile"
         description="See your Big Five personality scores and understand your OCEAN profile. The most research-backed personality model."
         path="/test/big-five-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

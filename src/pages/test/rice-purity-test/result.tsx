@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   getScoreRange,
   testBackground,
@@ -103,16 +103,20 @@ Take the test at Test-Archive.com`;
   const resultBreadcrumbSchema = createBreadcrumbSchema([
     { name: "Home", path: "/" },
     { name: "Rice Purity Test", path: "/test/rice-purity/" },
-    { name: "Results", path: "/test/rice-purity/result" },
+    { name: "Results", path: "/test/rice-purity/result/" },
   ]);
+
+  const faqSchema = createFAQSchema(
+    ricePurityFAQs.map(faq => ({ question: faq.question, answer: faq.answer }))
+  );
 
   return (
     <div className="min-h-screen gradient-hero theme-purity">
       <SEOHead
-        title={`${scoreRange.title} - Rice Purity Test Results | Test-Archive.com`}
-        description={`Your Rice Purity score is ${score}/100. ${scoreRange.description}`}
-        path="/test/rice-purity/"
-        jsonLd={resultBreadcrumbSchema}
+        title="Your Rice Purity Score — See What It Actually Means"
+        description={`Your Rice Purity score is ${score}/100. See how you compare to others and what your number really says about you.`}
+        path="/test/rice-purity/result/"
+        jsonLd={[resultBreadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

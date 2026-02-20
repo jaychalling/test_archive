@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   careerQuestions,
   AnswerValue,
@@ -98,6 +98,7 @@ Take the test at Test-Archive.com`;
     { name: "Career Aptitude Test", item: "/test/career-aptitude-test" },
     { name: "Results", item: "/test/career-aptitude-test/result" },
   ]);
+  const faqSchema = createFAQSchema(careerAptitudeFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -105,7 +106,7 @@ Take the test at Test-Archive.com`;
         title={`${primaryType.nameKo} - Career Aptitude Test Results | Test-Archive.com`}
         description={`Your Holland Code is ${hollandCode}. ${primaryType.description}`}
         canonicalUrl="/test/career-aptitude-test"
-        schema={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

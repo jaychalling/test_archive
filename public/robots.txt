@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://test-archive.com/sitemap.xml
+Sitemap: https://www.test-archive.com/sitemap.xml

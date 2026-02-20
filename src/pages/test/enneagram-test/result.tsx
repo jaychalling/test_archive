@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   enneagramQuestions,
   AnswerValue,
@@ -136,6 +136,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
     { name: 'Enneagram Test', path: '/test/enneagram-test/' },
     { name: 'Results', path: '/test/enneagram-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(enneagramFAQs);
 
   if (loading) {
     return (
@@ -178,7 +179,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
         title="Your Enneagram Type - Test Results"
         description="See your Enneagram type and wing. Understand your core motivations and how to grow."
         path="/test/enneagram-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

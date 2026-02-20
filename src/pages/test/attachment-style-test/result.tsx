@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   attachmentStyleQuestions,
   AnswerValue,
@@ -146,6 +146,7 @@ ${styleInfo.description}`;
     { name: 'Home', path: '/' },
     { name: 'Attachment Style Test', path: '/test/attachment-style-test/' },
   ]);
+  const faqSchema = createFAQSchema(attachmentStyleFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -153,7 +154,7 @@ ${styleInfo.description}`;
         title="Your Attachment Style - Test Results"
         description="Understand your attachment style and how it affects your relationships. See your anxiety and avoidance levels."
         path="/test/attachment-style-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

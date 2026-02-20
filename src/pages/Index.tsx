@@ -7,8 +7,8 @@ const Index = () => {
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
-        title="Test Archive - Free Online Personality Tests"
-        description="Take free online personality tests including Rice Purity Test, Big Five, 16 Personalities, Enneagram, and more. Discover insights about yourself. For entertainment only."
+        title="What Do These Tests Reveal About You? | Free Personality Tests"
+        description="Most people are surprised by their results. Take the Rice Purity Test, Big Five, 16 Personalities, and 15+ other tests that reveal what you might not see in yourself."
         path="/"
         jsonLd={createWebSiteSchema()}
       />

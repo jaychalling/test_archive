@@ -1,219 +1,264 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://test-archive.com/</loc>
+    <loc>https://www.test-archive.com/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/about/</loc>
+    <loc>https://www.test-archive.com/about/</loc>
+    <lastmod>2026-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/contact/</loc>
+    <loc>https://www.test-archive.com/contact/</loc>
+    <lastmod>2026-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/privacy/</loc>
+    <loc>https://www.test-archive.com/privacy/</loc>
+    <lastmod>2026-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/terms/</loc>
+    <loc>https://www.test-archive.com/terms/</loc>
+    <lastmod>2026-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
+
+  <!-- Test Pages -->
   <url>
-    <loc>https://test-archive.com/test/rice-purity/</loc>
+    <loc>https://www.test-archive.com/test/rice-purity/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/political-compass-test/</loc>
+    <loc>https://www.test-archive.com/test/political-compass-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/bdsm-test/</loc>
+    <loc>https://www.test-archive.com/test/bdsm-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-language-test/</loc>
+    <loc>https://www.test-archive.com/test/love-language-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/attachment-style-test/</loc>
+    <loc>https://www.test-archive.com/test/attachment-style-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/big-five-test/</loc>
+    <loc>https://www.test-archive.com/test/big-five-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/enneagram-test/</loc>
+    <loc>https://www.test-archive.com/test/enneagram-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/16-personality-test/</loc>
+    <loc>https://www.test-archive.com/test/16-personality-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/moral-alignment-test/</loc>
+    <loc>https://www.test-archive.com/test/moral-alignment-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/introvert-extrovert-test/</loc>
+    <loc>https://www.test-archive.com/test/introvert-extrovert-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/emotional-intelligence-test/</loc>
+    <loc>https://www.test-archive.com/test/emotional-intelligence-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/career-aptitude-test/</loc>
+    <loc>https://www.test-archive.com/test/career-aptitude-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/communication-style-test/</loc>
+    <loc>https://www.test-archive.com/test/communication-style-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-compatibility-test/</loc>
+    <loc>https://www.test-archive.com/test/love-compatibility-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/self-esteem-test/</loc>
+    <loc>https://www.test-archive.com/test/self-esteem-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/anxiety-calm-test/</loc>
+    <loc>https://www.test-archive.com/test/anxiety-calm-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/mental-age-test/</loc>
+    <loc>https://www.test-archive.com/test/mental-age-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/dark-triad-test/</loc>
+    <loc>https://www.test-archive.com/test/dark-triad-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/toxic-trait-test/</loc>
+    <loc>https://www.test-archive.com/test/toxic-trait-test/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Result Pages -->
   <url>
-    <loc>https://test-archive.com/test/rice-purity/result/</loc>
+    <loc>https://www.test-archive.com/test/rice-purity/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/political-compass-test/result/</loc>
+    <loc>https://www.test-archive.com/test/political-compass-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/bdsm-test/result/</loc>
+    <loc>https://www.test-archive.com/test/bdsm-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-language-test/result/</loc>
+    <loc>https://www.test-archive.com/test/love-language-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/attachment-style-test/result/</loc>
+    <loc>https://www.test-archive.com/test/attachment-style-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/big-five-test/result/</loc>
+    <loc>https://www.test-archive.com/test/big-five-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/enneagram-test/result/</loc>
+    <loc>https://www.test-archive.com/test/enneagram-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/16-personality-test/result/</loc>
+    <loc>https://www.test-archive.com/test/16-personality-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/moral-alignment-test/result/</loc>
+    <loc>https://www.test-archive.com/test/moral-alignment-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/introvert-extrovert-test/result/</loc>
+    <loc>https://www.test-archive.com/test/introvert-extrovert-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/emotional-intelligence-test/result/</loc>
+    <loc>https://www.test-archive.com/test/emotional-intelligence-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/career-aptitude-test/result/</loc>
+    <loc>https://www.test-archive.com/test/career-aptitude-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/communication-style-test/result/</loc>
+    <loc>https://www.test-archive.com/test/communication-style-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/love-compatibility-test/result/</loc>
+    <loc>https://www.test-archive.com/test/love-compatibility-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/self-esteem-test/result/</loc>
+    <loc>https://www.test-archive.com/test/self-esteem-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/anxiety-calm-test/result/</loc>
+    <loc>https://www.test-archive.com/test/anxiety-calm-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/mental-age-test/result/</loc>
+    <loc>https://www.test-archive.com/test/mental-age-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/dark-triad-test/result/</loc>
+    <loc>https://www.test-archive.com/test/dark-triad-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://test-archive.com/test/toxic-trait-test/result/</loc>
+    <loc>https://www.test-archive.com/test/toxic-trait-test/result/</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

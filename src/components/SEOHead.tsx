@@ -7,10 +7,10 @@ interface SEOHeadProps {
   ogImage?: string;
   ogType?: 'website' | 'article';
   noindex?: boolean;
-  jsonLd?: object;
+  jsonLd?: object | object[];
 }
 
-const BASE_URL = 'https://test-archive.com';
+const BASE_URL = 'https://www.test-archive.com';
 const DEFAULT_OG_IMAGE = '/og-image.png';
 const SITE_NAME = 'Test Archive';
 const TWITTER_HANDLE = '@TestArchive';
@@ -56,9 +56,17 @@ export const SEOHead = ({
 
       {/* JSON-LD Structured Data */}
       {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
+        Array.isArray(jsonLd)
+          ? jsonLd.map((schema, i) => (
+              <script key={i} type="application/ld+json">
+                {JSON.stringify(schema)}
+              </script>
+            ))
+          : (
+            <script type="application/ld+json">
+              {JSON.stringify(jsonLd)}
+            </script>
+          )
       )}
     </Helmet>
   );
@@ -94,7 +102,9 @@ export const createWebSiteSchema = () => ({
   '@type': 'WebSite',
   name: SITE_NAME,
   url: BASE_URL,
-  description: 'Free online personality and purity tests for entertainment.',
+  description: 'Free online personality tests that reveal what you might not see in yourself. Rice Purity, Big Five, 16 Personalities, and more.',
 });
+
+export const createMultipleSchemas = (...schemas: object[]) => schemas;
 
 export default SEOHead;

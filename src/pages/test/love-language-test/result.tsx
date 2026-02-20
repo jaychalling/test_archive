@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   loveLanguageQuestions,
   LoveLanguage,
@@ -105,6 +105,7 @@ const LoveLanguageResultPage = () => {
     { name: 'Love Language Test', path: '/test/love-language-test/' },
     { name: 'Results', path: '/test/love-language-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(loveLanguageFAQs);
 
   if (loading) {
     return (
@@ -128,7 +129,7 @@ const LoveLanguageResultPage = () => {
         title="Your Love Language Test Results"
         description="See your love language results and learn how you express affection. Improve your relationships with this insight."
         path="/test/love-language-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

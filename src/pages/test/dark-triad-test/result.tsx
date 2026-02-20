@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   AnswerValue,
   calculateResults,
@@ -91,6 +91,7 @@ Take the test: ${window.location.origin}/test/dark-triad-test/`;
     { name: 'Dark Triad Test', path: '/test/dark-triad-test/' },
     { name: 'Results', path: '/test/dark-triad-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(darkTriadFAQs);
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -98,7 +99,7 @@ Take the test: ${window.location.origin}/test/dark-triad-test/`;
         title={`Your Dark Triad Score: ${profile.overallScore}% - Results`}
         description={`Your Dark Triad results reveal your levels of Narcissism, Machiavellianism, and Psychopathy. See what your personality shadow looks like.`}
         path="/test/dark-triad-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

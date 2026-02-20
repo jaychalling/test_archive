@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   AnswerValue,
   politicalCompassQuestions,
@@ -107,6 +107,7 @@ const PoliticalCompassResultPage = () => {
     { name: 'Political Compass Test', path: '/test/political-compass-test/' },
     { name: 'Results', path: '/test/political-compass-test/result/' },
   ]);
+  const faqSchema = createFAQSchema(politicalCompassFAQs);
 
   if (loading) {
     return (
@@ -131,7 +132,7 @@ const PoliticalCompassResultPage = () => {
         title="Your Political Orientation - Political Compass Test"
         description="Discover your political orientation on the compass. See where you stand between left/right and authoritarian/libertarian."
         path="/test/political-compass-test/result/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">
