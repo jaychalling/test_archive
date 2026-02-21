@@ -75,8 +75,8 @@ const CommunicationStyleTest = () => {
 
   // Question screen
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", item: "/" },
-    { name: "Communication Style Test", item: "/test/communication-style-test" },
+    { name: "Home", path: "/" },
+    { name: "Communication Style Test", path: "/test/communication-style-test/" },
   ]);
 
   return (
@@ -84,8 +84,8 @@ const CommunicationStyleTest = () => {
       <SEOHead
         title="Communication Style Test - Analyze Your Communication Approach | Test-Archive.com"
         description="Discover your communication style. Identify whether you're assertive, passive, aggressive, or passive-aggressive, and find more effective communication methods."
-        canonicalUrl="/test/communication-style-test"
-        schema={breadcrumbSchema}
+        path="/test/communication-style-test/"
+        jsonLd={breadcrumbSchema}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

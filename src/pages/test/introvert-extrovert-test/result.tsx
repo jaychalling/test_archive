@@ -154,7 +154,7 @@ ${typeInfo.description}`;
       <SEOHead
         title="Your Introvert/Extrovert Profile"
         description="See where you fall on the introvert-extrovert spectrum. Understand your energy recharge style and social preferences."
-        path="/test/introvert-extrovert-test/"
+        path="/test/introvert-extrovert-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

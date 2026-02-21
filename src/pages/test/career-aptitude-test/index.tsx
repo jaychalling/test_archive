@@ -74,8 +74,8 @@ const CareerAptitudeTest = () => {
   };
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", item: "/" },
-    { name: "Career Aptitude Test", item: "/test/career-aptitude-test" },
+    { name: "Home", path: "/" },
+    { name: "Career Aptitude Test", path: "/test/career-aptitude-test/" },
   ]);
 
   return (
@@ -83,8 +83,8 @@ const CareerAptitudeTest = () => {
       <SEOHead
         title="Career Aptitude Test (Holland RIASEC) - Find Your Ideal Career | Test-Archive.com"
         description="Discover your ideal career field with our Holland RIASEC model-based career aptitude test. Which type are you: Realistic, Investigative, Artistic, Social, Enterprising, or Conventional?"
-        canonicalUrl="/test/career-aptitude-test"
-        schema={breadcrumbSchema}
+        path="/test/career-aptitude-test/"
+        jsonLd={breadcrumbSchema}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

@@ -169,7 +169,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
       <SEOHead
         title="Your Big Five Personality Profile"
         description="See your Big Five personality scores and understand your OCEAN profile. The most research-backed personality model."
-        path="/test/big-five-test/"
+        path="/test/big-five-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

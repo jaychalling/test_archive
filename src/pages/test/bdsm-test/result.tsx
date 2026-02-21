@@ -139,7 +139,7 @@ const BdsmTestResult = () => {
       <SEOHead
         title="Your BDSM Profile - BDSM Test Results"
         description="See your BDSM test results and what they mean. Understand your preferences in relationship dynamics."
-        path="/test/bdsm-test/"
+        path="/test/bdsm-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

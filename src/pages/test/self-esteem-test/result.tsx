@@ -148,7 +148,7 @@ Take the test at Test Archive!`;
         <SEOHead
           title="Your Self-Esteem Test Results"
           description="Understand your self-esteem level and get personalized insights for building healthy self-confidence."
-          path="/test/self-esteem-test/"
+          path="/test/self-esteem-test/result/"
           jsonLd={breadcrumbSchema}
         />
         <Header />

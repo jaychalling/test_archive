@@ -75,8 +75,8 @@ const EmotionalIntelligenceTest = () => {
 
   // Question Screen
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", item: "/" },
-    { name: "Emotional Intelligence Test", item: "/test/emotional-intelligence-test" },
+    { name: "Home", path: "/" },
+    { name: "Emotional Intelligence Test", path: "/test/emotional-intelligence-test/" },
   ]);
 
   return (
@@ -84,8 +84,8 @@ const EmotionalIntelligenceTest = () => {
       <SEOHead
         title="Emotional Intelligence Test (EQ Test) - Measure Your Emotional Intelligence | Test-Archive.com"
         description="Assess your ability to recognize and manage emotions in yourself and others with the Emotional Intelligence (EQ) Test. Measures 5 areas: self-awareness, self-regulation, motivation, empathy, and social skills."
-        canonicalUrl="/test/emotional-intelligence-test"
-        schema={breadcrumbSchema}
+        path="/test/emotional-intelligence-test/"
+        jsonLd={breadcrumbSchema}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

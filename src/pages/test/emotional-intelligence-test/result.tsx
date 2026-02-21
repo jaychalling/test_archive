@@ -120,9 +120,9 @@ Take the test at Test-Archive.com`;
   const result = eqResultDescriptions[level];
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", item: "/" },
-    { name: "Emotional Intelligence Test", item: "/test/emotional-intelligence-test" },
-    { name: "Results", item: "/test/emotional-intelligence-test/result" },
+    { name: "Home", path: "/" },
+    { name: "Emotional Intelligence Test", path: "/test/emotional-intelligence-test/" },
+    { name: "Results", path: "/test/emotional-intelligence-test/result/" },
   ]);
   const faqSchema = createFAQSchema(eqFAQs);
 
@@ -131,7 +131,7 @@ Take the test at Test-Archive.com`;
       <SEOHead
         title={`${result.nameKo} - Emotional Intelligence Test Results | Test-Archive.com`}
         description={`Your emotional intelligence level is ${result.nameKo}. ${result.description}`}
-        canonicalUrl="/test/emotional-intelligence-test"
+        path="/test/emotional-intelligence-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

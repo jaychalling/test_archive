@@ -148,7 +148,7 @@ Take the test at Test Archive!`;
         <SEOHead
           title="Your Anxiety vs Calm Result - Test Results"
           description="Understand your stress response style and anxiety tendencies. This is for entertainment and self-reflection only."
-          path="/test/anxiety-calm-test/"
+          path="/test/anxiety-calm-test/result/"
           jsonLd={breadcrumbSchema}
         />
         <Header />

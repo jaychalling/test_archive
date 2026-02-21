@@ -157,7 +157,7 @@ ${typeInfo.description}`;
       <SEOHead
         title="Your 16 Personality Type - Test Results"
         description="See your 16 personality type result. Understand your cognitive functions and preferences."
-        path="/test/16-personality-test/"
+        path="/test/16-personality-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

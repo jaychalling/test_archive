@@ -94,9 +94,9 @@ Take the test at Test-Archive.com`;
   const totalQuestions = careerQuestions.length;
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", item: "/" },
-    { name: "Career Aptitude Test", item: "/test/career-aptitude-test" },
-    { name: "Results", item: "/test/career-aptitude-test/result" },
+    { name: "Home", path: "/" },
+    { name: "Career Aptitude Test", path: "/test/career-aptitude-test/" },
+    { name: "Results", path: "/test/career-aptitude-test/result/" },
   ]);
   const faqSchema = createFAQSchema(careerAptitudeFAQs);
 
@@ -105,7 +105,7 @@ Take the test at Test-Archive.com`;
       <SEOHead
         title={`${primaryType.nameKo} - Career Aptitude Test Results | Test-Archive.com`}
         description={`Your Holland Code is ${hollandCode}. ${primaryType.description}`}
-        canonicalUrl="/test/career-aptitude-test"
+        path="/test/career-aptitude-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

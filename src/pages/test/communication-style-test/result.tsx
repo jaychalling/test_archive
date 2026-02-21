@@ -88,9 +88,9 @@ Take the test at Test-Archive.com`;
   const dominantStyle = communicationStyleDescriptions[result.style];
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", item: "/" },
-    { name: "Communication Style Test", item: "/test/communication-style-test" },
-    { name: "Result", item: "/test/communication-style-test/result" },
+    { name: "Home", path: "/" },
+    { name: "Communication Style Test", path: "/test/communication-style-test/" },
+    { name: "Result", path: "/test/communication-style-test/result/" },
   ]);
   const faqSchema = createFAQSchema(communicationStyleFAQs);
 
@@ -103,7 +103,7 @@ Take the test at Test-Archive.com`;
       <SEOHead
         title={`${dominantStyle.nameKo} - Communication Style Test Result | Test-Archive.com`}
         description={`Your primary communication style is ${dominantStyle.nameKo}. ${dominantStyle.description}`}
-        canonicalUrl="/test/communication-style-test"
+        path="/test/communication-style-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />

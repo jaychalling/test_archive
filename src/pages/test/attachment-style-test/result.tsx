@@ -153,7 +153,7 @@ ${styleInfo.description}`;
       <SEOHead
         title="Your Attachment Style - Test Results"
         description="Understand your attachment style and how it affects your relationships. See your anxiety and avoidance levels."
-        path="/test/attachment-style-test/"
+        path="/test/attachment-style-test/result/"
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
