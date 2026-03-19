@@ -1,11 +1,20 @@
 {
   "trailingSlash": true,
+  "cleanUrls": true,
   "redirects": [
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "test-archive.com" }],
       "destination": "https://www.test-archive.com/:path*",
       "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "index, follow" }
+      ]
     }
   ],
   "rewrites": [

@@ -36,3 +36,5 @@ scripts/keyword-research/__pycache__/
 venv/
 env/
 .venv/
+.vercel
+.env*.local
