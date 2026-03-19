@@ -71,19 +71,34 @@ async function prerender() {
   console.log(`[prerender] Starting server on port ${PORT}...`);
   const server = await startServer();
 
-  let puppeteer;
+  let browser;
   try {
-    puppeteer = await import('puppeteer');
+    // Try @sparticuz/chromium first (works on Vercel/AWS Lambda)
+    const chromium = await import('@sparticuz/chromium');
+    const puppeteerCore = await import('puppeteer-core');
+    const execPath = await chromium.default.executablePath();
+    console.log(`[prerender] Using @sparticuz/chromium: ${execPath}`);
+    browser = await puppeteerCore.default.launch({
+      args: chromium.default.args,
+      defaultViewport: chromium.default.defaultViewport,
+      executablePath: execPath,
+      headless: true,
+    });
   } catch {
-    console.error('[prerender] Puppeteer not found. Run: npm install -D puppeteer');
-    server.close();
-    process.exit(1);
+    // Fallback to regular puppeteer (local dev)
+    try {
+      const puppeteer = await import('puppeteer');
+      console.log('[prerender] Using regular puppeteer');
+      browser = await puppeteer.default.launch({
+        headless: 'new',
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
+    } catch {
+      console.error('[prerender] No browser found. Install puppeteer or @sparticuz/chromium');
+      server.close();
+      process.exit(1);
+    }
   }
-
-  const browser = await puppeteer.default.launch({
-    headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
 
   let success = 0;
   let failed = 0;
