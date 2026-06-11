@@ -6,7 +6,7 @@
  * test page. noindex — these URLs must never enter the search index.
  * All interpolated values come from the whitelist in _shareConfig.ts.
  */
-import { resolveShare, isKnownSlug, BASE_URL } from './_shareConfig';
+import { resolveShare, isKnownSlug, BASE_URL } from './_shareConfig.js';
 
 export const config = { runtime: 'edge' };
 

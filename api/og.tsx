@@ -4,7 +4,7 @@
  * All rendered text comes from the whitelist in _shareConfig.ts.
  */
 import { ImageResponse } from '@vercel/og';
-import { resolveShare } from './_shareConfig';
+import { resolveShare } from './_shareConfig.js';
 
 export const config = { runtime: 'edge' };
 
