@@ -16,13 +16,13 @@ test.describe('Rice Purity Test - Full Workflow', () => {
     await page.getByRole('button', { name: 'Start Test' }).click();
 
     // 4. Verify test started - should show question number
-    await expect(page.locator('text=/1\\/100|Q1/i')).toBeVisible();
+    await expect(page.locator('text=/1\\s*\\/\\s*100|Q1/i').first()).toBeVisible();
 
     // 5. Answer all 100 questions by clicking "No" (faster, keeps high purity)
     const totalQuestions = 100;
 
     for (let i = 0; i < totalQuestions; i++) {
-      await page.waitForTimeout(150);
+      await page.waitForTimeout(300);
 
       // Click "No" button
       const noButton = page.getByRole('button', { name: 'No' });
@@ -55,7 +55,7 @@ test.describe('Rice Purity Test - Full Workflow', () => {
 
     // Complete all 100 questions (click "No" for all)
     for (let i = 0; i < 100; i++) {
-      await page.waitForTimeout(150);
+      await page.waitForTimeout(300);
       const noButton = page.getByRole('button', { name: 'No' });
       await noButton.waitFor({ state: 'visible' });
       await noButton.click({ force: true });
@@ -74,7 +74,7 @@ test.describe('Rice Purity Test - Full Workflow', () => {
     await page.getByRole('button', { name: 'Start Test' }).click();
 
     // Verify at question 1
-    await expect(page.locator('text=/1\\/100/i')).toBeVisible();
+    await expect(page.locator('text=/1\\s*\\/\\s*100/i').first()).toBeVisible();
 
     // Previous should be disabled at first question
     const prevButton = page.getByRole('button', { name: 'Previous' });
@@ -85,7 +85,7 @@ test.describe('Rice Purity Test - Full Workflow', () => {
     await page.waitForTimeout(200);
 
     // Should auto-advance to question 2
-    await expect(page.locator('text=/2\\/100/i')).toBeVisible();
+    await expect(page.locator('text=/2\\s*\\/\\s*100/i').first()).toBeVisible();
 
     // Now Previous should be enabled
     await expect(prevButton).toBeEnabled();
@@ -93,6 +93,6 @@ test.describe('Rice Purity Test - Full Workflow', () => {
     // Go back to question 1
     await prevButton.click();
     await page.waitForTimeout(200);
-    await expect(page.locator('text=/1\\/100/i')).toBeVisible();
+    await expect(page.locator('text=/1\\s*\\/\\s*100/i').first()).toBeVisible();
   });
 });
