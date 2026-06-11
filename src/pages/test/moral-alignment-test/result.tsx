@@ -18,6 +18,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 interface AlignmentResult {
   goodEvil: number; // -10 ~ +10 (Evil ~ Good)
@@ -147,7 +149,7 @@ const MoralAlignmentResultPage = () => {
         await navigator.share({
           title: "Moral Alignment Test Results",
           text: shareText,
-          url: window.location.href,
+          url: buildShareUrl("moral-alignment-test", alignmentType),
         });
       } catch (err) {
         // User cancelled or share failed
@@ -508,6 +510,15 @@ const MoralAlignmentResultPage = () => {
               </div>
             </div>
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="moral-alignment-test"
+            shareValue={alignmentType}
+            shareLabel={alignment.name}
+            testName="Moral Alignment Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

@@ -18,6 +18,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 import { CheckCircle2, RotateCcw, Share2, AlertCircle, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -45,6 +47,7 @@ const ToxicTraitTestResult = () => {
     const result = calculateResults(answers);
     const profile = getToxicTraitProfile(result);
     const primaryInfo = toxicTraitDescriptions[profile.primaryTrait];
+    const shareUrl = buildShareUrl("toxic-trait-test", profile.primaryTrait);
 
     const shareText = `My Toxic Trait Test Results
 
@@ -61,7 +64,7 @@ Take the test: ${window.location.origin}/test/toxic-trait-test/`;
         await navigator.share({
           title: "Toxic Trait Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled
@@ -340,6 +343,14 @@ Take the test: ${window.location.origin}/test/toxic-trait-test/`;
               </p>
             </div>
           </div>
+
+          <ShareResultCard
+            slug="toxic-trait-test"
+            shareValue={profile.primaryTrait}
+            shareLabel={primaryInfo.name}
+            testName="Toxic Trait Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex gap-4 justify-center">

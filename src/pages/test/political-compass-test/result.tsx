@@ -18,6 +18,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 interface CompassResult {
   economic: number; // -10 ~ +10 (Left ~ Right)
@@ -84,6 +86,7 @@ const PoliticalCompassResultPage = () => {
     const result = calculateResult();
     const quadrant = getQuadrant(result.economic, result.social);
     const quadrantInfo = quadrantDescriptions[quadrant];
+    const shareUrl = buildShareUrl("political-compass-test", quadrant);
     const shareText = `My Political Compass: ${quadrantInfo.name}\nEconomic: ${result.economic > 0 ? "Right" : "Left"} (${result.economic.toFixed(1)})\nSocial: ${result.social > 0 ? "Authoritarian" : "Libertarian"} (${result.social.toFixed(1)})`;
 
     if (navigator.share) {
@@ -91,7 +94,7 @@ const PoliticalCompassResultPage = () => {
         await navigator.share({
           title: "Political Compass Test Result",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled or share failed
@@ -425,6 +428,15 @@ const PoliticalCompassResultPage = () => {
               </div>
             </div>
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="political-compass-test"
+            shareValue={quadrantType}
+            shareLabel={quadrantInfo.name}
+            testName="Political Compass Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

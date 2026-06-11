@@ -25,6 +25,8 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import { cn } from "@/lib/utils";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const calculateResults = (answers: Record<number, AnswerChoice>): PersonalityResult => {
   const dimensionScores: Record<Dimension, { poleA: number; poleB: number }> = {
@@ -101,6 +103,7 @@ const SixteenPersonalityTestResult = () => {
     const result = calculateResults(answers);
     const typeInfo = personalityTypeInfo[result.typeCode];
     const { EI, SN, TF, JP } = result.dimensionScores;
+    const shareUrl = buildShareUrl("16-personality-test", result.typeCode);
 
     const shareText = `My 16 Personality Type Test Results
 
@@ -120,7 +123,7 @@ ${typeInfo.description}`;
         await navigator.share({
           title: "16 Personality Type Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled or share failed
@@ -606,6 +609,15 @@ ${typeInfo.description}`;
               );
             })}
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="16-personality-test"
+            shareValue={result.typeCode}
+            shareLabel={`${result.typeCode} — ${typeInfo.nickname}`}
+            testName="16 Personality Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

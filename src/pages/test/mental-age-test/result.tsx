@@ -13,6 +13,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 import { CheckCircle2, RotateCcw, Share2, Baby } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -46,6 +48,7 @@ const MentalAgeTestResult = () => {
     const mentalAge = calculateMentalAge(answers, actualAge);
     const resultBand = getResultBand(mentalAge);
     const ageDiff = mentalAge - actualAge;
+    const shareUrl = buildShareUrl("mental-age-test", mentalAge);
 
     const shareText = `My Mental Age Test Results
 
@@ -63,7 +66,7 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
         await navigator.share({
           title: "Mental Age Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled
@@ -305,6 +308,14 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
               </p>
             </div>
           </div>
+
+          <ShareResultCard
+            slug="mental-age-test"
+            shareValue={mentalAge}
+            shareLabel={`Mental Age ${mentalAge}`}
+            testName="Mental Age Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex gap-4 justify-center">

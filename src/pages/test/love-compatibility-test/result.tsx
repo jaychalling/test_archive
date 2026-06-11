@@ -17,6 +17,8 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import { cn } from "@/lib/utils";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const calculateResults = (answers: Record<number, AnswerValue>): CompatibilityResult => {
   const categoryScores = {
@@ -143,6 +145,7 @@ const LoveCompatibilityResult = () => {
   const handleShare = async () => {
     const result = calculateResults(answers);
     const levelInfo = compatibilityDescriptions[result.compatibilityLevel];
+    const shareUrl = buildShareUrl("love-compatibility-test", Math.round(result.overallScore));
 
     const shareText = `My Love Compatibility Test Result
 
@@ -160,7 +163,7 @@ ${levelInfo.shortDescription}`;
         await navigator.share({
           title: "Love Compatibility Test Result",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled or share failed
@@ -314,6 +317,14 @@ ${levelInfo.shortDescription}`;
           <div className="mb-8">
             <CollapsibleFAQ faqs={levelInfo.faqs} />
           </div>
+
+          <ShareResultCard
+            slug="love-compatibility-test"
+            shareValue={Math.round(result.overallScore)}
+            shareLabel={`${Math.round(result.overallScore)}% — ${result.compatibilityLevel} Compatibility`}
+            testName="Love Compatibility Test"
+            className="mt-8"
+          />
 
           {/* Recommended Tests */}
           <div className="mb-8">

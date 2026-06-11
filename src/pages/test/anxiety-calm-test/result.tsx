@@ -16,6 +16,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 import { cn } from "@/lib/utils";
 
 const calculateResults = (answers: Record<number, AnswerValue>): AnxietyCalmResult => {
@@ -104,6 +106,7 @@ const AnxietyCalmTestResult = () => {
   const handleShare = async () => {
     const result = calculateResults(answers);
     const description = tendencyDescriptions[result.tendency];
+    const shareUrl = buildShareUrl("anxiety-calm-test", result.percentage);
 
     const shareText = `My Anxiety vs Calm Test Result
 
@@ -119,7 +122,7 @@ Take the test at Test Archive!`;
         await navigator.share({
           title: "Anxiety vs Calm Test Result",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled or share failed
@@ -376,6 +379,14 @@ Take the test at Test Archive!`;
                 your activities, please consult a qualified mental health professional for proper evaluation and support.
               </p>
             </div>
+
+            <ShareResultCard
+              slug="anxiety-calm-test"
+              shareValue={result.percentage}
+              shareLabel={`${result.percentage}/100 — ${result.tendency}`}
+              testName="Anxiety vs Calm Test"
+              className="mt-8"
+            />
 
             {/* Recommended Tests */}
             <div className="mb-8">

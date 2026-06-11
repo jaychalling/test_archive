@@ -17,6 +17,8 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import ScoreDistributionChart from "@/components/ScoreDistributionChart";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 import { cn } from "@/lib/utils";
 
 const calculateResults = (answers: Record<number, AnswerValue>): AttachmentResult => {
@@ -116,7 +118,7 @@ ${styleInfo.description}`;
         await navigator.share({
           title: "Attachment Style Test Result",
           text: shareText,
-          url: window.location.href,
+          url: buildShareUrl("attachment-style-test", result.primaryStyle),
         });
       } catch (err) {
         // User cancelled or share failed
@@ -475,6 +477,15 @@ ${styleInfo.description}`;
           <div className="mb-8">
             <CollapsibleFAQ faqs={attachmentStyleFAQs} />
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="attachment-style-test"
+            shareValue={result.primaryStyle}
+            shareLabel={styleInfo.name}
+            testName="Attachment Style Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

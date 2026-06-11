@@ -31,6 +31,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const CareerAptitudeTestResult = () => {
   const navigate = useNavigate();
@@ -56,6 +58,7 @@ const CareerAptitudeTestResult = () => {
     const topTypes = calculateTopTypes(answers);
     const top3 = topTypes.slice(0, 3);
     const hollandCode = top3.map(t => t.code).join('');
+    const shareUrl = buildShareUrl("career-aptitude-test", hollandCode);
 
     const shareText = `My Career Aptitude Test Results
 
@@ -72,13 +75,13 @@ Take the test at Test-Archive.com`;
         await navigator.share({
           title: "Career Aptitude Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         console.log("Share cancelled");
       }
     } else {
-      await navigator.clipboard.writeText(shareText + `\n${window.location.href}`);
+      await navigator.clipboard.writeText(shareText + `\n${shareUrl}`);
       alert("Results copied to clipboard!");
     }
   };
@@ -351,6 +354,14 @@ Take the test at Test-Archive.com`;
               </div>
             </div>
           </div>
+
+          <ShareResultCard
+            slug="career-aptitude-test"
+            shareValue={hollandCode}
+            shareLabel={`Holland Code ${hollandCode}`}
+            testName="Career Aptitude Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

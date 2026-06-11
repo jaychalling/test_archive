@@ -25,6 +25,14 @@ import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import { CheckCircle2, RotateCcw, Share2, Brain } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
+
+const getStrongestTrait = (result: BigFiveResult): BigFiveTrait =>
+  traitOrder.reduce((best, trait) => (result[trait] > result[best] ? trait : best), traitOrder[0]);
+
+const capitalizeTrait = (trait: BigFiveTrait): string =>
+  trait.charAt(0).toUpperCase() + trait.slice(1);
 
 const calculateResults = (answers: Record<number, AnswerValue>): BigFiveResult => {
   const traitScores: Record<BigFiveTrait, { sum: number; count: number }> = {
@@ -83,6 +91,7 @@ const BigFiveTestResult = () => {
   const handleShare = async () => {
     const result = calculateResults(answers);
     const profile = getPersonalityProfile(result);
+    const shareUrl = buildShareUrl("big-five-test", getStrongestTrait(result));
 
     const shareText = `My Big Five Personality Test Results
 
@@ -99,7 +108,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
         await navigator.share({
           title: "Big Five Personality Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled or share failed
@@ -121,6 +130,7 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
 
   const result = calculateResults(answers);
   const profile = getPersonalityProfile(result);
+  const strongestTrait = getStrongestTrait(result);
 
   const radarPoints = traitOrder.map((trait, index) => {
     const angle = (Math.PI * 2 * index) / 5 - Math.PI / 2;
@@ -480,6 +490,15 @@ Neuroticism: ${result.neuroticism}% (${scoreLevelLabels[getScoreLevel(result.neu
               </div>
             </div>
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="big-five-test"
+            shareValue={strongestTrait}
+            shareLabel={`Strongest Trait: ${capitalizeTrait(strongestTrait)}`}
+            testName="Big Five Personality Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex gap-4 justify-center">

@@ -23,6 +23,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const colorClasses: Record<string, { bg: string; text: string; border: string; gradient: string }> = {
   emerald: { bg: "bg-emerald-500/10", text: "text-emerald-600", border: "border-emerald-500/20", gradient: "from-emerald-400 to-teal-500" },
@@ -61,6 +63,7 @@ const RicePurityTestResult = () => {
   const handleShare = async () => {
     const score = calculateScore();
     const scoreRange = getScoreRange(score);
+    const shareUrl = buildShareUrl("rice-purity", score);
 
     const shareText = `My Rice Purity Test Results
 
@@ -76,13 +79,13 @@ Take the test at Test-Archive.com`;
         await navigator.share({
           title: "Rice Purity Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         console.log("Share cancelled");
       }
     } else {
-      await navigator.clipboard.writeText(shareText + `\n${window.location.href}`);
+      await navigator.clipboard.writeText(shareText + `\n${shareUrl}`);
       alert("Results copied to clipboard!");
     }
   };
@@ -281,6 +284,15 @@ Take the test at Test-Archive.com`;
               </div>
             </div>
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="rice-purity"
+            shareValue={score}
+            shareLabel={`${score}/100 — ${scoreRange.title}`}
+            testName="Rice Purity Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

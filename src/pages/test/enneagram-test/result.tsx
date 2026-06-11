@@ -25,6 +25,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const calculateResults = (answers: Record<number, AnswerValue>): EnneagramResult => {
   const typeScores: Record<EnneagramType, { sum: number; count: number }> = {
@@ -120,7 +122,7 @@ Growth Direction: ${mainInfo.growthDirection}`;
         await navigator.share({
           title: "Enneagram Test Results",
           text: shareText,
-          url: window.location.href,
+          url: buildShareUrl("enneagram-test", String(result.mainType)),
         });
       } catch (err) {
         // User cancelled or share failed
@@ -584,6 +586,15 @@ Growth Direction: ${mainInfo.growthDirection}`;
               </div>
             </div>
           )}
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="enneagram-test"
+            shareValue={String(result.mainType)}
+            shareLabel={`Type ${result.mainType}${result.wing ? `w${result.wing}` : ""}`}
+            testName="Enneagram Test"
+            className="mt-8"
+          />
 
           <div className="flex gap-3 justify-center">
             <Button onClick={handleReset} variant="outline" className="gap-2">

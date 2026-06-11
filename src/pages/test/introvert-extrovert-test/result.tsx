@@ -25,6 +25,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const calculateResults = (answers: Record<number, AnswerValue>): IntrovertExtrovertResult => {
   const dimensionScores: Record<PersonalityDimension, { sum: number; count: number }> = {
@@ -113,7 +115,7 @@ ${typeInfo.description}`;
         await navigator.share({
           title: "Introvert/Extrovert Test Results",
           text: shareText,
-          url: window.location.href,
+          url: buildShareUrl("introvert-extrovert-test", result.personalityType),
         });
       } catch (err) {
         // User cancelled or share failed
@@ -452,6 +454,15 @@ ${typeInfo.description}`;
               })}
             </div>
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="introvert-extrovert-test"
+            shareValue={result.personalityType}
+            shareLabel={typeInfo.name}
+            testName="Introvert vs Extrovert Test"
+            className="mt-8"
+          />
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">

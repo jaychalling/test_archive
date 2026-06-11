@@ -16,6 +16,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 import { cn } from "@/lib/utils";
 
 type AnswerChoice = "A" | "B";
@@ -89,7 +91,7 @@ const LoveLanguageResultPage = () => {
         await navigator.share({
           title: "Love Language Test Result",
           text: shareText,
-          url: window.location.href,
+          url: buildShareUrl("love-language-test", ranked[0].language),
         });
       } catch (err) {
         // User cancelled or share failed
@@ -329,6 +331,15 @@ const LoveLanguageResultPage = () => {
           <div className="mb-8">
             <CollapsibleFAQ faqs={loveLanguageFAQs} />
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="love-language-test"
+            shareValue={primaryLanguage.language}
+            shareLabel={primaryInfo.name}
+            testName="Love Language Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

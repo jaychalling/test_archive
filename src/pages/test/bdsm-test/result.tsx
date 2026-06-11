@@ -18,6 +18,8 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import { bdsmQuestions } from "@/data/bdsmTestQuestions";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const calculateResults = (answers: Record<number, BdsmAnswerValue>): BdsmResult => {
   const categories = ["dominant", "submissive", "sadism", "masochism", "switch"] as const;
@@ -75,6 +77,7 @@ const BdsmTestResult = () => {
     const result = calculateResults(answers);
     const mainTrait = getMainTrait(result);
     const mainTraitName = bdsmTraitDescriptions[mainTrait].name;
+    const shareUrl = buildShareUrl("bdsm-test", mainTrait);
 
     const shareText = `My BDSM Test Result: ${mainTraitName}\n\nDominant: ${result.dominant}%\nSubmissive: ${result.submissive}%\nSadism: ${result.sadism}%\nMasochism: ${result.masochism}%\nSwitch: ${result.switch}%`;
 
@@ -83,7 +86,7 @@ const BdsmTestResult = () => {
         await navigator.share({
           title: "BDSM Test Result",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled or share failed
@@ -351,6 +354,15 @@ const BdsmTestResult = () => {
               </div>
             </div>
           </div>
+
+          {/* Share Result Card */}
+          <ShareResultCard
+            slug="bdsm-test"
+            shareValue={mainTrait}
+            shareLabel={mainTraitInfo.name}
+            testName="BDSM Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

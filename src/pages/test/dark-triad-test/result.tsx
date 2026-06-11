@@ -18,6 +18,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 import { CheckCircle2, RotateCcw, Share2, Skull, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -44,6 +46,7 @@ const DarkTriadTestResult = () => {
   const handleShare = async () => {
     const result = calculateResults(answers);
     const profile = getDarkTriadProfile(result);
+    const shareUrl = buildShareUrl("dark-triad-test", profile.primaryTrait);
 
     const shareText = `My Dark Triad Test Results
 
@@ -61,7 +64,7 @@ Take the test: ${window.location.origin}/test/dark-triad-test/`;
         await navigator.share({
           title: "Dark Triad Test Results",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // User cancelled
@@ -364,6 +367,14 @@ Take the test: ${window.location.origin}/test/dark-triad-test/`;
               </p>
             </div>
           </div>
+
+          <ShareResultCard
+            slug="dark-triad-test"
+            shareValue={profile.primaryTrait}
+            shareLabel={`Primary Trait: ${darkTriadDescriptions[profile.primaryTrait].name}`}
+            testName="Dark Triad Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex gap-4 justify-center">

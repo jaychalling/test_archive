@@ -31,6 +31,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
+import ShareResultCard from "@/components/ShareResultCard";
+import { buildShareUrl } from "@/lib/share";
 
 const CommunicationStyleTestResult = () => {
   const navigate = useNavigate();
@@ -55,6 +57,7 @@ const CommunicationStyleTestResult = () => {
   const handleShare = async () => {
     const result = calculateCommunicationStyle(answers);
     const styleInfo = communicationStyleDescriptions[result.style];
+    const shareUrl = buildShareUrl("communication-style-test", result.style);
 
     const shareText = `My Communication Style Test Result
 
@@ -69,13 +72,13 @@ Take the test at Test-Archive.com`;
         await navigator.share({
           title: "Communication Style Test Result",
           text: shareText,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         console.log("Share cancelled");
       }
     } else {
-      await navigator.clipboard.writeText(shareText + `\n${window.location.href}`);
+      await navigator.clipboard.writeText(shareText + `\n${shareUrl}`);
       alert("Result copied to clipboard!");
     }
   };
@@ -319,6 +322,14 @@ Take the test at Test-Archive.com`;
               </div>
             </div>
           </div>
+
+          <ShareResultCard
+            slug="communication-style-test"
+            shareValue={result.style}
+            shareLabel={dominantStyle.nameKo}
+            testName="Communication Style Test"
+            className="mt-8"
+          />
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
