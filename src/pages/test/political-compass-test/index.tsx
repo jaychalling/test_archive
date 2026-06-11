@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   politicalCompassQuestions,
   answerOptions,
@@ -126,13 +126,21 @@ const PoliticalCompassTest = () => {
     { name: 'Political Compass Test', path: '/test/political-compass-test/'  },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Free Political Compass Test - Where Do You Stand on the Spectrum?",
+    description: "Map your political views on a 2D compass! Are you left or right? Authoritarian or libertarian? Take this quick quiz and see where you land.",
+    path: "/test/political-compass-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
         title="Free Political Compass Test - Where Do You Stand on the Spectrum?"
         description="Map your political views on a 2D compass! Are you left or right? Authoritarian or libertarian? Take this quick quiz and see where you land."
         path="/test/political-compass-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

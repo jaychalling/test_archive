@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   loveCompatibilityQuestions,
   AnswerValue,
@@ -86,13 +86,21 @@ const LoveCompatibilityTest = () => {
     { name: 'Love Compatibility Test', path: '/test/love-compatibility-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Love Compatibility Test - Find Your Relationship Readiness",
+    description: "Discover your love compatibility across communication, values, emotional connection, lifestyle, and conflict resolution. For entertainment purposes only.",
+    path: "/test/love-compatibility-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Love Compatibility Test - Find Your Relationship Readiness | Test Archive"
         description="Discover your love compatibility across communication, values, emotional connection, lifestyle, and conflict resolution. For entertainment purposes only."
         path="/test/love-compatibility-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

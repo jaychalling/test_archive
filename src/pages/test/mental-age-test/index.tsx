@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import { mentalAgeQuestions } from "@/data/mentalAgeQuestions";
 import { ChevronLeft, ChevronRight, CheckCircle2, Baby } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -69,13 +69,21 @@ const MentalAgeTest = () => {
     { name: 'Mental Age Test', path: '/test/mental-age-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Mental Age Test - How Old Is Your Mind Really?",
+    description: "Is your mind older or younger than your years? Take this fun mental age quiz to find out! Based on maturity, wisdom & playfulness. Instant results!",
+    path: "/test/mental-age-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT7M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
         title="Mental Age Test - How Old Is Your Mind Really?"
         description="Is your mind older or younger than your years? Take this fun mental age quiz to find out! Based on maturity, wisdom & playfulness. Instant results!"
         path="/test/mental-age-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

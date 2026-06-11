@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   bigFiveQuestions,
   answerOptions,
@@ -72,13 +72,21 @@ const BigFiveTest = () => {
     { name: 'Big Five Test', path: '/test/big-five-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: 'Free Big Five Personality Test (OCEAN) - Scientific 50 Questions',
+    description: 'Take the free Big Five (OCEAN) personality test! Measure Openness, Conscientiousness, Extraversion, Agreeableness & Neuroticism. Most scientifically validated personality model.',
+    path: '/test/big-five-test/',
+    numberOfQuestions: totalQuestions,
+    timeRequired: 'PT7M',
+  });
+
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
         title="Free Big Five Personality Test (OCEAN) - Scientific 50 Questions"
         description="Take the free Big Five (OCEAN) personality test! Measure Openness, Conscientiousness, Extraversion, Agreeableness & Neuroticism. Most scientifically validated personality model."
         path="/test/big-five-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

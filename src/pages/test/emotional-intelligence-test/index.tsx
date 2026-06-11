@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   eqQuestions,
   answerOptions,
@@ -79,13 +79,21 @@ const EmotionalIntelligenceTest = () => {
     { name: "Emotional Intelligence Test", path: "/test/emotional-intelligence-test/" },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Emotional Intelligence Test (EQ Test) - Measure Your Emotional Intelligence",
+    description: "Assess your ability to recognize and manage emotions in yourself and others with the Emotional Intelligence (EQ) Test. Measures 5 areas: self-awareness, self-regulation, motivation, empathy, and social skills.",
+    path: "/test/emotional-intelligence-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
         title="Emotional Intelligence Test (EQ Test) - Measure Your Emotional Intelligence | Test-Archive.com"
         description="Assess your ability to recognize and manage emotions in yourself and others with the Emotional Intelligence (EQ) Test. Measures 5 areas: self-awareness, self-regulation, motivation, empathy, and social skills."
         path="/test/emotional-intelligence-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

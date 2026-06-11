@@ -15,6 +15,19 @@ const DEFAULT_OG_IMAGE = '/og-image.png';
 const SITE_NAME = 'Test Archive';
 const TWITTER_HANDLE = '@TestArchive';
 
+/**
+ * Normalize a path for canonical/OG URLs:
+ * - always leading slash
+ * - always trailing slash (site-wide trailing-slash policy, matches vercel.json trailingSlash: true)
+ * - never strips file-like paths (e.g. /sitemap.xml)
+ */
+const normalizePath = (path: string): string => {
+  let p = path.startsWith('/') ? path : `/${path}`;
+  const isFile = /\.[a-z0-9]+$/i.test(p);
+  if (!isFile && !p.endsWith('/')) p = `${p}/`;
+  return p;
+};
+
 export const SEOHead = ({
   title,
   description,
@@ -25,7 +38,7 @@ export const SEOHead = ({
   jsonLd,
 }: SEOHeadProps) => {
   const fullTitle = `${title} | ${SITE_NAME}`;
-  const canonicalUrl = `${BASE_URL}${path}`;
+  const canonicalUrl = `${BASE_URL}${normalizePath(path)}`;
   const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${BASE_URL}${ogImage}`;
 
   return (
@@ -80,7 +93,7 @@ export const createBreadcrumbSchema = (items: { name: string; path: string }[]) 
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: `${BASE_URL}${item.path}`,
+    item: `${BASE_URL}${normalizePath(item.path)}`,
   })),
 });
 
@@ -101,8 +114,43 @@ export const createWebSiteSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: SITE_NAME,
-  url: BASE_URL,
+  url: `${BASE_URL}/`,
   description: 'Free online personality tests that reveal what you might not see in yourself. Rice Purity, Big Five, 16 Personalities, and more.',
+});
+
+export interface QuizSchemaInput {
+  name: string;
+  description: string;
+  path: string;
+  numberOfQuestions: number;
+  /** ISO 8601 duration, e.g. 'PT5M' for ~5 minutes */
+  timeRequired?: string;
+}
+
+export const createQuizSchema = ({
+  name,
+  description,
+  path,
+  numberOfQuestions,
+  timeRequired,
+}: QuizSchemaInput) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Quiz',
+  name,
+  description,
+  url: `${BASE_URL}${normalizePath(path)}`,
+  numberOfQuestions,
+  ...(timeRequired ? { timeRequired } : {}),
+  educationalAlignment: {
+    '@type': 'AlignmentObject',
+    alignmentType: 'educationalSubject',
+    targetName: 'Personality and self-discovery',
+  },
+  provider: {
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: `${BASE_URL}/`,
+  },
 });
 
 export const createMultipleSchemas = (...schemas: object[]) => schemas;

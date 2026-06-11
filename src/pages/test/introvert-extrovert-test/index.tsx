@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   introvertExtrovertQuestions,
   AnswerValue,
@@ -71,13 +71,21 @@ const IntrovertExtrovertTest = () => {
     { name: 'Introvert/Extrovert Test', path: '/test/introvert-extrovert-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Introvert vs Extrovert Test - Find Your Spectrum",
+    description: "Are you an introvert or extrovert? Find your position on the spectrum with this 20-question test analyzing 5 key factors. For entertainment only.",
+    path: "/test/introvert-extrovert-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Introvert vs Extrovert Test - Find Your Spectrum"
         description="Are you an introvert or extrovert? Find your position on the spectrum with this 20-question test analyzing 5 key factors. For entertainment only."
         path="/test/introvert-extrovert-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

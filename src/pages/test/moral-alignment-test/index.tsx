@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   moralAlignmentQuestions,
   answerOptions,
@@ -179,13 +179,21 @@ const MoralAlignmentTest = () => {
     { name: 'Moral Alignment Test', path: '/test/moral-alignment-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Moral Alignment Test - D&D Alignment Chart",
+    description: "Find your moral alignment among 9 types. Are you lawful, neutral, or chaotic? Good, neutral, or evil? For entertainment purposes only.",
+    path: "/test/moral-alignment-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Moral Alignment Test - D&D Alignment Chart"
         description="Find your moral alignment among 9 types. Are you lawful, neutral, or chaotic? Good, neutral, or evil? For entertainment purposes only."
         path="/test/moral-alignment-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

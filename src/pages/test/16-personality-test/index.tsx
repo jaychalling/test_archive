@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   personalityQuestions,
   AnswerChoice,
@@ -154,13 +154,21 @@ const SixteenPersonalityTest = () => {
     { name: '16 Personality Test', path: '/test/16-personality-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Free 16 Personalities Test (MBTI) - What's Your Type?",
+    description: "Take the free 16 personalities test online! Discover if you're INTJ, ENFP, INFP or one of 16 types. Quick 5-minute MBTI-style quiz with instant results.",
+    path: '/test/16-personality-test/',
+    numberOfQuestions: totalQuestions,
+    timeRequired: 'PT5M',
+  });
+
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
         title="Free 16 Personalities Test (MBTI) - What's Your Type?"
         description="Take the free 16 personalities test online! Discover if you're INTJ, ENFP, INFP or one of 16 types. Quick 5-minute MBTI-style quiz with instant results."
         path="/test/16-personality-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
       <Header />
 

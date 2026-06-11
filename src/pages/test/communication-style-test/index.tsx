@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   communicationQuestions,
   answerOptions,
@@ -79,13 +79,21 @@ const CommunicationStyleTest = () => {
     { name: "Communication Style Test", path: "/test/communication-style-test/" },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Communication Style Test - Analyze Your Communication Approach",
+    description: "Discover your communication style. Identify whether you're assertive, passive, aggressive, or passive-aggressive, and find more effective communication methods.",
+    path: "/test/communication-style-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
         title="Communication Style Test - Analyze Your Communication Approach | Test-Archive.com"
         description="Discover your communication style. Identify whether you're assertive, passive, aggressive, or passive-aggressive, and find more effective communication methods."
         path="/test/communication-style-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   ricePurityQuestions,
 } from "@/data/ricePurityQuestions";
@@ -91,13 +91,21 @@ const RicePurityTest = () => {
     { name: 'Rice Purity Test', path: '/test/rice-purity/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Rice Purity Test - Official 100 Questions | Check Your Score",
+    description: "Take the official Rice Purity Test with all 100 original questions! See your innocence score instantly. The classic college purity test - free & anonymous.",
+    path: "/test/rice-purity/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT7M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero theme-purity">
       <SEOHead
         title="Rice Purity Test - Official 100 Questions | Check Your Score"
         description="Take the official Rice Purity Test with all 100 original questions! See your innocence score instantly. The classic college purity test - free & anonymous."
         path="/test/rice-purity/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
       <Header />
 

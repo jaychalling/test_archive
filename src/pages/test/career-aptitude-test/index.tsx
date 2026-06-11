@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   careerQuestions,
   answerOptions,
@@ -78,13 +78,21 @@ const CareerAptitudeTest = () => {
     { name: "Career Aptitude Test", path: "/test/career-aptitude-test/" },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Career Aptitude Test (Holland RIASEC) - Find Your Ideal Career",
+    description: "Discover your ideal career field with our Holland RIASEC model-based career aptitude test. Which type are you: Realistic, Investigative, Artistic, Social, Enterprising, or Conventional?",
+    path: "/test/career-aptitude-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
         title="Career Aptitude Test (Holland RIASEC) - Find Your Ideal Career | Test-Archive.com"
         description="Discover your ideal career field with our Holland RIASEC model-based career aptitude test. Which type are you: Realistic, Investigative, Artistic, Social, Enterprising, or Conventional?"
         path="/test/career-aptitude-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">

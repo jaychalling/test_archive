@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   anxietyCalmQuestions,
   answerOptions,
@@ -80,13 +80,21 @@ const AnxietyCalmTest = () => {
     { name: 'Anxiety vs Calm Test', path: '/test/anxiety-calm-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: 'Anxiety vs Calm Test - Discover Your Stress Response Style',
+    description: 'Discover your natural stress response and anxiety tendencies. Are you generally calm, balanced, or prone to worry? For entertainment and self-reflection only.',
+    path: '/test/anxiety-calm-test/',
+    numberOfQuestions: totalQuestions,
+    timeRequired: 'PT5M',
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Anxiety vs Calm Test - Discover Your Stress Response Style | Test Archive"
         description="Discover your natural stress response and anxiety tendencies. Are you generally calm, balanced, or prone to worry? For entertainment and self-reflection only."
         path="/test/anxiety-calm-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

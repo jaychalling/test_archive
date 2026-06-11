@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   attachmentStyleQuestions,
   AnswerValue,
@@ -78,13 +78,21 @@ const AttachmentStyleTest = () => {
     { name: 'Attachment Style Test', path: '/test/attachment-style-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: 'Attachment Style Test - Find Your Pattern',
+    description: 'Discover your attachment style in relationships. Are you secure, anxious, avoidant, or fearful-avoidant? For entertainment purposes only.',
+    path: '/test/attachment-style-test/',
+    numberOfQuestions: totalQuestions,
+    timeRequired: 'PT5M',
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Attachment Style Test - Find Your Pattern"
         description="Discover your attachment style in relationships. Are you secure, anxious, avoidant, or fearful-avoidant? For entertainment purposes only."
         path="/test/attachment-style-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

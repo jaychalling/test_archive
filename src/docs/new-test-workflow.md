@@ -794,14 +794,14 @@ import ExampleTestResult from "./pages/test/example-test/result";
 <!-- public/sitemap.xml -->
 <!-- 테스트 페이지 -->
 <url>
-  <loc>https://test-archive.com/test/example-test</loc>
+  <loc>https://www.test-archive.com/test/example-test/</loc>
   <changefreq>monthly</changefreq>
   <priority>0.8</priority>
 </url>
 
 <!-- 결과 페이지 (priority 낮음) -->
 <url>
-  <loc>https://test-archive.com/test/example-test/result</loc>
+  <loc>https://www.test-archive.com/test/example-test/result/</loc>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
 </url>

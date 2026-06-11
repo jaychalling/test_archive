@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   selfEsteemQuestions,
   answerOptions,
@@ -80,13 +80,21 @@ const SelfEsteemTest = () => {
     { name: 'Self-Esteem Test', path: '/test/self-esteem-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Self-Esteem Test - Measure Your Self-Confidence",
+    description: "Discover your self-esteem level with this validated psychological assessment. Based on the Rosenberg Self-Esteem Scale. For entertainment purposes only.",
+    path: "/test/self-esteem-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
         title="Self-Esteem Test - Measure Your Self-Confidence | Test Archive"
         description="Discover your self-esteem level with this validated psychological assessment. Based on the Rosenberg Self-Esteem Scale. For entertainment purposes only."
         path="/test/self-esteem-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   enneagramQuestions,
   answerOptions,
@@ -73,6 +73,14 @@ const EnneagramTest = () => {
     { name: 'Enneagram Test', path: '/test/enneagram-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: 'Free Enneagram Test - Find Your Type (1-9) With Wings',
+    description: 'Which of 9 Enneagram types are you? Take this free test to discover your type, wing, and growth path. Understand your core fears, desires & motivations.',
+    path: '/test/enneagram-test/',
+    numberOfQuestions: totalQuestions,
+    timeRequired: 'PT5M',
+  });
+
   const question = enneagramQuestions[currentQuestion];
 
   return (
@@ -81,7 +89,7 @@ const EnneagramTest = () => {
         title="Free Enneagram Test - Find Your Type (1-9) With Wings"
         description="Which of 9 Enneagram types are you? Take this free test to discover your type, wing, and growth path. Understand your core fears, desires & motivations."
         path="/test/enneagram-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (

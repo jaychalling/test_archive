@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   loveLanguageQuestions,
 } from "@/data/loveLanguageQuestions";
@@ -80,13 +80,21 @@ const LoveLanguageTest = () => {
     { name: 'Love Language Test', path: '/test/love-language-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Love Language Test - 5 Love Languages",
+    description: "Discover your primary love language with this 30-question test. Learn how you prefer to give and receive love. For entertainment purposes only.",
+    path: "/test/love-language-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero">
       <SEOHead
         title="Love Language Test - 5 Love Languages"
         description="Discover your primary love language with this 30-question test. Learn how you prefer to give and receive love. For entertainment purposes only."
         path="/test/love-language-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
       <Header />
 

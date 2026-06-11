@@ -44,7 +44,7 @@ const Index = () => {
               description="Measure your purity score on a scale of 100. Find out how innocent you are."
               questionCount={100}
               duration="5-7 min"
-              path="/test/rice-purity"
+              path="/test/rice-purity/"
               icon={<Sparkles className="w-6 h-6" />}
               iconBgColor="bg-pink-500"
             />
@@ -53,7 +53,7 @@ const Index = () => {
               description="Map your political views on a 2D compass with economic left/right and social authoritarian/libertarian axes."
               questionCount={22}
               duration="2-5 min"
-              path="/test/political-compass-test"
+              path="/test/political-compass-test/"
               icon={<Compass className="w-6 h-6" />}
               iconBgColor="bg-blue-600"
             />
@@ -62,7 +62,7 @@ const Index = () => {
               description="An adult self-assessment test. Explore your preferences in relationship dynamics."
               questionCount={25}
               duration="2-5 min"
-              path="/test/bdsm-test"
+              path="/test/bdsm-test/"
               icon={<Heart className="w-6 h-6" />}
               iconBgColor="bg-rose-700"
             />
@@ -71,7 +71,7 @@ const Index = () => {
               description="Discover how you prefer to express and receive love through 5 different styles."
               questionCount={30}
               duration="2-5 min"
-              path="/test/love-language-test"
+              path="/test/love-language-test/"
               icon={<HeartHandshake className="w-6 h-6" />}
               iconBgColor="bg-red-400"
             />
@@ -80,7 +80,7 @@ const Index = () => {
               description="Analyze your attachment style in relationships. Find your type based on anxiety and avoidance axes."
               questionCount={24}
               duration="2-5 min"
-              path="/test/attachment-style-test"
+              path="/test/attachment-style-test/"
               icon={<Users className="w-6 h-6" />}
               iconBgColor="bg-teal-500"
             />
@@ -89,7 +89,7 @@ const Index = () => {
               description="The most widely used personality model in psychology (OCEAN). Measures openness, conscientiousness, extraversion, agreeableness, and neuroticism."
               questionCount={50}
               duration="5-7 min"
-              path="/test/big-five-test"
+              path="/test/big-five-test/"
               icon={<Brain className="w-6 h-6" />}
               iconBgColor="bg-indigo-500"
             />
@@ -98,7 +98,7 @@ const Index = () => {
               description="Discover your core motivations, fears, and desires through 9 personality types. Includes wing type analysis."
               questionCount={36}
               duration="2-5 min"
-              path="/test/enneagram-test"
+              path="/test/enneagram-test/"
               icon={<Circle className="w-6 h-6" />}
               iconBgColor="bg-purple-600"
             />
@@ -107,7 +107,7 @@ const Index = () => {
               description="Find your type among 16 personalities by analyzing 4 dimensions: energy, information, decisions, and lifestyle."
               questionCount={40}
               duration="2-5 min"
-              path="/test/16-personality-test"
+              path="/test/16-personality-test/"
               icon={<Layers className="w-6 h-6" />}
               iconBgColor="bg-emerald-500"
             />
@@ -116,7 +116,7 @@ const Index = () => {
               description="Find your moral alignment among 9 types based on order vs chaos and good vs evil axes."
               questionCount={24}
               duration="2-5 min"
-              path="/test/moral-alignment-test"
+              path="/test/moral-alignment-test/"
               icon={<Scale className="w-6 h-6" />}
               iconBgColor="bg-amber-500"
             />
@@ -125,7 +125,7 @@ const Index = () => {
               description="Find your position on the introvert-extrovert spectrum. Analyze 5 factors including energy recharge style and social preferences."
               questionCount={20}
               duration="1-2 min"
-              path="/test/introvert-extrovert-test"
+              path="/test/introvert-extrovert-test/"
               icon={<Users2 className="w-6 h-6" />}
               iconBgColor="bg-orange-500"
             />
@@ -134,7 +134,7 @@ const Index = () => {
               description="Measure your EQ across 5 areas: self-awareness, self-regulation, motivation, empathy, and social skills."
               questionCount={25}
               duration="5-7 min"
-              path="/test/emotional-intelligence-test"
+              path="/test/emotional-intelligence-test/"
               icon={<Lightbulb className="w-6 h-6" />}
               iconBgColor="bg-cyan-500"
             />
@@ -143,7 +143,7 @@ const Index = () => {
               description="Discover your ideal career path with Holland's RIASEC model. Find which of 6 types fits you best."
               questionCount={30}
               duration="5 min"
-              path="/test/career-aptitude-test"
+              path="/test/career-aptitude-test/"
               icon={<Briefcase className="w-6 h-6" />}
               iconBgColor="bg-green-600"
             />
@@ -152,7 +152,7 @@ const Index = () => {
               description="Identify your communication pattern: assertive, passive, aggressive, or passive-aggressive."
               questionCount={28}
               duration="5 min"
-              path="/test/communication-style-test"
+              path="/test/communication-style-test/"
               icon={<MessageSquare className="w-6 h-6" />}
               iconBgColor="bg-violet-500"
             />
@@ -161,7 +161,7 @@ const Index = () => {
               description="Assess your relationship readiness across 5 key areas: communication, values, emotional connection, lifestyle, and conflict resolution."
               questionCount={30}
               duration="5 min"
-              path="/test/love-compatibility-test"
+              path="/test/love-compatibility-test/"
               icon={<HeartCrack className="w-6 h-6" />}
               iconBgColor="bg-pink-600"
             />
@@ -170,7 +170,7 @@ const Index = () => {
               description="Measure your self-confidence and self-perception. Based on the Rosenberg Self-Esteem Scale."
               questionCount={25}
               duration="3-5 min"
-              path="/test/self-esteem-test"
+              path="/test/self-esteem-test/"
               icon={<Award className="w-6 h-6" />}
               iconBgColor="bg-teal-600"
             />
@@ -179,7 +179,7 @@ const Index = () => {
               description="Discover your stress response style. Are you naturally calm or do you tend to worry? For entertainment only."
               questionCount={30}
               duration="5 min"
-              path="/test/anxiety-calm-test"
+              path="/test/anxiety-calm-test/"
               icon={<Wind className="w-6 h-6" />}
               iconBgColor="bg-indigo-600"
             />
@@ -188,7 +188,7 @@ const Index = () => {
               description="Is your mind older or younger than your years? Discover your psychological age based on maturity, playfulness, and wisdom."
               questionCount={30}
               duration="5-7 min"
-              path="/test/mental-age-test"
+              path="/test/mental-age-test/"
               icon={<Baby className="w-6 h-6" />}
               iconBgColor="bg-sky-500"
             />
@@ -197,7 +197,7 @@ const Index = () => {
               description="Explore your darker personality traits: Narcissism, Machiavellianism, and Psychopathy. Everyone has some - how much do you?"
               questionCount={27}
               duration="5 min"
-              path="/test/dark-triad-test"
+              path="/test/dark-triad-test/"
               icon={<Skull className="w-6 h-6" />}
               iconBgColor="bg-slate-700"
             />
@@ -206,7 +206,7 @@ const Index = () => {
               description="Everyone has toxic traits they don't see. Discover your patterns in jealousy, passive aggression, control, and more."
               questionCount={30}
               duration="5 min"
-              path="/test/toxic-trait-test"
+              path="/test/toxic-trait-test/"
               icon={<AlertCircle className="w-6 h-6" />}
               iconBgColor="bg-rose-600"
             />
