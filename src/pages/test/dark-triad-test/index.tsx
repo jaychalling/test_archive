@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   darkTriadQuestions,
   answerOptions,
@@ -71,13 +71,21 @@ const DarkTriadTest = () => {
     { name: 'Dark Triad Test', path: '/test/dark-triad-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "Free Dark Triad Test - How Dark Is Your Personality?",
+    description: "Discover your dark side! Take the free Dark Triad test to measure Narcissism, Machiavellianism & Psychopathy. Everyone has some darkness - how much do you have?",
+    path: "/test/dark-triad-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
         title="Free Dark Triad Test - How Dark Is Your Personality?"
         description="Discover your dark side! Take the free Dark Triad test to measure Narcissism, Machiavellianism & Psychopathy. Everyone has some darkness - how much do you have?"
         path="/test/dark-triad-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (
@@ -142,6 +150,10 @@ const DarkTriadTest = () => {
               >
                 Start Test
               </Button>
+
+              <p className="text-xs text-muted-foreground mt-6">
+                For entertainment purposes only. Not a therapeutic or diagnostic assessment.
+              </p>
             </div>
           </main>
         </>

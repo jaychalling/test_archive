@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   bdsmQuestions,
   BdsmAnswerValue,
@@ -69,6 +69,14 @@ const BdsmTest = () => {
     { name: 'BDSM Test', path: '/test/bdsm-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "BDSM Test - Free Quiz to Discover Your Type",
+    description: "Take the free BDSM Test online! Find out if you're dominant, submissive, switch or more. Quick 25-question quiz with instant results. Adults only.",
+    path: "/test/bdsm-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   const question = bdsmQuestions[currentQuestion];
 
   return (
@@ -77,7 +85,7 @@ const BdsmTest = () => {
         title="BDSM Test - Free Quiz to Discover Your Type"
         description="Take the free BDSM Test online! Find out if you're dominant, submissive, switch or more. Quick 25-question quiz with instant results. Adults only."
         path="/test/bdsm-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (
@@ -124,6 +132,10 @@ const BdsmTest = () => {
               >
                 Start Test
               </Button>
+
+              <p className="text-xs text-muted-foreground mt-6">
+                For entertainment purposes only. Not a therapeutic or diagnostic assessment.
+              </p>
             </div>
           </main>
         </>

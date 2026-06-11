@@ -359,6 +359,9 @@ Take the test: ${window.location.origin}/test/dark-triad-test/`;
                 Self-awareness about your tendencies allows you to channel them constructively.
                 If you're concerned about any aspect of your personality, consider speaking with a mental health professional.
               </p>
+              <p>
+                For entertainment purposes only. Not a therapeutic or diagnostic assessment.
+              </p>
             </div>
           </div>
 

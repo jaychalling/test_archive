@@ -345,6 +345,9 @@ const BdsmTestResult = () => {
                 <p className="text-sm text-foreground leading-relaxed">
                   {testBackground.disclaimer}
                 </p>
+                <p className="text-sm text-foreground leading-relaxed mt-2">
+                  For entertainment purposes only. Not a therapeutic or diagnostic assessment.
+                </p>
               </div>
             </div>
           </div>

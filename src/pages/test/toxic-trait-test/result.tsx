@@ -335,6 +335,9 @@ Take the test: ${window.location.origin}/test/toxic-trait-test/`;
                 <strong className="text-foreground">Change is possible.</strong> These traits are behavioral patterns, not fixed personality features.
                 With awareness, effort, and sometimes professional support, you can develop healthier patterns.
               </p>
+              <p>
+                For entertainment purposes only. Not a therapeutic or diagnostic assessment.
+              </p>
             </div>
           </div>
 

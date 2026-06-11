@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
 import {
   toxicTraitQuestions,
   answerOptions,
@@ -71,13 +71,21 @@ const ToxicTraitTest = () => {
     { name: 'Toxic Trait Test', path: '/test/toxic-trait-test/' },
   ]);
 
+  const quizSchema = createQuizSchema({
+    name: "What's Your Toxic Trait? Take the Quiz (30 Questions)",
+    description: "Everyone has toxic traits they don't see. Discover your hidden patterns in jealousy, passive aggression, control, negativity, and more.",
+    path: "/test/toxic-trait-test/",
+    numberOfQuestions: totalQuestions,
+    timeRequired: "PT5M",
+  });
+
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
         title="What's Your Toxic Trait? Take the Quiz (30 Questions)"
         description="Everyone has toxic traits they don't see. Discover your hidden patterns in jealousy, passive aggression, control, negativity, and more."
         path="/test/toxic-trait-test/"
-        jsonLd={breadcrumbSchema}
+        jsonLd={[breadcrumbSchema, quizSchema]}
       />
 
       {!testStarted ? (
@@ -154,6 +162,10 @@ const ToxicTraitTest = () => {
               >
                 Start Test
               </Button>
+
+              <p className="text-xs text-muted-foreground mt-6">
+                For entertainment purposes only. Not a therapeutic or diagnostic assessment.
+              </p>
             </div>
           </main>
         </>
