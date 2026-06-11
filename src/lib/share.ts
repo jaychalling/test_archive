@@ -18,4 +18,5 @@ export const buildShareUrl = (slug: string, value: string | number): string =>
   `${SHARE_BASE_URL}/s/${slug}/${encodeURIComponent(toShareValue(value))}/`;
 
 export const buildOgImageUrl = (slug: string, value: string | number): string =>
-  `${SHARE_BASE_URL}/api/og?slug=${encodeURIComponent(slug)}&value=${encodeURIComponent(toShareValue(value))}`;
+  // trailing slash avoids Vercel's trailingSlash 308 redirect on direct image loads
+  `${SHARE_BASE_URL}/api/og/?slug=${encodeURIComponent(slug)}&value=${encodeURIComponent(toShareValue(value))}`;

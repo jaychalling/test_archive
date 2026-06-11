@@ -411,7 +411,8 @@ export function resolveShare(slugRaw: string | null, valueRaw: string | null): R
     cta: test.cta,
     testUrl: `${BASE_URL}/test/${slug}/`,
     shareUrl: `${BASE_URL}/s/${slug}/${value}/`,
-    ogImageUrl: `${BASE_URL}/api/og?slug=${slug}&value=${encodeURIComponent(value)}`,
+    // trailing slash avoids Vercel's trailingSlash 308 redirect on og:image fetches
+    ogImageUrl: `${BASE_URL}/api/og/?slug=${slug}&value=${encodeURIComponent(value)}`,
   };
 }
 
