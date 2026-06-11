@@ -72,20 +72,27 @@ async function prerender() {
   const server = await startServer();
 
   let browser;
-  try {
-    // Try @sparticuz/chromium first (works on Vercel/AWS Lambda)
-    const chromium = await import('@sparticuz/chromium');
-    const puppeteerCore = await import('puppeteer-core');
-    const execPath = await chromium.default.executablePath();
-    console.log(`[prerender] Using @sparticuz/chromium: ${execPath}`);
-    browser = await puppeteerCore.default.launch({
-      args: chromium.default.args,
-      defaultViewport: chromium.default.defaultViewport,
-      executablePath: execPath,
-      headless: true,
-    });
-  } catch {
-    // Fallback to regular puppeteer (local dev)
+
+  // 1) @sparticuz/chromium — Linux only (Vercel/AWS Lambda build env)
+  if (process.platform === 'linux') {
+    try {
+      const chromium = await import('@sparticuz/chromium');
+      const puppeteerCore = await import('puppeteer-core');
+      const execPath = await chromium.default.executablePath();
+      console.log(`[prerender] Using @sparticuz/chromium: ${execPath}`);
+      browser = await puppeteerCore.default.launch({
+        args: chromium.default.args,
+        defaultViewport: chromium.default.defaultViewport,
+        executablePath: execPath,
+        headless: true,
+      });
+    } catch (err) {
+      console.warn(`[prerender] @sparticuz/chromium failed (${err.message}), falling back...`);
+    }
+  }
+
+  // 2) Regular puppeteer with its bundled browser (local dev)
+  if (!browser) {
     try {
       const puppeteer = await import('puppeteer');
       console.log('[prerender] Using regular puppeteer');
@@ -93,11 +100,27 @@ async function prerender() {
         headless: 'new',
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
-    } catch {
-      console.error('[prerender] No browser found. Install puppeteer or @sparticuz/chromium');
-      server.close();
-      process.exit(1);
+    } catch (err) {
+      console.warn(`[prerender] Bundled puppeteer browser failed (${err.message}), trying system Chrome...`);
     }
+  }
+
+  // 3) System-installed Chrome/Edge via puppeteer channel (Windows/macOS dev machines)
+  if (!browser) {
+    for (const channel of ['chrome', 'msedge']) {
+      try {
+        const puppeteer = await import('puppeteer');
+        browser = await puppeteer.default.launch({ headless: 'new', channel });
+        console.log(`[prerender] Using system browser channel: ${channel}`);
+        break;
+      } catch { /* try next channel */ }
+    }
+  }
+
+  if (!browser) {
+    console.error('[prerender] No browser found. Run: npx puppeteer browsers install chrome');
+    server.close();
+    process.exit(1);
   }
 
   let success = 0;
