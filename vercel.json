@@ -32,6 +32,6 @@
   "rewrites": [
     { "source": "/s/:slug/:value", "destination": "/api/s?slug=:slug&value=:value" },
     { "source": "/s/:slug/:value/", "destination": "/api/s?slug=:slug&value=:value" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
