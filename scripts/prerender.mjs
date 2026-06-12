@@ -39,6 +39,8 @@ const routes = [
   '/terms/',
   '/contact/',
   '/guides/',
+  '/stats/',
+  '/embed-a-test/',
   ...testSlugs.map(s => `/test/${s}/`),
   ...guideSlugs.map(s => `/guides/${s}/`),
 ];

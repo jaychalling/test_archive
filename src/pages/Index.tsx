@@ -225,6 +225,12 @@ const Index = () => {
               <a href="/guides/" className="text-muted-foreground hover:text-foreground transition-colors">
                 Guides
               </a>
+              <a href="/stats/" className="text-muted-foreground hover:text-foreground transition-colors">
+                Statistics
+              </a>
+              <a href="/embed-a-test/" className="text-muted-foreground hover:text-foreground transition-colors">
+                Embed a Test
+              </a>
               <a href="/about/" className="text-muted-foreground hover:text-foreground transition-colors">
                 About
               </a>
