@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   personalityQuestions,
   AnswerChoice,
@@ -168,17 +168,18 @@ const SixteenPersonalityTest = () => {
         title="Free 16 Personalities Test (MBTI) - What's Your Type?"
         description="Take the free 16 personalities test online! Discover if you're INTJ, ENFP, INFP or one of 16 types. Quick 5-minute MBTI-style quiz with instant results."
         path="/test/16-personality-test/"
-        jsonLd={[breadcrumbSchema, quizSchema]}
+        jsonLd={[breadcrumbSchema, quizSchema, createFAQSchema(personalityTypeFAQs)]}
       />
       <Header />
 
       <main className="container mx-auto px-4 py-8">
         {!testStarted ? (
+          <>
           <div className="max-w-lg mx-auto test-card text-center animate-scale-in">
             <div className="flex justify-center mb-4">
               <Layers className="w-16 h-16 text-primary" />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">16 Personality Test</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">16 Personalities Test</h1>
             <p className="text-lg text-muted-foreground mb-8">
               Discover your personality type among 16 types.
               <br />
@@ -215,6 +216,62 @@ const SixteenPersonalityTest = () => {
               Start Test
             </Button>
           </div>
+
+          {/* SEO content section — crawlable copy, FAQ, and internal links */}
+          <section className="pt-12 pb-8">
+            <div className="max-w-2xl mx-auto space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What Is the 16 Personalities Test?</h2>
+                <p className="text-muted-foreground leading-relaxed mb-3">
+                  The 16 personalities test is an MBTI-style assessment that sorts your preferences
+                  across four dimensions: where you get energy (Introversion vs Extraversion), how
+                  you take in information (Sensing vs Intuition), how you decide (Thinking vs
+                  Feeling), and how you organize your life (Judging vs Perceiving). The combination
+                  produces one of 16 four-letter type codes such as INTJ, ENFP, or INFP.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  This free 16 personality types test takes 5–7 minutes, requires no sign-up, and
+                  reveals your full type instantly — including how strongly you lean on each of the
+                  four dimensions, famous people who typically share your type, and how rare your
+                  type is in the population.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Why People Often Mistype Themselves</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Many people answer personality quizzes as the person they want to be rather than
+                  the person they typically are. The most accurate results come from answering
+                  based on what you actually do in everyday situations — not at your best or worst,
+                  but on an average day. If you have taken an MBTI-style test before and the result
+                  never felt right, that gap is usually the reason.
+                </p>
+              </div>
+
+              <CollapsibleFAQ faqs={personalityTypeFAQs} title="16 Personalities Test FAQ" />
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">More Tests to Try</h2>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {[
+                    { to: "/test/big-five-test/", label: "Big Five Personality Test" },
+                    { to: "/test/enneagram-test/", label: "Enneagram Test" },
+                    { to: "/test/mental-age-test/", label: "Mental Age Test" },
+                  ].map((t) => (
+                    <Link
+                      key={t.to}
+                      to={t.to}
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors cursor-pointer"
+                    >
+                      <span className="font-medium text-sm">{t.label}</span>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+          </>
         ) : (
         <div className="max-w-2xl mx-auto">
           {/* Header */}

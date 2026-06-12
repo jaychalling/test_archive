@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import {
   bigFiveQuestions,
+  bigFiveFAQs,
   answerOptions,
   AnswerValue,
 } from "@/data/bigFiveQuestions";
-import { ChevronLeft, ChevronRight, CheckCircle2, Brain } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Brain, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -86,7 +88,7 @@ const BigFiveTest = () => {
         title="Free Big Five Personality Test (OCEAN) - Scientific 50 Questions"
         description="Take the free Big Five (OCEAN) personality test! Measure Openness, Conscientiousness, Extraversion, Agreeableness & Neuroticism. Most scientifically validated personality model."
         path="/test/big-five-test/"
-        jsonLd={[breadcrumbSchema, quizSchema]}
+        jsonLd={[breadcrumbSchema, quizSchema, createFAQSchema(bigFiveFAQs)]}
       />
 
       {!testStarted ? (
@@ -135,6 +137,62 @@ const BigFiveTest = () => {
               </Button>
             </div>
           </main>
+
+          {/* SEO content section — crawlable copy, FAQ, and internal links */}
+          <section className="px-4 pb-16">
+            <div className="max-w-2xl mx-auto space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What Is the Big Five Personality Test?</h2>
+                <p className="text-muted-foreground leading-relaxed mb-3">
+                  The Big Five personality test (also called the OCEAN test or five-factor model) is
+                  the framework personality researchers use most. Instead of sorting you into a
+                  fixed type, it scores you on five independent traits: Openness,
+                  Conscientiousness, Extraversion, Agreeableness, and Neuroticism — each on a
+                  spectrum from low to high.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  This free Big Five test uses 50 statements rated on a five-point scale and takes
+                  about seven minutes. You get all five trait scores instantly, with no sign-up and
+                  no email required. Because traits are scored separately, your profile is far more
+                  specific than a single four-letter label.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What the Five Traits Mean</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Openness reflects curiosity and taste for new ideas; Conscientiousness reflects
+                  organization and follow-through; Extraversion reflects where you get your energy;
+                  Agreeableness reflects how you balance your needs against others'; and
+                  Neuroticism reflects how strongly you feel stress and negative emotion. There are
+                  no good or bad scores — each end of every spectrum typically comes with real
+                  strengths.
+                </p>
+              </div>
+
+              <CollapsibleFAQ faqs={bigFiveFAQs} title="Big Five Test FAQ" />
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">More Tests to Try</h2>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {[
+                    { to: "/test/16-personality-test/", label: "16 Personality Test" },
+                    { to: "/test/enneagram-test/", label: "Enneagram Test" },
+                    { to: "/test/introvert-extrovert-test/", label: "Introvert vs Extrovert Test" },
+                  ].map((t) => (
+                    <Link
+                      key={t.to}
+                      to={t.to}
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors cursor-pointer"
+                    >
+                      <span className="font-medium text-sm">{t.label}</span>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </>
       ) : (
         <>

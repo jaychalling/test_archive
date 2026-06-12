@@ -2,16 +2,19 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import {
   ricePurityQuestions,
+  ricePurityFAQs,
+  scoreRanges,
 } from "@/data/ricePurityQuestions";
 import {
   ChevronLeft,
   ChevronRight,
   CheckCircle2,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const RicePurityTest = () => {
@@ -105,12 +108,13 @@ const RicePurityTest = () => {
         title="Rice Purity Test - Official 100 Questions | Check Your Score"
         description="Take the official Rice Purity Test with all 100 original questions! See your innocence score instantly. The classic college purity test - free & anonymous."
         path="/test/rice-purity/"
-        jsonLd={[breadcrumbSchema, quizSchema]}
+        jsonLd={[breadcrumbSchema, quizSchema, createFAQSchema(ricePurityFAQs)]}
       />
       <Header />
 
       <main className="container mx-auto px-4 py-8">
         {!testStarted ? (
+          <>
           <div className="max-w-2xl mx-auto test-card text-center animate-scale-in">
             <div className="flex justify-center mb-4">
               <CheckCircle2 className="w-16 h-16 text-primary" />
@@ -152,6 +156,70 @@ const RicePurityTest = () => {
               Start Test
             </Button>
           </div>
+
+          {/* SEO content section — crawlable copy, score meaning, FAQ, internal links */}
+          <section className="pt-12 pb-8">
+            <div className="max-w-2xl mx-auto space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What Is the Rice Purity Test?</h2>
+                <p className="text-muted-foreground leading-relaxed mb-3">
+                  The Rice Purity Test is a 100-question self-survey that started at Rice University
+                  as a bonding activity for new students. You simply check off the life experiences
+                  you have had — covering everything from holding hands to run-ins with the law —
+                  and your rice purity score is 100 minus the number of items you checked. A higher
+                  score means fewer experiences; a lower score means more.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  This version keeps the classic 100 questions, takes about 5–7 minutes, and shows
+                  your score instantly with a detailed interpretation of what your range typically
+                  means. No sign-up, and your answers never leave your device.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What Your Rice Purity Score Means</h2>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  There is no "good" or "bad" rice purity score — most people land somewhere in the
+                  middle, and scores naturally drop with age as life simply happens. The ranges
+                  below show how results are typically read:
+                </p>
+                <div className="grid sm:grid-cols-2 gap-3 text-left">
+                  {scoreRanges.map((r) => (
+                    <div key={r.minScore} className="p-4 rounded-lg border border-border bg-card">
+                      <h3 className="font-semibold mb-1">{r.minScore}–{r.maxScore}: {r.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {r.interpretation.slice(0, 120)}
+                        {r.interpretation.length > 120 ? "…" : ""}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <CollapsibleFAQ faqs={ricePurityFAQs} title="Rice Purity Test FAQ" />
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">More Tests to Try</h2>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {[
+                    { to: "/test/toxic-trait-test/", label: "Toxic Trait Test" },
+                    { to: "/test/mental-age-test/", label: "Mental Age Test" },
+                    { to: "/test/love-language-test/", label: "Love Language Test" },
+                  ].map((t) => (
+                    <Link
+                      key={t.to}
+                      to={t.to}
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors cursor-pointer"
+                    >
+                      <span className="font-medium text-sm">{t.label}</span>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+          </>
         ) : (
         <div className="max-w-2xl mx-auto">
           {/* Header */}
