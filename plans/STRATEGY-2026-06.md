@@ -54,8 +54,20 @@
 ### T2 — 다음 (순위 자산 활용)
 | 작업 | 근거 | 상태 |
 |---|---|---|
-| 16-personality 페이지를 "16 personalities test" 클러스터(201k LOW) 타겟으로 확장 — 이미 6위인 순위 자산에 큰 키워드를 연결 (상표 주의: "MBTI-style" 표현) | 201k LOW, pos 6 | ⬜ |
-| rice purity score 해설 섹션 (클릭 27회로 사이트 권위 최상 페이지) | 60.5k LOW | ⬜ |
+| 16-personality 페이지를 "16 personalities test" 클러스터(201k LOW) 타겟으로 확장 — 이미 6위인 순위 자산에 큰 키워드를 연결 (상표 주의: "MBTI-style" 표현) | 201k LOW, pos 6 | ✅ 6/12 배포 (b0cd5a5) |
+| rice purity score 해설 섹션 (클릭 27회로 사이트 권위 최상 페이지) | 60.5k LOW | ✅ 6/12 배포 (b0cd5a5) + /guides/ 전용 글 2편 (dc664fa) |
+
+### T2.5 — 신규 섹션: 반응속도·클릭 테스트 클러스터 (2026-06-12 니치 리서치 1순위)
+> 근거: 클러스터 합산 ≈ 월 1.03M LOW (typing 673k, cps 165k, reaction time 110k, aim trainer 33k 외).
+> SERP 파편화 실측(단일 강자 없음), 비성인 → AdSense 게재 가능 — **수익 본진 후보**.
+> 신규 도메인 대신 본 사이트 섹션 확장으로 권위 상속. 상세: vice-ceo-reports `/reports/new-niche-research-2026-06-12`
+
+| 테스트 | 근거 | 상태 |
+|---|---|---|
+| CPS Test (클릭 스피드) | 165k LOW, SERP 소형 도구 파편화 | ⬜ 시장조사 진행 중 (6/13) |
+| Reaction Time Test | 110k LOW, CPC $7.60 | ⬜ 2차 |
+| Spacebar Counter / WPM 간이 | 8.1k + 40.5k LOW | ⬜ 3차 |
+| Typing Test 풀버전 | 673k LOW — 클러스터 왕관, 1~3차 검증 후 투입 | ⬜ 4차 |
 
 ### T3 — 측정 후 결정
 | 작업 | 조건 |
