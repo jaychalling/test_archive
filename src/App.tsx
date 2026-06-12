@@ -47,6 +47,8 @@ import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
+import GuidesHub from "./pages/guides";
+import GuidePage from "./pages/guides/GuidePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -98,6 +100,8 @@ const App = () => (
             <Route path="/test/dark-triad-test/result/" element={<DarkTriadResult />} />
             <Route path="/test/toxic-trait-test/" element={<ToxicTraitTest />} />
             <Route path="/test/toxic-trait-test/result/" element={<ToxicTraitResult />} />
+            <Route path="/guides/" element={<GuidesHub />} />
+            <Route path="/guides/:slug/" element={<GuidePage />} />
             <Route path="/about/" element={<About />} />
             <Route path="/privacy/" element={<Privacy />} />
             <Route path="/terms/" element={<Terms />} />

@@ -25,6 +25,12 @@ const testSlugs = [
   'toxic-trait-test',
 ];
 
+const guideSlugs = [
+  'rice-purity-score-meaning', 'average-rice-purity-score',
+  'political-compass-quadrants-explained', 'left-vs-right-political-spectrum',
+  'what-is-mental-age', 'big-five-vs-16-personalities',
+];
+
 // Only prerender test pages + info pages (NOT result pages — they need localStorage)
 const routes = [
   '/',
@@ -32,7 +38,9 @@ const routes = [
   '/privacy/',
   '/terms/',
   '/contact/',
+  '/guides/',
   ...testSlugs.map(s => `/test/${s}/`),
+  ...guideSlugs.map(s => `/guides/${s}/`),
 ];
 
 // Simple static file server for dist/

@@ -22,6 +22,12 @@ const Header = () => {
             Tests
           </Link>
           <Link
+            to="/guides/"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Guides
+          </Link>
+          <Link
             to="/about/"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
