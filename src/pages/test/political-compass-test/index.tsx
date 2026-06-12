@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
-import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
 import {
   politicalCompassQuestions,
   answerOptions,
@@ -134,13 +134,15 @@ const PoliticalCompassTest = () => {
     timeRequired: "PT5M",
   });
 
+  const faqSchema = createFAQSchema(politicalCompassFAQs);
+
   return (
     <div className="min-h-screen gradient-hero flex flex-col">
       <SEOHead
         title="Free Political Compass Test - Where Do You Stand on the Spectrum?"
         description="Map your political views on a 2D compass! Are you left or right? Authoritarian or libertarian? Take this quick quiz and see where you land."
         path="/test/political-compass-test/"
-        jsonLd={[breadcrumbSchema, quizSchema]}
+        jsonLd={[breadcrumbSchema, quizSchema, faqSchema]}
       />
 
       {!testStarted ? (
@@ -189,6 +191,65 @@ const PoliticalCompassTest = () => {
               </Button>
             </div>
           </main>
+
+          {/* SEO content section — crawlable copy, FAQ, and internal links */}
+          <section className="px-4 pb-16">
+            <div className="max-w-2xl mx-auto space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What Is the Political Compass Test?</h2>
+                <p className="text-muted-foreground leading-relaxed mb-3">
+                  This free political compass quiz maps your views on two independent axes instead
+                  of a single left-right line. The economic axis measures where you stand between
+                  left (more redistribution and regulation) and right (freer markets), while the
+                  social axis measures libertarian versus authoritarian instincts — how much
+                  personal freedom you think a society should trade for order.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Because the two axes are scored separately, this political spectrum test can tell
+                  apart positions that a one-dimensional quiz lumps together — a free-market
+                  libertarian and a traditionalist conservative both sit "on the right," but they
+                  land in different quadrants of the compass.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">The Four Quadrants</h2>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {Object.entries(quadrantDescriptions).map(([key, q]) => (
+                    <div key={key} className="p-4 rounded-lg border border-border bg-card">
+                      <h3 className="font-semibold mb-1">{q.name}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {q.description.slice(0, 140)}
+                        {q.description.length > 140 ? "…" : ""}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <CollapsibleFAQ faqs={politicalCompassFAQs} title="Political Compass Test FAQ" />
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">More Tests to Try</h2>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {[
+                    { to: "/test/moral-alignment-test/", label: "Moral Alignment Test" },
+                    { to: "/test/big-five-test/", label: "Big Five Personality Test" },
+                    { to: "/test/career-aptitude-test/", label: "Career Aptitude Test" },
+                  ].map((t) => (
+                    <Link
+                      key={t.to}
+                      to={t.to}
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors cursor-pointer"
+                    >
+                      <span className="font-medium text-sm">{t.label}</span>
+                      <TrendingUp className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </>
       ) : (
         <>

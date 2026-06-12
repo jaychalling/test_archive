@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
-import { SEOHead, createBreadcrumbSchema, createQuizSchema } from "@/components/SEOHead";
+import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
+import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import {
   bdsmQuestions,
+  bdsmFAQs,
   BdsmAnswerValue,
 } from "@/data/bdsmTestQuestions";
-import { CheckCircle2, ChevronLeft, ChevronRight, Heart } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { CheckCircle2, ChevronLeft, ChevronRight, Heart, ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const BdsmTest = () => {
@@ -77,6 +79,8 @@ const BdsmTest = () => {
     timeRequired: "PT5M",
   });
 
+  const faqSchema = createFAQSchema(bdsmFAQs);
+
   const question = bdsmQuestions[currentQuestion];
 
   return (
@@ -85,7 +89,7 @@ const BdsmTest = () => {
         title="BDSM Test - Free Quiz to Discover Your Type"
         description="Take the free BDSM Test online! Find out if you're dominant, submissive, switch or more. Quick 25-question quiz with instant results. Adults only."
         path="/test/bdsm-test/"
-        jsonLd={[breadcrumbSchema, quizSchema]}
+        jsonLd={[breadcrumbSchema, quizSchema, faqSchema]}
       />
 
       {!testStarted ? (
@@ -138,6 +142,59 @@ const BdsmTest = () => {
               </p>
             </div>
           </main>
+
+          {/* SEO content section — crawlable copy, FAQ, and internal links */}
+          <section className="px-4 pb-16">
+            <div className="max-w-2xl mx-auto space-y-10">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">What Is This Free BDSM Test?</h2>
+                <p className="text-muted-foreground leading-relaxed mb-3">
+                  This free BDSM test is a 25-question quiz that maps your preferences across the
+                  core BDSM archetypes — Dominant, Submissive, Switch, Sadist, and Masochist. Unlike
+                  a simple yes/no checklist, each statement is rated on a five-point scale, so your
+                  results reflect how strongly each tendency shows up rather than forcing you into a
+                  single box.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  The BDSM quiz takes about five minutes, requires no sign-up, and shows your full
+                  archetype breakdown instantly. Your answers stay on your device — nothing is
+                  uploaded or stored on our servers.
+                </p>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">How Your Results Are Scored</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Each question feeds one or more archetype scales. At the end of the quiz you get a
+                  percentage for every archetype plus a primary profile such as Gentle Switch,
+                  Pure Dominant, or Balanced Explorer. Most people score across several archetypes —
+                  that is normal, and it is what makes the result more useful than a one-word label.
+                </p>
+              </div>
+
+              <CollapsibleFAQ faqs={bdsmFAQs} title="BDSM Test FAQ" />
+
+              <div>
+                <h2 className="text-2xl font-bold mb-4">More Tests to Try</h2>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {[
+                    { to: "/test/love-language-test/", label: "Love Language Test" },
+                    { to: "/test/attachment-style-test/", label: "Attachment Style Test" },
+                    { to: "/test/toxic-trait-test/", label: "Toxic Trait Test" },
+                  ].map((t) => (
+                    <Link
+                      key={t.to}
+                      to={t.to}
+                      className="flex items-center justify-between gap-2 p-4 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors cursor-pointer"
+                    >
+                      <span className="font-medium text-sm">{t.label}</span>
+                      <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </>
       ) : (
         <>
