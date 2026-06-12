@@ -48,8 +48,8 @@
 | mental-age-test 동일 보강 | 49.5k LOW × 79위 × 노출 266 (보강 0회) | ✅ 6/12 배포 |
 | big-five-test 동일 보강 | 27.1k LOW × 55위 × 노출 103 | ✅ 6/12 배포 |
 | 16-personality 클러스터 확장 + rice-purity score 섹션 (T2 조기 실행) | 201k LOW pos6 / 60.5k LOW | ✅ 6/12 배포 |
-| 홈/허브 내부링크 가중 (노출 상위 4페이지로) | 전 페이지 | ⬜ |
-| 서포트 글 클러스터 1차 (rice purity score 의미 등 — §3.5 레버 2) | 60.5k LOW 외 | ⬜ 다음 빌드 |
+| 홈/허브 내부링크 가중 (노출 상위 4페이지로) | 전 페이지 | 부분 ✅ — Guides 내비 추가, 추가 가중은 T3 |
+| 서포트 글 클러스터 1차 (§3.5 레버 2) | 60.5k LOW 외 | ✅ 6/12 배포 (dc664fa) — `/guides/` 허브 + 6편: rice purity score meaning · average rice purity score · political compass quadrants · left vs right · what is mental age · big five vs 16 personalities. Article+FAQ 스키마, 머니 테스트 CTA, 사이트맵 등재 |
 
 ### T2 — 다음 (순위 자산 활용)
 | 작업 | 근거 | 상태 |
