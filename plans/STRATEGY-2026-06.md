@@ -22,31 +22,47 @@
 3. **측정 없는 작업 금지** — 모든 작업은 타겟 키워드와 기대 지표(노출/순위/클릭)를 명시하고, 2주 후 GSC로 검증한다.
 4. **바이럴은 두 번째 엔진** — 검색 권위가 쌓이기 전까지 공유 카드(소셜 유입)가 초기 트래픽과 백링크를 만든다. 결과 페이지 공유율을 GA4로 추적한다.
 
-## 3. 백로그 (우선순위 = 데이터 정렬, 2026-06-12 기준)
+## 3. 백로그 — GSC×검색량 매트릭스에서 도출 (2026-06-12, 90일 데이터)
 
-### P0 — 문턱 키워드 1페이지 진입 (제작 없이 트래픽)
-| 작업 | 타겟 (현재 순위) | 상태 |
+> **백로그 소싱 원칙: 신규 제작이 아니라 GSC가 이미 보여주는 수요에서 할 일을 찾는다.**
+> 우선순위 = 실측 검색량(Keyword Planner) × 현재 순위 갭(GSC) × 도달 가능성.
+> ※ BDSM 키워드는 KP가 성인 키워드라 검색량 비공개 — GSC 노출량(사이트 1위, 90일 711회)으로 수요 입증.
+
+### 현황 매트릭스 (90일 GSC × 실측 검색량)
+
+| 페이지 | 90일 노출/클릭 | 평균 순위 | 키워드 클러스터 (월 검색량, 경쟁) | 판정 |
+|---|---|---|---|---|
+| political-compass-test | 867 / 4 | 61위 | political compass test **110k LOW** + spectrum test 8.1k + compass quiz 3.6k + spectrum quiz 1.9k | 최대 상금, 긴 등반 |
+| bdsm-test | 711 / 17 | 28위 | KP 비공개 (성인) — 사이트 내 최대 노출 | **문턱권** (test bdsm 16위, bdsm type test 14위) |
+| rice-purity | 342 / 27 | 54위 | rice purity test **1M LOW**, rice purity score **60.5k LOW**, rice test 4.4k | 클릭 최다 — score 변형 공략 |
+| mental-age-test | 266 / 0 | 79위 | mental age test **49.5k LOW** | 보강 미실시 — 다음 타자 |
+| big-five-test | 103 / 0 | 55위 | big five personality test **27.1k LOW**, big five test 2.4k | 보강 미실시 |
+| 16-personality-test | 25 / 0 | **6위** | 16 personalities test **201k LOW** | 순위 자산은 있는데 큰 키워드를 안 받음 → 타겟 확장 |
+| love-language-test | 25 / 0 | 123위 | love language test 110k **MEDIUM** | 너무 멂 + 경쟁 — 보류 |
+| career-aptitude-test | 15 / 0 | 33위 | career aptitude test 27.1k **MEDIUM** | 후순위 |
+
+### T1 — 이번 주 (보강 패턴 횡전개: 콘텐츠+FAQ스키마+내부링크)
+| 작업 | 근거 (검색량 × 현재 위치) | 상태 |
 |---|---|---|
-| bdsm-test 랜딩 온페이지 보강 (콘텐츠+FAQ 스키마+내부링크) | free bdsm test(5위), bdsm quiz(19위), bdsm test free(22위) | ✅ 2026-06-12 배포 (e2b01bd) — 재크롤 후 순위 추적 |
-| political-compass-test 랜딩 동일 보강 | political compass test(57위), political spectrum test/quiz | ✅ 동일 배포 — 추적 |
-| 홈/허브에서 P0 페이지로 내부링크 가중 | 위 키워드 전체 | ⬜ 다음 작업 |
+| bdsm-test·political-compass-test 온페이지 보강 | 사이트 노출 1·2위 페이지 | ✅ 6/12 배포 (e2b01bd) — 재크롤 추적 |
+| **mental-age-test 동일 보강** | 49.5k LOW × 79위 × 노출 266 (보강 0회) | ⬜ 다음 작업 |
+| **big-five-test 동일 보강** | 27.1k LOW × 55위 × 노출 103 | ⬜ |
+| 홈/허브 내부링크 가중 (노출 상위 4페이지로) | 전 페이지 | ⬜ |
 
-### P1 — 미커버 대형 갭 신규 제작 (게이트 통과분)
-| 테스트 | 근거 | 상태 |
-|---|---|---|
-| **IQ Test** | "iq test free" 110,000/월 MEDIUM + "free intelligence test" 90,500/월 — 사이트에 부재. 신규 1개가 기존 19개 대부분보다 큰 시장 | ⬜ 최우선 제작 (new-test-workflow 스킬 사용) |
-
-### P2 — 기존 페이지 키워드 확장 (제작 없이 흡수)
+### T2 — 다음 (순위 자산 활용)
 | 작업 | 근거 | 상태 |
 |---|---|---|
-| 16-personality 페이지를 "mbti test" 계열로 확장 (타이틀/본문/FAQ — 상표 주의: "MBTI-style") | mbti 201,000/월 **LOW**, 16 personalities test 201,000/월 LOW | ⬜ |
-| rice purity score 해설 콘텐츠 (결과 페이지 또는 전용 섹션) | "rice purity score" 60,500/월 LOW — 메가 키워드(100만) 정면승부 대신 변형 우회 | ⬜ |
+| 16-personality 페이지를 "16 personalities test" 클러스터(201k LOW) 타겟으로 확장 — 이미 6위인 순위 자산에 큰 키워드를 연결 (상표 주의: "MBTI-style" 표현) | 201k LOW, pos 6 | ⬜ |
+| rice purity score 해설 섹션 (클릭 27회로 사이트 권위 최상 페이지) | 60.5k LOW | ⬜ |
 
-### P3 — 바이럴 루프 측정·개선
-| 작업 | 상태 |
+### T3 — 측정 후 결정
+| 작업 | 조건 |
 |---|---|
-| GA4에서 공유 카드 유입(소셜/직접) 분리 측정, 공유 클릭 이벤트 추가 검토 | ⬜ GA4 데이터 쌓이는 6/14 이후 |
-| 공유율 높은 테스트에 제작 리소스 재배분 | ⬜ 데이터 확보 후 |
+| political compass 2차 보강 (위성 쿼리 spectrum test/quiz H2 커버) | 6/12 배포분 재크롤 후 순위 변동 확인 |
+| GA4 공유 카드 유입 분석 → 리소스 재배분 | GA4 데이터 축적 (6/14~) |
+| love-language·career-aptitude 보강 여부 | T1 효과 검증 후 (MEDIUM 경쟁이라 후순위) |
+
+**참고 — bdsm-test 수익 한계**: 성인 콘텐츠라 AdSense 게재 제외 페이지 (6/11 ad-exclusion 플래그). 트래픽·내부순환·브랜드 가치로만 기여하므로, 수익화 관점 핵심은 mental-age·big-five·16-personality·rice-purity다.
 
 ## 4. 신규 테스트 제작 게이트 (전부 충족해야 제작)
 
