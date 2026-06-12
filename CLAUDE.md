@@ -96,6 +96,7 @@ Must follow this exact section order:
 
 ## Reference Documents
 
+- **[STRATEGY-2026-06.md](plans/STRATEGY-2026-06.md) - 현행 전략·백로그·제작 게이트·KPI (단일 기준 문서)**
 - [Test-archive operation rule.md](plans/Test-archive%20operation%20rule.md) - Operating philosophy
 - [new-test-workflow.md](src/docs/new-test-workflow.md) - Detailed test creation guide
-- [Tier 0 launch list](plans/Tier%200%20런칭%20필수%2010개.md) - Launch-essential tests
+- Superseded (참고용): `plans/archive/` — 구 사업계획서, Tier 런칭 리스트 (2026-06-12 폐기. 신규 제작은 반드시 STRATEGY 문서의 게이트를 통과해야 함)
