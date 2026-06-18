@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
+import { captureFriendRefFromUrl } from "@/lib/friendRef";
+import { trackStartFromShare } from "@/lib/analytics";
 import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import {
@@ -26,6 +28,12 @@ const RicePurityTest = () => {
   const [testStarted, setTestStarted] = useState(false);
 
   const totalQuestions = ricePurityQuestions.length;
+
+  // LOOP CLOSER: arriving from a friend's shared link? capture the ref + log it.
+  useEffect(() => {
+    const ref = captureFriendRefFromUrl();
+    if (ref) trackStartFromShare("rice-purity", ref.slug);
+  }, []);
 
   const handleAnswer = (isYes: boolean) => {
     if (isTransitioning) return;

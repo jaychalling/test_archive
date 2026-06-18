@@ -19,7 +19,11 @@ import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import { bdsmQuestions } from "@/data/bdsmTestQuestions";
 import ShareResultCard from "@/components/ShareResultCard";
+import ShareBait from "@/components/ShareBait";
+import FriendComparison from "@/components/FriendComparison";
 import { buildShareUrl } from "@/lib/share";
+import { getViralResult } from "@/lib/viral";
+import { readStoredFriendRef } from "@/lib/friendRef";
 
 const calculateResults = (answers: Record<number, BdsmAnswerValue>): BdsmResult => {
   const categories = ["dominant", "submissive", "sadism", "masochism", "switch"] as const;
@@ -113,6 +117,11 @@ const BdsmTestResult = () => {
   const mainTraitInfo = bdsmTraitDescriptions[mainTrait];
   const secondaryTraitInfo = bdsmTraitDescriptions[secondaryTrait];
 
+  // VIRAL: persona + one-liner + rarity pill (single source: _shareConfig)
+  const viral = getViralResult("bdsm-test", mainTrait);
+  // LOOP CLOSER
+  const friend = readStoredFriendRef();
+
   const traitColors: Record<string, string> = {
     dominant: "bg-red-500",
     submissive: "bg-blue-500",
@@ -143,29 +152,68 @@ const BdsmTestResult = () => {
         title="Your BDSM Profile - BDSM Test Results"
         description="See your BDSM test results and what they mean. Understand your preferences in relationship dynamics."
         path="/test/bdsm-test/result/"
+        ogImage={viral.ogImageUrl}
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">
         <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
+          {/* LOOP CLOSER: comparison vs the friend who shared this */}
+          {friend && (
+            <FriendComparison
+              friend={friend}
+              yourDisplay={mainTraitInfo.name}
+              yourPersona={viral.personaTitle}
+              sameTest={friend.slug === "bdsm-test"}
+              className="mb-8"
+            />
+          )}
+
+          {viral.personaEmoji && (
+            <div className="flex justify-center mb-4">
+              <div className="text-7xl">{viral.personaEmoji}</div>
+            </div>
+          )}
           <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
             Your BDSM Profile Results
           </h2>
-          <div className={cn("text-6xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent",
+          {/* (1) identity persona label */}
+          <div className={cn("text-5xl md:text-6xl font-extrabold mb-2 bg-gradient-to-r bg-clip-text text-transparent",
             mainTrait === "dominant" ? "from-red-400 to-red-600" :
             mainTrait === "submissive" ? "from-blue-400 to-blue-600" :
             mainTrait === "sadism" ? "from-orange-400 to-orange-600" :
             mainTrait === "masochism" ? "from-purple-400 to-purple-600" :
             "from-green-400 to-green-600"
           )}>
-            {mainTraitInfo.name}
+            {viral.personaTitle ?? mainTraitInfo.name}
           </div>
-          <p className="text-lg text-muted-foreground mb-2">
+          {/* (2) big label */}
+          <p className="text-2xl font-bold text-foreground mb-1">
+            {mainTraitInfo.name}
+          </p>
+          <p className="text-base text-muted-foreground mb-4">
             {mainTraitInfo.nameEn}
           </p>
-          <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">
+          {/* (3) rarity / social-comparison framing */}
+          {viral.comparison && (
+            <div className="mb-6 flex justify-center">
+              <span className="inline-block rounded-full bg-foreground px-5 py-2 text-sm font-extrabold uppercase tracking-wide text-background shadow-md">
+                {viral.comparison}
+              </span>
+            </div>
+          )}
+          <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-8 font-medium">
             {mainTraitInfo.description}
           </p>
+
+          {/* EMOTIONAL-PEAK share CTA */}
+          <ShareBait
+            slug="bdsm-test"
+            testName="BDSM Test"
+            viral={viral}
+            headline={mainTraitInfo.name}
+            className="mb-10 max-w-2xl mx-auto"
+          />
 
           {/* Secondary Trait */}
           <div className="p-4 rounded-lg bg-muted/30 mb-6">

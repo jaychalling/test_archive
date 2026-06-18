@@ -14,7 +14,11 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import ShareResultCard from "@/components/ShareResultCard";
+import ShareBait from "@/components/ShareBait";
+import FriendComparison from "@/components/FriendComparison";
 import { buildShareUrl } from "@/lib/share";
+import { getViralResult } from "@/lib/viral";
+import { readStoredFriendRef } from "@/lib/friendRef";
 import { CheckCircle2, RotateCcw, Share2, Baby } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -92,6 +96,11 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
   const resultBand = getResultBand(mentalAge);
   const ageDiff = mentalAge - actualAge;
 
+  // VIRAL: persona + one-liner + social-comparison pill (single source: _shareConfig)
+  const viral = getViralResult("mental-age-test", mentalAge, 80);
+  // LOOP CLOSER
+  const friend = readStoredFriendRef();
+
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'Mental Age Test', path: '/test/mental-age-test/' },
@@ -105,6 +114,7 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
         title={`Your Mental Age: ${mentalAge} Years Old - Results`}
         description={`Your mental age is ${mentalAge}! See what this reveals about your maturity, wisdom, and approach to life.`}
         path="/test/mental-age-test/result/"
+        ogImage={viral.ogImageUrl}
         jsonLd={[breadcrumbSchema, faqSchema]}
       />
       <Header />
@@ -112,18 +122,51 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Hero Section */}
           <div className="test-card text-center animate-scale-in">
+            {/* LOOP CLOSER: comparison vs the friend who shared this */}
+            {friend && (
+              <FriendComparison
+                friend={friend}
+                yourDisplay={`${mentalAge}`}
+                yourPersona={viral.personaTitle ?? resultBand.label}
+                sameTest={friend.slug === "mental-age-test"}
+                className="mb-8"
+              />
+            )}
+
             <div className="flex justify-center mb-6">
               <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center text-5xl">
-                {resultBand.emoji}
+                {viral.personaEmoji ?? resultBand.emoji}
               </div>
             </div>
-            <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
+            {/* (1) identity persona label */}
+            <div className="text-4xl md:text-5xl font-extrabold mb-2 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+              {viral.personaTitle ?? resultBand.label}
+            </div>
+            <h2 className="text-xl font-semibold text-muted-foreground mb-3">
               Your Mental Age Is
             </h2>
-            <div className="text-7xl md:text-8xl font-extrabold mb-4 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+            {/* (2) big score */}
+            <div className="text-7xl md:text-8xl font-extrabold mb-2 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
               {mentalAge}
             </div>
-            <p className="text-xl text-muted-foreground mb-6">years old</p>
+            <p className="text-lg text-muted-foreground mb-4">years old</p>
+            {/* (3) social-comparison framing */}
+            {viral.comparison && (
+              <div className="mb-6 flex justify-center">
+                <span className="inline-block rounded-full bg-foreground px-5 py-2 text-sm font-extrabold uppercase tracking-wide text-background shadow-md">
+                  {viral.comparison}
+                </span>
+              </div>
+            )}
+
+            {/* EMOTIONAL-PEAK share CTA */}
+            <ShareBait
+              slug="mental-age-test"
+              testName="Mental Age Test"
+              viral={viral}
+              headline={`Mental age ${mentalAge}`}
+              className="mb-8 max-w-2xl mx-auto"
+            />
 
             {/* Age Comparison */}
             <div className="inline-flex items-center gap-4 p-4 rounded-xl bg-muted/50 mb-8">

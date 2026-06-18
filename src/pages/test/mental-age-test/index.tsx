@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import ProgressBar from "@/components/ProgressBar";
+import { captureFriendRefFromUrl } from "@/lib/friendRef";
+import { trackStartFromShare } from "@/lib/analytics";
 import { SEOHead, createBreadcrumbSchema, createQuizSchema, createFAQSchema } from "@/components/SEOHead";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import { mentalAgeQuestions, mentalAgeFAQs } from "@/data/mentalAgeQuestions";
@@ -21,6 +23,12 @@ const MentalAgeTest = () => {
   const totalQuestions = mentalAgeQuestions.length;
   const isLastQuestion = currentQuestion === totalQuestions - 1;
   const allQuestionsAnswered = answeredCount === totalQuestions;
+
+  // LOOP CLOSER: capture a friend ref from the shared link + log start-from-share.
+  useEffect(() => {
+    const ref = captureFriendRefFromUrl();
+    if (ref) trackStartFromShare("mental-age-test", ref.slug);
+  }, []);
 
   const handleAnswer = (questionId: number, optionIndex: number) => {
     if (isTransitioning) return;

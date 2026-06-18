@@ -18,7 +18,11 @@ const headingFontSize = (text: string): number => {
 
 export default function handler(req: Request) {
   const { searchParams } = new URL(req.url);
-  const share = resolveShare(searchParams.get('slug'), searchParams.get('value'));
+  const share = resolveShare(
+    searchParams.get('slug'),
+    searchParams.get('value'),
+    searchParams.get('p'),
+  );
 
   if (!share) {
     return new Response('Not found', { status: 404 });
@@ -95,29 +99,57 @@ export default function handler(req: Request) {
             flexGrow: 1,
           }}
         >
+          {/* (1) persona emoji */}
+          {share.personaEmoji ? (
+            <div style={{ display: 'flex', fontSize: 116, lineHeight: 1, marginBottom: 8 }}>
+              {share.personaEmoji}
+            </div>
+          ) : null}
+          {/* (2) persona title — the identity label */}
+          {share.personaTitle ? (
+            <div
+              style={{
+                display: 'flex',
+                fontSize: share.personaTitle.length > 18 ? 56 : 66,
+                fontWeight: 800,
+                marginBottom: 14,
+                textShadow: '0 4px 18px rgba(0,0,0,0.28)',
+                textAlign: 'center',
+              }}
+            >
+              {share.personaTitle}
+            </div>
+          ) : null}
+          {/* (3) big score / label */}
           <div
             style={{
               display: 'flex',
               alignItems: 'baseline',
               fontWeight: 800,
-              lineHeight: 1.05,
+              lineHeight: 1.0,
               textAlign: 'center',
             }}
           >
-            <span style={{ fontSize, textShadow: '0 6px 24px rgba(0,0,0,0.25)' }}>
+            <span
+              style={{
+                fontSize: share.personaTitle ? Math.round(fontSize * 0.62) : fontSize,
+                textShadow: '0 6px 24px rgba(0,0,0,0.25)',
+              }}
+            >
               {share.heading}
             </span>
             {share.headingSuffix ? (
-              <span style={{ fontSize: Math.round(fontSize * 0.32), opacity: 0.75, marginLeft: 12 }}>
+              <span style={{ fontSize: Math.round(fontSize * 0.22), opacity: 0.75, marginLeft: 12 }}>
                 {share.headingSuffix}
               </span>
             ) : null}
           </div>
-          {share.subline ? (
+          {/* sub-band (only when there is no comparison pill, to avoid clutter) */}
+          {share.subline && !share.comparison ? (
             <div
               style={{
                 display: 'flex',
-                marginTop: 28,
+                marginTop: 24,
                 fontSize: 40,
                 fontWeight: 600,
                 padding: '12px 40px',
@@ -127,6 +159,25 @@ export default function handler(req: Request) {
               }}
             >
               {share.subline}
+            </div>
+          ) : null}
+          {/* (4) high-contrast social-comparison pill — the #1 share trigger */}
+          {share.comparison ? (
+            <div
+              style={{
+                display: 'flex',
+                marginTop: 28,
+                fontSize: 34,
+                fontWeight: 800,
+                letterSpacing: 1,
+                padding: '16px 44px',
+                borderRadius: 9999,
+                background: '#ffffff',
+                color: '#111111',
+                boxShadow: '0 8px 28px rgba(0,0,0,0.22)',
+              }}
+            >
+              {share.comparison}
             </div>
           ) : null}
         </div>

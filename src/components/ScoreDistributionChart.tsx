@@ -1,118 +1,18 @@
 import { TrendingUp, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getPercentile, getTestStatistics, type TestStatistics } from "@/lib/percentile";
 
 interface ScoreDistributionChartProps {
   userScore: number;
   maxScore: number;
   testName: string;
   colorClass?: string;
+  /** optional axis labels (e.g. mental-age 10/45/80); currently informational */
+  customLabels?: { low: string; mid: string; high: string };
+  /** optional per-call distribution override (informational; engine uses testStatistics) */
+  distributionMean?: number;
+  distributionStdDev?: number;
 }
-
-// Test-specific statistical data based on research
-// Sources: Academic studies, large-scale surveys, and aggregated test results
-interface TestStatistics {
-  meanPercent: number;  // Mean as percentage of max score
-  stdDevPercent: number; // Standard deviation as percentage
-  sampleNote?: string;  // Optional note about the sample
-}
-
-const testStatistics: Record<string, TestStatistics> = {
-  // Rice Purity: Mean 53/100, typical range 30-80 (SD ~12.5)
-  "rice-purity": { meanPercent: 53, stdDevPercent: 12.5, sampleNote: "Based on 500K+ responses" },
-
-  // Big Five: Each trait normalized around 50-60%, SD 15%
-  "big-five": { meanPercent: 55, stdDevPercent: 15 },
-
-  // Emotional Intelligence: Mean 75-80%, well-developed adults score higher
-  "emotional-intelligence": { meanPercent: 77, stdDevPercent: 12 },
-
-  // Introvert/Extrovert: 50-50 split, centered distribution
-  "introvert-extrovert": { meanPercent: 50, stdDevPercent: 15 },
-
-  // Political Compass: Centered at 0, most people cluster near center
-  "political-compass": { meanPercent: 50, stdDevPercent: 20 },
-
-  // Attachment Style: Secure ~55%, others distributed
-  "attachment-style": { meanPercent: 55, stdDevPercent: 18 },
-
-  // Love Language: Roughly even distribution across 5 types
-  "love-language": { meanPercent: 50, stdDevPercent: 15 },
-
-  // BDSM: Switch 63%, Dom 21%, Sub 16% - centered tendency
-  "bdsm": { meanPercent: 50, stdDevPercent: 20 },
-
-  // Moral Alignment: Neutral-Good most common
-  "moral-alignment": { meanPercent: 55, stdDevPercent: 18 },
-
-  // Communication Style: Balanced with slight assertive preference
-  "communication-style": { meanPercent: 52, stdDevPercent: 16 },
-
-  // Career Aptitude: Balanced across Holland RIASEC types
-  "career-aptitude": { meanPercent: 50, stdDevPercent: 15 },
-
-  // Enneagram: Types 6, 9, 2, 4, 1 most common
-  "enneagram": { meanPercent: 50, stdDevPercent: 18 },
-
-  // 16 Personality: ISFJ, ESFJ, ISTJ most common
-  "16-personality": { meanPercent: 50, stdDevPercent: 15 },
-};
-
-// Default statistics for unknown tests
-const defaultStatistics: TestStatistics = { meanPercent: 60, stdDevPercent: 15 };
-
-// Get test statistics by matching test name
-const getTestStatistics = (testName: string): TestStatistics => {
-  const normalizedName = testName.toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/\//g, '-')  // Handle "Introvert/Extrovert" → "introvert-extrovert"
-    .replace(/-test$/, '')
-    .replace(/-personality$/, ''); // Handle "Big Five Personality" → "big-five"
-
-  // Try exact match first
-  if (testStatistics[normalizedName]) {
-    return testStatistics[normalizedName];
-  }
-
-  // Try partial match
-  for (const key of Object.keys(testStatistics)) {
-    if (normalizedName.includes(key) || key.includes(normalizedName)) {
-      return testStatistics[key];
-    }
-  }
-
-  return defaultStatistics;
-};
-
-// Calculate percentile using normal distribution approximation
-const getPercentile = (score: number, maxScore: number, stats: TestStatistics): number => {
-  const normalizedScore = (score / maxScore) * 100;
-  const zScore = (normalizedScore - stats.meanPercent) / stats.stdDevPercent;
-
-  // More precise percentile calculation using error function approximation
-  // Based on standard normal distribution CDF
-  const erf = (x: number): number => {
-    const a1 = 0.254829592;
-    const a2 = -0.284496736;
-    const a3 = 1.421413741;
-    const a4 = -1.453152027;
-    const a5 = 1.061405429;
-    const p = 0.3275911;
-
-    const sign = x < 0 ? -1 : 1;
-    x = Math.abs(x);
-
-    const t = 1.0 / (1.0 + p * x);
-    const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
-
-    return sign * y;
-  };
-
-  // Standard normal CDF
-  const percentile = Math.round((1 + erf(zScore / Math.sqrt(2))) / 2 * 100);
-
-  // Clamp between 1 and 99
-  return Math.max(1, Math.min(99, percentile));
-};
 
 const getAverageScore = (maxScore: number, stats: TestStatistics): number => {
   return Math.round(maxScore * (stats.meanPercent / 100));

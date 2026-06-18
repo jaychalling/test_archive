@@ -6,6 +6,33 @@
  * (or be a clamped integer). No free-text from the URL is ever rendered.
  */
 
+/**
+ * VIRAL share-bait layer (element #1 persona, #3 social comparison, #4 one-liner).
+ * Everything here is server-whitelisted text — no free input is ever rendered.
+ *
+ * `persona`     : identity label (noun + emoji) shown ABOVE the score/label.
+ * `quip`        : punchy, slightly provocative one-liner for share text.
+ * `framing`     : how the comparison pill is phrased -> "{word} THAN {n} OF 100 PEOPLE".
+ *   - 'high'    -> n = percentile        (flatter a high score, e.g. word "PURER")
+ *   - 'low'     -> n = 100 - percentile  (low score is the flex, e.g. word "MORE UNHINGED")
+ *   `word` is the FULL comparative phrase ("PURER", "MORE UNHINGED", "WISER").
+ *   Type tests instead use a prevalence map -> "RARER THAN {100-prevalence}% OF PEOPLE".
+ */
+export interface Persona {
+  title: string;
+  emoji: string;
+}
+export interface ViralBand {
+  persona: Persona;
+  quip: string;
+  /**
+   * Optional per-band override for the comparison pill so EVERY band gets a
+   * FLATTERING line (a high purity score brags "PURER THAN X", a low one brags
+   * "MORE UNHINGED THAN X"). Falls back to the test-level `framing` when unset.
+   */
+  pill?: { direction: 'high' | 'low'; word: string };
+}
+
 export interface ScoreTestConfig {
   kind: 'score';
   name: string;
@@ -19,6 +46,12 @@ export interface ScoreTestConfig {
   shareTitle: string;
   theme: [string, string];
   cta: string;
+  /** percentile model (normal CDF) for the social-comparison pill */
+  stats?: { meanPercent: number; stdDevPercent: number };
+  /** comparison framing for the pill */
+  framing?: { direction: 'high' | 'low'; word: string };
+  /** band.from -> viral persona + one-liner (keyed by the same band threshold) */
+  viral?: Record<number, ViralBand>;
 }
 
 export interface TypeTestConfig {
@@ -32,6 +65,10 @@ export interface TypeTestConfig {
   shareTitle: string;
   theme: [string, string];
   cta: string;
+  /** normalized key -> rough population prevalence % (for the rarity pill) */
+  prevalence?: Record<string, number>;
+  /** normalized key -> viral persona + one-liner */
+  viral?: Record<string, ViralBand>;
 }
 
 export type ShareTestConfig = ScoreTestConfig | TypeTestConfig;
@@ -55,6 +92,18 @@ export const SHARE_TESTS: Record<string, ShareTestConfig> = {
     shareTitle: 'I scored {value} on the Rice Purity Test!',
     theme: ['#7c3aed', '#db2777'],
     cta: "What's your score?",
+    // higher = purer; mean 53, sd 12.5 (matches ScoreDistributionChart "rice-purity")
+    stats: { meanPercent: 53, stdDevPercent: 12.5 },
+    // default: low score is the flex in dorm/friend group chats
+    framing: { direction: 'low', word: 'MORE UNHINGED' },
+    viral: {
+      // high scores flex "PURER"; low scores flex "UNHINGED" — always flattering
+      81: { persona: { title: 'The Untouched Saint', emoji: '😇' }, quip: 'Purer than 91 of 100 people. My mom is so proud and my friends are concerned.', pill: { direction: 'high', word: 'PURER' } },
+      61: { persona: { title: 'The Quiet Good Kid', emoji: '🙂' }, quip: 'Mostly innocent. A couple of footnotes I will be taking to the grave.', pill: { direction: 'high', word: 'PURER' } },
+      41: { persona: { title: 'The Balanced Veteran', emoji: '😏' }, quip: 'Lived a little, regret nothing, screenshot this.' },
+      21: { persona: { title: 'The Certified Menace', emoji: '😈' }, quip: 'The test took psychic damage grading this one.' },
+      0:  { persona: { title: 'The Living Legend', emoji: '🔥' }, quip: 'The test filed a restraining order. Beat my score, I dare you.' },
+    },
   },
   'political-compass-test': {
     kind: 'type',
@@ -82,6 +131,15 @@ export const SHARE_TESTS: Record<string, ShareTestConfig> = {
     shareTitle: 'My BDSM Test result: {label}',
     theme: ['#18181b', '#991b1b'],
     cta: "What's your kink profile?",
+    // rough population prevalence (rarity pill = "rarer than 100-prevalence% of people")
+    prevalence: { dominant: 21, submissive: 16, sadism: 10, masochism: 12, switch: 41 },
+    viral: {
+      dominant:   { persona: { title: 'The One In Charge', emoji: '🔥' }, quip: 'Result: Dominant. Surprising literally no one in this group chat.' },
+      submissive: { persona: { title: 'The Devoted', emoji: '🎀' }, quip: 'Got Submissive. Yes, I will be screenshotting this for a certain someone.' },
+      sadism:     { persona: { title: 'The Instigator', emoji: '😈' }, quip: 'Sadist. The smile makes sense now.' },
+      masochism:  { persona: { title: 'The Brave One', emoji: '⛓️' }, quip: "Masochist. Pain is just spicy attention, apparently." },
+      switch:     { persona: { title: 'The Switch', emoji: '🔀' }, quip: 'Got Switch. I contain multitudes (and a few accessories).' },
+    },
   },
   'love-language-test': {
     kind: 'type',
@@ -297,6 +355,25 @@ export const SHARE_TESTS: Record<string, ShareTestConfig> = {
     shareTitle: 'My mental age is {value}!',
     theme: ['#3b82f6', '#8b5cf6'],
     cta: "What's your mental age?",
+    bands: [
+      { from: 61, label: 'Old Soul' },
+      { from: 41, label: 'Seasoned' },
+      { from: 26, label: 'Functioning Adult' },
+      { from: 16, label: 'Young at Heart' },
+      { from: 10, label: 'Forever Young' },
+    ],
+    // mental age scale 10-80, population skews ~mid-30s; model on the 0-100 normalized scale
+    stats: { meanPercent: 45, stdDevPercent: 18 },
+    // default: a LOW mental age is the funny flex -> "MORE YOUTHFUL than X of 100"
+    framing: { direction: 'low', word: 'MORE YOUTHFUL' },
+    viral: {
+      // high ages flex "WISER"; low/young ages flex "YOUTHFUL" — always flattering
+      61: { persona: { title: 'The Ancient One', emoji: '🦉' }, quip: 'Mental age 64. Born tired, raised on disappointment.', pill: { direction: 'high', word: 'WISER' } },
+      41: { persona: { title: 'The Old Soul', emoji: '📚' }, quip: 'Mentally I have been 45 since birth. Tea is at 6.', pill: { direction: 'high', word: 'WISER' } },
+      26: { persona: { title: 'The Functioning Adult', emoji: '☕' }, quip: 'Certified adult. I have a folder for receipts and everything.' },
+      16: { persona: { title: 'The Chaos Gremlin', emoji: '🎮' }, quip: 'Mental age 19. Legally an adult, spiritually unsupervised.' },
+      10: { persona: { title: 'The Eternal Child', emoji: '🧸' }, quip: 'Mental age 13. I am legally an adult and emotionally a Capri-Sun.' },
+    },
   },
   'dark-triad-test': {
     kind: 'type',
@@ -347,6 +424,35 @@ export interface ResolvedShare {
   testUrl: string;
   shareUrl: string;
   ogImageUrl: string;
+  /** VIRAL: identity persona title (element #1), e.g. "The Living Legend" */
+  personaTitle?: string;
+  /** VIRAL: persona emoji */
+  personaEmoji?: string;
+  /** VIRAL: punchy one-liner (element #4) — whitelisted, never user input */
+  quip?: string;
+  /** VIRAL: social-comparison pill text (element #3), e.g. "MORE UNHINGED THAN 91 OF 100 PEOPLE" */
+  comparison?: string;
+}
+
+// erf-based normal CDF percentile, clamped 1-99. Mirrors src/lib/percentile.ts
+// (kept inline so the Edge bundle has zero cross-imports). Returns "% of people
+// you scored higher than" on the raw 0-100 normalized scale.
+function percentileFromStats(
+  normalizedScore: number,
+  stats: { meanPercent: number; stdDevPercent: number },
+): number {
+  const z = (normalizedScore - stats.meanPercent) / stats.stdDevPercent;
+  const erf = (x: number): number => {
+    const a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741;
+    const a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+    const sign = x < 0 ? -1 : 1;
+    x = Math.abs(x);
+    const t = 1 / (1 + p * x);
+    const y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  };
+  const pct = Math.round((1 + erf(z / Math.sqrt(2))) / 2 * 100);
+  return Math.max(1, Math.min(99, pct));
 }
 
 const normalize = (raw: string): string =>
@@ -360,7 +466,12 @@ const normalize = (raw: string): string =>
  * Validate slug + value against the whitelist. Returns null when anything
  * is unknown — callers must treat null as "do not render user input".
  */
-export function resolveShare(slugRaw: string | null, valueRaw: string | null): ResolvedShare | null {
+export function resolveShare(
+  slugRaw: string | null,
+  valueRaw: string | null,
+  /** optional pre-computed percentile (clamped int) passed as &p= from the client */
+  pRaw?: string | null,
+): ResolvedShare | null {
   if (!slugRaw || !valueRaw) return null;
   const slug = normalize(slugRaw);
   const test = SHARE_TESTS[slug];
@@ -371,6 +482,16 @@ export function resolveShare(slugRaw: string | null, valueRaw: string | null): R
   let headingSuffix: string | undefined;
   let subline: string | undefined;
   let title: string;
+  let personaTitle: string | undefined;
+  let personaEmoji: string | undefined;
+  let quip: string | undefined;
+  let comparison: string | undefined;
+
+  // optional &p= override (clamped int 1-99); else computed below
+  const pOverride =
+    pRaw != null && /^\d{1,3}$/.test(pRaw)
+      ? Math.max(1, Math.min(99, Number.parseInt(pRaw, 10)))
+      : undefined;
 
   if (test.kind === 'score') {
     const parsed = Number.parseInt(valueRaw, 10);
@@ -379,8 +500,27 @@ export function resolveShare(slugRaw: string | null, valueRaw: string | null): R
     value = String(score);
     heading = String(score);
     headingSuffix = test.suffix;
-    subline = test.bands?.find((b) => score >= b.from)?.label;
+    const band = test.bands?.find((b) => score >= b.from);
+    subline = band?.label;
     title = test.shareTitle.replace('{value}', String(score));
+
+    // VIRAL: persona + quip keyed by the band threshold
+    const vband = band ? test.viral?.[band.from] : undefined;
+    if (vband) {
+      personaTitle = vband.persona.title;
+      personaEmoji = vband.persona.emoji;
+      quip = vband.quip;
+    }
+    // VIRAL: comparison pill — per-band override wins, else test-level framing.
+    // Always picks the FLATTERING direction so people want to share.
+    const framing = vband?.pill ?? test.framing;
+    if (framing && test.stats) {
+      const normalized = ((score - test.min) / (test.max - test.min)) * 100;
+      const pct = pOverride ?? percentileFromStats(normalized, test.stats);
+      const n = framing.direction === 'low' ? 100 - pct : pct;
+      // `word` is the full comparative phrase (e.g. "PURER", "MORE UNHINGED")
+      comparison = `${framing.word} THAN ${n} OF 100 PEOPLE`;
+    }
   } else {
     const key = normalize(valueRaw);
     const entry = test.labels[key];
@@ -396,6 +536,17 @@ export function resolveShare(slugRaw: string | null, valueRaw: string | null): R
       title = test.shareTitle.replace('{label}', heading);
     } else {
       return null;
+    }
+
+    // VIRAL: persona + quip + rarity pill for type tests
+    if (test.viral?.[value]) {
+      personaTitle = test.viral[value].persona.title;
+      personaEmoji = test.viral[value].persona.emoji;
+      quip = test.viral[value].quip;
+    }
+    if (test.prevalence?.[value] != null) {
+      const prev = Math.max(1, Math.min(99, Math.round(test.prevalence[value])));
+      comparison = `RARER THAN ${100 - prev}% OF PEOPLE`;
     }
   }
 
@@ -413,6 +564,10 @@ export function resolveShare(slugRaw: string | null, valueRaw: string | null): R
     shareUrl: `${BASE_URL}/s/${slug}/${value}/`,
     // trailing slash avoids Vercel's trailingSlash 308 redirect on og:image fetches
     ogImageUrl: `${BASE_URL}/api/og/?slug=${slug}&value=${encodeURIComponent(value)}`,
+    personaTitle,
+    personaEmoji,
+    quip,
+    comparison,
   };
 }
 

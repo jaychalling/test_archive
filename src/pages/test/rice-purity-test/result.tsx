@@ -24,7 +24,11 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import ShareResultCard from "@/components/ShareResultCard";
+import ShareBait from "@/components/ShareBait";
+import FriendComparison from "@/components/FriendComparison";
 import { buildShareUrl } from "@/lib/share";
+import { getViralResult } from "@/lib/viral";
+import { readStoredFriendRef } from "@/lib/friendRef";
 
 const colorClasses: Record<string, { bg: string; text: string; border: string; gradient: string }> = {
   emerald: { bg: "bg-emerald-500/10", text: "text-emerald-600", border: "border-emerald-500/20", gradient: "from-emerald-400 to-teal-500" },
@@ -103,6 +107,11 @@ Take the test at Test-Archive.com`;
   const scoreRange = getScoreRange(score);
   const colors = colorClasses[scoreRange.color] || colorClasses.blue;
 
+  // VIRAL: persona + one-liner + social-comparison pill (single source: _shareConfig)
+  const viral = getViralResult("rice-purity", score, 100);
+  // LOOP CLOSER: did this visitor arrive from a friend's shared link?
+  const friend = readStoredFriendRef();
+
   const resultBreadcrumbSchema = createBreadcrumbSchema([
     { name: "Home", path: "/" },
     { name: "Rice Purity Test", path: "/test/rice-purity/" },
@@ -119,31 +128,62 @@ Take the test at Test-Archive.com`;
         title="Your Rice Purity Score — See What It Actually Means"
         description={`Your Rice Purity score is ${score}/100. See how you compare to others and what your number really says about you.`}
         path="/test/rice-purity/result/"
+        ogImage={viral.ogImageUrl}
         jsonLd={[resultBreadcrumbSchema, faqSchema]}
       />
       <Header />
       <main className="container mx-auto px-4 py-12">
         <div className="test-card text-center animate-scale-in max-w-4xl mx-auto">
+          {/* LOOP CLOSER: comparison vs the friend who shared this */}
+          {friend && (
+            <FriendComparison
+              friend={friend}
+              yourDisplay={`${score}/100`}
+              yourPersona={viral.personaTitle ?? scoreRange.title}
+              sameTest={friend.slug === "rice-purity"}
+              className="mb-8"
+            />
+          )}
+
           {/* Result Hero Section */}
           <div className="flex justify-center mb-6">
-            <div className="text-8xl">{scoreRange.emoji}</div>
+            <div className="text-8xl">{viral.personaEmoji ?? scoreRange.emoji}</div>
           </div>
           <h2 className="text-2xl font-semibold text-muted-foreground mb-3">
             Your Rice Purity Test Results
           </h2>
+          {/* (1) identity persona label */}
           <div className={cn(
-            "text-6xl md:text-7xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent",
+            "text-5xl md:text-6xl font-extrabold mb-3 bg-gradient-to-r bg-clip-text text-transparent",
             colors.gradient
           )}>
-            {scoreRange.title}
+            {viral.personaTitle ?? scoreRange.title}
           </div>
-          <div className="inline-flex items-baseline gap-2 mb-6">
+          {/* (2) big score */}
+          <div className="inline-flex items-baseline gap-2 mb-4">
             <span className="text-5xl font-bold text-primary">{score}</span>
             <span className="text-2xl font-semibold text-muted-foreground">/ 100</span>
           </div>
-          <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-12 font-medium">
+          {/* (3) social-comparison framing — the #1 share trigger */}
+          {viral.comparison && (
+            <div className="mb-6 flex justify-center">
+              <span className="inline-block rounded-full bg-foreground px-5 py-2 text-sm font-extrabold uppercase tracking-wide text-background shadow-md">
+                {viral.comparison}
+              </span>
+            </div>
+          )}
+          <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-8 font-medium">
             {scoreRange.description}
           </p>
+
+          {/* EMOTIONAL-PEAK share CTA — right at the reveal, above the analysis */}
+          <ShareBait
+            slug="rice-purity"
+            testName="Rice Purity Test"
+            viral={viral}
+            headline={`${score}/100`}
+            className="mb-12 max-w-2xl mx-auto"
+          />
 
           {/* Score Distribution Chart */}
           <div className="mb-12">
