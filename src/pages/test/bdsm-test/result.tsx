@@ -10,7 +10,7 @@ import {
   bdsmFAQs,
   bdsmCelebrities,
 } from "@/data/bdsmTestQuestions";
-import { CheckCircle2, RotateCcw, Share2, BookOpen, Brain, Heart, MessageCircle, AlertCircle } from "lucide-react";
+import { CheckCircle2, RotateCcw, BookOpen, Brain, Heart, MessageCircle, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import ScoreDistributionChart from "@/components/ScoreDistributionChart";
@@ -18,10 +18,8 @@ import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
 import { bdsmQuestions } from "@/data/bdsmTestQuestions";
-import ShareResultCard from "@/components/ShareResultCard";
 import ShareBait from "@/components/ShareBait";
 import FriendComparison from "@/components/FriendComparison";
-import { buildShareUrl } from "@/lib/share";
 import { getViralResult } from "@/lib/viral";
 import { readStoredFriendRef } from "@/lib/friendRef";
 
@@ -75,30 +73,6 @@ const BdsmTestResult = () => {
   const handleReset = () => {
     localStorage.removeItem('bdsmTestAnswers');
     navigate('/test/bdsm-test/');
-  };
-
-  const handleShare = async () => {
-    const result = calculateResults(answers);
-    const mainTrait = getMainTrait(result);
-    const mainTraitName = bdsmTraitDescriptions[mainTrait].name;
-    const shareUrl = buildShareUrl("bdsm-test", mainTrait);
-
-    const shareText = `My BDSM Test Result: ${mainTraitName}\n\nDominant: ${result.dominant}%\nSubmissive: ${result.submissive}%\nSadism: ${result.sadism}%\nMasochism: ${result.masochism}%\nSwitch: ${result.switch}%`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "BDSM Test Result",
-          text: shareText,
-          url: shareUrl,
-        });
-      } catch (err) {
-        // User cancelled or share failed
-      }
-    } else {
-      await navigator.clipboard.writeText(shareText);
-      alert("Result copied to clipboard!");
-    }
   };
 
   const breadcrumbSchema = createBreadcrumbSchema([
@@ -164,6 +138,8 @@ const BdsmTestResult = () => {
               friend={friend}
               yourDisplay={mainTraitInfo.name}
               yourPersona={viral.personaTitle}
+              ownSlug="bdsm-test"
+              ownValue={mainTrait}
               sameTest={friend.slug === "bdsm-test"}
               className="mb-8"
             />
@@ -403,24 +379,13 @@ const BdsmTestResult = () => {
             </div>
           </div>
 
-          {/* Share Result Card */}
-          <ShareResultCard
-            slug="bdsm-test"
-            shareValue={mainTrait}
-            shareLabel={mainTraitInfo.name}
-            testName="BDSM Test"
-            className="mt-8"
-          />
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          {/* Action Buttons — ShareBait at the reveal is the single canonical
+              share path; legacy ShareResultCard + bottom Share button removed so
+              every friend receives the SAME OG card / text / URL. */}
+          <div className="flex justify-center pt-4">
             <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
               <RotateCcw className="w-5 h-5" />
               <span className="font-semibold">Retake Test</span>
-            </Button>
-            <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
-              <Share2 className="w-5 h-5" />
-              <span className="font-semibold">Share Results</span>
             </Button>
           </div>
         </div>

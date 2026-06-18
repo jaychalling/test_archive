@@ -27,7 +27,10 @@ const KAKAO_JS_KEY = (import.meta as ImportMeta & { env?: Record<string, string>
  * the moment of highest emotion (the reveal), challenge-framed to drive the loop.
  */
 const ShareBait = ({ slug, testName, viral, headline, className }: ShareBaitProps) => {
+  // `copied` -> secondary "Copy Link" button; `primaryCopied` -> the primary CTA
+  // when it falls back to clipboard on desktop (no navigator.share).
   const [copied, setCopied] = useState(false);
+  const [primaryCopied, setPrimaryCopied] = useState(false);
 
   const { personaTitle, personaEmoji, comparison, quip, shareUrl } = viral;
   const canNativeShare = typeof navigator !== "undefined" && !!navigator.share;
@@ -36,7 +39,21 @@ const ShareBait = ({ slug, testName, viral, headline, className }: ShareBaitProp
     quip ??
     `My ${testName} result: ${headline} — can you beat it?`;
 
+  // Copy the canonical share text + URL. Returns true on success. Does NOT track —
+  // each caller fires exactly one analytics event so we never double-count.
+  const copyShareLink = async (): Promise<boolean> => {
+    try {
+      await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+      return true;
+    } catch {
+      // clipboard unavailable — ignore
+      return false;
+    }
+  };
+
   const handleNativeShare = async () => {
+    // Fire ONCE here for the primary CTA — the copy fallback path no longer
+    // re-fires its own event (was a double-count on desktop).
     trackShareClick(slug, canNativeShare ? "native" : "copy");
     if (canNativeShare) {
       try {
@@ -49,18 +66,19 @@ const ShareBait = ({ slug, testName, viral, headline, className }: ShareBaitProp
         // user cancelled — ignore
       }
     } else {
-      await handleCopy();
+      // desktop fallback: copy + show a visible confirmation on the PRIMARY button
+      if (await copyShareLink()) {
+        setPrimaryCopied(true);
+        setTimeout(() => setPrimaryCopied(false), 2000);
+      }
     }
   };
 
   const handleCopy = async () => {
     trackShareClick(slug, "copy");
-    try {
-      await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+    if (await copyShareLink()) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // clipboard unavailable — ignore
     }
   };
 
@@ -93,8 +111,12 @@ const ShareBait = ({ slug, testName, viral, headline, className }: ShareBaitProp
 
       <div className="flex flex-wrap justify-center gap-2">
         <Button onClick={handleNativeShare} size="lg" className="gap-2 min-w-[200px]">
-          <Share2 className="h-5 w-5" />
-          {canNativeShare ? "Challenge a Friend" : "Copy My Result"}
+          {primaryCopied ? <Check className="h-5 w-5" /> : <Share2 className="h-5 w-5" />}
+          {primaryCopied
+            ? "Copied — paste it to a friend!"
+            : canNativeShare
+              ? "Challenge a Friend"
+              : "Copy My Result"}
         </Button>
         <Button variant="outline" size="lg" onClick={handleCopy} className="gap-2">
           {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}

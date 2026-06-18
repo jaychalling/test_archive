@@ -13,13 +13,11 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
-import ShareResultCard from "@/components/ShareResultCard";
 import ShareBait from "@/components/ShareBait";
 import FriendComparison from "@/components/FriendComparison";
-import { buildShareUrl } from "@/lib/share";
 import { getViralResult } from "@/lib/viral";
 import { readStoredFriendRef } from "@/lib/friendRef";
-import { CheckCircle2, RotateCcw, Share2, Baby } from "lucide-react";
+import { CheckCircle2, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const MentalAgeTestResult = () => {
@@ -46,39 +44,6 @@ const MentalAgeTestResult = () => {
     localStorage.removeItem('mentalAgeAnswers');
     localStorage.removeItem('mentalAgeActualAge');
     navigate('/test/mental-age-test/');
-  };
-
-  const handleShare = async () => {
-    const mentalAge = calculateMentalAge(answers, actualAge);
-    const resultBand = getResultBand(mentalAge);
-    const ageDiff = mentalAge - actualAge;
-    const shareUrl = buildShareUrl("mental-age-test", mentalAge);
-
-    const shareText = `My Mental Age Test Results
-
-${resultBand.emoji} My mental age is ${mentalAge} years old!
-(Actual age: ${actualAge})
-
-${ageDiff > 0 ? `I'm ${ageDiff} years wiser than my age!` : ageDiff < 0 ? `I'm ${Math.abs(ageDiff)} years younger at heart!` : `My mental age matches my actual age!`}
-
-Type: ${resultBand.label}
-
-Take the test: ${window.location.origin}/test/mental-age-test/`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Mental Age Test Results",
-          text: shareText,
-          url: shareUrl,
-        });
-      } catch (err) {
-        // User cancelled
-      }
-    } else {
-      await navigator.clipboard.writeText(shareText);
-      alert("Result copied to clipboard!");
-    }
   };
 
   if (loading) {
@@ -128,6 +93,8 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
                 friend={friend}
                 yourDisplay={`${mentalAge}`}
                 yourPersona={viral.personaTitle ?? resultBand.label}
+                ownSlug="mental-age-test"
+                ownValue={mentalAge}
                 sameTest={friend.slug === "mental-age-test"}
                 className="mb-8"
               />
@@ -204,10 +171,11 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
             {/* Score Distribution */}
             <ScoreDistributionChart
               userScore={mentalAge}
+              minScore={10}
               maxScore={80}
               testName="Mental Age"
               colorClass="bg-gradient-to-r from-primary to-purple-500"
-              customLabels={{ low: "10", mid: "45", high: "80" }}
+              customLabels={{ low: "10", mid: "36", high: "80" }}
             />
           </div>
 
@@ -352,23 +320,13 @@ Take the test: ${window.location.origin}/test/mental-age-test/`;
             </div>
           </div>
 
-          <ShareResultCard
-            slug="mental-age-test"
-            shareValue={mentalAge}
-            shareLabel={`Mental Age ${mentalAge}`}
-            testName="Mental Age Test"
-            className="mt-8"
-          />
-
-          {/* Action Buttons */}
-          <div className="flex gap-4 justify-center">
+          {/* Action Buttons — ShareBait at the reveal is the single canonical
+              share path; legacy ShareResultCard + bottom Share button removed so
+              every friend receives the SAME OG card / text / URL. */}
+          <div className="flex justify-center">
             <Button onClick={handleReset} variant="outline" size="lg" className="gap-2">
               <RotateCcw className="w-5 h-5" />
               Retake Test
-            </Button>
-            <Button onClick={handleShare} size="lg" className="gap-2 gradient-primary border-0">
-              <Share2 className="w-5 h-5" />
-              Share Results
             </Button>
           </div>
         </div>

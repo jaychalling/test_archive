@@ -362,8 +362,10 @@ export const SHARE_TESTS: Record<string, ShareTestConfig> = {
       { from: 16, label: 'Young at Heart' },
       { from: 10, label: 'Forever Young' },
     ],
-    // mental age scale 10-80, population skews ~mid-30s; model on the 0-100 normalized scale
-    stats: { meanPercent: 45, stdDevPercent: 18 },
+    // mental age scale 10-80, population mean ~36 (mid-30s). Calibrated on the
+    // (score-min)/(max-min) normalized scale so mental age 36 reads ~50th pct.
+    // MUST match testStatistics['mental-age'] in src/lib/percentile.ts.
+    stats: { meanPercent: 37, stdDevPercent: 20 },
     // default: a LOW mental age is the funny flex -> "MORE YOUTHFUL than X of 100"
     framing: { direction: 'low', word: 'MORE YOUTHFUL' },
     viral: {
@@ -486,6 +488,9 @@ export function resolveShare(
   let personaEmoji: string | undefined;
   let quip: string | undefined;
   let comparison: string | undefined;
+  // the resolved percentile (1-99) baked into &p= on both shareUrl + ogImageUrl
+  // so the crawler card recomputes nothing and matches what the hero showed.
+  let percentile: number | undefined;
 
   // optional &p= override (clamped int 1-99); else computed below
   const pOverride =
@@ -513,11 +518,16 @@ export function resolveShare(
     }
     // VIRAL: comparison pill — per-band override wins, else test-level framing.
     // Always picks the FLATTERING direction so people want to share.
-    const framing = vband?.pill ?? test.framing;
-    if (framing && test.stats) {
+    // Compute the percentile from the SAME (score-min)/(max-min) normalization
+    // used by src/lib/percentile.ts, then bake it into &p= so the OG card and the
+    // on-screen hero agree exactly (no independent recompute on the crawler side).
+    if (test.stats) {
       const normalized = ((score - test.min) / (test.max - test.min)) * 100;
-      const pct = pOverride ?? percentileFromStats(normalized, test.stats);
-      const n = framing.direction === 'low' ? 100 - pct : pct;
+      percentile = pOverride ?? percentileFromStats(normalized, test.stats);
+    }
+    const framing = vband?.pill ?? test.framing;
+    if (framing && percentile != null) {
+      const n = framing.direction === 'low' ? 100 - percentile : percentile;
       // `word` is the full comparative phrase (e.g. "PURER", "MORE UNHINGED")
       comparison = `${framing.word} THAN ${n} OF 100 PEOPLE`;
     }
@@ -546,9 +556,27 @@ export function resolveShare(
     }
     if (test.prevalence?.[value] != null) {
       const prev = Math.max(1, Math.min(99, Math.round(test.prevalence[value])));
-      comparison = `RARER THAN ${100 - prev}% OF PEOPLE`;
+      // Direction must follow ACTUAL prevalence: a COMMON type can't be "rarer
+      // than 59% of people". Compare against the median prevalence across this
+      // test's types — at/above median => common, below => genuinely uncommon.
+      const all = Object.values(test.prevalence).map((p) => Math.max(1, Math.min(99, Math.round(p))));
+      const sorted = [...all].sort((a, b) => a - b);
+      const mid = Math.floor(sorted.length / 2);
+      const median = sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+      // n = share of people who are NOT this type (correct for either direction)
+      const n = 100 - prev;
+      comparison =
+        prev >= median
+          ? `MORE COMMON THAN ${n}% OF PEOPLE`
+          : `RARER THAN ${n}% OF PEOPLE`;
     }
   }
+
+  // Bake the resolved percentile into &p= on BOTH the share landing URL and the
+  // OG image URL so /api/og and /api/s render the EXACT number the hero showed
+  // (no independent recompute on the crawler side).
+  const pSuffix = percentile != null ? `&p=${percentile}` : '';
+  const shareUrl = `${BASE_URL}/s/${slug}/${value}/${percentile != null ? `?p=${percentile}` : ''}`;
 
   return {
     slug,
@@ -561,9 +589,9 @@ export function resolveShare(
     theme: test.theme,
     cta: test.cta,
     testUrl: `${BASE_URL}/test/${slug}/`,
-    shareUrl: `${BASE_URL}/s/${slug}/${value}/`,
+    shareUrl,
     // trailing slash avoids Vercel's trailingSlash 308 redirect on og:image fetches
-    ogImageUrl: `${BASE_URL}/api/og/?slug=${slug}&value=${encodeURIComponent(value)}`,
+    ogImageUrl: `${BASE_URL}/api/og/?slug=${slug}&value=${encodeURIComponent(value)}${pSuffix}`,
     personaTitle,
     personaEmoji,
     quip,

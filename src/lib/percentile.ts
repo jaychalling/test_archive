@@ -29,8 +29,10 @@ export const testStatistics: Record<string, TestStatistics> = {
   'career-aptitude': { meanPercent: 50, stdDevPercent: 15 },
   enneagram: { meanPercent: 50, stdDevPercent: 18 },
   '16-personality': { meanPercent: 50, stdDevPercent: 15 },
-  // mental age scale 10-80; population skews ~mid-30s on the normalized 0-100 scale
-  'mental-age': { meanPercent: 45, stdDevPercent: 18 },
+  // mental age scale 10-80; population mean ~36 (mid-30s). Calibrated on the
+  // (score-min)/(max-min) normalized scale so mental age 36 reads ~50th pct:
+  // (36-10)/(80-10)*100 = 37 -> meanPercent 37. MUST match api/_shareConfig.ts.
+  'mental-age': { meanPercent: 37, stdDevPercent: 20 },
 };
 
 export const defaultStatistics: TestStatistics = { meanPercent: 60, stdDevPercent: 15 };
@@ -53,9 +55,22 @@ export const getTestStatistics = (testName: string): TestStatistics => {
   return defaultStatistics;
 };
 
-/** Standard-normal CDF percentile (erf approximation), clamped 1-99. */
-export const getPercentile = (score: number, maxScore: number, stats: TestStatistics): number => {
-  const normalizedScore = (score / maxScore) * 100;
+/**
+ * Standard-normal CDF percentile (erf approximation), clamped 1-99.
+ *
+ * `minScore` defaults to 0 (the common case). Tests whose scale does not start
+ * at zero (e.g. mental age 10-80) MUST pass their real min so the score is
+ * normalized as (score-min)/(max-min)*100 — the same formula used by
+ * percentileFromStats in api/_shareConfig.ts. Keeping these two in lock-step is
+ * what makes the on-screen hero percentile === the shared OG card percentile.
+ */
+export const getPercentile = (
+  score: number,
+  maxScore: number,
+  stats: TestStatistics,
+  minScore = 0,
+): number => {
+  const normalizedScore = ((score - minScore) / (maxScore - minScore)) * 100;
   const zScore = (normalizedScore - stats.meanPercent) / stats.stdDevPercent;
 
   const erf = (x: number): number => {

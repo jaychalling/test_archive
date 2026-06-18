@@ -7,6 +7,12 @@ interface ScoreDistributionChartProps {
   maxScore: number;
   testName: string;
   colorClass?: string;
+  /**
+   * Lower bound of the score scale (default 0). Tests whose scale does not start
+   * at zero (e.g. mental age 10-80) MUST pass it so the percentile here matches
+   * the shared OG card (which normalizes (score-min)/(max-min)).
+   */
+  minScore?: number;
   /** optional axis labels (e.g. mental-age 10/45/80); currently informational */
   customLabels?: { low: string; mid: string; high: string };
   /** optional per-call distribution override (informational; engine uses testStatistics) */
@@ -14,21 +20,24 @@ interface ScoreDistributionChartProps {
   distributionStdDev?: number;
 }
 
-const getAverageScore = (maxScore: number, stats: TestStatistics): number => {
-  return Math.round(maxScore * (stats.meanPercent / 100));
+const getAverageScore = (minScore: number, maxScore: number, stats: TestStatistics): number => {
+  // mean back on the raw scale: min + meanPercent% of the (max-min) span
+  return Math.round(minScore + (maxScore - minScore) * (stats.meanPercent / 100));
 };
 
 const ScoreDistributionChart = ({
   userScore,
   maxScore,
   testName,
-  colorClass = "bg-primary"
+  colorClass = "bg-primary",
+  minScore = 0,
 }: ScoreDistributionChartProps) => {
   const stats = getTestStatistics(testName);
-  const userPercentage = (userScore / maxScore) * 100;
-  const averageScore = getAverageScore(maxScore, stats);
-  const averagePercentage = (averageScore / maxScore) * 100;
-  const percentile = getPercentile(userScore, maxScore, stats);
+  const span = maxScore - minScore;
+  const userPercentage = ((userScore - minScore) / span) * 100;
+  const averageScore = getAverageScore(minScore, maxScore, stats);
+  const averagePercentage = ((averageScore - minScore) / span) * 100;
+  const percentile = getPercentile(userScore, maxScore, stats, minScore);
 
   const isAboveAverage = userScore > averageScore;
   const scoreDifference = Math.abs(userScore - averageScore);

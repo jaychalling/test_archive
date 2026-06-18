@@ -12,7 +12,6 @@ import {
 import {
   CheckCircle2,
   RotateCcw,
-  Share2,
   BookOpen,
   Lightbulb,
   History,
@@ -23,10 +22,8 @@ import ScoreDistributionChart from "@/components/ScoreDistributionChart";
 import CollapsibleFAQ from "@/components/CollapsibleFAQ";
 import CelebrityComparison from "@/components/CelebrityComparison";
 import RecommendedTests from "@/components/RecommendedTests";
-import ShareResultCard from "@/components/ShareResultCard";
 import ShareBait from "@/components/ShareBait";
 import FriendComparison from "@/components/FriendComparison";
-import { buildShareUrl } from "@/lib/share";
 import { getViralResult } from "@/lib/viral";
 import { readStoredFriendRef } from "@/lib/friendRef";
 
@@ -62,36 +59,6 @@ const RicePurityTestResult = () => {
   const handleReset = () => {
     localStorage.removeItem('ricePurityAnswers');
     navigate('/test/rice-purity/');
-  };
-
-  const handleShare = async () => {
-    const score = calculateScore();
-    const scoreRange = getScoreRange(score);
-    const shareUrl = buildShareUrl("rice-purity", score);
-
-    const shareText = `My Rice Purity Test Results
-
-Score: ${score}/100
-${scoreRange.title} ${scoreRange.emoji}
-
-${scoreRange.description}
-
-Take the test at Test-Archive.com`;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Rice Purity Test Results",
-          text: shareText,
-          url: shareUrl,
-        });
-      } catch (err) {
-        console.log("Share cancelled");
-      }
-    } else {
-      await navigator.clipboard.writeText(shareText + `\n${shareUrl}`);
-      alert("Results copied to clipboard!");
-    }
   };
 
   if (loading) {
@@ -140,6 +107,8 @@ Take the test at Test-Archive.com`;
               friend={friend}
               yourDisplay={`${score}/100`}
               yourPersona={viral.personaTitle ?? scoreRange.title}
+              ownSlug="rice-purity"
+              ownValue={score}
               sameTest={friend.slug === "rice-purity"}
               className="mb-8"
             />
@@ -325,24 +294,13 @@ Take the test at Test-Archive.com`;
             </div>
           </div>
 
-          {/* Share Result Card */}
-          <ShareResultCard
-            slug="rice-purity"
-            shareValue={score}
-            shareLabel={`${score}/100 — ${scoreRange.title}`}
-            testName="Rice Purity Test"
-            className="mt-8"
-          />
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          {/* Action Buttons — ShareBait at the reveal is the single canonical
+              share path; legacy ShareResultCard + bottom Share button removed so
+              every friend receives the SAME OG card / text / URL. */}
+          <div className="flex justify-center pt-4">
             <Button onClick={handleReset} variant="outline" size="lg" className="gap-2 min-w-[160px]">
               <RotateCcw className="w-5 h-5" />
               <span className="font-semibold">Retake Test</span>
-            </Button>
-            <Button onClick={handleShare} size="lg" className="gap-2 min-w-[160px]">
-              <Share2 className="w-5 h-5" />
-              <span className="font-semibold">Share Results</span>
             </Button>
           </div>
         </div>

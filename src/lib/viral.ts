@@ -12,6 +12,7 @@
  */
 import {
   resolveShare,
+  SHARE_TESTS,
   type ResolvedShare,
 } from "../../api/_shareConfig";
 import { getPercentile, getTestStatistics } from "@/lib/percentile";
@@ -46,13 +47,21 @@ export function getViralResult(
   value: string | number,
   maxScore?: number,
 ): ViralResult {
-  // compute a percentile for score tests so og card + hero agree exactly
+  // compute a percentile for score tests so og card + hero agree exactly.
+  // Normalize with (score-min)/(max-min) — same formula resolveShare/percentileFromStats
+  // use — so the &p= we hand to the crawler card matches the on-screen number.
   let p: string | null = null;
   if (typeof value === "number" && maxScore) {
     const stats = getTestStatistics(slug);
-    p = String(getPercentile(value, maxScore, stats));
+    // pull the test's real min from the single-source whitelist (0 for most tests,
+    // 10 for mental-age) so non-zero-min tests don't diverge from the card.
+    const cfg = SHARE_TESTS[slug];
+    const min = cfg && cfg.kind === "score" ? cfg.min : 0;
+    p = String(getPercentile(value, maxScore, stats, min));
   }
 
+  // resolveShare bakes &p= into BOTH shareUrl and ogImageUrl when given the
+  // override, so both already carry the canonical percentile — no re-append here.
   const resolved: ResolvedShare | null = resolveShare(slug, String(value), p);
 
   if (!resolved) {
@@ -64,9 +73,6 @@ export function getViralResult(
     };
   }
 
-  // carry &p into the og image url so the card percentile == hero percentile
-  const ogImageUrl = p ? `${resolved.ogImageUrl}&p=${p}` : resolved.ogImageUrl;
-
   return {
     personaTitle: resolved.personaTitle,
     personaEmoji: resolved.personaEmoji,
@@ -74,6 +80,6 @@ export function getViralResult(
     comparison: resolved.comparison,
     value: resolved.value,
     shareUrl: resolved.shareUrl,
-    ogImageUrl,
+    ogImageUrl: resolved.ogImageUrl,
   };
 }

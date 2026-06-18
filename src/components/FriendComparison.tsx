@@ -1,5 +1,6 @@
 import { Swords } from "lucide-react";
 import type { FriendRef } from "@/lib/friendRef";
+import { resolveShare } from "../../api/_shareConfig";
 
 interface FriendComparisonProps {
   friend: FriendRef;
@@ -9,6 +10,15 @@ interface FriendComparisonProps {
   yourPersona?: string;
   /** true when friend and recipient took the SAME test (direct comparison) */
   sameTest: boolean;
+  /**
+   * The recipient's own share slug + value. When provided, the recipient's
+   * display label + persona are resolved from the SAME _shareConfig whitelist
+   * used for the friend side (via resolveShare), so casing/labels can never
+   * drift between the two sides (e.g. bdsm "Sadist" vs a page-local "Sadism").
+   * Falls back to yourDisplay/yourPersona for tests not in the whitelist.
+   */
+  ownSlug?: string;
+  ownValue?: string | number;
   className?: string;
 }
 
@@ -22,9 +32,22 @@ const FriendComparison = ({
   yourDisplay,
   yourPersona,
   sameTest,
+  ownSlug,
+  ownValue,
   className,
 }: FriendComparisonProps) => {
   if (!sameTest) return null;
+
+  // Resolve the recipient's own label/persona from the SAME whitelist as the
+  // friend side so the two columns can never disagree on casing/labels.
+  const ownResolved =
+    ownSlug != null && ownValue != null
+      ? resolveShare(ownSlug, String(ownValue))
+      : null;
+  const yourDisplayLabel = ownResolved
+    ? `${ownResolved.heading}${ownResolved.headingSuffix ?? ""}`
+    : yourDisplay;
+  const yourPersonaLabel = ownResolved?.personaTitle ?? yourPersona;
 
   return (
     <div
@@ -47,8 +70,10 @@ const FriendComparison = ({
         <div className="flex items-center text-2xl font-black text-muted-foreground">vs</div>
         <div className="flex-1 rounded-xl bg-primary/15 p-4 ring-1 ring-primary/30">
           <div className="text-xs font-medium text-primary">You</div>
-          <div className="text-2xl font-extrabold text-foreground">{yourDisplay}</div>
-          {yourPersona && <div className="mt-1 text-xs text-muted-foreground">{yourPersona}</div>}
+          <div className="text-2xl font-extrabold text-foreground">{yourDisplayLabel}</div>
+          {yourPersonaLabel && (
+            <div className="mt-1 text-xs text-muted-foreground">{yourPersonaLabel}</div>
+          )}
         </div>
       </div>
       <p className="mt-3 text-center text-sm text-muted-foreground">
