@@ -26,6 +26,12 @@ export interface ViralBand {
   persona: Persona;
   quip: string;
   /**
+   * Optional persona-coherent hero description (NO hardcoded numbers) used as the
+   * SINGLE SOURCE for the on-screen hero blurb, replacing the legacy
+   * scoreRange.description so the description can't contradict the viral persona.
+   */
+  blurb?: string;
+  /**
    * Optional per-band override for the comparison pill so EVERY band gets a
    * FLATTERING line (a high purity score brags "PURER THAN X", a low one brags
    * "MORE UNHINGED THAN X"). Falls back to the test-level `framing` when unset.
@@ -98,11 +104,11 @@ export const SHARE_TESTS: Record<string, ShareTestConfig> = {
     framing: { direction: 'low', word: 'MORE UNHINGED' },
     viral: {
       // high scores flex "PURER"; low scores flex "UNHINGED" — always flattering
-      81: { persona: { title: 'The Untouched Saint', emoji: '😇' }, quip: 'Purer than 91 of 100 people. My mom is so proud and my friends are concerned.', pill: { direction: 'high', word: 'PURER' } },
-      61: { persona: { title: 'The Quiet Good Kid', emoji: '🙂' }, quip: 'Mostly innocent. A couple of footnotes I will be taking to the grave.', pill: { direction: 'high', word: 'PURER' } },
-      41: { persona: { title: 'The Balanced Veteran', emoji: '😏' }, quip: 'Lived a little, regret nothing, screenshot this.' },
-      21: { persona: { title: 'The Certified Menace', emoji: '😈' }, quip: 'The test took psychic damage grading this one.' },
-      0:  { persona: { title: 'The Living Legend', emoji: '🔥' }, quip: 'The test filed a restraining order. Beat my score, I dare you.' },
+      81: { persona: { title: 'The Untouched Saint', emoji: '😇' }, quip: 'My mom is so proud and my friends are concerned.', blurb: 'Suspiciously, refreshingly wholesome.', pill: { direction: 'high', word: 'PURER' } },
+      61: { persona: { title: 'The Quiet Good Kid', emoji: '🙂' }, quip: 'Mostly innocent. A couple of footnotes I will be taking to the grave.', blurb: 'Mostly innocent, with a couple of well-kept secrets.', pill: { direction: 'high', word: 'PURER' } },
+      41: { persona: { title: 'The Balanced Veteran', emoji: '😏' }, quip: 'Lived a little, regret nothing, screenshot this.', blurb: 'Lived a little, regret nothing — the comfortable middle.' },
+      21: { persona: { title: 'The Certified Menace', emoji: '😈' }, quip: 'The test took psychic damage grading this one.', blurb: 'Gloriously chaotic and entirely unbothered about it.' },
+      0:  { persona: { title: 'The Living Legend', emoji: '🔥' }, quip: 'The test filed a restraining order. Beat my score, I dare you.', blurb: 'Off the charts — a cautionary tale in the best way.' },
     },
   },
   'political-compass-test': {
@@ -370,11 +376,11 @@ export const SHARE_TESTS: Record<string, ShareTestConfig> = {
     framing: { direction: 'low', word: 'MORE YOUTHFUL' },
     viral: {
       // high ages flex "WISER"; low/young ages flex "YOUTHFUL" — always flattering
-      61: { persona: { title: 'The Ancient One', emoji: '🦉' }, quip: 'Mental age 64. Born tired, raised on disappointment.', pill: { direction: 'high', word: 'WISER' } },
+      61: { persona: { title: 'The Ancient One', emoji: '🦉' }, quip: 'Born tired, raised on disappointment.', pill: { direction: 'high', word: 'WISER' } },
       41: { persona: { title: 'The Old Soul', emoji: '📚' }, quip: 'Mentally I have been 45 since birth. Tea is at 6.', pill: { direction: 'high', word: 'WISER' } },
       26: { persona: { title: 'The Functioning Adult', emoji: '☕' }, quip: 'Certified adult. I have a folder for receipts and everything.' },
-      16: { persona: { title: 'The Chaos Gremlin', emoji: '🎮' }, quip: 'Mental age 19. Legally an adult, spiritually unsupervised.' },
-      10: { persona: { title: 'The Eternal Child', emoji: '🧸' }, quip: 'Mental age 13. I am legally an adult and emotionally a Capri-Sun.' },
+      16: { persona: { title: 'The Chaos Gremlin', emoji: '🎮' }, quip: 'Legally an adult, spiritually unsupervised.' },
+      10: { persona: { title: 'The Eternal Child', emoji: '🧸' }, quip: 'Emotionally a Capri-Sun, legally on my own.' },
     },
   },
   'dark-triad-test': {
@@ -434,6 +440,8 @@ export interface ResolvedShare {
   quip?: string;
   /** VIRAL: social-comparison pill text (element #3), e.g. "MORE UNHINGED THAN 91 OF 100 PEOPLE" */
   comparison?: string;
+  /** VIRAL: persona-coherent hero description (single source, no hardcoded numbers) */
+  blurb?: string;
 }
 
 // erf-based normal CDF percentile, clamped 1-99. Mirrors src/lib/percentile.ts
@@ -488,6 +496,7 @@ export function resolveShare(
   let personaEmoji: string | undefined;
   let quip: string | undefined;
   let comparison: string | undefined;
+  let blurb: string | undefined;
   // the resolved percentile (1-99) baked into &p= on both shareUrl + ogImageUrl
   // so the crawler card recomputes nothing and matches what the hero showed.
   let percentile: number | undefined;
@@ -515,6 +524,7 @@ export function resolveShare(
       personaTitle = vband.persona.title;
       personaEmoji = vband.persona.emoji;
       quip = vband.quip;
+      blurb = vband.blurb;
     }
     // VIRAL: comparison pill — per-band override wins, else test-level framing.
     // Always picks the FLATTERING direction so people want to share.
@@ -596,6 +606,7 @@ export function resolveShare(
     personaEmoji,
     quip,
     comparison,
+    blurb,
   };
 }
 

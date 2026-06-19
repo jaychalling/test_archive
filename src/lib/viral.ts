@@ -26,6 +26,8 @@ export interface ViralResult {
   quip?: string;
   /** social-comparison pill, e.g. "MORE UNHINGED THAN 91 OF 100 PEOPLE" */
   comparison?: string;
+  /** persona-coherent hero description (single source, no hardcoded numbers) */
+  blurb?: string;
   /** the normalized share value (kebab key / clamped score) */
   value: string;
   /** /s/:slug/:value share-landing URL (+ &p for the OG percentile) */
@@ -78,6 +80,7 @@ export function getViralResult(
     personaEmoji: resolved.personaEmoji,
     quip: resolved.quip,
     comparison: resolved.comparison,
+    blurb: resolved.blurb,
     value: resolved.value,
     shareUrl: resolved.shareUrl,
     ogImageUrl: resolved.ogImageUrl,

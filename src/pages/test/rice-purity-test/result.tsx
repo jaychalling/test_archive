@@ -142,7 +142,7 @@ const RicePurityTestResult = () => {
             </div>
           )}
           <p className="text-xl leading-relaxed text-foreground max-w-3xl mx-auto mb-8 font-medium">
-            {scoreRange.description}
+            {viral.blurb ?? scoreRange.description}
           </p>
 
           {/* EMOTIONAL-PEAK share CTA — right at the reveal, above the analysis */}
