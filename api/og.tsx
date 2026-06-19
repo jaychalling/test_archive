@@ -97,11 +97,12 @@ export default function handler(req: Request) {
             alignItems: 'center',
             justifyContent: 'center',
             flexGrow: 1,
+            marginTop: 28,
           }}
         >
           {/* (1) persona emoji */}
           {share.personaEmoji ? (
-            <div style={{ display: 'flex', fontSize: 116, lineHeight: 1, marginBottom: 8 }}>
+            <div style={{ display: 'flex', fontSize: 84, lineHeight: 1, marginBottom: 10 }}>
               {share.personaEmoji}
             </div>
           ) : null}
