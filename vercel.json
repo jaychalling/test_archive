@@ -17,6 +17,12 @@
       ]
     },
     {
+      "source": "/test/(.*)/result(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, follow" }
+      ]
+    },
+    {
       "source": "/s/(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, follow" }
