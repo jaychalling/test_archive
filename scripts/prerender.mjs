@@ -45,6 +45,11 @@ const routes = [
   ...guideSlugs.map(s => `/guides/${s}/`),
 ];
 
+// Vercel serves dist/404.html with a real 404 status. Rendering the React
+// NotFound route here keeps the branded experience without turning unknown
+// URLs into soft 404s through a catch-all rewrite.
+const notFoundRoute = '/__not-found__/';
+
 // Simple static file server for dist/
 function startServer() {
   const mimeTypes = {
@@ -169,6 +174,22 @@ async function prerender() {
       failed++;
       console.error(`\n[prerender] FAILED: ${route} — ${err.message}`);
     }
+  }
+
+  try {
+    const page = await browser.newPage();
+    await page.goto(`http://localhost:${PORT}${notFoundRoute}`, {
+      waitUntil: 'networkidle0',
+      timeout: 15000,
+    });
+    let html = await page.content();
+    html = html.replace('<html', '<html data-prerendered="true"');
+    writeFileSync(join(DIST, '404.html'), html, 'utf-8');
+    await page.close();
+    console.log('[prerender] Generated branded 404.html');
+  } catch (err) {
+    failed++;
+    console.error(`\n[prerender] FAILED: 404.html ??${err.message}`);
   }
 
   await browser.close();
